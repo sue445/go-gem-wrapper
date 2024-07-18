@@ -2,6 +2,9 @@ AllCops:
   TargetRubyVersion: 3.3
   NewCops: enable
 
+Gemspec/DevelopmentDependencies:
+  EnforcedStyle: gemspec
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
