@@ -113,7 +113,7 @@ jobs:
       - run: bundle update --jobs $(nproc) --retry 3
         working-directory: testdata/dummy/
 
-      - run: bundle exec rubocop
+      - run: bundle exec rake rubocop
         working-directory: testdata/dummy/
 
       - name: Slack Notification (not success)

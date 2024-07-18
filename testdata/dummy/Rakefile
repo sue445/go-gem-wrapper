@@ -23,4 +23,6 @@ Rake::ExtensionTask.new("dummy", GEMSPEC) do |ext|
   ext.lib_dir = "lib/dummy"
 end
 
-task default: %i[clobber compile test rubocop]
+task default: %i[clobber compile test]
+
+task all: %i[clobber compile test rubocop]
