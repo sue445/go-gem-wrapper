@@ -1,0 +1,104 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+env:
+  TEST_ARGS: -coverprofile coverage.out -covermode atomic
+
+jobs:
+  test:
+    name: test
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        golang:
+          - "1.22"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.golang }}
+
+      - name: Run test
+        run: |
+          set -xe
+          make test
+          make testrace
+
+      - name: Convert coverage to lcov
+        uses: jandelgado/gcov2lcov-action@v1
+        with:
+          infile: coverage.out
+          outfile: coverage.lcov
+
+      # TODO: DO after
+      # - name: Coveralls
+      #   uses: coverallsapp/github-action@master
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     path-to-lcov: coverage.lcov
+      #   continue-on-error: true # NOTE: secrets cannot be obtained with forked repository PR
+
+      - name: Slack Notification (not success)
+        uses: act10ns/slack@v2
+        if: "! success()"
+        continue-on-error: true
+        with:
+          status: ${{ job.status }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          matrix: ${{ toJson(matrix) }}
+
+  lint:
+    name: lint
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: "go.mod"
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.58
+
+      - name: Slack Notification (not success)
+        uses: act10ns/slack@v2
+        if: "! success()"
+        continue-on-error: true
+        with:
+          status: ${{ job.status }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+
+  notify:
+    needs:
+      - test
+      - lint
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Slack Notification (success)
+        uses: act10ns/slack@v2
+        if: always()
+        continue-on-error: true
+        with:
+          status: ${{ job.status }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
