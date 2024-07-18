@@ -11,3 +11,5 @@
 *.o
 *.a
 mkmf.log
+/vendor/bundle/
+Gemfile.lock
