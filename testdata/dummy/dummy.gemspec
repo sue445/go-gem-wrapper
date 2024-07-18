@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = "This is dummy gem for goruby test"
   spec.description = "This is dummy gem for goruby test"
   spec.homepage = "https://github.com/sue445/goruby"
-  spec.required_ruby_version = ">= 3.0.0"
+  spec.required_ruby_version = ">= 3.3.0"
 
   spec.metadata["allowed_push_host"] = "https://do-not-push-this-gem.example.com"
 
