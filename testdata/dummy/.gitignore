@@ -13,3 +13,4 @@
 mkmf.log
 /vendor/bundle/
 Gemfile.lock
+.rspec_status
