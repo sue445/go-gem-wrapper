@@ -1,3 +1,3 @@
-module github.com/sue445/goruby
+module github.com/sue445/go-gem-wrapper
 
 go 1.22

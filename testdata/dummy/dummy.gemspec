@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.authors = ["sue445"]
   spec.email = ["sue445@sue445.net"]
 
-  spec.summary = "This is dummy gem for goruby test"
-  spec.description = "This is dummy gem for goruby test"
-  spec.homepage = "https://github.com/sue445/goruby"
+  spec.summary = "This is dummy gem for go-gem-wrapper test"
+  spec.description = "This is dummy gem for go-gem-wrapper test"
+  spec.homepage = "https://github.com/sue445/go-gem-wrapper"
   spec.required_ruby_version = ">= 3.3.0"
 
   spec.metadata["allowed_push_host"] = "https://do-not-push-this-gem.example.com"
