@@ -1,1 +1,1 @@
-package goruby
+package ruby
