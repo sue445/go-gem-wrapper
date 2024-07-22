@@ -9,6 +9,9 @@ Gemspec/DevelopmentDependencies:
 Gemspec/RequireMFA:
   Enabled: false
 
+Style/SingleLineMethods:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
