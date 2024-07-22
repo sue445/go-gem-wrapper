@@ -47,8 +47,8 @@ jobs:
       - name: build and test (Go)
         run: |
           set -xe
-          make test
-          make testrace
+          rake go:test
+          rake go:testrace
 
       - name: build and test (Ruby)
         run: bundle exec rake
@@ -86,6 +86,13 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: "go.mod"
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+
+      - name: export CGO_CFLAGS
+        run: ruby -e "puts %Q(CGO_CFLAGS=-I#{RbConfig::CONFIG['rubyarchhdrdir']} -I#{RbConfig::CONFIG['rubyhdrdir']})" >> $GITHUB_ENV
 
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v6
