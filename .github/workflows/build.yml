@@ -87,6 +87,13 @@ jobs:
         with:
           go-version-file: "go.mod"
 
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+
+      - name: export CGO_CFLAGS
+        run: ruby -e "puts %Q(CGO_CFLAGS=-I#{RbConfig::CONFIG['rubyarchhdrdir']} -I#{RbConfig::CONFIG['rubyhdrdir']})" >> $GITHUB_ENV
+
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v6
         with:
