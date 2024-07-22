@@ -1,6 +1,13 @@
 VERSION := $(shell cat VERSION)
 
-.DEFAULT_GOAL := test
+.DEFAULT_GOAL := build_dummy
+
+.PHONY: build_dummy
+build_dummy:
+	cd testdata/dummy/ && \
+	bundle config set --local path "vendor/bundle" && \
+	bundle install && \
+	bundle exec rake all
 
 .PHONY: test
 test:
