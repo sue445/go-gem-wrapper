@@ -15,3 +15,6 @@ var rb_mDummy C.VALUE
 func Init_dummy() {
 	rb_mDummy = ruby.RbDefineModule("Dummy")
 }
+
+func main() {
+}
