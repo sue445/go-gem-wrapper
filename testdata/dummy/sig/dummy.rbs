@@ -1,4 +1,6 @@
 module Dummy
   VERSION: String
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+  def self.sum: (Integer a, Integer b) -> Integer
 end
