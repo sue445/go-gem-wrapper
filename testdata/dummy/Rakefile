@@ -19,6 +19,12 @@ Rake::ExtensionTask.new("dummy", GEMSPEC) do |ext|
   ext.lib_dir = "lib/dummy"
 end
 
+desc "Check rbs"
+task :rbs do
+  sh "rbs validate"
+  sh "steep check"
+end
+
 task default: %i[clobber compile spec]
 
-task all: %i[clobber compile spec rubocop]
+task all: %i[clobber compile spec rubocop rbs]

@@ -133,11 +133,44 @@ jobs:
           status: ${{ job.status }}
           webhook-url: ${{ secrets.SLACK_WEBHOOK }}
 
+  ruby-rbs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+          bundler-cache: true
+          working-directory: testdata/dummy/
+
+      - run: bundle update --jobs $(nproc) --retry 3
+        working-directory: testdata/dummy/
+
+      - run: bundle exec rbs collection install
+        working-directory: testdata/dummy/
+
+      - run: bundle exec rbs validate
+        working-directory: testdata/dummy/
+
+      - run: bundle exec steep check
+        working-directory: testdata/dummy/
+
+      - name: Slack Notification (not success)
+        uses: act10ns/slack@v2
+        if: "! success()"
+        continue-on-error: true
+        with:
+          status: ${{ job.status }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+
   notify:
     needs:
       - test
       - go-lint
       - ruby-lint
+      - ruby-rbs
 
     runs-on: ubuntu-latest
 
