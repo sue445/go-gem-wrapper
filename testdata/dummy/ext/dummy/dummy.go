@@ -13,8 +13,8 @@ import (
 
 //export rb_dummy_sum
 func rb_dummy_sum(_ C.VALUE, a C.VALUE, b C.VALUE) C.VALUE {
-	aLong := ruby.RbNum2Long(ruby.VALUE(a))
-	bLong := ruby.RbNum2Long(ruby.VALUE(b))
+	aLong := ruby.RbNum2long(ruby.VALUE(a))
+	bLong := ruby.RbNum2long(ruby.VALUE(b))
 
 	sum := aLong + bLong
 
