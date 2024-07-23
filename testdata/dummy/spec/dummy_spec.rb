@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe Dummy do
-  it "has a version number" do
-    expect(Dummy::VERSION).not_to be nil
+  describe ".sum" do
+    it "works" do
+      actual = Dummy.sum(1, 2)
+      expect(actual).to eq 3
+    end
   end
 end
