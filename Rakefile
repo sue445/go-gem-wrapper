@@ -51,3 +51,5 @@ desc "Release package"
 task release: :tag do
   sh "git push origin main"
 end
+
+task default: "ruby:build_dummy"
