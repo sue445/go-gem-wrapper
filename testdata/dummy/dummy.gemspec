@@ -36,6 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake-compiler"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "rubocop"
+  spec.add_development_dependency "rubocop_auto_corrector"
   spec.add_development_dependency "steep"
 
   # For more information and examples about making a new gem, check out our
