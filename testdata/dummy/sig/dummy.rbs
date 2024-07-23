@@ -6,5 +6,7 @@ module Dummy
 
   def self.sum: (Integer a, Integer b) -> Integer
 
+  def self.with_block: (untyped) { (untyped) -> untyped } -> untyped
+
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
 end
