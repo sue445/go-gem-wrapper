@@ -1,4 +1,4 @@
-// Package ruby is a wrapper for creating native Ruby extension in Go
+// Package ruby is a wrapper for creating Ruby native extension in Go
 //
 // ref.
 //   - https://docs.ruby-lang.org/en/master/extension_rdoc.html
