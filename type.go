@@ -5,11 +5,11 @@ package ruby
 */
 import "C"
 
-// Char represents `char` in C
+// Char is a type for passing `C.char` in and out of package
 type Char C.char
 
-// Long represents `long` in C
+// Long is a type for passing `C.long` in and out of package
 type Long C.long
 
-// Int represents `int` in C
+// Int is a type for passing `C.int` in and out of package
 type Int C.int
