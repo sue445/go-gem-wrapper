@@ -8,5 +8,7 @@ module Dummy
 
   def self.with_block: (untyped) { (untyped) -> untyped } -> untyped
 
+  def self.hello: (String name) -> String
+
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
 end
