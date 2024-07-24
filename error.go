@@ -15,6 +15,8 @@ import (
 	"fmt"
 )
 
+// c.f. https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
+
 // RbRaise calls `rb_raise` in C
 func RbRaise(exc VALUE, format string, a ...interface{}) {
 	str := fmt.Sprintf(format, a...)
