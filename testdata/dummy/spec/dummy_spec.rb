@@ -26,4 +26,11 @@ RSpec.describe Dummy do
       end
     end
   end
+
+  describe ".hello" do
+    it "works" do
+      actual = Dummy.hello("sue445")
+      expect(actual).to eq "Hello, sue445"
+    end
+  end
 end
