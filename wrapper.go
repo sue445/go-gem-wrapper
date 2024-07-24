@@ -39,3 +39,16 @@ func StringLen(str string) Long {
 func stringLen(str string) C.long {
 	return C.long(len(str))
 }
+
+// String2Value convert from Go string to `VALUE`
+func String2Value(str string) VALUE {
+	return VALUE(string2Value(str))
+}
+
+// string2Value convert from Go string to `C.VALUE`
+func string2Value(str string) C.VALUE {
+	if len(str) == 0 {
+		return rbUtf8StrNew(nil, C.long(0))
+	}
+	return rbUtf8StrNew(string2Char(str), stringLen(str))
+}
