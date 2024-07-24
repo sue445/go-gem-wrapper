@@ -38,6 +38,11 @@ namespace :go do
   task :fmt do
     sh "go fmt ./..."
   end
+
+  desc "Run golangci-lint"
+  task :lint do
+    sh env_vars, "golangci-lint run"
+  end
 end
 
 desc "Create and push tag"
