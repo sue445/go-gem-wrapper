@@ -20,5 +20,5 @@ import (
 // RbRaise calls `rb_raise` in C
 func RbRaise(exc VALUE, format string, a ...interface{}) {
 	str := fmt.Sprintf(format, a...)
-	C.rb_raise2(C.VALUE(exc), goString2Char(str))
+	C.rb_raise2(C.VALUE(exc), string2Char(str))
 }

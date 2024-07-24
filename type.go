@@ -10,6 +10,3 @@ type Char C.char
 
 // Long represents `long` in C
 type Long C.long
-
-// VALUE represents `VALUE` in C
-type VALUE C.VALUE
