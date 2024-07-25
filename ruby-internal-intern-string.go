@@ -12,7 +12,7 @@ func RbUtf8StrNew(str *Char, len Long) VALUE {
 	return VALUE(rbUtf8StrNew((*C.char)(str), C.long(len)))
 }
 
-// rbUtf8StrNew calls `rb_utf8_str_new` in C
+// rbUtf8StrNew calls `rb_utf8_str_new` in C. (for internal use within package)
 func rbUtf8StrNew(str *C.char, len C.long) C.VALUE {
 	return C.rb_utf8_str_new(str, len)
 }
