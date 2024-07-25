@@ -12,7 +12,7 @@ func RstringPtr(str VALUE) *Char {
 	return (*Char)(rstringPtr(C.VALUE(str)))
 }
 
-// rstringPtr calls `RSTRING_PTR` in C
+// rstringPtr calls `RSTRING_PTR` in C. (for internal use within package)
 func rstringPtr(str C.VALUE) *C.char {
 	return C.RSTRING_PTR(str)
 }
@@ -22,7 +22,7 @@ func RstringLenint(str VALUE) Int {
 	return Int(rstringLenint(C.VALUE(str)))
 }
 
-// rstringLenint calls `RSTRING_LENINT` in C
+// rstringLenint calls `RSTRING_LENINT` in C. (for internal use within package)
 func rstringLenint(str C.VALUE) C.int {
 	return C.RSTRING_LENINT(str)
 }
