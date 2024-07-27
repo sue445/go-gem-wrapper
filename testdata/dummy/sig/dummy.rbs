@@ -13,5 +13,8 @@ module Dummy
   class InnerClass
   end
 
+  module InnerModule
+  end
+
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
 end
