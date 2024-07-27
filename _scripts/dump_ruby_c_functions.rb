@@ -132,7 +132,9 @@ def generate_go_file(definition:, header_dir:)
   go_function_lines = [
     "// #{go_function_name} calls `#{definition[:function_name]}` in C",
     "//",
-    "// ref. #{definition[:definition]}",
+    "// Original definition is following",
+    "//",
+    "//\t#{definition[:definition]}",
   ]
 
   go_function_lines << "func #{go_function_name}(#{go_function_args.join(", ")}) #{go_function_typeref} {"
