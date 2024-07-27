@@ -51,6 +51,9 @@ func Init_dummy() {
 
 	// Create Dummy::InnerClass class
 	ruby.RbDefineClassUnder(rb_mDummy, "InnerClass", ruby.VALUE(C.rb_cObject))
+
+	// Create Dummy::InnerModule module
+	ruby.RbDefineModuleUnder(rb_mDummy, "InnerModule")
 }
 
 func main() {
