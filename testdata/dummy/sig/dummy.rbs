@@ -10,5 +10,8 @@ module Dummy
 
   def self.hello: (String name) -> String
 
+  class InnerClass
+  end
+
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
 end
