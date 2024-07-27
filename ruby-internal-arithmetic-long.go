@@ -12,8 +12,8 @@ import "C"
 // Original definition is following
 //
 //	long rb_num2long(VALUE num)
-func RbNum2long(n VALUE) Long {
-	return Long(C.rb_num2long(C.VALUE(n)))
+func RbNum2long(num VALUE) Long {
+	return Long(C.rb_num2long(C.VALUE(num)))
 }
 
 // RbLong2numInline calls `rb_long2num_inline` in C
