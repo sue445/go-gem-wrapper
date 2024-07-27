@@ -54,6 +54,9 @@ func Init_dummy() {
 
 	// Create Dummy::InnerModule module
 	ruby.RbDefineModuleUnder(rb_mDummy, "InnerModule")
+
+	// Create OuterClass class
+	ruby.RbDefineClass("OuterClass", ruby.VALUE(C.rb_cObject))
 }
 
 func main() {
