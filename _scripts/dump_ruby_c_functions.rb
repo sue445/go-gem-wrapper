@@ -148,6 +148,8 @@ def generate_go_file(definition:, header_dir:)
         "C.ulong"
       when "unsigned int"
         "C.uint"
+      when "char*"
+        "string2Char"
       else
         "C.#{c_arg[:type]}"
       end
