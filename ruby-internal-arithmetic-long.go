@@ -8,6 +8,10 @@ import "C"
 // c.f. https://github.com/ruby/ruby/blob/master/include/ruby/internal/arithmetic/long.h
 
 // RbNum2long calls `rb_num2long` in C
+//
+// Original definition is following
+//
+//	long rb_num2long(VALUE num)
 func RbNum2long(n VALUE) Long {
 	return Long(C.rb_num2long(C.VALUE(n)))
 }
