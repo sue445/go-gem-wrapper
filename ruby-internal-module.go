@@ -33,3 +33,12 @@ func RbDefineClassUnder(outer VALUE, name string, super VALUE) VALUE {
 func RbDefineModuleUnder(outer VALUE, name string) VALUE {
 	return VALUE(C.rb_define_module_under(C.VALUE(outer), string2Char(name)))
 }
+
+// RbDefineClass calls `rb_define_class` in C
+//
+// Original definition is following
+//
+//	VALUE rb_define_class(const char *name, VALUE super)
+func RbDefineClass(name string, super VALUE) VALUE {
+	return VALUE(C.rb_define_class(string2Char(name), C.VALUE(super)))
+}
