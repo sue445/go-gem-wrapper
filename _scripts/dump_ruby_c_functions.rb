@@ -149,22 +149,7 @@ def generate_go_file(definition:, header_dir:)
 
   call_c_method = "C.#{definition[:function_name]}("
   casted_go_args = definition[:args].map do |c_arg|
-    # Cast Go type to C type
-    type =
-      case c_arg[:type]
-      when "unsigned long"
-        "C.ulong"
-      when "unsigned int"
-        "C.uint"
-      when "char*"
-        "string2Char"
-      when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
-        "toFunctionPointer"
-      else
-        "C.#{c_arg[:type]}"
-      end
-
-    "#{type}(#{c_arg[:name]})"
+    "#{cast_to_cgo_type(c_arg[:type])}(#{c_arg[:name]})"
   end
   call_c_method << casted_go_args.join(", ")
   call_c_method << ")"
@@ -188,6 +173,23 @@ end
 # @return [String]
 def snake_to_camel(str)
   str.split("_").map(&:capitalize).join
+end
+
+# @param typename [String]
+# @return [String]
+def cast_to_cgo_type(typename)
+  case typename
+  when "unsigned long"
+    return "C.ulong"
+  when "unsigned int"
+    return "C.uint"
+  when "char*"
+    return "string2Char"
+  when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
+    return "toFunctionPointer"
+  end
+
+  "C.#{typename}"
 end
 
 # @param typename [String]
