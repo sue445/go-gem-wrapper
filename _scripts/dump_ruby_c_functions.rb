@@ -81,6 +81,11 @@ def parse_definition_args(definition)
       type = parts[0]
       name = "arg#{arg_pos}"
     else
+      unless parts[-1] =~ /^[0-9a-zA-Z_]+$/
+        # last elements isn't dummy argument
+        parts << "arg#{arg_pos}"
+      end
+
       type = parts[0...-1].join(" ")
       type = type.delete_prefix("const ")
 
@@ -153,6 +158,8 @@ def generate_go_file(definition:, header_dir:)
         "C.uint"
       when "char*"
         "string2Char"
+      when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
+        "toFunctionPointer"
       else
         "C.#{c_arg[:type]}"
       end
@@ -191,6 +198,8 @@ def ruby_c_type_to_go_type(typename)
     return "uint"
   when "char*", "const char*"
     return "string"
+  when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
+    return "unsafe.Pointer"
   when /^[A-Z]+$/
     # e.g. VALUE
     return typename
