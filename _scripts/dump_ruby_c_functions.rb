@@ -72,11 +72,14 @@ def parse_definition_args(definition)
   definition =~ /(?<=\()(.+)(?=\))/
   args = $1.split(",").map(&:strip)
 
+  arg_pos = 0
   args.map do |str|
+    arg_pos += 1
     parts = str.split(" ")
 
     if parts.count < 2
-      nil
+      type = parts[0]
+      name = "arg#{arg_pos}"
     else
       type = parts[0...-1].join(" ")
       type = type.delete_prefix("const ")
@@ -86,13 +89,13 @@ def parse_definition_args(definition)
         name = name.delete_prefix("*")
         type << "*"
       end
-
-      {
-        type: type,
-        name: name,
-      }
     end
-  end.compact
+
+    {
+      type: type,
+      name: name,
+    }
+  end
 end
 
 function_definitions = extract_function_definitions(header_dir)
