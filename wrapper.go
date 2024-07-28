@@ -53,3 +53,8 @@ func string2Value(str string) C.VALUE {
 	}
 	return rbUtf8StrNew(string2Char(str), stringLen(str))
 }
+
+// toFunctionPointer returns a pointer to function. (for internal use within package)
+func toFunctionPointer(fun unsafe.Pointer) *[0]byte {
+	return (*[0]byte)(fun)
+}
