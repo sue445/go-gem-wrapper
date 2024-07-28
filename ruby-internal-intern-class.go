@@ -9,7 +9,7 @@ import (
 	"unsafe"
 )
 
-// c.f. https://github.com/ruby/ruby/blob/master/include/ruby/internal/anyargs.h
+// c.f. https://github.com/ruby/ruby/blob/master/include/ruby/internal/intern/class.h
 
 // RbDefineSingletonMethod calls `rb_define_singleton_method` in C
 //
