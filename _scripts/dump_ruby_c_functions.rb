@@ -202,7 +202,7 @@ def ruby_c_type_to_go_type(typename)
     return "string"
   when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
     return "unsafe.Pointer"
-  when /^[A-Z]+$/
+  when /^[A-Z]+$/, "int"
     # e.g. VALUE
     return typename
   end
