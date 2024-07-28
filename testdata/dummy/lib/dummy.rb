@@ -2,6 +2,7 @@
 
 require_relative "dummy/version"
 require_relative "dummy/dummy"
+require_relative "dummy/unit"
 
 module Dummy
   class Error < StandardError; end
