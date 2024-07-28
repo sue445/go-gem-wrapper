@@ -3,7 +3,7 @@ package ruby
 /*
 #include "ruby.h"
 
-// Because variable length arguments cannot be passed from Go to C
+// Go's variable-length arguments couldn't be passed directly to C, so they are passed through another function to avoid this
 void
 rb_raise2(VALUE exception, const char *str) {
     rb_raise(exception, "%s", str);
