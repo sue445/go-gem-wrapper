@@ -3,9 +3,8 @@ package ruby
 /*
 #include "ruby.h"
 
-// Because variable length arguments cannot be passed from Go to C
-void
-rb_raise2(VALUE exception, const char *str) {
+// Go's variable-length arguments couldn't be passed directly to C, so they are passed through another function to avoid this
+void __rb_raise(VALUE exception, const char *str) {
     rb_raise(exception, "%s", str);
 }
 */
@@ -28,5 +27,5 @@ import (
 // [Go's format]: https://pkg.go.dev/fmt
 func RbRaise(exc VALUE, format string, a ...interface{}) {
 	str := fmt.Sprintf(format, a...)
-	C.rb_raise2(C.VALUE(exc), string2Char(str))
+	C.__rb_raise(C.VALUE(exc), string2Char(str))
 }
