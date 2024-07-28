@@ -6,6 +6,7 @@ package main
 VALUE rb_dummy_sum(VALUE self, VALUE a, VALUE b);
 VALUE rb_dummy_with_block(VALUE self, VALUE arg);
 VALUE rb_dummy_hello(VALUE self, VALUE name);
+VALUE rb_dummy_unit_kilobyte(VALUE self);
 */
 import "C"
 
@@ -40,6 +41,17 @@ func rb_dummy_hello(_ C.VALUE, name C.VALUE) C.VALUE {
 	return C.VALUE(ruby.String2Value(result))
 }
 
+//export rb_dummy_unit_kilobyte
+func rb_dummy_unit_kilobyte(self C.VALUE) C.VALUE {
+	sourceID := ruby.RbIntern("@source")
+	sourceValue := ruby.RbIvarGet(ruby.VALUE(self), sourceID)
+
+	sourceLong := ruby.RbNum2long(sourceValue)
+	result := sourceLong * 1024
+
+	return C.VALUE(ruby.RbLong2numInline(result))
+}
+
 var rb_mDummy ruby.VALUE
 
 //export Init_dummy
@@ -57,6 +69,10 @@ func Init_dummy() {
 
 	// Create OuterClass class
 	ruby.RbDefineClass("OuterClass", ruby.VALUE(C.rb_cObject))
+
+	// Dummy::Unit
+	rb_cUnit := ruby.RbDefineClassUnder(rb_mDummy, "Unit", ruby.VALUE(C.rb_cObject))
+	ruby.RbDefineMethod(rb_cUnit, "kilobyte", C.rb_dummy_unit_kilobyte, 0)
 }
 
 func main() {

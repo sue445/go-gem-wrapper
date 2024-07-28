@@ -16,5 +16,13 @@ module Dummy
   module InnerModule
   end
 
+  class Unit
+    @source: Integer
+
+    def initialize: (Integer source) -> void
+
+    def kilobyte: () -> Integer
+  end
+
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
 end

@@ -81,6 +81,11 @@ def parse_definition_args(definition)
       type = parts[0]
       name = "arg#{arg_pos}"
     else
+      if parts[-1].start_with?("*")
+        parts[-1].delete_prefix!("*")
+        parts[-2] << "*"
+      end
+
       unless parts[-1] =~ /^[0-9a-zA-Z_]+$/
         # last elements isn't dummy argument
         parts << "arg#{arg_pos}"
@@ -88,12 +93,7 @@ def parse_definition_args(definition)
 
       type = parts[0...-1].join(" ")
       type = type.delete_prefix("const ")
-
       name = parts[-1]
-      if name.start_with?("*")
-        name = name.delete_prefix("*")
-        type << "*"
-      end
     end
 
     {
@@ -202,7 +202,7 @@ def ruby_c_type_to_go_type(typename)
     return "string"
   when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
     return "unsafe.Pointer"
-  when /^[A-Z]+$/
+  when /^[A-Z]+$/, "int"
     # e.g. VALUE
     return typename
   end
