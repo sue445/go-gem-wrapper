@@ -249,6 +249,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_lastline_set`
 * [ ] `rb_load`
 * [ ] `rb_load_protect`
+* [x] `rb_long2num_inline`
 * [ ] `rb_longjmp`
 * [ ] `rb_make_metaclass`
 * [ ] `rb_mark_end_proc`
@@ -309,6 +310,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_newobj`
 * [ ] `rb_node_newnode`
 * [ ] `rb_num2dbl`
+* [x] `rb_num2long`
 * [ ] `rb_obj_alloc`
 * [ ] `rb_obj_call_init`
 * [ ] `rb_obj_class`
