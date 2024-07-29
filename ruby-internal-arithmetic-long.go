@@ -17,6 +17,10 @@ func RbNum2long(num VALUE) Long {
 }
 
 // RbLong2numInline calls `rb_long2num_inline` in C
-func RbLong2numInline(n Long) VALUE {
-	return VALUE(C.rb_long2num_inline(C.long(n)))
+//
+// Original definition is following
+//
+//	VALUE rb_long2num_inline(long v)
+func RbLong2numInline(v Long) VALUE {
+	return VALUE(C.rb_long2num_inline(C.long(v)))
 }
