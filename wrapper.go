@@ -16,7 +16,12 @@ func String2Char(str string) *Char {
 
 // string2Char convert from Go string to `*C.char`. (for internal use within package)
 func string2Char(str string) *C.char {
-	bytes := append([]byte(str), '\000')
+	// FIXME: Go's string isn't a null-terminated string, so using `*(*[]byte)(unsafe.Pointer(&str))`
+	//        will return a non-null-terminated byte array and can't be `*C.char`.
+	//        Therefore, copying of byte arrays is unavoidable,
+	//        so a slice is created that minimizes `len` and `cap` with null-terminations included
+	bytes := make([]byte, len(str)+1, len(str)+1)
+	copy(bytes, str)
 
 	return (*C.char)(unsafe.Pointer(&bytes[0]))
 }
