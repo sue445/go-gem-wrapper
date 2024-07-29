@@ -16,12 +16,12 @@ import (
 
 //export rb_dummy_sum
 func rb_dummy_sum(_ C.VALUE, a C.VALUE, b C.VALUE) C.VALUE {
-	aLong := ruby.RbNum2long(ruby.VALUE(a))
-	bLong := ruby.RbNum2long(ruby.VALUE(b))
+	aLong := ruby.NUM2LONG(ruby.VALUE(a))
+	bLong := ruby.NUM2LONG(ruby.VALUE(b))
 
 	sum := aLong + bLong
 
-	return C.VALUE(ruby.RbLong2numInline(sum))
+	return C.VALUE(ruby.LONG2NUM(sum))
 }
 
 //export rb_dummy_with_block
@@ -46,10 +46,10 @@ func rb_dummy_unit_kilobyte(self C.VALUE) C.VALUE {
 	sourceID := ruby.RbIntern("@source")
 	sourceValue := ruby.RbIvarGet(ruby.VALUE(self), sourceID)
 
-	sourceLong := ruby.RbNum2long(sourceValue)
+	sourceLong := ruby.NUM2LONG(sourceValue)
 	result := sourceLong * 1024
 
-	return C.VALUE(ruby.RbLong2numInline(result))
+	return C.VALUE(ruby.LONG2NUM(result))
 }
 
 var rb_mDummy ruby.VALUE
