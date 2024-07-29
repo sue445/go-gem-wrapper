@@ -46,10 +46,10 @@ func rb_dummy_unit_kilobyte(self C.VALUE) C.VALUE {
 	sourceID := ruby.RbIntern("@source")
 	sourceValue := ruby.RbIvarGet(ruby.VALUE(self), sourceID)
 
-	sourceLong := ruby.NUM2LONG(sourceValue)
-	result := sourceLong * 1024
+	sourceInt := ruby.NUM2INT(sourceValue)
+	result := sourceInt * 1024
 
-	return C.VALUE(ruby.LONG2NUM(result))
+	return C.VALUE(ruby.INT2NUM(result))
 }
 
 var rb_mDummy ruby.VALUE
