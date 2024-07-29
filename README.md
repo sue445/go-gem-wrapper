@@ -35,6 +35,11 @@ This repository is currently in the development phase and does not yet implement
 
 The following functions are currently supported.
 
+<details>
+  <summary>Display all</summary>
+
+ref. https://docs.ruby-lang.org/ja/latest/function/index.html
+
 * [ ] `rb_add_method`
 * [ ] `rb_alias`
 * [ ] `rb_alias_variable`
@@ -455,3 +460,5 @@ The following functions are currently supported.
 * [ ] `rb_yield_0`
 * [x] `RSTRING_PTR`
 * [x] `RSTRING_LENINT`
+
+</details>
