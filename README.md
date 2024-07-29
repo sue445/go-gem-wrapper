@@ -229,6 +229,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_inspect`
 * [ ] `rb_int_new`
 * [ ] `rb_Integer`
+* [x] `rb_int2num_inline`
 * [x] `rb_intern`
 * [ ] `rb_interrupt`
 * [ ] `rb_io_mode_flags2`
@@ -310,6 +311,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_newobj`
 * [ ] `rb_node_newnode`
 * [ ] `rb_num2dbl`
+* [x] `rb_num2int_inline`
 * [x] `rb_num2long`
 * [ ] `rb_obj_alloc`
 * [ ] `rb_obj_call_init`
