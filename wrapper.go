@@ -20,7 +20,7 @@ func string2Char(str string) *C.char {
 	//        will return a non-null-terminated byte array and can't be `*C.char`.
 	//        Therefore, copying of byte arrays is unavoidable,
 	//        so a slice is created that minimizes `len` and `cap` with null-terminations included
-	bytes := make([]byte, len(str)+1, len(str)+1)
+	bytes := make([]byte, len(str)+1)
 	copy(bytes, str)
 
 	return (*C.char)(unsafe.Pointer(&bytes[0]))
