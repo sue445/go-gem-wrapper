@@ -16,6 +16,11 @@ func RbNum2long(num VALUE) Long {
 	return Long(C.rb_num2long(C.VALUE(num)))
 }
 
+// NUM2LONG is alias to [RbNum2long]
+func NUM2LONG(num VALUE) Long {
+	return RbNum2long(num)
+}
+
 // RbLong2numInline calls `rb_long2num_inline` in C
 //
 // Original definition is following
@@ -23,4 +28,9 @@ func RbNum2long(num VALUE) Long {
 //	VALUE rb_long2num_inline(long v)
 func RbLong2numInline(v Long) VALUE {
 	return VALUE(C.rb_long2num_inline(C.long(v)))
+}
+
+// LONG2NUM is alias to [RbLong2numInline]
+func LONG2NUM(v Long) VALUE {
+	return RbLong2numInline(v)
 }
