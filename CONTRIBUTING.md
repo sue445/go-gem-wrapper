@@ -3,7 +3,7 @@
 ### 1. Generate skeleton
 Run `ruby _scripts/dump_ruby_c_functions.rb`
 
-Executing [`ruby ./_scripts/dump_ruby_c_functions.rb`](./_scripts/dump_ruby_c_functions.rb) will generate Go source code under `_scripts/dist/` based on `ruby.h`
+Executing [`ruby _scripts/dump_ruby_c_functions.rb`](./_scripts/dump_ruby_c_functions.rb) will generate Go source code under `_scripts/dist/` based on `ruby.h`
 
 In many cases there is an error on the last `go fmt`, but it's not a problem :sweat_smile:
 
