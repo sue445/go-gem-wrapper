@@ -186,6 +186,8 @@ def cast_to_cgo_type(typename)
     return "C.uint"
   when "char*"
     return "string2Char"
+  when "VALUE*"
+    return "toCValueArray"
   when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
     return "toFunctionPointer"
   end
@@ -202,6 +204,8 @@ def ruby_c_type_to_go_type(typename)
     return "uint"
   when "char*", "const char*"
     return "string"
+  when "VALUE*"
+    return "[]VALUE"
   when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
     return "unsafe.Pointer"
   when /^[A-Z]+$/, "int"
