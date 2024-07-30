@@ -9,7 +9,7 @@ import (
 	"unsafe"
 )
 
-// String2Char convert from Go string to `*Char`
+// String2Char convert from Go string to [*Char]
 func String2Char(str string) *Char {
 	return (*Char)(string2Char(str))
 }
@@ -26,7 +26,7 @@ func string2Char(str string) *C.char {
 	return (*C.char)(unsafe.Pointer(&bytes[0]))
 }
 
-// Value2String convert from `VALUE` to Go string
+// Value2String convert from [VALUE] to Go string
 func Value2String(str VALUE) string {
 	return value2String(C.VALUE(str))
 }
@@ -36,7 +36,7 @@ func value2String(str C.VALUE) string {
 	return C.GoStringN(rstringPtr(str), rstringLenint(str))
 }
 
-// StringLen returns string length as `Long`
+// StringLen returns string length as [Long]
 func StringLen(str string) Long {
 	return Long(stringLen(str))
 }
@@ -46,7 +46,7 @@ func stringLen(str string) C.long {
 	return C.long(len(str))
 }
 
-// String2Value convert from Go string to `VALUE`
+// String2Value convert from Go string to [VALUE]
 func String2Value(str string) VALUE {
 	return VALUE(string2Value(str))
 }
