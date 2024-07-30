@@ -30,6 +30,7 @@ There is a dummy gem for this wrapper in [testdata/dummy/](testdata/dummy/).
 Refer to following and add test code to call the added wrapper function.
 
 * [testdata/dummy/ext/dummy/dummy.go](testdata/dummy/ext/dummy/dummy.go)
+* [testdata/dummy/sig/dummy.rbs](testdata/dummy/sig/dummy.rbs)
 * [testdata/dummy/spec/dummy_spec.rb](testdata/dummy/spec/dummy_spec.rb)
 
 #### 4. Run test
