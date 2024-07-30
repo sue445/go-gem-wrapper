@@ -216,7 +216,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_free_generic_ivar`
 * [ ] `rb_frozen_class_p`
 * [ ] `rb_funcall`
-* [ ] `rb_funcall2`
+* [x] `rb_funcall2`
 * [ ] `rb_funcall3`
 * [ ] `rb_gc`
 * [ ] `rb_gc_call_finalizer_at_exit`
