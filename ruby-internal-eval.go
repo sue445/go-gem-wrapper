@@ -26,3 +26,8 @@ func RbFuncallv(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
 
 	return VALUE(C.rb_funcallv(C.VALUE(recv), C.ID(mid), C.int(argc), cArgs))
 }
+
+// RbFuncall2 is alias to [RbFuncallv]
+func RbFuncall2(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
+	return RbFuncallv(recv, mid, argc, argv)
+}
