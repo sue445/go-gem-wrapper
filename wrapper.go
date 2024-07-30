@@ -63,3 +63,12 @@ func string2Value(str string) C.VALUE {
 func toFunctionPointer(fun unsafe.Pointer) *[0]byte {
 	return (*[0]byte)(fun)
 }
+
+// toCValueArray convert from `[]ruby.VALUE` to `*C.VALUE`. (for internal use within package)
+func toCValueArray(values []VALUE) *C.VALUE {
+	if len(values) == 0 {
+		return (*C.VALUE)(unsafe.Pointer(nil))
+	}
+
+	return (*C.VALUE)(unsafe.Pointer(&values[0]))
+}

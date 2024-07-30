@@ -175,6 +175,7 @@ def snake_to_camel(str)
   str.split("_").map(&:capitalize).join
 end
 
+# Cast C type to cgo type. (Used in wrapper function)
 # @param typename [String]
 # @return [String]
 def cast_to_cgo_type(typename)
@@ -185,6 +186,8 @@ def cast_to_cgo_type(typename)
     return "C.uint"
   when "char*"
     return "string2Char"
+  when "VALUE*"
+    return "toCValueArray"
   when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
     return "toFunctionPointer"
   end
@@ -192,6 +195,7 @@ def cast_to_cgo_type(typename)
   "C.#{typename}"
 end
 
+# Convert C type to Go type. (used in wrapper function args and return type)
 # @param typename [String]
 # @return [String]
 def ruby_c_type_to_go_type(typename)
@@ -200,6 +204,8 @@ def ruby_c_type_to_go_type(typename)
     return "uint"
   when "char*", "const char*"
     return "string"
+  when "VALUE*"
+    return "[]VALUE"
   when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
     return "unsafe.Pointer"
   when /^[A-Z]+$/, "int"
