@@ -13,7 +13,10 @@ import "C"
 //
 //	VALUE rb_define_module(const char *name)
 func RbDefineModule(name string) VALUE {
-	return VALUE(C.rb_define_module(string2Char(name)))
+	nameChar, nameCharClean := string2Char(name)
+	defer nameCharClean()
+
+	return VALUE(C.rb_define_module(nameChar))
 }
 
 // RbDefineClassUnder calls `rb_define_class_under` in C
@@ -22,7 +25,10 @@ func RbDefineModule(name string) VALUE {
 //
 //	VALUE rb_define_class_under(VALUE outer, const char *name, VALUE super)
 func RbDefineClassUnder(outer VALUE, name string, super VALUE) VALUE {
-	return VALUE(C.rb_define_class_under(C.VALUE(outer), string2Char(name), C.VALUE(super)))
+	nameChar, nameCharClean := string2Char(name)
+	defer nameCharClean()
+
+	return VALUE(C.rb_define_class_under(C.VALUE(outer), nameChar, C.VALUE(super)))
 }
 
 // RbDefineModuleUnder calls `rb_define_module_under` in C
@@ -31,7 +37,10 @@ func RbDefineClassUnder(outer VALUE, name string, super VALUE) VALUE {
 //
 //	VALUE rb_define_module_under(VALUE outer, const char *name)
 func RbDefineModuleUnder(outer VALUE, name string) VALUE {
-	return VALUE(C.rb_define_module_under(C.VALUE(outer), string2Char(name)))
+	nameChar, nameCharClean := string2Char(name)
+	defer nameCharClean()
+
+	return VALUE(C.rb_define_module_under(C.VALUE(outer), nameChar))
 }
 
 // RbDefineClass calls `rb_define_class` in C
@@ -40,5 +49,8 @@ func RbDefineModuleUnder(outer VALUE, name string) VALUE {
 //
 //	VALUE rb_define_class(const char *name, VALUE super)
 func RbDefineClass(name string, super VALUE) VALUE {
-	return VALUE(C.rb_define_class(string2Char(name), C.VALUE(super)))
+	nameChar, nameChsrClean := string2Char(name)
+	defer nameChsrClean()
+
+	return VALUE(C.rb_define_class(nameChar, C.VALUE(super)))
 }

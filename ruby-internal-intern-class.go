@@ -17,5 +17,8 @@ import (
 //
 //	void rb_define_singleton_method(VALUE obj, const char *mid, VALUE(*func)(ANYARGS), int arity)
 func RbDefineSingletonMethod(obj VALUE, mid string, fun unsafe.Pointer, arity int) {
-	C.rb_define_singleton_method(C.VALUE(obj), string2Char(mid), toFunctionPointer(fun), C.int(arity))
+	midChar, midCharClean := string2Char(mid)
+	defer midCharClean()
+
+	C.rb_define_singleton_method(C.VALUE(obj), midChar, toFunctionPointer(fun), C.int(arity))
 }

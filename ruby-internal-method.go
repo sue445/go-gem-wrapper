@@ -14,5 +14,8 @@ import "unsafe"
 //
 //	void rb_define_method(VALUE klass, const char *mid, VALUE (*func)(ANYARGS), int arity)
 func RbDefineMethod(klass VALUE, mid string, fun unsafe.Pointer, arity int) {
-	C.rb_define_method(C.VALUE(klass), string2Char(mid), toFunctionPointer(fun), C.int(arity))
+	midChar, midCharClean := string2Char(mid)
+	defer midCharClean()
+
+	C.rb_define_method(C.VALUE(klass), midChar, toFunctionPointer(fun), C.int(arity))
 }

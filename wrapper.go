@@ -10,20 +10,41 @@ import (
 )
 
 // String2Char convert from Go string to [*Char]
-func String2Char(str string) *Char {
-	return (*Char)(string2Char(str))
+//
+// 2nd return value is a function to free pointer.
+// To prevent memory leaks, this function must always be called with defer when calling this function
+//
+// Example
+//
+//	char, clean := ruby.String2Char("ABCD")
+//	defer clean()
+func String2Char(str string) (*Char, func()) {
+	char, clean := string2Char(str)
+	return (*Char)(char), clean
 }
 
 // string2Char convert from Go string to `*C.char`. (for internal use within package)
-func string2Char(str string) *C.char {
-	// FIXME: Go's string isn't a null-terminated string, so using `*(*[]byte)(unsafe.Pointer(&str))`
+//
+// 2nd return value is a function to free pointer.
+// To prevent memory leaks, this function must always be called with defer when calling this function
+//
+// Example
+//
+//	char, clean := string2Char("ABCD")
+//	defer clean()
+func string2Char(str string) (*C.char, func()) {
+	// FIXME: https://www.slideshare.net/slideshow/ruby-meets-go/56074507#28
+	//        recommends avoiding unnecessary copying of string.
+	//        But current Go's string isn't a null-terminated string, so using `*(*[]byte)(unsafe.Pointer(&str))`
 	//        will return a non-null-terminated byte array and can't be `*C.char`.
-	//        Therefore, copying of byte arrays is unavoidable,
-	//        so a slice is created that minimizes `len` and `cap` with null-terminations included
-	bytes := make([]byte, len(str)+1)
-	copy(bytes, str)
+	//        Therefore, copying of byte arrays is unavoidable...
+	cstr := C.CString(str)
 
-	return (*C.char)(unsafe.Pointer(&bytes[0]))
+	clean := func() {
+		C.free(unsafe.Pointer(cstr))
+	}
+
+	return cstr, clean
 }
 
 // Value2String convert from [VALUE] to Go string
@@ -56,7 +77,11 @@ func string2Value(str string) C.VALUE {
 	if len(str) == 0 {
 		return rbUtf8StrNew(nil, C.long(0))
 	}
-	return rbUtf8StrNew(string2Char(str), stringLen(str))
+
+	strChar, strCharClean := string2Char(str)
+	defer strCharClean()
+
+	return rbUtf8StrNew(strChar, stringLen(str))
 }
 
 // toFunctionPointer returns a pointer to function. (for internal use within package)

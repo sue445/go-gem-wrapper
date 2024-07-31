@@ -148,9 +148,20 @@ def generate_go_file(definition:, header_dir:)
   go_function_lines << "func #{go_function_name}(#{go_function_args.join(", ")}) #{go_function_typeref} {"
 
   call_c_method = "C.#{definition[:function_name]}("
-  casted_go_args = definition[:args].map do |c_arg|
-    "#{cast_to_cgo_type(c_arg[:type])}(#{c_arg[:name]})"
+
+  casted_go_args = []
+  definition[:args].each do |c_arg|
+    if c_arg[:type] == "char*"
+      go_function_lines << "#{c_arg[:name]}Char, #{c_arg[:name]}CharClean := string2Char(#{c_arg[:name]})"
+      go_function_lines << "defer #{c_arg[:name]}CharClean()"
+      go_function_lines << ""
+
+      casted_go_args << "#{c_arg[:name]}Char"
+    else
+      casted_go_args << "#{cast_to_cgo_type(c_arg[:type])}(#{c_arg[:name]})"
+    end
   end
+
   call_c_method << casted_go_args.join(", ")
   call_c_method << ")"
 
@@ -184,8 +195,6 @@ def cast_to_cgo_type(typename)
     return "C.ulong"
   when "unsigned int"
     return "C.uint"
-  when "char*"
-    return "string2Char"
   when "VALUE*"
     return "toCValueArray"
   when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
