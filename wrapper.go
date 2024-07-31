@@ -12,7 +12,7 @@ import (
 // String2Char convert from Go string to [*Char]
 //
 // 2nd return value is a function to free pointer.
-// To prevent memory leaks, this function must always be called with defer when calling this function
+// To prevent memory leaks, this function MUST always be called with `defer` when calling this function.
 //
 // Example
 //
@@ -26,7 +26,7 @@ func String2Char(str string) (*Char, func()) {
 // string2Char convert from Go string to `*C.char`. (for internal use within package)
 //
 // 2nd return value is a function to free pointer.
-// To prevent memory leaks, this function must always be called with defer when calling this function
+// To prevent memory leaks, this function MUST always be called with `defer` when calling this function.
 //
 // Example
 //
@@ -84,12 +84,12 @@ func string2Value(str string) C.VALUE {
 	return rbUtf8StrNew(strChar, stringLen(str))
 }
 
-// toFunctionPointer returns a pointer to function. (for internal use within package)
+// toFunctionPointer returns a pointer to function.
 func toFunctionPointer(fun unsafe.Pointer) *[0]byte {
 	return (*[0]byte)(fun)
 }
 
-// toCValueArray convert from `[]ruby.VALUE` to `*C.VALUE`. (for internal use within package)
+// toCValueArray convert from [][VALUE] to `*C.VALUE`.
 func toCValueArray(values []VALUE) *C.VALUE {
 	if len(values) == 0 {
 		return (*C.VALUE)(unsafe.Pointer(nil))
