@@ -21,6 +21,7 @@ end
 
 desc "Check rbs"
 task :rbs do
+  sh "rbs collection install"
   sh "rbs validate"
   sh "steep check"
 end
