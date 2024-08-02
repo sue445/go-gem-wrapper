@@ -11,6 +11,7 @@ VALUE rb_dummy_to_string(VALUE self, VALUE source);
 VALUE rb_dummy_max(VALUE self, VALUE a, VALUE b);
 
 VALUE rb_dummy_unit_kilobyte(VALUE self);
+VALUE rb_dummy_unit_increment(VALUE self);
 */
 import "C"
 
@@ -72,6 +73,20 @@ func rb_dummy_unit_kilobyte(self C.VALUE) C.VALUE {
 	return C.VALUE(ruby.INT2NUM(result))
 }
 
+//export rb_dummy_unit_increment
+func rb_dummy_unit_increment(self C.VALUE) C.VALUE {
+	sourceID := ruby.RbIntern("@source")
+	sourceValue := ruby.RbIvarGet(ruby.VALUE(self), sourceID)
+
+	sourceInt := ruby.NUM2INT(sourceValue)
+	sourceInt++
+
+	result := ruby.INT2NUM(sourceInt)
+	ruby.RbIvarSet(ruby.VALUE(self), sourceID, result)
+
+	return C.VALUE(result)
+}
+
 //export rb_dummy_max
 func rb_dummy_max(_ C.VALUE, a C.VALUE, b C.VALUE) C.VALUE {
 	aLong := ruby.NUM2LONG(ruby.VALUE(a))
@@ -108,6 +123,7 @@ func Init_dummy() {
 	// Dummy::Unit
 	rb_cUnit := ruby.RbDefineClassUnder(rb_mDummy, "Unit", ruby.VALUE(C.rb_cObject))
 	ruby.RbDefineMethod(rb_cUnit, "kilobyte", C.rb_dummy_unit_kilobyte, 0)
+	ruby.RbDefineMethod(rb_cUnit, "increment", C.rb_dummy_unit_increment, 0)
 }
 
 func main() {

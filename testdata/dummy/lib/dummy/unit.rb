@@ -2,6 +2,8 @@
 
 module Dummy
   class Unit # rubocop:disable Style/Documentation
+    attr_accessor :source
+
     # @param source [Integer]
     def initialize(source)
       @source = source
