@@ -47,4 +47,38 @@ RSpec.describe Dummy do
       expect(actual).to eq "123"
     end
   end
+
+  describe ".max" do
+    context "a > b" do
+      it "works" do
+        actual = Dummy.max(3, 2)
+        expect(actual).to eq 3
+      end
+    end
+
+    context "a < b" do
+      it "works" do
+        actual = Dummy.max(1, 2)
+        expect(actual).to eq 2
+      end
+    end
+  end
+
+  describe "#max" do
+    include Dummy
+
+    context "a > b" do
+      it "works" do
+        actual = max(3, 2)
+        expect(actual).to eq 3
+      end
+    end
+
+    context "a < b" do
+      it "works" do
+        actual = max(1, 2)
+        expect(actual).to eq 2
+      end
+    end
+  end
 end

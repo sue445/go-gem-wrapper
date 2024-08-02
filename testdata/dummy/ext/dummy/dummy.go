@@ -8,6 +8,7 @@ VALUE rb_dummy_with_block(VALUE self, VALUE arg);
 VALUE rb_dummy_hello(VALUE self, VALUE name);
 VALUE rb_dummy_round_num(VALUE self, VALUE num, VALUE ndigits);
 VALUE rb_dummy_to_string(VALUE self, VALUE source);
+VALUE rb_dummy_max(VALUE self, VALUE a, VALUE b);
 
 VALUE rb_dummy_unit_kilobyte(VALUE self);
 */
@@ -71,6 +72,18 @@ func rb_dummy_unit_kilobyte(self C.VALUE) C.VALUE {
 	return C.VALUE(ruby.INT2NUM(result))
 }
 
+//export rb_dummy_max
+func rb_dummy_max(_ C.VALUE, a C.VALUE, b C.VALUE) C.VALUE {
+	aLong := ruby.NUM2LONG(ruby.VALUE(a))
+	bLong := ruby.NUM2LONG(ruby.VALUE(b))
+
+	if aLong > bLong {
+		return C.VALUE(ruby.LONG2NUM(aLong))
+	}
+
+	return C.VALUE(ruby.LONG2NUM(bLong))
+}
+
 var rb_mDummy ruby.VALUE
 
 //export Init_dummy
@@ -81,6 +94,7 @@ func Init_dummy() {
 	ruby.RbDefineSingletonMethod(rb_mDummy, "hello", C.rb_dummy_hello, 1)
 	ruby.RbDefineSingletonMethod(rb_mDummy, "round_num", C.rb_dummy_round_num, 2)
 	ruby.RbDefineSingletonMethod(rb_mDummy, "to_string", C.rb_dummy_to_string, 1)
+	ruby.RbDefineModuleFunction(rb_mDummy, "max", C.rb_dummy_max, 2)
 
 	// Create Dummy::InnerClass class
 	ruby.RbDefineClassUnder(rb_mDummy, "InnerClass", ruby.VALUE(C.rb_cObject))
