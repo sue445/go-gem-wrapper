@@ -239,7 +239,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_iv_set`
 * [ ] `rb_ivar_defined`
 * [x] `rb_ivar_get`
-* [ ] `rb_ivar_set`
+* [x] `rb_ivar_set`
 * [ ] `rb_jump_tag`
 * [ ] `rb_lastline_get`
 * [ ] `rb_lastline_set`
