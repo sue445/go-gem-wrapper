@@ -14,6 +14,9 @@ module Dummy
 
   def self.to_string: (untyped source) -> String
 
+  def self.max: (Integer, Integer) -> Integer
+  def max: (Integer, Integer) -> Integer
+
   class InnerClass
   end
 
