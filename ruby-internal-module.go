@@ -49,8 +49,8 @@ func RbDefineModuleUnder(outer VALUE, name string) VALUE {
 //
 //	VALUE rb_define_class(const char *name, VALUE super)
 func RbDefineClass(name string, super VALUE) VALUE {
-	nameChar, nameChsrClean := string2Char(name)
-	defer nameChsrClean()
+	nameChar, nameCharClean := string2Char(name)
+	defer nameCharClean()
 
 	return VALUE(C.rb_define_class(nameChar, C.VALUE(super)))
 }
