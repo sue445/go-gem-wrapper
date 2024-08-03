@@ -190,7 +190,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_frame_last_func`
 * [ ] `rb_free_generic_ivar`
 * [ ] `rb_frozen_class_p`
-* [ ] `rb_funcall`
+* ~~[ ] `rb_funcall`~~ Go's variable-length arguments couldn't be passed directly to C. See [CONTRIBUTING.md](CONTRIBUTING.md)
 * [x] `rb_funcall2`
 * [ ] `rb_funcall3`
 * [x] `rb_funcallv`

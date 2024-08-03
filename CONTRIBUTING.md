@@ -1,5 +1,14 @@
 # Contribution Guide
 ## Add wrapper function for C
+### :warning: Limitation
+Go variable-length arguments cannot be passed directly to C functions
+
+e.g. `void rb_raise(VALUE exc, const char *fmt, ...)`
+
+To avoid this problem, we need to call the C function without variable-length arguments
+
+See `RbRaise` implementation in [ruby-internal-error.go](ruby-internal-error.go) for details
+
 ### 1. Generate skeleton
 Run `ruby _scripts/dump_ruby_c_functions.rb`
 
