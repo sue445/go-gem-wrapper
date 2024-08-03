@@ -29,3 +29,8 @@ func RbFuncall2(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
 func RbFuncallvPublic(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
 	return VALUE(C.rb_funcallv_public(C.VALUE(recv), C.ID(mid), C.int(argc), toCValueArray(argv)))
 }
+
+// RbFuncall3 is alias to [RbFuncallvPublic]
+func RbFuncall3(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
+	return RbFuncallvPublic(recv, mid, argc, argv)
+}
