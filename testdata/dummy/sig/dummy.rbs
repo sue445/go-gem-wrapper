@@ -10,7 +10,7 @@ module Dummy
 
   def self.hello: (String name) -> String
 
-  def self.round_num: (Integer num, Integer ndigits) -> Integer
+  def self.round_num2: (Integer num, Integer ndigits) -> Integer
 
   def self.to_string: (untyped source) -> String
 

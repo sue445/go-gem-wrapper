@@ -6,7 +6,7 @@ package main
 VALUE rb_dummy_sum(VALUE self, VALUE a, VALUE b);
 VALUE rb_dummy_with_block(VALUE self, VALUE arg);
 VALUE rb_dummy_hello(VALUE self, VALUE name);
-VALUE rb_dummy_round_num(VALUE self, VALUE num, VALUE ndigits);
+VALUE rb_dummy_round_num2(VALUE self, VALUE num, VALUE ndigits);
 VALUE rb_dummy_to_string(VALUE self, VALUE source);
 VALUE rb_dummy_max(VALUE self, VALUE a, VALUE b);
 
@@ -46,8 +46,8 @@ func rb_dummy_hello(_ C.VALUE, name C.VALUE) C.VALUE {
 	return C.VALUE(ruby.String2Value(result))
 }
 
-//export rb_dummy_round_num
-func rb_dummy_round_num(_ C.VALUE, num C.VALUE, ndigits C.VALUE) C.VALUE {
+//export rb_dummy_round_num2
+func rb_dummy_round_num2(_ C.VALUE, num C.VALUE, ndigits C.VALUE) C.VALUE {
 	// Call Integer#round
 	result := ruby.RbFuncall2(ruby.VALUE(num), ruby.RbIntern("round"), 1, []ruby.VALUE{ruby.VALUE(ndigits)})
 
@@ -107,7 +107,7 @@ func Init_dummy() {
 	ruby.RbDefineSingletonMethod(rb_mDummy, "sum", C.rb_dummy_sum, 2)
 	ruby.RbDefineSingletonMethod(rb_mDummy, "with_block", C.rb_dummy_with_block, 1)
 	ruby.RbDefineSingletonMethod(rb_mDummy, "hello", C.rb_dummy_hello, 1)
-	ruby.RbDefineSingletonMethod(rb_mDummy, "round_num", C.rb_dummy_round_num, 2)
+	ruby.RbDefineSingletonMethod(rb_mDummy, "round_num2", C.rb_dummy_round_num2, 2)
 	ruby.RbDefineSingletonMethod(rb_mDummy, "to_string", C.rb_dummy_to_string, 1)
 	ruby.RbDefineModuleFunction(rb_mDummy, "max", C.rb_dummy_max, 2)
 
