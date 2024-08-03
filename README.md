@@ -67,6 +67,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_backref_set`
 * [ ] `rb_backtrace`
 * [x] `rb_block_given_p`
+* [x] `rb_block_proc`
 * [ ] `rb_call`
 * [ ] `rb_call0`
 * [ ] `rb_call_super`
