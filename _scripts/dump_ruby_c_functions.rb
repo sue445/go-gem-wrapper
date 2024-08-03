@@ -79,7 +79,16 @@ def parse_definition_args(definition)
 
     if parts.count < 2
       type = parts[0]
-      name = "arg#{arg_pos}"
+
+      if type =~ /^void$/i
+        nil
+      else
+        name = "arg#{arg_pos}"
+        {
+          type: type,
+          name: name,
+        }
+      end
     else
       if parts[-1].start_with?("*")
         parts[-1].delete_prefix!("*")
@@ -94,13 +103,13 @@ def parse_definition_args(definition)
       type = parts[0...-1].join(" ")
       type = type.delete_prefix("const ")
       name = parts[-1]
-    end
 
-    {
-      type: type,
-      name: name,
-    }
-  end
+      {
+        type: type,
+        name: name,
+      }
+    end
+  end.compact
 end
 
 function_definitions = extract_function_definitions(header_dir)
