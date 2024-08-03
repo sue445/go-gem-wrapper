@@ -194,6 +194,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [x] `rb_funcall2`
 * [ ] `rb_funcall3`
 * [x] `rb_funcallv`
+* [x] `rb_funcallv_public`
 * [ ] `rb_gc`
 * [ ] `rb_gc_call_finalizer_at_exit`
 * [ ] `rb_gc_disable`
