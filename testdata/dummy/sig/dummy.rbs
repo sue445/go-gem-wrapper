@@ -7,6 +7,7 @@ module Dummy
   def self.sum: (Integer a, Integer b) -> Integer
 
   def self.with_block: (untyped) { (untyped) -> untyped } -> untyped
+  def self.with_block2: (untyped) { (untyped) -> untyped } -> untyped
 
   def self.hello: (String name) -> String
 
