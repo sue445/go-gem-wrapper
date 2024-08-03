@@ -192,8 +192,9 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_frozen_class_p`
 * ~~[ ] `rb_funcall`~~ Go's variable-length arguments couldn't be passed directly to C. See [CONTRIBUTING.md](CONTRIBUTING.md)
 * [x] `rb_funcall2`
-* [ ] `rb_funcall3`
+* [x] `rb_funcall3`
 * [x] `rb_funcallv`
+* [x] `rb_funcallv_public`
 * [ ] `rb_gc`
 * [ ] `rb_gc_call_finalizer_at_exit`
 * [ ] `rb_gc_disable`

@@ -20,3 +20,17 @@ func RbFuncallv(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
 func RbFuncall2(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
 	return RbFuncallv(recv, mid, argc, argv)
 }
+
+// RbFuncallvPublic calls `rb_funcallv_public` in C
+//
+// Original definition is following
+//
+//	VALUE rb_funcallv_public(VALUE recv, ID mid, int argc, const VALUE *argv)
+func RbFuncallvPublic(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
+	return VALUE(C.rb_funcallv_public(C.VALUE(recv), C.ID(mid), C.int(argc), toCValueArray(argv)))
+}
+
+// RbFuncall3 is alias to [RbFuncallvPublic]
+func RbFuncall3(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
+	return RbFuncallvPublic(recv, mid, argc, argv)
+}

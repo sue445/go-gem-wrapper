@@ -34,9 +34,16 @@ RSpec.describe Dummy do
     end
   end
 
-  describe ".round_num" do
+  describe ".round_num2" do
     it "works" do
-      actual = Dummy.round_num(15, -1)
+      actual = Dummy.round_num2(15, -1)
+      expect(actual).to eq 20
+    end
+  end
+
+  describe ".round_num3" do
+    it "works" do
+      actual = Dummy.round_num3(15, -1)
       expect(actual).to eq 20
     end
   end
