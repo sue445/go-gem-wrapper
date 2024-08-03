@@ -81,7 +81,7 @@ func rb_dummy_round_num3(_ C.VALUE, num C.VALUE, ndigits C.VALUE) C.VALUE {
 //export rb_dummy_to_string
 func rb_dummy_to_string(_ C.VALUE, source C.VALUE) C.VALUE {
 	// Call Object#to_s
-	result := ruby.RbFuncall2(ruby.VALUE(source), ruby.RbIntern("to_s"), 0, []ruby.VALUE{})
+	result := ruby.CallFunction(ruby.VALUE(source), "to_s")
 
 	return C.VALUE(result)
 }
