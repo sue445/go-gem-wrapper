@@ -98,7 +98,7 @@ func toCValueArray(values []VALUE) *C.VALUE {
 	return (*C.VALUE)(unsafe.Pointer(&values[0]))
 }
 
-// CallFunction calls receiver's method. (wrapper to [RbFuncallv])
+// CallFunction calls receiver's method. (wrapper for [RbFuncallv])
 func CallFunction(receiver VALUE, methodName string, args ...VALUE) VALUE {
 	return RbFuncallv(receiver, RbIntern(methodName), len(args), args)
 }
