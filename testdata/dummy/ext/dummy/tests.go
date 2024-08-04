@@ -2,6 +2,10 @@ package main
 
 /*
 #include "dummy.h"
+
+VALUE rb_dummy_tests_rb_ivar_get(VALUE self);
+void  rb_dummy_tests_rb_ivar_set(VALUE self, VALUE value);
+VALUE rb_dummy_tests_rb_yield(VALUE self, VALUE arg);
 */
 import "C"
 
