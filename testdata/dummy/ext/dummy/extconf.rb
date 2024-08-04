@@ -31,7 +31,7 @@ current_dir = File.expand_path(".")
 
 File.open("Makefile", "a") do |f|
   f.write <<~MAKEFILE.gsub(/^ {8}/, "\t")
-    $(DLLIB): Makefile $(srcdir)/dummy.go
+    $(DLLIB): Makefile $(srcdir)/*.go
             cd $(srcdir); \
             CGO_CFLAGS='$(INCFLAGS)' CGO_LDFLAGS='#{ldflags}' \
               go build -p 4 -buildmode=c-shared -o #{current_dir}/$(DLLIB)
