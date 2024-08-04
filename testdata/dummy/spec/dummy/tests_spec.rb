@@ -14,7 +14,7 @@ RSpec.describe Dummy::Tests do
       actual = unit.increment
 
       expect(actual).to eq 2
-      expect(unit.source).to eq 2
+      expect(unit.ivar).to eq 2
     end
   end
 end

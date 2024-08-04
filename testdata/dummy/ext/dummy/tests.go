@@ -11,25 +11,25 @@ import (
 
 //export rb_dummy_tests_kilobyte
 func rb_dummy_tests_kilobyte(self C.VALUE) C.VALUE {
-	sourceID := ruby.RbIntern("@source")
-	sourceValue := ruby.RbIvarGet(ruby.VALUE(self), sourceID)
+	ivarID := ruby.RbIntern("@ivar")
+	ivarValue := ruby.RbIvarGet(ruby.VALUE(self), ivarID)
 
-	sourceInt := ruby.NUM2INT(sourceValue)
-	result := sourceInt * 1024
+	ivarInt := ruby.NUM2INT(ivarValue)
+	result := ivarInt * 1024
 
 	return C.VALUE(ruby.INT2NUM(result))
 }
 
 //export rb_dummy_tests_increment
 func rb_dummy_tests_increment(self C.VALUE) C.VALUE {
-	sourceID := ruby.RbIntern("@source")
-	sourceValue := ruby.RbIvarGet(ruby.VALUE(self), sourceID)
+	ivarID := ruby.RbIntern("@ivar")
+	ivarValue := ruby.RbIvarGet(ruby.VALUE(self), ivarID)
 
-	sourceInt := ruby.NUM2INT(sourceValue)
-	sourceInt++
+	ivarInt := ruby.NUM2INT(ivarValue)
+	ivarInt++
 
-	result := ruby.INT2NUM(sourceInt)
-	ruby.RbIvarSet(ruby.VALUE(self), sourceID, result)
+	result := ruby.INT2NUM(ivarInt)
+	ruby.RbIvarSet(ruby.VALUE(self), ivarID, result)
 
 	return C.VALUE(result)
 }

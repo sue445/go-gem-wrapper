@@ -3,11 +3,11 @@
 module Dummy
   # Class for implementing methods that calls a wrapper function that calls Ruby C methods
   class Tests
-    attr_accessor :source
+    attr_accessor :ivar
 
-    # @param source [Object]
-    def initialize(source = nil)
-      @source = source
+    # @param ivar [Object]
+    def initialize(ivar = nil)
+      @ivar = ivar
     end
   end
 end
