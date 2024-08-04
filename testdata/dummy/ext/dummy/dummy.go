@@ -67,7 +67,7 @@ func Init_dummy() {
 	ruby.RbDefineModuleUnder(rb_mDummy, "TestRbDefineModuleUnder")
 
 	// Create OuterClass class
-	ruby.RbDefineClass("OuterClass", ruby.VALUE(C.rb_cObject))
+	ruby.RbDefineClass("TestRbDefineClass", ruby.VALUE(C.rb_cObject))
 
 	defineMethodsToDummyTests(rb_mDummy)
 }
