@@ -13,8 +13,5 @@ module Dummy
   def self.max: (Integer, Integer) -> Integer
   def max: (Integer, Integer) -> Integer
 
-  module InnerModule
-  end
-
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
 end
