@@ -109,10 +109,7 @@ func Init_dummy() {
 	// Create OuterClass class
 	ruby.RbDefineClass("OuterClass", ruby.VALUE(C.rb_cObject))
 
-	// Dummy::Tests
-	rb_cTests := ruby.RbDefineClassUnder(rb_mDummy, "Tests", ruby.VALUE(C.rb_cObject))
-	ruby.RbDefineMethod(rb_cTests, "rb_ivar_get", C.rb_dummy_tests_rb_ivar_get, 0)
-	ruby.RbDefineMethod(rb_cTests, "rb_ivar_set", C.rb_dummy_tests_rb_ivar_set, 1)
+	defineMethodsToDummyTests(rb_mDummy)
 }
 
 func main() {
