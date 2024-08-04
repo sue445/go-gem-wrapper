@@ -84,11 +84,10 @@ func rb_dummy_max(_ C.VALUE, a C.VALUE, b C.VALUE) C.VALUE {
 	return C.VALUE(ruby.INT2NUM(bLong))
 }
 
-var rb_mDummy ruby.VALUE
-
 //export Init_dummy
 func Init_dummy() {
-	rb_mDummy = ruby.RbDefineModule("Dummy")
+	rb_mDummy := ruby.RbDefineModule("Dummy")
+
 	ruby.RbDefineSingletonMethod(rb_mDummy, "sum", C.rb_dummy_sum, 2)
 	ruby.RbDefineSingletonMethod(rb_mDummy, "with_block2", C.rb_dummy_with_block2, 1)
 	ruby.RbDefineSingletonMethod(rb_mDummy, "hello", C.rb_dummy_hello, 1)
