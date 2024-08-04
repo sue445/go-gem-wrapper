@@ -7,6 +7,7 @@ VALUE rb_dummy_tests_rb_ivar_get(VALUE self);
 void  rb_dummy_tests_rb_ivar_set(VALUE self, VALUE value);
 VALUE rb_dummy_tests_rb_yield(VALUE self, VALUE arg);
 VALUE rb_dummy_tests_rb_block_proc(VALUE self, VALUE arg);
+VALUE rb_dummy_tests_rb_funcall2(VALUE self, VALUE num, VALUE ndigits);
 */
 import "C"
 
@@ -52,6 +53,14 @@ func rb_dummy_tests_rb_block_proc(_ C.VALUE, arg C.VALUE) C.VALUE {
 	return C.VALUE(blockResult)
 }
 
+//export rb_dummy_tests_rb_funcall2
+func rb_dummy_tests_rb_funcall2(_ C.VALUE, num C.VALUE, ndigits C.VALUE) C.VALUE {
+	// Call Integer#round
+	result := ruby.RbFuncall2(ruby.VALUE(num), ruby.RbIntern("round"), 1, []ruby.VALUE{ruby.VALUE(ndigits)})
+
+	return C.VALUE(result)
+}
+
 // defineMethodsToDummyTests define methods in Dummy::Tests
 func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	rb_cTests := ruby.RbDefineClassUnder(rb_mDummy, "Tests", ruby.VALUE(C.rb_cObject))
@@ -61,4 +70,5 @@ func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_yield", C.rb_dummy_tests_rb_yield, 1)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_block_proc", C.rb_dummy_tests_rb_block_proc, 1)
+	ruby.RbDefineSingletonMethod(rb_cTests, "rb_funcall2", C.rb_dummy_tests_rb_funcall2, 2)
 }
