@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe Dummy::Tests do
-  describe "#kilobyte" do
+  describe "#rb_ivar_get" do
     it "works" do
-      unit = Dummy::Tests.new(2)
-      expect(unit.kilobyte).to eq 2048
+      t = Dummy::Tests.new(2)
+      expect(t.rb_ivar_get).to eq 2
     end
   end
 

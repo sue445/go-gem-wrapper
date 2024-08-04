@@ -12,7 +12,7 @@ VALUE rb_dummy_round_num3(VALUE self, VALUE num, VALUE ndigits);
 VALUE rb_dummy_to_string(VALUE self, VALUE source);
 VALUE rb_dummy_max(VALUE self, VALUE a, VALUE b);
 
-VALUE rb_dummy_tests_kilobyte(VALUE self);
+VALUE rb_dummy_tests_rb_ivar_get(VALUE self);
 VALUE rb_dummy_tests_increment(VALUE self);
 
 #endif /* DUMMY_H */

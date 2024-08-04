@@ -9,15 +9,12 @@ import (
 	"github.com/sue445/go-gem-wrapper"
 )
 
-//export rb_dummy_tests_kilobyte
-func rb_dummy_tests_kilobyte(self C.VALUE) C.VALUE {
+//export rb_dummy_tests_rb_ivar_get
+func rb_dummy_tests_rb_ivar_get(self C.VALUE) C.VALUE {
 	ivarID := ruby.RbIntern("@ivar")
 	ivarValue := ruby.RbIvarGet(ruby.VALUE(self), ivarID)
 
-	ivarInt := ruby.NUM2INT(ivarValue)
-	result := ivarInt * 1024
-
-	return C.VALUE(ruby.INT2NUM(result))
+	return C.VALUE(ivarValue)
 }
 
 //export rb_dummy_tests_increment

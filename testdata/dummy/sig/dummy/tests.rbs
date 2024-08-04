@@ -6,6 +6,6 @@ module Dummy
 
     def initialize: (?untyped ivar) -> void
 
-    def kilobyte: () -> Integer
+    def rb_ivar_get: () -> untyped
   end
 end
