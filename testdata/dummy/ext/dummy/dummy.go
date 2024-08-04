@@ -60,14 +60,14 @@ func Init_dummy() {
 	ruby.RbDefineSingletonMethod(rb_mDummy, "to_string", C.rb_dummy_to_string, 1)
 	ruby.RbDefineModuleFunction(rb_mDummy, "max", C.rb_dummy_max, 2)
 
-	// Create Dummy::InnerClass class
-	ruby.RbDefineClassUnder(rb_mDummy, "InnerClass", ruby.VALUE(C.rb_cObject))
+	// Create Dummy::TestRbDefineClassUnder class
+	ruby.RbDefineClassUnder(rb_mDummy, "TestRbDefineClassUnder", ruby.VALUE(C.rb_cObject))
 
-	// Create Dummy::InnerModule module
-	ruby.RbDefineModuleUnder(rb_mDummy, "InnerModule")
+	// Create Dummy::TestRbDefineModuleUnder module
+	ruby.RbDefineModuleUnder(rb_mDummy, "TestRbDefineModuleUnder")
 
 	// Create OuterClass class
-	ruby.RbDefineClass("OuterClass", ruby.VALUE(C.rb_cObject))
+	ruby.RbDefineClass("TestRbDefineClass", ruby.VALUE(C.rb_cObject))
 
 	defineMethodsToDummyTests(rb_mDummy)
 }
