@@ -8,8 +8,6 @@ module Dummy
 
   def self.hello: (String name) -> String
 
-  def self.round_num3: (Integer num, Integer ndigits) -> Integer
-
   def self.to_string: (untyped source) -> String
 
   def self.max: (Integer, Integer) -> Integer

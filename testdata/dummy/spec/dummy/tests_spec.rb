@@ -60,4 +60,11 @@ RSpec.describe Dummy::Tests do
       expect(actual).to eq 20
     end
   end
+
+  describe ".rb_funcall3" do
+    it "works" do
+      actual = Dummy::Tests.rb_funcall3(15, -1)
+      expect(actual).to eq 20
+    end
+  end
 end

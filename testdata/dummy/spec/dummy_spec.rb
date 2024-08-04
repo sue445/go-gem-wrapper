@@ -15,13 +15,6 @@ RSpec.describe Dummy do
     end
   end
 
-  describe ".round_num3" do
-    it "works" do
-      actual = Dummy.round_num3(15, -1)
-      expect(actual).to eq 20
-    end
-  end
-
   describe ".to_string" do
     it "works" do
       actual = Dummy.to_string(123)
