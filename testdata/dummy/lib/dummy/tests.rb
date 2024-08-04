@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module Dummy
-  class Tests # rubocop:disable Style/Documentation
+  # Class for implementing methods that calls a wrapper function that calls Ruby C methods
+  class Tests
     attr_accessor :source
 
     # @param source [Integer]
