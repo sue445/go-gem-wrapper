@@ -13,5 +13,6 @@ module Dummy
     def self.rb_block_proc: (untyped) { (untyped) -> untyped } -> untyped
     def self.rb_funcall2: (Integer num, Integer ndigits) -> Integer
     def self.rb_funcall3: (Integer num, Integer ndigits) -> Integer
+    def self.rb_alias: (string dst, string src) -> void
   end
 end
