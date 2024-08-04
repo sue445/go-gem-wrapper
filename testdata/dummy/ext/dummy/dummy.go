@@ -11,9 +11,6 @@ VALUE rb_dummy_round_num2(VALUE self, VALUE num, VALUE ndigits);
 VALUE rb_dummy_round_num3(VALUE self, VALUE num, VALUE ndigits);
 VALUE rb_dummy_to_string(VALUE self, VALUE source);
 VALUE rb_dummy_max(VALUE self, VALUE a, VALUE b);
-
-VALUE rb_dummy_tests_kilobyte(VALUE self);
-VALUE rb_dummy_tests_increment(VALUE self);
 */
 import "C"
 
@@ -96,31 +93,6 @@ func rb_dummy_max(_ C.VALUE, a C.VALUE, b C.VALUE) C.VALUE {
 	}
 
 	return C.VALUE(ruby.LONG2NUM(bLong))
-}
-
-//export rb_dummy_tests_kilobyte
-func rb_dummy_tests_kilobyte(self C.VALUE) C.VALUE {
-	sourceID := ruby.RbIntern("@source")
-	sourceValue := ruby.RbIvarGet(ruby.VALUE(self), sourceID)
-
-	sourceInt := ruby.NUM2INT(sourceValue)
-	result := sourceInt * 1024
-
-	return C.VALUE(ruby.INT2NUM(result))
-}
-
-//export rb_dummy_tests_increment
-func rb_dummy_tests_increment(self C.VALUE) C.VALUE {
-	sourceID := ruby.RbIntern("@source")
-	sourceValue := ruby.RbIvarGet(ruby.VALUE(self), sourceID)
-
-	sourceInt := ruby.NUM2INT(sourceValue)
-	sourceInt++
-
-	result := ruby.INT2NUM(sourceInt)
-	ruby.RbIvarSet(ruby.VALUE(self), sourceID, result)
-
-	return C.VALUE(result)
 }
 
 var rb_mDummy ruby.VALUE
