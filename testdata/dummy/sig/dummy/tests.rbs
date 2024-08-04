@@ -1,10 +1,10 @@
 module Dummy
   class Tests
-    @source: Integer
+    @source: untyped
 
-    attr_accessor source: Integer
+    attr_accessor source: untyped
 
-    def initialize: (Integer source) -> void
+    def initialize: (?untyped source) -> void
 
     def kilobyte: () -> Integer
   end

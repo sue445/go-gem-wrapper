@@ -5,8 +5,8 @@ module Dummy
   class Tests
     attr_accessor :source
 
-    # @param source [Integer]
-    def initialize(source)
+    # @param source [Object]
+    def initialize(source = nil)
       @source = source
     end
   end
