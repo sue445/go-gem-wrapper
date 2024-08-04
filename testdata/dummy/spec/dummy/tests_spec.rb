@@ -15,4 +15,23 @@ RSpec.describe Dummy::Tests do
       expect(t.ivar).to eq 10
     end
   end
+
+  describe ".rb_yield" do
+    context "with block" do
+      it "works" do
+        actual =
+          Dummy::Tests.rb_yield(2) do |a|
+            a * 3
+          end
+
+        expect(actual).to eq 6
+      end
+    end
+
+    context "without block" do
+      it "error" do
+        expect { Dummy::Tests.rb_yield(2) }.to raise_error ArgumentError
+      end
+    end
+  end
 end

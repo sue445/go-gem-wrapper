@@ -8,5 +8,7 @@ module Dummy
 
     def rb_ivar_get: () -> untyped
     def rb_ivar_set: (untyped ivar) -> void
+
+    def self.rb_yield: (untyped) { (untyped) -> untyped } -> untyped
   end
 end
