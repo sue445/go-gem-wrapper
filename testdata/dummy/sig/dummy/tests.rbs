@@ -1,0 +1,11 @@
+module Dummy
+  class Tests
+    @source: Integer
+
+    attr_accessor source: Integer
+
+    def initialize: (Integer source) -> void
+
+    def kilobyte: () -> Integer
+  end
+end
