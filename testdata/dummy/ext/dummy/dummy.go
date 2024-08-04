@@ -76,14 +76,14 @@ func rb_dummy_to_string(_ C.VALUE, source C.VALUE) C.VALUE {
 
 //export rb_dummy_max
 func rb_dummy_max(_ C.VALUE, a C.VALUE, b C.VALUE) C.VALUE {
-	aLong := ruby.NUM2LONG(ruby.VALUE(a))
-	bLong := ruby.NUM2LONG(ruby.VALUE(b))
+	aLong := ruby.NUM2INT(ruby.VALUE(a))
+	bLong := ruby.NUM2INT(ruby.VALUE(b))
 
 	if aLong > bLong {
-		return C.VALUE(ruby.LONG2NUM(aLong))
+		return C.VALUE(ruby.INT2NUM(aLong))
 	}
 
-	return C.VALUE(ruby.LONG2NUM(bLong))
+	return C.VALUE(ruby.INT2NUM(bLong))
 }
 
 var rb_mDummy ruby.VALUE
