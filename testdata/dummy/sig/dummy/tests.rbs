@@ -7,5 +7,6 @@ module Dummy
     def initialize: (?untyped ivar) -> void
 
     def rb_ivar_get: () -> untyped
+    def rb_ivar_set: (untyped ivar) -> void
   end
 end

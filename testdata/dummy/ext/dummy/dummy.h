@@ -13,6 +13,6 @@ VALUE rb_dummy_to_string(VALUE self, VALUE source);
 VALUE rb_dummy_max(VALUE self, VALUE a, VALUE b);
 
 VALUE rb_dummy_tests_rb_ivar_get(VALUE self);
-VALUE rb_dummy_tests_increment(VALUE self);
+void  rb_dummy_tests_rb_ivar_set(VALUE self, VALUE value);
 
 #endif /* DUMMY_H */

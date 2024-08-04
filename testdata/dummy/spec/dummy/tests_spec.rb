@@ -8,13 +8,11 @@ RSpec.describe Dummy::Tests do
     end
   end
 
-  describe "#increment" do
+  describe "#rb_ivar_set" do
     it "works" do
-      unit = Dummy::Tests.new(1)
-      actual = unit.increment
-
-      expect(actual).to eq 2
-      expect(unit.ivar).to eq 2
+      t = Dummy::Tests.new
+      t.rb_ivar_set(10)
+      expect(t.ivar).to eq 10
     end
   end
 end
