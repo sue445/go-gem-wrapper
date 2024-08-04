@@ -28,7 +28,7 @@ func rb_dummy_with_block2(_ C.VALUE, arg C.VALUE) C.VALUE {
 	block := ruby.RbBlockProc()
 
 	// Call Proc#call
-	blockResult := ruby.RbFuncall2(ruby.VALUE(block), ruby.RbIntern("call"), 0, []ruby.VALUE{})
+	blockResult := ruby.RbFuncall2(ruby.VALUE(block), ruby.RbIntern("call"), 1, []ruby.VALUE{ruby.VALUE(arg)})
 
 	return C.VALUE(blockResult)
 }
@@ -82,7 +82,7 @@ var rb_mDummy ruby.VALUE
 func Init_dummy() {
 	rb_mDummy = ruby.RbDefineModule("Dummy")
 	ruby.RbDefineSingletonMethod(rb_mDummy, "sum", C.rb_dummy_sum, 2)
-	ruby.RbDefineSingletonMethod(rb_mDummy, "with_block2", C.rb_dummy_with_block, 1)
+	ruby.RbDefineSingletonMethod(rb_mDummy, "with_block2", C.rb_dummy_with_block2, 1)
 	ruby.RbDefineSingletonMethod(rb_mDummy, "hello", C.rb_dummy_hello, 1)
 	ruby.RbDefineSingletonMethod(rb_mDummy, "round_num2", C.rb_dummy_round_num2, 2)
 	ruby.RbDefineSingletonMethod(rb_mDummy, "round_num3", C.rb_dummy_round_num3, 2)
