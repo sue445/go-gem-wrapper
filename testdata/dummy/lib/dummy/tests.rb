@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Dummy
-  class Unit # rubocop:disable Style/Documentation
+  class Tests # rubocop:disable Style/Documentation
     attr_accessor :source
 
     # @param source [Integer]

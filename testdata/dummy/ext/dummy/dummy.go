@@ -12,8 +12,8 @@ VALUE rb_dummy_round_num3(VALUE self, VALUE num, VALUE ndigits);
 VALUE rb_dummy_to_string(VALUE self, VALUE source);
 VALUE rb_dummy_max(VALUE self, VALUE a, VALUE b);
 
-VALUE rb_dummy_unit_kilobyte(VALUE self);
-VALUE rb_dummy_unit_increment(VALUE self);
+VALUE rb_dummy_tests_kilobyte(VALUE self);
+VALUE rb_dummy_tests_increment(VALUE self);
 */
 import "C"
 
@@ -98,8 +98,8 @@ func rb_dummy_max(_ C.VALUE, a C.VALUE, b C.VALUE) C.VALUE {
 	return C.VALUE(ruby.LONG2NUM(bLong))
 }
 
-//export rb_dummy_unit_kilobyte
-func rb_dummy_unit_kilobyte(self C.VALUE) C.VALUE {
+//export rb_dummy_tests_kilobyte
+func rb_dummy_tests_kilobyte(self C.VALUE) C.VALUE {
 	sourceID := ruby.RbIntern("@source")
 	sourceValue := ruby.RbIvarGet(ruby.VALUE(self), sourceID)
 
@@ -109,8 +109,8 @@ func rb_dummy_unit_kilobyte(self C.VALUE) C.VALUE {
 	return C.VALUE(ruby.INT2NUM(result))
 }
 
-//export rb_dummy_unit_increment
-func rb_dummy_unit_increment(self C.VALUE) C.VALUE {
+//export rb_dummy_tests_increment
+func rb_dummy_tests_increment(self C.VALUE) C.VALUE {
 	sourceID := ruby.RbIntern("@source")
 	sourceValue := ruby.RbIvarGet(ruby.VALUE(self), sourceID)
 
@@ -146,10 +146,10 @@ func Init_dummy() {
 	// Create OuterClass class
 	ruby.RbDefineClass("OuterClass", ruby.VALUE(C.rb_cObject))
 
-	// Dummy::Unit
-	rb_cUnit := ruby.RbDefineClassUnder(rb_mDummy, "Unit", ruby.VALUE(C.rb_cObject))
-	ruby.RbDefineMethod(rb_cUnit, "kilobyte", C.rb_dummy_unit_kilobyte, 0)
-	ruby.RbDefineMethod(rb_cUnit, "increment", C.rb_dummy_unit_increment, 0)
+	// Dummy::Tests
+	rb_cTests := ruby.RbDefineClassUnder(rb_mDummy, "Tests", ruby.VALUE(C.rb_cObject))
+	ruby.RbDefineMethod(rb_cTests, "kilobyte", C.rb_dummy_tests_kilobyte, 0)
+	ruby.RbDefineMethod(rb_cTests, "increment", C.rb_dummy_tests_increment, 0)
 }
 
 func main() {

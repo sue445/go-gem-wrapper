@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-RSpec.describe Dummy::Unit do
+RSpec.describe Dummy::Tests do
   describe "#kilobyte" do
     it "works" do
-      unit = Dummy::Unit.new(2)
+      unit = Dummy::Tests.new(2)
       expect(unit.kilobyte).to eq 2048
     end
   end
 
   describe "#increment" do
     it "works" do
-      unit = Dummy::Unit.new(1)
+      unit = Dummy::Tests.new(1)
       actual = unit.increment
 
       expect(actual).to eq 2

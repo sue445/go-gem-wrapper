@@ -25,7 +25,7 @@ module Dummy
   module InnerModule
   end
 
-  class Unit
+  class Tests
     @source: Integer
 
     attr_accessor source: Integer
