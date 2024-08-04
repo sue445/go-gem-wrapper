@@ -67,4 +67,12 @@ RSpec.describe Dummy::Tests do
       expect(actual).to eq 20
     end
   end
+
+  describe ".rb_alias" do
+    it "works" do
+      Dummy::Tests.rb_alias("rb_ivar_get_alias", "rb_ivar_get")
+      t = Dummy::Tests.new
+      expect(t).to be_respond_to :rb_ivar_get_alias
+    end
+  end
 end
