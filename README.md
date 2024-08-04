@@ -35,7 +35,7 @@ The following functions are currently supported.
 ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 
 * [ ] `rb_add_method`
-* [ ] `rb_alias`
+* [x] `rb_alias`
 * [ ] `rb_alias_variable`
 * [ ] `rb_any_to_s`
 * [ ] `rb_apply`
