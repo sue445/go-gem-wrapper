@@ -6,8 +6,6 @@ module Dummy
 
   def self.sum: (Integer a, Integer b) -> Integer
 
-  def self.with_block2: (untyped) { (untyped) -> untyped } -> untyped
-
   def self.hello: (String name) -> String
 
   def self.round_num2: (Integer num, Integer ndigits) -> Integer

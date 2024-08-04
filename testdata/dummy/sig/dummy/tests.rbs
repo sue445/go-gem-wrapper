@@ -10,5 +10,6 @@ module Dummy
     def rb_ivar_set: (untyped ivar) -> void
 
     def self.rb_yield: (untyped) { (untyped) -> untyped } -> untyped
+    def self.rb_block_proc: (untyped) { (untyped) -> untyped } -> untyped
   end
 end

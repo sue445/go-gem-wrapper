@@ -6,6 +6,7 @@ package main
 VALUE rb_dummy_tests_rb_ivar_get(VALUE self);
 void  rb_dummy_tests_rb_ivar_set(VALUE self, VALUE value);
 VALUE rb_dummy_tests_rb_yield(VALUE self, VALUE arg);
+VALUE rb_dummy_tests_rb_block_proc(VALUE self, VALUE arg);
 */
 import "C"
 
@@ -37,6 +38,20 @@ func rb_dummy_tests_rb_yield(_ C.VALUE, arg C.VALUE) C.VALUE {
 	return C.VALUE(blockResult)
 }
 
+//export rb_dummy_tests_rb_block_proc
+func rb_dummy_tests_rb_block_proc(_ C.VALUE, arg C.VALUE) C.VALUE {
+	if !ruby.RbBlockGivenP() {
+		ruby.RbRaise(ruby.VALUE(C.rb_eArgError), "Block not given")
+	}
+
+	block := ruby.RbBlockProc()
+
+	// Call Proc#call
+	blockResult := ruby.RbFuncall2(ruby.VALUE(block), ruby.RbIntern("call"), 1, []ruby.VALUE{ruby.VALUE(arg)})
+
+	return C.VALUE(blockResult)
+}
+
 // defineMethodsToDummyTests define methods in Dummy::Tests
 func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	rb_cTests := ruby.RbDefineClassUnder(rb_mDummy, "Tests", ruby.VALUE(C.rb_cObject))
@@ -45,4 +60,5 @@ func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	ruby.RbDefineMethod(rb_cTests, "rb_ivar_set", C.rb_dummy_tests_rb_ivar_set, 1)
 
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_yield", C.rb_dummy_tests_rb_yield, 1)
+	ruby.RbDefineSingletonMethod(rb_cTests, "rb_block_proc", C.rb_dummy_tests_rb_block_proc, 1)
 }

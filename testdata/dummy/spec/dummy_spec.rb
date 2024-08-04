@@ -8,25 +8,6 @@ RSpec.describe Dummy do
     end
   end
 
-  describe ".with_block2" do
-    context "with block" do
-      it "works" do
-        actual =
-          Dummy.with_block2(2) do |a|
-            a * 3
-          end
-
-        expect(actual).to eq 6
-      end
-    end
-
-    context "without block" do
-      it "error" do
-        expect { Dummy.with_block2(2) }.to raise_error ArgumentError
-      end
-    end
-  end
-
   describe ".hello" do
     it "works" do
       actual = Dummy.hello("sue445")

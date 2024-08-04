@@ -34,4 +34,23 @@ RSpec.describe Dummy::Tests do
       end
     end
   end
+
+  describe ".rb_block_proc" do
+    context "with block" do
+      it "works" do
+        actual =
+          Dummy::Tests.rb_block_proc(2) do |a|
+            a * 3
+          end
+
+        expect(actual).to eq 6
+      end
+    end
+
+    context "without block" do
+      it "error" do
+        expect { Dummy::Tests.rb_block_proc(2) }.to raise_error ArgumentError
+      end
+    end
+  end
 end
