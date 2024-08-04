@@ -6,13 +6,7 @@ module Dummy
 
   def self.sum: (Integer a, Integer b) -> Integer
 
-  def self.with_block: (untyped) { (untyped) -> untyped } -> untyped
-  def self.with_block2: (untyped) { (untyped) -> untyped } -> untyped
-
   def self.hello: (String name) -> String
-
-  def self.round_num2: (Integer num, Integer ndigits) -> Integer
-  def self.round_num3: (Integer num, Integer ndigits) -> Integer
 
   def self.to_string: (untyped source) -> String
 
@@ -23,16 +17,6 @@ module Dummy
   end
 
   module InnerModule
-  end
-
-  class Unit
-    @source: Integer
-
-    attr_accessor source: Integer
-
-    def initialize: (Integer source) -> void
-
-    def kilobyte: () -> Integer
   end
 
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
