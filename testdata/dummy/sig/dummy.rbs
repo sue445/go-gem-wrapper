@@ -13,9 +13,6 @@ module Dummy
   def self.max: (Integer, Integer) -> Integer
   def max: (Integer, Integer) -> Integer
 
-  class InnerClass
-  end
-
   module InnerModule
   end
 
