@@ -47,6 +47,16 @@ func string2Char(str string) (*C.char, func()) {
 	return cstr, clean
 }
 
+// Char2String convert from [*Char] to Go string
+func Char2String(char *Char) string {
+	return char2String((*C.char)(char))
+}
+
+// char2String convert from `*C.char` to Go string. (for internal use within package)
+func char2String(char *C.char) string {
+	return unsafe.String((*byte)(unsafe.Pointer(char)), C.strlen(char))
+}
+
 // Value2String convert from [VALUE] to Go string
 func Value2String(str VALUE) string {
 	return value2String(C.VALUE(str))
