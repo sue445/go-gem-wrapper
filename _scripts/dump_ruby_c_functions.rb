@@ -221,7 +221,7 @@ def ruby_c_type_to_go_type(typename)
   when "unsigned int", "unsigned long"
     return "uint"
   when "char*", "const char*"
-    return "string"
+    return "char2String"
   when "VALUE*"
     return "[]VALUE"
   when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
