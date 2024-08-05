@@ -81,4 +81,43 @@ RSpec.describe Dummy::Tests do
       expect(Dummy::Tests.rb_class2name).to eq "Dummy::Tests"
     end
   end
+
+  describe ".rb_attr" do
+    after do
+      Dummy::Tests.class_eval do
+        remove_method :ivar2 if method_defined?(:ivar2)
+        remove_method :ivar2= if method_defined?(:ivar2=)
+      end
+    end
+
+    context "when attr_reader" do
+      it "works" do
+        Dummy::Tests.rb_attr(1, 0, 0)
+
+        t = Dummy::Tests.new
+        expect(t).to be_respond_to :ivar2
+        expect(t).not_to be_respond_to :ivar2=
+      end
+    end
+
+    context "when attr_writer" do
+      it "works" do
+        Dummy::Tests.rb_attr(0, 1, 0)
+
+        t = Dummy::Tests.new
+        expect(t).not_to be_respond_to :ivar2
+        expect(t).to be_respond_to :ivar2=
+      end
+    end
+
+    context "when attr_accessor" do
+      it "works" do
+        Dummy::Tests.rb_attr(1, 1, 0)
+
+        t = Dummy::Tests.new
+        expect(t).to be_respond_to :ivar2
+        expect(t).to be_respond_to :ivar2=
+      end
+    end
+  end
 end

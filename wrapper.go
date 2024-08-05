@@ -112,3 +112,12 @@ func toCValueArray(values []VALUE) *C.VALUE {
 func CallFunction(receiver VALUE, methodName string, args ...VALUE) VALUE {
 	return RbFuncallv(receiver, RbIntern(methodName), len(args), args)
 }
+
+// Bool2Int covert from bool to int (0 or 1)
+func Bool2Int(b bool) int {
+	if b {
+		return 1
+	}
+
+	return 0
+}
