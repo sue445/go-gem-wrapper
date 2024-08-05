@@ -83,6 +83,13 @@ RSpec.describe Dummy::Tests do
   end
 
   describe ".rb_attr" do
+    after do
+      Dummy::Tests.class_eval do
+        remove_method :ivar2 if method_defined?(:ivar2)
+        remove_method :ivar2= if method_defined?(:ivar2=)
+      end
+    end
+
     context "when attr_reader" do
       it "works" do
         Dummy::Tests.rb_attr(1, 0, 0)
