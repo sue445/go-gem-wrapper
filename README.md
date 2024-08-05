@@ -57,7 +57,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_ary_to_s`
 * [ ] `rb_ary_unshift`
 * [ ] `rb_assoc_new`
-* [ ] `rb_attr`
+* [x] `rb_attr`
 * [ ] `rb_autoload`
 * [ ] `rb_autoload_defined`
 * [ ] `rb_autoload_id`
