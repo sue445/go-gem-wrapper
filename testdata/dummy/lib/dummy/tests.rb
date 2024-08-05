@@ -8,6 +8,7 @@ module Dummy
     # @param ivar [Object]
     def initialize(ivar = nil)
       @ivar = ivar
+      @ivar2 = nil
     end
   end
 end
