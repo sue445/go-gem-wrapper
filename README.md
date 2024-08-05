@@ -74,7 +74,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_callcc`
 * [ ] `rb_catch`
 * [ ] `rb_check_convert_type`
-* [ ] `rb_class2name`
+* [x] `rb_class2name`
 * [ ] `rb_class_allocate_instance`
 * [ ] `rb_class_boot`
 * [ ] `rb_class_inherited`

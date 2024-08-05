@@ -192,7 +192,7 @@ end
 # @param str [String]
 # @return [String]
 def snake_to_camel(str)
-  str.split("_").map(&:capitalize).join
+  str.split("_").map(&:capitalize).join.gsub(/(?<=\d)([a-z])/) { _1.upcase }
 end
 
 # Cast C type to cgo type. (Used in wrapper function)
@@ -221,7 +221,7 @@ def ruby_c_type_to_go_type(typename)
   when "unsigned int", "unsigned long"
     return "uint"
   when "char*", "const char*"
-    return "string"
+    return "char2String"
   when "VALUE*"
     return "[]VALUE"
   when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
