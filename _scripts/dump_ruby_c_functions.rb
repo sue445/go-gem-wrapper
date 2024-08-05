@@ -192,7 +192,7 @@ end
 # @param str [String]
 # @return [String]
 def snake_to_camel(str)
-  str.split("_").map(&:capitalize).join
+  str.split("_").map(&:capitalize).join.gsub(/(?<=\d)([a-z])/) { _1.upcase }
 end
 
 # Cast C type to cgo type. (Used in wrapper function)
