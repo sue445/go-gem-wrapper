@@ -2,12 +2,6 @@
 #
 # Usage:
 #   ruby_h2go.rb -H path/to/ruby/header/dir
-#
-# Requirements
-# * Go
-# * ctags
-#   * NOTE: `universal-ctags` is required when MacOS
-#   * c.f. https://formulae.brew.sh/formula/universal-ctags
 
 require "optparse"
 require "fileutils"
