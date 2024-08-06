@@ -10,9 +10,9 @@ To avoid this problem, we need to call the C function without variable-length ar
 See `RbRaise` implementation in [ruby-internal-error.go](ruby-internal-error.go) for details
 
 ### 1. Generate skeleton
-Run `ruby _tools/ruby_h2go/ruby_h2go.rb`
+Run `ruby _tools/ruby_h_to_go/ruby_h_to_go.rb`
 
-See [_tools/ruby_h2go/](_tools/ruby_h2go/)
+See [_tools/ruby_h_to_go/](_tools/ruby_h_to_go/)
 
 ### 2. Move function to top directory
 Modify some of the auto-generated functions and add them to the ruby package in the top directory
