@@ -10,7 +10,7 @@ Convert Ruby C function definition in `ruby.h` to Go source and dump to `dist/`.
 
 ## Usage
 ```bash
-ruby ruby_h2go.rb -H path/to/ruby/header/dir
+ruby ruby_h_to_go.rb -H path/to/ruby/header/dir
 ```
 
 * `-H` : path to ruby header dir. (default: `RbConfig::CONFIG["rubyhdrdir"]`)

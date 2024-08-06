@@ -1,7 +1,7 @@
 # Convert Ruby C function definition to Go source and dump to dist/
 #
 # Usage:
-#   ruby_h2go.rb -H path/to/ruby/header/dir
+#   ruby_h_to_go.rb -H path/to/ruby/header/dir
 
 require "optparse"
 require "fileutils"
