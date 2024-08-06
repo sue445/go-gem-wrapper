@@ -1,4 +1,4 @@
-# ruby_h2go
+# ruby_h_to_go
 Convert Ruby C function definition in `ruby.h` to Go source and dump to `dist/`.
 
 ## Requirements
