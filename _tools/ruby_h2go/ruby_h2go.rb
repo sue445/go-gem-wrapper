@@ -1,13 +1,7 @@
 # Convert Ruby C function definition to Go source and dump to dist/
 #
 # Usage:
-#   dump_ruby_c_functions.rb -H path/to/ruby/header/dir
-#
-# Requirements
-# * Go
-# * ctags
-#   * NOTE: `universal-ctags` is required when MacOS
-#   * c.f. https://formulae.brew.sh/formula/universal-ctags
+#   ruby_h2go.rb -H path/to/ruby/header/dir
 
 require "optparse"
 require "fileutils"
