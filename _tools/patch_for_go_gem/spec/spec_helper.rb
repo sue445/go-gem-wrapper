@@ -13,6 +13,12 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+require "tmpdir"
+require "serverspec"
+
+set :backend, :exec
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -95,4 +101,18 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  config.define_derived_metadata do |meta|
+    meta[:aggregate_failures] = true
+  end
+end
+
+# @return [Pathname]
+def spec_dir
+  __dir__
+end
+
+# @return [Pathname]
+def src_dir
+  File.expand_path(File.join(spec_dir, ".."))
 end

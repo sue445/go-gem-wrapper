@@ -3,4 +3,4 @@
 source "https://rubygems.org"
 
 gem "rspec"
-gem "rspec-temp_dir"
+gem "serverspec"
