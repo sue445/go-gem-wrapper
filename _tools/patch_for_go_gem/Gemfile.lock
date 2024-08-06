@@ -1,12 +1,30 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    diff-lcs (1.5.1)
+    rspec (3.13.0)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.0)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.1)
+    rspec-temp_dir (1.1.1)
+      rspec (>= 3.0)
 
 PLATFORMS
   arm64-darwin-23
   ruby
 
 DEPENDENCIES
+  rspec
+  rspec-temp_dir
 
 BUNDLED WITH
    2.5.11
