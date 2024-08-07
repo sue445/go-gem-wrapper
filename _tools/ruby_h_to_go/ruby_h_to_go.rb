@@ -130,14 +130,14 @@ def generate_go_file(definition:, header_dir:)
 
   go_function_name = snake_to_camel(definition[:function_name])
   go_function_args = definition[:args].map do |c_arg|
-    "#{c_arg[:name]} #{ruby_c_type_to_go_type(c_arg[:type])}"
+    "#{c_arg[:name]} #{ruby_c_type_to_go_type(c_arg[:type], type: :arg)}"
   end
 
   go_function_typeref =
     if definition[:typeref] == "void"
       ""
     else
-      ruby_c_type_to_go_type(definition[:typeref])
+      ruby_c_type_to_go_type(definition[:typeref], type: :return)
     end
 
   go_function_lines = [
@@ -210,15 +210,22 @@ def cast_to_cgo_type(typename)
   "C.#{typename}"
 end
 
-# Convert C type to Go type. (used in wrapper function args and return type)
+# Convert C type to Go type. (used in wrapper function args and return type etc)
 # @param typename [String]
+# @param type [Symbol,nil] :arg, :return
 # @return [String]
-def ruby_c_type_to_go_type(typename)
+def ruby_c_type_to_go_type(typename, type: nil)
   case typename
   when "unsigned int", "unsigned long"
     return "uint"
   when "char*", "const char*"
-    return "char2String"
+    case type
+    when :arg, :return
+      return "string"
+    else
+      return "char2String"
+    end
+
   when "VALUE*"
     return "[]VALUE"
   when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
