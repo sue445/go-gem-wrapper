@@ -11,7 +11,7 @@ VALUE rb_dummy_max(VALUE self, VALUE a, VALUE b);
 import "C"
 
 import (
-	"github.com/sue445/go-gem-wrapper"
+	ruby "github.com/sue445/go-gem-wrapper"
 )
 
 //export rb_dummy_sum
