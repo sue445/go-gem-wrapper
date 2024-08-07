@@ -13,8 +13,8 @@ import "C"
 //
 //	ID rb_intern(const char *name)
 func RbIntern(name string) ID {
-	charName, cleanCharName := string2Char(name)
-	defer cleanCharName()
+	char, clean := string2Char(name)
+	defer clean()
 
-	return ID(C.rb_intern(charName))
+	return ID(C.rb_intern(char))
 }
