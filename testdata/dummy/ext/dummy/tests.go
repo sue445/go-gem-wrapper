@@ -16,7 +16,7 @@ void  rb_dummy_tests_rb_attr(VALUE self, VALUE needReader, VALUE needWriter, VAL
 import "C"
 
 import (
-	"github.com/sue445/go-gem-wrapper"
+	ruby "github.com/sue445/go-gem-wrapper"
 )
 
 //export rb_dummy_tests_rb_ivar_get
