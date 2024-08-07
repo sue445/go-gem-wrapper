@@ -5,9 +5,15 @@ RSpec.describe "patch_for_go_gem.rb" do
     @temp_dir = Dir.mktmpdir
 
     Dir.chdir(@temp_dir) do
-      system "bundle gem #{gem_name} --ext=c", exception: true
-      system "ruby #{File.join(src_dir, "patch_for_go_gem.rb")}", exception: true
+      sh "bundle gem #{gem_name} --ext=c"
+      sh "ruby #{File.join(src_dir, "patch_for_go_gem.rb")} --file=#{File.join(gem_name, "#{gem_name}.gemspec")}"
     end
+  end
+
+  # @param command [String]
+  def sh(command)
+    puts "$ #{command}"
+    system command, exception: true
   end
 
   after(:all) do
