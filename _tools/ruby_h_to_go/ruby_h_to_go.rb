@@ -155,11 +155,14 @@ def generate_go_file(definition:, header_dir:)
   casted_go_args = []
   definition[:args].each do |c_arg|
     if c_arg[:type] == "char*"
-      go_function_lines << "#{c_arg[:name]}Char, #{c_arg[:name]}CharClean := string2Char(#{c_arg[:name]})"
-      go_function_lines << "defer #{c_arg[:name]}CharClean()"
+      char_var_name = "#{c_arg[:name]}Char"
+      clean_var_name = "#{c_arg[:name]}CharClean"
+
+      go_function_lines << "#{char_var_name}, #{clean_var_name} := string2Char(#{c_arg[:name]})"
+      go_function_lines << "defer #{clean_var_name}()"
       go_function_lines << ""
 
-      casted_go_args << "#{c_arg[:name]}Char"
+      casted_go_args << "#{char_var_name}"
     else
       casted_go_args << "#{cast_to_cgo_type(c_arg[:type])}(#{c_arg[:name]})"
     end
