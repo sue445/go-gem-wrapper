@@ -27,8 +27,8 @@ import (
 // [Go's format]: https://pkg.go.dev/fmt
 func RbRaise(exc VALUE, format string, a ...interface{}) {
 	str := fmt.Sprintf(format, a...)
-	strChar, strCharClean := string2Char(str)
-	defer strCharClean()
+	charStr, cleanCharStr := string2Char(str)
+	defer cleanCharStr()
 
-	C.__rb_raise(C.VALUE(exc), strChar)
+	C.__rb_raise(C.VALUE(exc), charStr)
 }
