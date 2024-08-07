@@ -88,10 +88,10 @@ func string2Value(str string) C.VALUE {
 		return rbUtf8StrNew(nil, C.long(0))
 	}
 
-	strChar, strCharClean := string2Char(str)
-	defer strCharClean()
+	char, clean := string2Char(str)
+	defer clean()
 
-	return rbUtf8StrNew(strChar, stringLen(str))
+	return rbUtf8StrNew(char, stringLen(str))
 }
 
 // toFunctionPointer returns a pointer to function.
