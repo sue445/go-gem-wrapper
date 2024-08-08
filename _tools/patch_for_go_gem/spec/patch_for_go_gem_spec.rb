@@ -7,6 +7,22 @@ RSpec.describe "patch_for_go_gem.rb" do
     Dir.chdir(@temp_dir) do
       sh "bundle gem #{gem_name} --ext=c"
       sh "ruby #{File.join(src_dir, "patch_for_go_gem.rb")} --file=#{File.join(gem_name, "#{gem_name}.gemspec")}"
+
+      if ENV["CI"]
+        [
+          "#{gem_name}.c",
+          "#{gem_name}.go",
+          "go.mod",
+          "extconf.rb",
+        ].each do |file_name|
+          file_path = File.join(gem_name, "ext", gem_name, file_name)
+          puts "----------------------------------------"
+          puts "#{file_path}"
+          puts "----------------------------------------"
+          puts File.read(file_path)
+          puts ""
+        end
+      end
     end
   end
 
