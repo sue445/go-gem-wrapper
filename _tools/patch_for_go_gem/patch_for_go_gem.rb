@@ -85,15 +85,7 @@ class GemPatcher
       }
     GO
 
-    if dry_run?
-      puts "[INFO] #{gem_name_go_path} well be created (dry-run)"
-    else
-      File.open(gem_name_go_path, "wb") do |f|
-        f.write(content)
-      end
-
-      puts "[INFO] #{gem_name_go_path} is created"
-    end
+    save_file(file_path: gem_name_go_path, content:)
   end
 
   def create_go_mod
@@ -112,15 +104,7 @@ class GemPatcher
       go #{go_version}
     GO
 
-    if dry_run?
-      puts "[INFO] #{go_mod_path} will be created (dry-run)"
-    else
-      File.open(go_mod_path, "wb") do |f|
-        f.write(content)
-      end
-
-      puts "[INFO] #{go_mod_path} is created"
-    end
+    save_file(file_path: go_mod_path, content:)
   end
 
   def update_gem_name_c
@@ -135,22 +119,13 @@ class GemPatcher
       #include "_cgo_export.h"
     C
 
-    if dry_run?
-      puts "[INFO] #{gem_name_c_path} will be updated (dry-run)"
-    else
-      File.open(gem_name_c_path, "wb") do |f|
-        f.write(content)
-      end
-
-      puts "[INFO] #{gem_name_c_path} is updated"
-    end
+    save_file(file_path: gem_name_c_path, content:)
   end
 
   def update_extconf_rb
     extconf_rb_path = File.join(ext_dir, "extconf.rb")
 
     content = File.read(extconf_rb_path)
-    before_content = content.dup
 
     unless content.include?(<<~RUBY)
         require "mkmf"
@@ -205,16 +180,36 @@ class GemPatcher
       RUBY
     end
 
-    return if content == before_content
+    save_file(file_path: extconf_rb_path, content:)
+  end
+
+  # @param file_path [String]
+  # @param content [String]
+  def save_file(file_path:, content:)
+    is_updated = File.exist?(file_path)
+    if is_updated
+      before_content = File.read(file_path)
+      return if content == before_content
+    end
 
     if dry_run?
-      puts "[INFO] #{extconf_rb_path} well be updated (dry-run)"
-    else
-      File.open(extconf_rb_path, "wb") do |f|
-        f.write(content)
+      if is_updated
+        puts "[INFO] #{file_path} will be updated (dry-run)"
+      else
+        puts "[INFO] #{file_path} will be created (dry-run)"
       end
 
-      puts "[INFO] #{extconf_rb_path} is updated"
+      return
+    end
+
+    File.open(file_path, "wb") do |f|
+      f.write(content)
+    end
+
+    if is_updated
+      puts "[INFO] #{file_path} is updated"
+    else
+      puts "[INFO] #{file_path} is created"
     end
   end
 end
