@@ -55,11 +55,34 @@ RSpec.describe "patch_for_go_gem.rb" do
   describe file(File.join(gem_name, "ext", gem_name, "#{gem_name}.go")) do
     it { should be_file }
     it { should exist }
+
+    let(:content) do
+      <<~GO
+        package main
+  
+        /*
+        #include "#{gem_name}.h"
+        */
+        import "C"
+  
+      GO
+    end
+
+    its(:content) { should be_start_with content }
   end
 
   describe file(File.join(gem_name, "ext", gem_name, "go.mod")) do
     it { should be_file }
     it { should exist }
+
+    let(:content) do
+      <<~GO
+        module github.com/username/#{gem_name}
+  
+      GO
+    end
+
+    its(:content) { should be_start_with content }
   end
 
   describe file(File.join(gem_name, "ext", gem_name, "extconf.rb")) do
