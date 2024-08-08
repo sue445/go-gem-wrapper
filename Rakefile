@@ -41,6 +41,9 @@ namespace :go do
 
   desc "Run golangci-lint"
   task :lint do
+    sh "which golangci-lint" do |ok, _|
+      raise "golangci-lint isn't installed. See. https://golangci-lint.run/welcome/install/" unless ok
+    end
     sh env_vars, "golangci-lint run"
   end
 end
