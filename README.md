@@ -1,11 +1,31 @@
 # [WIP] go-gem-wrapper
 `go-gem-wrapper` is a wrapper for creating Ruby native extension in [Go](https://go.dev/)
 
+> [!WARNING]
+> This repository is currently under development.
+> Don't use in production.
+
 [![build](https://github.com/sue445/go-gem-wrapper/actions/workflows/build.yml/badge.svg)](https://github.com/sue445/go-gem-wrapper/actions/workflows/build.yml)
 
 ## Requirements
 * Go
 * Ruby
+
+## Getting started
+At first, patch to make a gem into a Go gem right after `bundle gem`
+
+See [_tools/patch_for_go_gem/](_tools/patch_for_go_gem/)
+
+Please also add the following depending on the CI you are using.
+
+### GitHub Actions
+e.g.
+
+```yml
+- uses: actions/setup-go@v5
+  with:
+    go-version-file: ext/GEM_NAME/go.mod
+```
 
 ## Developing
 ### Build
