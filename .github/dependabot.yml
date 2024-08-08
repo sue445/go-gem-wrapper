@@ -39,3 +39,14 @@ updates:
       - dependencies
       - go
       - dummy
+
+  - package-ecosystem: bundler
+    directory: "/_tools/patch_for_go_gem/"
+    schedule:
+      interval: daily
+      time: "05:00"
+      timezone: Asia/Tokyo
+    open-pull-requests-limit: 99
+    assignees:
+      - sue445
+    versioning-strategy: lockfile-only

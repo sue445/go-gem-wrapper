@@ -48,6 +48,17 @@ namespace :go do
   end
 end
 
+namespace :patch_for_go_gem do
+  desc "Run _tools/patch_for_go_gem test"
+  task :test do
+    Dir.chdir(File.join(__dir__, "_tools", "patch_for_go_gem")) do
+      sh "bundle config set --local path 'vendor/bundle'"
+      sh "bundle install"
+      sh "bundle exec rspec"
+    end
+  end
+end
+
 desc "Create and push tag"
 task :tag do
   version = File.read("VERSION")

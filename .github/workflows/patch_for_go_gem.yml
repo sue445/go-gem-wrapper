@@ -1,0 +1,69 @@
+name: _tools/patch_for_go_gem
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+defaults:
+  run:
+    working-directory: _tools/patch_for_go_gem/
+
+jobs:
+  test:
+    name: "test (Go ${{ matrix.golang }}, Ruby ${{ matrix.ruby }})"
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        golang:
+          - "1.22"
+        ruby:
+          - "3.3"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.golang }}
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+          working-directory: _tools/patch_for_go_gem/
+
+      - run: bundle exec rspec
+
+      - name: Slack Notification (not success)
+        uses: act10ns/slack@v2
+        if: "! success()"
+        continue-on-error: true
+        with:
+          status: ${{ job.status }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          matrix: ${{ toJson(matrix) }}
+
+  notify:
+    needs:
+      - test
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Slack Notification (success)
+        uses: act10ns/slack@v2
+        if: always()
+        continue-on-error: true
+        with:
+          status: ${{ job.status }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
