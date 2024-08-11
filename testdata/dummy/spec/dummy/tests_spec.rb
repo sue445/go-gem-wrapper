@@ -69,6 +69,12 @@ RSpec.describe Dummy::Tests do
   end
 
   describe ".rb_alias" do
+    after do
+      Dummy::Tests.class_eval do
+        remove_method :rb_ivar_get_alias if method_defined?(:rb_ivar_get_alias)
+      end
+    end
+
     it "works" do
       Dummy::Tests.rb_alias("rb_ivar_get_alias", "rb_ivar_get")
       t = Dummy::Tests.new
