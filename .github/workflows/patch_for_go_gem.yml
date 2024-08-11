@@ -9,6 +9,9 @@ on:
       - opened
       - synchronize
       - reopened
+    paths:
+      - ".github/workflows/patch_for_go_gem.yml"
+      - "_tools/patch_for_go_gem/**"
 
 defaults:
   run:
