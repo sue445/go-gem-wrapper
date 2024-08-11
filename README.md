@@ -54,6 +54,8 @@ The following functions are currently supported.
 
 ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 
+* [x] `Qtrue`
+* [x] `Qfalse`
 * [ ] `rb_add_method`
 * [x] `rb_alias`
 * [ ] `rb_alias_variable`
@@ -203,7 +205,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_f_throw`
 * [ ] `rb_f_trace_var`
 * [ ] `rb_f_untrace_var`
-* [ ] `rb_false`
+* ~~[ ] `rb_false`~~ Use `ruby.Qfalse()`
 * [ ] `rb_fatal`
 * [ ] `rb_feature_p`
 * [ ] `rb_fix_new`
@@ -470,7 +472,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_to_integer`
 * [ ] `rb_trace_eval`
 * [ ] `rb_trap_eval`
-* [ ] `rb_true`
+* ~~[ ] `rb_true`~~ Use `ruby.Qtrue()`
 * [ ] `rb_uint_new`
 * [ ] `rb_undef`
 * [ ] `rb_undef_method`
