@@ -16,6 +16,20 @@ func RbAryNew() VALUE {
 	return VALUE(C.rb_ary_new())
 }
 
+// RbAryNewCapa calls `rb_ary_new_capa` in C
+//
+// Original definition is following
+//
+//	VALUE rb_ary_new_capa(long capa)
+func RbAryNewCapa(capa int64) VALUE {
+	return VALUE(C.rb_ary_new_capa(C.long(capa)))
+}
+
+// RbAryNew2 is alias to [RbAryNewCapa]
+func RbAryNew2(capa int64) VALUE {
+	return RbAryNewCapa(capa)
+}
+
 // RbAryPush calls `rb_ary_push` in C
 //
 // Original definition is following

@@ -127,8 +127,9 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_ary_entry`
 * [ ] `rb_ary_includes`
 * [x] `rb_ary_new`
-* [ ] `rb_ary_new2`
+* [x] `rb_ary_new2`
 * [ ] `rb_ary_new3`
+* [x] `rb_ary_new_capa`
 * [ ] `rb_ary_pop`
 * [x] `rb_ary_push`
 * [ ] `rb_ary_shift`
