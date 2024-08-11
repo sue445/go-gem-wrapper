@@ -22,6 +22,5 @@ func RbYield(val VALUE) VALUE {
 //
 //	int rb_block_given_p(void)
 func RbBlockGivenP() bool {
-	ret := C.rb_block_given_p()
-	return ret != 0
+	return int2Bool(C.rb_block_given_p())
 }
