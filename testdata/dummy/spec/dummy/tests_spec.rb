@@ -144,4 +144,18 @@ RSpec.describe Dummy::Tests do
       expect(Dummy::Tests::CONST).to eq "NEW"
     end
   end
+
+  describe ".rb_const_defined" do
+    context "const is defined" do
+      it "works" do
+        expect(Dummy::Tests.rb_const_defined("CONST")).to eq true
+      end
+    end
+
+    context "const isn't defined" do
+      it "works" do
+        expect(Dummy::Tests.rb_const_defined("THIS_IS_NOT_DEFINED")).to eq false
+      end
+    end
+  end
 end
