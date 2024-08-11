@@ -182,4 +182,10 @@ RSpec.describe Dummy::Tests do
       end
     end
   end
+
+  describe ".rb_eval_string" do
+    it "works" do
+      expect(Dummy::Tests.rb_eval_string("1 + 2")).to eq 3
+    end
+  end
 end

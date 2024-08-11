@@ -34,3 +34,15 @@ func RbFuncallvPublic(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
 func RbFuncall3(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
 	return RbFuncallvPublic(recv, mid, argc, argv)
 }
+
+// RbEvalString calls `rb_eval_string` in C
+//
+// Original definition is following
+//
+//	VALUE rb_eval_string(const char *str)
+func RbEvalString(str string) VALUE {
+	char, clean := string2Char(str)
+	defer clean()
+
+	return VALUE(C.rb_eval_string(char))
+}
