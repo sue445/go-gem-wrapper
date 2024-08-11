@@ -130,7 +130,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_ary_new2`
 * [ ] `rb_ary_new3`
 * [ ] `rb_ary_pop`
-* [ ] `rb_ary_push`
+* [x] `rb_ary_push`
 * [ ] `rb_ary_shift`
 * [ ] `rb_ary_sort`
 * [ ] `rb_ary_store`
