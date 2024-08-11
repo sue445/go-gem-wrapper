@@ -122,7 +122,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [x] `rb_const_get`
 * [ ] `rb_const_get_at`
 * [ ] `rb_const_list`
-* [ ] `rb_const_set`
+* [x] `rb_const_set`
 * [ ] `rb_cont_call`
 * [ ] `rb_convert_type`
 * [ ] `rb_copy_generic_ivar`

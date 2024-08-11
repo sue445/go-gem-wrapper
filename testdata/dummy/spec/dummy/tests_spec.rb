@@ -132,4 +132,16 @@ RSpec.describe Dummy::Tests do
       expect(Dummy::Tests.rb_const_get("CONST")).to eq "TEST"
     end
   end
+
+  describe ".rb_const_set" do
+    after do
+      Dummy::Tests::CONST = "TEST"
+    end
+
+    it "works" do
+      Dummy::Tests.rb_const_set("CONST", "NEW")
+
+      expect(Dummy::Tests::CONST).to eq "NEW"
+    end
+  end
 end

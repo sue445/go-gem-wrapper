@@ -33,3 +33,12 @@ func RbIvarSet(obj VALUE, name ID, val VALUE) VALUE {
 func RbConstGet(space VALUE, name ID) VALUE {
 	return VALUE(C.rb_const_get(C.VALUE(space), C.ID(name)))
 }
+
+// RbConstSet calls `rb_const_set` in C
+//
+// Original definition is following
+//
+//	void rb_const_set(VALUE space, ID name, VALUE val)
+func RbConstSet(space VALUE, name ID, val VALUE) {
+	C.rb_const_set(C.VALUE(space), C.ID(name), C.VALUE(val))
+}
