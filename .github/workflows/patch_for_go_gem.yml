@@ -1,4 +1,4 @@
-name: _tools/patch_for_go_gem
+name: patch_for_go_gem
 
 on:
   push:
