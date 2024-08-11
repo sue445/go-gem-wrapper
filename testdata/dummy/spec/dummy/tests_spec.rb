@@ -135,11 +135,15 @@ RSpec.describe Dummy::Tests do
 
   describe ".rb_const_set" do
     after do
-      Dummy::Tests::CONST = "TEST"
+      silence_warning do
+        Dummy::Tests::CONST = "TEST"
+      end
     end
 
     it "works" do
-      Dummy::Tests.rb_const_set("CONST", "NEW")
+      silence_warning do
+        Dummy::Tests.rb_const_set("CONST", "NEW")
+      end
 
       expect(Dummy::Tests::CONST).to eq "NEW"
     end
