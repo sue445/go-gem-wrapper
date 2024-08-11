@@ -209,4 +209,11 @@ RSpec.describe Dummy::Tests do
       expect(Dummy::Tests.rb_ary_new_capa(1)).to eq []
     end
   end
+
+  describe ".rb_ary_push" do
+    it "works" do
+      ret = Dummy::Tests.rb_ary_push([1], 2)
+      expect(ret).to eq [1, 2]
+    end
+  end
 end
