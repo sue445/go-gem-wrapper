@@ -25,5 +25,6 @@ module Dummy
     def self.rb_const_defined: (string name) -> bool
     def self.rb_const_defined_at: (string name) -> bool
     def self.rb_eval_string: (string str) -> untyped
+    def self.rb_eval_string_protect: (string str) -> [untyped, Integer]
   end
 end
