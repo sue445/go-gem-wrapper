@@ -5,6 +5,10 @@ package ruby
 */
 import "C"
 
+import (
+	"unsafe"
+)
+
 // c.f. https://github.com/ruby/ruby/blob/master/include/ruby/internal/eval.h
 
 // RbFuncallv calls `rb_funcallv` in C
@@ -45,4 +49,20 @@ func RbEvalString(str string) VALUE {
 	defer clean()
 
 	return VALUE(C.rb_eval_string(char))
+}
+
+// RbEvalStringProtect calls `rb_eval_string_protect` in C
+//
+// Original definition is following
+//
+//	VALUE rb_eval_string_protect(const char *str, int *state)
+func RbEvalStringProtect(str string, state *Int) VALUE {
+	char, clean := string2Char(str)
+	defer clean()
+
+	var cState C.int
+	ret := C.rb_eval_string_protect(char, (*C.int)(unsafe.Pointer(&cState)))
+	*state = Int(cState)
+
+	return VALUE(ret)
 }

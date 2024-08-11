@@ -18,6 +18,10 @@ void  rb_dummy_tests_rb_const_set(VALUE self, VALUE name, VALUE val);
 VALUE rb_dummy_tests_rb_const_defined(VALUE self, VALUE name);
 VALUE rb_dummy_tests_rb_const_defined_at(VALUE self, VALUE name);
 VALUE rb_dummy_tests_rb_eval_string(VALUE self, VALUE str);
+VALUE rb_dummy_tests_rb_eval_string_protect(VALUE self, VALUE str);
+VALUE rb_dummy_tests_rb_ary_new(VALUE self);
+VALUE rb_dummy_tests_rb_ary_new_capa(VALUE self, VALUE capa);
+VALUE rb_dummy_tests_rb_ary_push(VALUE self, VALUE ary, VALUE elem);
 */
 import "C"
 
@@ -163,6 +167,41 @@ func rb_dummy_tests_rb_eval_string(_ C.VALUE, str C.VALUE) C.VALUE {
 	return C.VALUE(ret)
 }
 
+//export rb_dummy_tests_rb_eval_string_protect
+func rb_dummy_tests_rb_eval_string_protect(_ C.VALUE, str C.VALUE) C.VALUE {
+	goStr := ruby.Value2String(ruby.VALUE(str))
+
+	var state ruby.Int
+	ret := ruby.RbEvalStringProtect(goStr, &state)
+
+	slice := []ruby.VALUE{ret, ruby.INT2NUM(state)}
+	ary := ruby.Slice2rbAry(slice)
+
+	return C.VALUE(ary)
+}
+
+//export rb_dummy_tests_rb_ary_new
+func rb_dummy_tests_rb_ary_new(_ C.VALUE) C.VALUE {
+	ret := ruby.RbAryNew()
+
+	return C.VALUE(ret)
+}
+
+//export rb_dummy_tests_rb_ary_new_capa
+func rb_dummy_tests_rb_ary_new_capa(_ C.VALUE, capa C.VALUE) C.VALUE {
+	longCapa := ruby.NUM2LONG(ruby.VALUE(capa))
+	ret := ruby.RbAryNewCapa(int64(longCapa))
+
+	return C.VALUE(ret)
+}
+
+//export rb_dummy_tests_rb_ary_push
+func rb_dummy_tests_rb_ary_push(_ C.VALUE, ary C.VALUE, elem C.VALUE) C.VALUE {
+	ret := ruby.RbAryPush(ruby.VALUE(ary), ruby.VALUE(elem))
+
+	return C.VALUE(ret)
+}
+
 // defineMethodsToDummyTests define methods in Dummy::Tests
 func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	rb_cTests := ruby.RbDefineClassUnder(rb_mDummy, "Tests", ruby.VALUE(C.rb_cObject))
@@ -183,4 +222,8 @@ func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_const_defined", C.rb_dummy_tests_rb_const_defined, 1)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_const_defined_at", C.rb_dummy_tests_rb_const_defined_at, 1)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_eval_string", C.rb_dummy_tests_rb_eval_string, 1)
+	ruby.RbDefineSingletonMethod(rb_cTests, "rb_eval_string_protect", C.rb_dummy_tests_rb_eval_string_protect, 1)
+	ruby.RbDefineSingletonMethod(rb_cTests, "rb_ary_new", C.rb_dummy_tests_rb_ary_new, 0)
+	ruby.RbDefineSingletonMethod(rb_cTests, "rb_ary_new_capa", C.rb_dummy_tests_rb_ary_new_capa, 1)
+	ruby.RbDefineSingletonMethod(rb_cTests, "rb_ary_push", C.rb_dummy_tests_rb_ary_push, 2)
 }

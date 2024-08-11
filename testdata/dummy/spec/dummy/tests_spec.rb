@@ -188,4 +188,32 @@ RSpec.describe Dummy::Tests do
       expect(Dummy::Tests.rb_eval_string("1 + 2")).to eq 3
     end
   end
+
+  describe ".rb_eval_string_protect" do
+    it "works" do
+      ret, state = Dummy::Tests.rb_eval_string_protect("1 + 2")
+
+      expect(ret).to eq 3
+      expect(state).to eq 0
+    end
+  end
+
+  describe ".rb_ary_new" do
+    it "works" do
+      expect(Dummy::Tests.rb_ary_new).to eq []
+    end
+  end
+
+  describe ".rb_ary_new_capa" do
+    it "works" do
+      expect(Dummy::Tests.rb_ary_new_capa(1)).to eq []
+    end
+  end
+
+  describe ".rb_ary_push" do
+    it "works" do
+      ret = Dummy::Tests.rb_ary_push([1], 2)
+      expect(ret).to eq [1, 2]
+    end
+  end
 end
