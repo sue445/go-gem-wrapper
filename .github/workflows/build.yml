@@ -9,6 +9,9 @@ on:
       - opened
       - synchronize
       - reopened
+    paths-ignore:
+      - ".github/workflows/patch_for_go_gem.yml"
+      - "_tools/**"
 
 env:
   TEST_ARGS: -coverprofile coverage.out -covermode atomic
