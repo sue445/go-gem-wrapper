@@ -126,4 +126,10 @@ RSpec.describe Dummy::Tests do
       end
     end
   end
+
+  describe ".rb_const_get" do
+    it "works" do
+      expect(Dummy::Tests.rb_const_get("CONST")).to eq "TEST"
+    end
+  end
 end

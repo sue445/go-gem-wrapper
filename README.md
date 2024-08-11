@@ -119,7 +119,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_const_assign`
 * [ ] `rb_const_defined`
 * [ ] `rb_const_defined_at`
-* [ ] `rb_const_get`
+* [x] `rb_const_get`
 * [ ] `rb_const_get_at`
 * [ ] `rb_const_list`
 * [ ] `rb_const_set`
