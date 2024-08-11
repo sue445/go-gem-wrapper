@@ -27,6 +27,64 @@ e.g.
     go-version-file: ext/GEM_NAME/go.mod
 ```
 
+## Implementing Ruby methods in Go
+For example, consider the following Ruby method implemented in Go
+
+```ruby
+module Dummy
+  def self.sum(a, b)
+    a + b
+  end
+end
+```
+
+### 1. Implementing function in Go
+```go
+// ext/GEM_NAME/GEM_NAME.go
+
+//export rb_dummy_sum
+func rb_dummy_sum(_ C.VALUE, a C.VALUE, b C.VALUE) C.VALUE {
+	aLong := ruby.NUM2LONG(ruby.VALUE(a))
+	bLong := ruby.NUM2LONG(ruby.VALUE(b))
+
+	sum := aLong + bLong
+
+	return C.VALUE(ruby.LONG2NUM(sum))
+}
+```
+
+### 2. Write C function definitions for Go functions
+```go
+// ext/GEM_NAME/GEM_NAME.go
+
+/*
+#include "dummy.h"
+
+// TODO: Append this
+VALUE rb_dummy_sum(VALUE self, VALUE a, VALUE b);
+*/
+import "C"
+```
+
+### 3. Call exported C functions with the Init function
+```go
+// ext/GEM_NAME/GEM_NAME.go
+
+//export Init_dummy
+func Init_dummy() {
+	rb_mDummy := ruby.RbDefineModule("Dummy")
+
+	// TODO: Append this
+	ruby.RbDefineSingletonMethod(rb_mDummy, "sum", C.rb_dummy_sum, 2)
+}
+```
+
+### More examples
+See also
+
+* [testdata/dummy/ext/dummy/dummy.go](testdata/dummy/ext/dummy/dummy.go)
+* [testdata/dummy/ext/dummy/tests.go](testdata/dummy/ext/dummy/tests.go)
+
 ## Developing
 ### Build
 Run `rake ruby:build_dummy`. (`bundle exec` is not required)
