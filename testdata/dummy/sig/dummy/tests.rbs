@@ -20,6 +20,7 @@ module Dummy
     def self.rb_class2name: () -> string
     def self.rb_attr: (string name, Integer need_reader, Integer need_writer, Integer honour_visibility) -> void
     def self.rb_const_get: (string name) -> untyped
+    def self.rb_const_get_at: (string name) -> untyped
     def self.rb_const_set: (string name, untyped val) -> void
     def self.rb_const_defined: (string name) -> bool
   end

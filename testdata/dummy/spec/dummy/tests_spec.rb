@@ -133,6 +133,12 @@ RSpec.describe Dummy::Tests do
     end
   end
 
+  describe ".rb_const_get_at" do
+    it "works" do
+      expect(Dummy::Tests.rb_const_get_at("CONST")).to eq "TEST"
+    end
+  end
+
   describe ".rb_const_set" do
     after do
       silence_warning do

@@ -34,6 +34,15 @@ func RbConstGet(space VALUE, name ID) VALUE {
 	return VALUE(C.rb_const_get(C.VALUE(space), C.ID(name)))
 }
 
+// RbConstGetAt calls `rb_const_get_at` in C
+//
+// Original definition is following
+//
+//	VALUE rb_const_get_at(VALUE space, ID name)
+func RbConstGetAt(space VALUE, name ID) VALUE {
+	return VALUE(C.rb_const_get_at(C.VALUE(space), C.ID(name)))
+}
+
 // RbConstSet calls `rb_const_set` in C
 //
 // Original definition is following
