@@ -200,7 +200,7 @@ RSpec.describe Dummy::Tests do
 
   describe ".rb_ary_new" do
     it "works" do
-      expect(Dummy::Tests.rb_ary_new()).to eq []
+      expect(Dummy::Tests.rb_ary_new).to eq []
     end
   end
 
