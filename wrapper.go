@@ -121,3 +121,13 @@ func Bool2Int(b bool) int {
 
 	return 0
 }
+
+// Int2Bool convert from int (0 or 1) to bool
+func Int2Bool(i Int) bool {
+	return int2Bool(C.int(i))
+}
+
+// int2Bool convert from int (0 or 1) to bool. (for internal use within package)
+func int2Bool(i C.int) bool {
+	return i != 0
+}

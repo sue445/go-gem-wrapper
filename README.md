@@ -117,7 +117,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_compile_file`
 * [ ] `rb_compile_string`
 * [ ] `rb_const_assign`
-* [ ] `rb_const_defined`
+* [x] `rb_const_defined`
 * [ ] `rb_const_defined_at`
 * [x] `rb_const_get`
 * [ ] `rb_const_get_at`
