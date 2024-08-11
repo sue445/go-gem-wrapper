@@ -26,5 +26,7 @@ module Dummy
     def self.rb_const_defined_at: (string name) -> bool
     def self.rb_eval_string: (string str) -> untyped
     def self.rb_eval_string_protect: (string str) -> [untyped, Integer]
+    def self.rb_ary_new: () -> []
+    def self.rb_ary_new_capa: (Integer capa) -> []
   end
 end

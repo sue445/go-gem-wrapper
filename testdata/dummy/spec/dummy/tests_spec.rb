@@ -197,4 +197,16 @@ RSpec.describe Dummy::Tests do
       expect(state).to eq 0
     end
   end
+
+  describe ".rb_ary_new" do
+    it "works" do
+      expect(Dummy::Tests.rb_ary_new()).to eq []
+    end
+  end
+
+  describe ".rb_ary_new_capa" do
+    it "works" do
+      expect(Dummy::Tests.rb_ary_new_capa(1)).to eq []
+    end
+  end
 end
