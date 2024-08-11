@@ -12,6 +12,7 @@ VALUE rb_dummy_tests_rb_funcall3(VALUE self, VALUE num, VALUE ndigits);
 void  rb_dummy_tests_rb_alias(VALUE self, VALUE dst, VALUE src);
 VALUE rb_dummy_tests_rb_class2name(VALUE self);
 void  rb_dummy_tests_rb_attr(VALUE self, VALUE needReader, VALUE needWriter, VALUE honourVisibility);
+VALUE rb_dummy_tests_rb_const_get(VALUE self, VALUE name);
 */
 import "C"
 
@@ -100,6 +101,13 @@ func rb_dummy_tests_rb_attr(klass C.VALUE, needReader C.VALUE, needWriter C.VALU
 	ruby.RbAttr(ruby.VALUE(klass), ruby.RbIntern("ivar2"), intNeedReader != 0, intNeedWriter != 0, intHonourVisibility != 0)
 }
 
+//export rb_dummy_tests_rb_const_get
+func rb_dummy_tests_rb_const_get(klass C.VALUE, name C.VALUE) C.VALUE {
+	constName := ruby.Value2String(ruby.VALUE(name))
+	constID := ruby.RbIntern(constName)
+	return C.VALUE(ruby.RbConstGet(ruby.VALUE(klass), constID))
+}
+
 // defineMethodsToDummyTests define methods in Dummy::Tests
 func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	rb_cTests := ruby.RbDefineClassUnder(rb_mDummy, "Tests", ruby.VALUE(C.rb_cObject))
@@ -114,4 +122,5 @@ func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_alias", C.rb_dummy_tests_rb_alias, 2)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_class2name", C.rb_dummy_tests_rb_class2name, 0)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_attr", C.rb_dummy_tests_rb_attr, 3)
+	ruby.RbDefineSingletonMethod(rb_cTests, "rb_const_get", C.rb_dummy_tests_rb_const_get, 1)
 }
