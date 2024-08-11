@@ -168,4 +168,18 @@ RSpec.describe Dummy::Tests do
       end
     end
   end
+
+  describe ".rb_const_defined_at" do
+    context "const is defined" do
+      it "works" do
+        expect(Dummy::Tests.rb_const_defined_at("CONST")).to eq true
+      end
+    end
+
+    context "const isn't defined" do
+      it "works" do
+        expect(Dummy::Tests.rb_const_defined_at("THIS_IS_NOT_DEFINED")).to eq false
+      end
+    end
+  end
 end
