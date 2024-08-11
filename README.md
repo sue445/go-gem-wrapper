@@ -126,7 +126,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_ary_delete`
 * [ ] `rb_ary_entry`
 * [ ] `rb_ary_includes`
-* [ ] `rb_ary_new`
+* [x] `rb_ary_new`
 * [ ] `rb_ary_new2`
 * [ ] `rb_ary_new3`
 * [ ] `rb_ary_pop`
