@@ -13,6 +13,7 @@ void  rb_dummy_tests_rb_alias(VALUE self, VALUE dst, VALUE src);
 VALUE rb_dummy_tests_rb_class2name(VALUE self);
 void  rb_dummy_tests_rb_attr(VALUE self, VALUE name, VALUE needReader, VALUE needWriter, VALUE honourVisibility);
 VALUE rb_dummy_tests_rb_const_get(VALUE self, VALUE name);
+VALUE rb_dummy_tests_rb_const_get_at(VALUE self, VALUE name);
 void  rb_dummy_tests_rb_const_set(VALUE self, VALUE name, VALUE val);
 VALUE rb_dummy_tests_rb_const_defined(VALUE self, VALUE name);
 */
@@ -111,6 +112,13 @@ func rb_dummy_tests_rb_const_get(klass C.VALUE, name C.VALUE) C.VALUE {
 	return C.VALUE(ruby.RbConstGet(ruby.VALUE(klass), constID))
 }
 
+//export rb_dummy_tests_rb_const_get_at
+func rb_dummy_tests_rb_const_get_at(klass C.VALUE, name C.VALUE) C.VALUE {
+	constName := ruby.Value2String(ruby.VALUE(name))
+	constID := ruby.RbIntern(constName)
+	return C.VALUE(ruby.RbConstGetAt(ruby.VALUE(klass), constID))
+}
+
 //export rb_dummy_tests_rb_const_set
 func rb_dummy_tests_rb_const_set(klass C.VALUE, name C.VALUE, val C.VALUE) {
 	constName := ruby.Value2String(ruby.VALUE(name))
@@ -147,6 +155,7 @@ func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_class2name", C.rb_dummy_tests_rb_class2name, 0)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_attr", C.rb_dummy_tests_rb_attr, 4)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_const_get", C.rb_dummy_tests_rb_const_get, 1)
+	ruby.RbDefineSingletonMethod(rb_cTests, "rb_const_get_at", C.rb_dummy_tests_rb_const_get_at, 1)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_const_set", C.rb_dummy_tests_rb_const_set, 2)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_const_defined", C.rb_dummy_tests_rb_const_defined, 1)
 }
