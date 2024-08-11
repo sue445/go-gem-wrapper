@@ -1,5 +1,7 @@
 module Dummy
   class Tests
+    CONST: string
+
     @ivar: untyped
     @ivar2: untyped
 
