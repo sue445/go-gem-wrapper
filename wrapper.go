@@ -131,3 +131,14 @@ func Int2Bool(i Int) bool {
 func int2Bool(i C.int) bool {
 	return i != 0
 }
+
+// Slice2rbAry convert from Go slice to rb_ary
+func Slice2rbAry(slice []VALUE) VALUE {
+	rbAry := RbAryNewCapa(int64(len(slice)))
+
+	for _, v := range slice {
+		RbAryPush(rbAry, v)
+	}
+
+	return rbAry
+}
