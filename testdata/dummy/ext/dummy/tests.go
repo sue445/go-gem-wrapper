@@ -11,7 +11,7 @@ VALUE rb_dummy_tests_rb_funcall2(VALUE self, VALUE num, VALUE ndigits);
 VALUE rb_dummy_tests_rb_funcall3(VALUE self, VALUE num, VALUE ndigits);
 void  rb_dummy_tests_rb_alias(VALUE self, VALUE dst, VALUE src);
 VALUE rb_dummy_tests_rb_class2name(VALUE self);
-void  rb_dummy_tests_rb_attr(VALUE self, VALUE needReader, VALUE needWriter, VALUE honourVisibility);
+void  rb_dummy_tests_rb_attr(VALUE self, VALUE name, VALUE needReader, VALUE needWriter, VALUE honourVisibility);
 VALUE rb_dummy_tests_rb_const_get(VALUE self, VALUE name);
 */
 import "C"
@@ -93,12 +93,13 @@ func rb_dummy_tests_rb_class2name(klass C.VALUE) C.VALUE {
 }
 
 //export rb_dummy_tests_rb_attr
-func rb_dummy_tests_rb_attr(klass C.VALUE, needReader C.VALUE, needWriter C.VALUE, honourVisibility C.VALUE) {
+func rb_dummy_tests_rb_attr(klass C.VALUE, name C.VALUE, needReader C.VALUE, needWriter C.VALUE, honourVisibility C.VALUE) {
+	ivarName := ruby.Value2String(ruby.VALUE(name))
 	intNeedReader := ruby.NUM2INT(ruby.VALUE(needReader))
 	intNeedWriter := ruby.NUM2INT(ruby.VALUE(needWriter))
 	intHonourVisibility := ruby.NUM2INT(ruby.VALUE(honourVisibility))
 
-	ruby.RbAttr(ruby.VALUE(klass), ruby.RbIntern("ivar2"), intNeedReader != 0, intNeedWriter != 0, intHonourVisibility != 0)
+	ruby.RbAttr(ruby.VALUE(klass), ruby.RbIntern(ivarName), intNeedReader != 0, intNeedWriter != 0, intHonourVisibility != 0)
 }
 
 //export rb_dummy_tests_rb_const_get
@@ -121,6 +122,6 @@ func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_funcall3", C.rb_dummy_tests_rb_funcall3, 2)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_alias", C.rb_dummy_tests_rb_alias, 2)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_class2name", C.rb_dummy_tests_rb_class2name, 0)
-	ruby.RbDefineSingletonMethod(rb_cTests, "rb_attr", C.rb_dummy_tests_rb_attr, 3)
+	ruby.RbDefineSingletonMethod(rb_cTests, "rb_attr", C.rb_dummy_tests_rb_attr, 4)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_const_get", C.rb_dummy_tests_rb_const_get, 1)
 }
