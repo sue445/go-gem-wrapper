@@ -14,6 +14,7 @@ VALUE rb_dummy_tests_rb_class2name(VALUE self);
 void  rb_dummy_tests_rb_attr(VALUE self, VALUE name, VALUE needReader, VALUE needWriter, VALUE honourVisibility);
 VALUE rb_dummy_tests_rb_const_get(VALUE self, VALUE name);
 void  rb_dummy_tests_rb_const_set(VALUE self, VALUE name, VALUE val);
+VALUE rb_dummy_tests_rb_const_defined(VALUE self, VALUE name);
 */
 import "C"
 
@@ -118,6 +119,19 @@ func rb_dummy_tests_rb_const_set(klass C.VALUE, name C.VALUE, val C.VALUE) {
 	ruby.RbConstSet(ruby.VALUE(klass), constID, ruby.VALUE(val))
 }
 
+//export rb_dummy_tests_rb_const_defined
+func rb_dummy_tests_rb_const_defined(klass C.VALUE, name C.VALUE) C.VALUE {
+	constName := ruby.Value2String(ruby.VALUE(name))
+	constID := ruby.RbIntern(constName)
+
+	defined := ruby.RbConstDefined(ruby.VALUE(klass), constID)
+	if defined {
+		return C.VALUE(ruby.Qtrue())
+	}
+
+	return C.VALUE(ruby.Qfalse())
+}
+
 // defineMethodsToDummyTests define methods in Dummy::Tests
 func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	rb_cTests := ruby.RbDefineClassUnder(rb_mDummy, "Tests", ruby.VALUE(C.rb_cObject))
@@ -134,4 +148,5 @@ func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_attr", C.rb_dummy_tests_rb_attr, 4)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_const_get", C.rb_dummy_tests_rb_const_get, 1)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_const_set", C.rb_dummy_tests_rb_const_set, 2)
+	ruby.RbDefineSingletonMethod(rb_cTests, "rb_const_defined", C.rb_dummy_tests_rb_const_defined, 1)
 }

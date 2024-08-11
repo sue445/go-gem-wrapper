@@ -42,3 +42,12 @@ func RbConstGet(space VALUE, name ID) VALUE {
 func RbConstSet(space VALUE, name ID, val VALUE) {
 	C.rb_const_set(C.VALUE(space), C.ID(name), C.VALUE(val))
 }
+
+// RbConstDefined calls `rb_const_defined` in C
+//
+// Original definition is following
+//
+//	int rb_const_defined(VALUE space, ID name)
+func RbConstDefined(space VALUE, name ID) bool {
+	return int2Bool(C.rb_const_defined(C.VALUE(space), C.ID(name)))
+}
