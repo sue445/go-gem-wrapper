@@ -128,7 +128,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_ary_includes`
 * [x] `rb_ary_new`
 * [x] `rb_ary_new2`
-* [ ] `rb_ary_new3`
+* ~~[ ] `rb_ary_new3`~~ Go's variable-length arguments couldn't be passed directly to C. See [CONTRIBUTING.md](CONTRIBUTING.md)
 * [x] `rb_ary_new_capa`
 * [x] `rb_ary_pop`
 * [x] `rb_ary_push`
