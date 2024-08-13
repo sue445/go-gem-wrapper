@@ -38,3 +38,12 @@ func RbAryNew2(capa int64) VALUE {
 func RbAryPush(ary VALUE, elem VALUE) VALUE {
 	return VALUE(C.rb_ary_push(C.VALUE(ary), C.VALUE(elem)))
 }
+
+// RbAryPop calls `rb_ary_pop` in C
+//
+// Original definition is following
+//
+//	VALUE rb_ary_pop(VALUE ary)
+func RbAryPop(ary VALUE) VALUE {
+	return VALUE(C.rb_ary_pop(C.VALUE(ary)))
+}
