@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module TestHelpers
+module TestUtils
   # @yield
   def silence_warning
     original_verbose = $VERBOSE

@@ -11,8 +11,10 @@ Gemspec/RequireMFA:
 
 Metrics/BlockLength:
   Exclude:
-    - "spec/**/*"
     - "*.gemspec"
+
+Style/NumericPredicate:
+  EnforcedStyle: comparison
 
 Style/SingleLineMethods:
   Enabled: false

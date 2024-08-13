@@ -4,7 +4,6 @@
 /coverage/
 /doc/
 /pkg/
-/spec/reports/
 /tmp/
 *.bundle
 *.so
@@ -13,5 +12,4 @@
 mkmf.log
 /vendor/bundle/
 Gemfile.lock
-.rspec_status
 .gem_rbs_collection/

@@ -24,7 +24,7 @@ Refer to following and add test code to call the added wrapper function.
 
 * [testdata/dummy/ext/dummy/tests.go](testdata/dummy/ext/dummy/tests.go)
 * [testdata/dummy/sig/dummy/tests.rbs](testdata/dummy/sig/dummy/tests.rbs)
-* [testdata/dummy/spec/dummy/tests_spec.rb](testdata/dummy/spec/dummy/tests_spec.rb)
+* [testdata/dummy/test/dummy/tests_test.rb](testdata/dummy/test/dummy/tests_test.rb)
 
 ### 4. Run test
 Run `rake ruby:build_dummy`.
