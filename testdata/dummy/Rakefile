@@ -1,9 +1,14 @@
 # frozen_string_literal: true
 
 require "bundler/gem_tasks"
-require "rspec/core/rake_task"
+require "rake/testtask"
 
-RSpec::Core::RakeTask.new(:spec)
+Rake::TestTask.new(:test) do |t|
+  t.libs << "test"
+  t.libs << "lib"
+  t.test_files = FileList["test/**/*_test.rb"]
+  t.ruby_opts = ["-r./test/test_helper"]
+end
 
 require "rubocop/rake_task"
 
@@ -26,6 +31,6 @@ task :rbs do
   sh "steep check"
 end
 
-task default: %i[clobber compile spec]
+task default: %i[clobber compile test]
 
-task all: %i[clobber compile spec rubocop rbs]
+task all: %i[clobber compile test rubocop rbs]
