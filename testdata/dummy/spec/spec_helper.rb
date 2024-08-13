@@ -19,5 +19,5 @@ RSpec.configure do |config|
     meta[:aggregate_failures] = true
   end
 
-  config.include TestHelpers
+  config.include TestUtils
 end
