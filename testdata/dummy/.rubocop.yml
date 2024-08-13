@@ -13,6 +13,9 @@ Metrics/BlockLength:
   Exclude:
     - "*.gemspec"
 
+Style/NumericPredicate:
+  EnforcedStyle: comparison
+
 Style/SingleLineMethods:
   Enabled: false
 
