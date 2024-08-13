@@ -66,3 +66,19 @@ func RbEvalStringProtect(str string, state *Int) VALUE {
 
 	return VALUE(ret)
 }
+
+// RbEvalStringWrap calls `rb_eval_string_wrap` in C
+//
+// Original definition is following
+//
+//	VALUE rb_eval_string_wrap(const char *str, int *state)
+func RbEvalStringWrap(str string, state *Int) VALUE {
+	char, clean := string2Char(str)
+	defer clean()
+
+	var cState C.int
+	ret := C.rb_eval_string_wrap(char, (*C.int)(unsafe.Pointer(&cState)))
+	*state = Int(cState)
+
+	return VALUE(ret)
+}
