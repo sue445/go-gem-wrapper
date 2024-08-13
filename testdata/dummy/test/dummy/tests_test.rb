@@ -117,6 +117,12 @@ module Dummy
       assert { state == 0 }
     end
 
+    test ".rb_eval_string_wrap" do
+      ret, state = Dummy::Tests.rb_eval_string_wrap("1 + 2")
+      assert { ret == 3 }
+      assert { state == 0 }
+    end
+
     test ".rb_ary_new" do
       assert { Dummy::Tests.rb_ary_new == [] }
     end
