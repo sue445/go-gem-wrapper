@@ -19,6 +19,7 @@ VALUE rb_dummy_tests_rb_const_defined(VALUE self, VALUE name);
 VALUE rb_dummy_tests_rb_const_defined_at(VALUE self, VALUE name);
 VALUE rb_dummy_tests_rb_eval_string(VALUE self, VALUE str);
 VALUE rb_dummy_tests_rb_eval_string_protect(VALUE self, VALUE str);
+VALUE rb_dummy_tests_rb_eval_string_wrap(VALUE self, VALUE str);
 VALUE rb_dummy_tests_rb_ary_new(VALUE self);
 VALUE rb_dummy_tests_rb_ary_new_capa(VALUE self, VALUE capa);
 VALUE rb_dummy_tests_rb_ary_push(VALUE self, VALUE ary, VALUE elem);
@@ -180,6 +181,19 @@ func rb_dummy_tests_rb_eval_string_protect(_ C.VALUE, str C.VALUE) C.VALUE {
 	return C.VALUE(ary)
 }
 
+//export rb_dummy_tests_rb_eval_string_wrap
+func rb_dummy_tests_rb_eval_string_wrap(_ C.VALUE, str C.VALUE) C.VALUE {
+	goStr := ruby.Value2String(ruby.VALUE(str))
+
+	var state ruby.Int
+	ret := ruby.RbEvalStringWrap(goStr, &state)
+
+	slice := []ruby.VALUE{ret, ruby.INT2NUM(state)}
+	ary := ruby.Slice2rbAry(slice)
+
+	return C.VALUE(ary)
+}
+
 //export rb_dummy_tests_rb_ary_new
 func rb_dummy_tests_rb_ary_new(_ C.VALUE) C.VALUE {
 	ret := ruby.RbAryNew()
@@ -223,6 +237,7 @@ func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_const_defined_at", C.rb_dummy_tests_rb_const_defined_at, 1)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_eval_string", C.rb_dummy_tests_rb_eval_string, 1)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_eval_string_protect", C.rb_dummy_tests_rb_eval_string_protect, 1)
+	ruby.RbDefineSingletonMethod(rb_cTests, "rb_eval_string_wrap", C.rb_dummy_tests_rb_eval_string_wrap, 1)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_ary_new", C.rb_dummy_tests_rb_ary_new, 0)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_ary_new_capa", C.rb_dummy_tests_rb_ary_new_capa, 1)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_ary_push", C.rb_dummy_tests_rb_ary_push, 2)
