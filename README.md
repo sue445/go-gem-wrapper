@@ -230,7 +230,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_eval_cmd`
 * [x] `rb_eval_string`
 * [x] `rb_eval_string_protect`
-* [ ] `rb_eval_string_wrap`
+* [x] `rb_eval_string_wrap`
 * [ ] `rb_exc_fatal`
 * [ ] `rb_exc_raise`
 * [ ] `rb_exec_end_proc`
