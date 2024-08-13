@@ -23,6 +23,7 @@ VALUE rb_dummy_tests_rb_eval_string_wrap(VALUE self, VALUE str);
 VALUE rb_dummy_tests_rb_ary_new(VALUE self);
 VALUE rb_dummy_tests_rb_ary_new_capa(VALUE self, VALUE capa);
 VALUE rb_dummy_tests_rb_ary_push(VALUE self, VALUE ary, VALUE elem);
+VALUE rb_dummy_tests_rb_ary_pop(VALUE self, VALUE ary);
 */
 import "C"
 
@@ -216,6 +217,13 @@ func rb_dummy_tests_rb_ary_push(_ C.VALUE, ary C.VALUE, elem C.VALUE) C.VALUE {
 	return C.VALUE(ret)
 }
 
+//export rb_dummy_tests_rb_ary_pop
+func rb_dummy_tests_rb_ary_pop(_ C.VALUE, ary C.VALUE) C.VALUE {
+	ret := ruby.RbAryPop(ruby.VALUE(ary))
+
+	return C.VALUE(ret)
+}
+
 // defineMethodsToDummyTests define methods in Dummy::Tests
 func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	rb_cTests := ruby.RbDefineClassUnder(rb_mDummy, "Tests", ruby.VALUE(C.rb_cObject))
@@ -241,4 +249,5 @@ func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_ary_new", C.rb_dummy_tests_rb_ary_new, 0)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_ary_new_capa", C.rb_dummy_tests_rb_ary_new_capa, 1)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_ary_push", C.rb_dummy_tests_rb_ary_push, 2)
+	ruby.RbDefineSingletonMethod(rb_cTests, "rb_ary_pop", C.rb_dummy_tests_rb_ary_pop, 1)
 }
