@@ -171,11 +171,13 @@ module Dummy
       assert { Dummy::Tests.protected_instance_methods(false).include?(:nop_rb_define_protected_method) }
     end
 
+    # rubocop:disable Style/GlobalVars this is test for global variable
     test ".rb_define_variable" do
       Dummy::Tests.rb_define_variable("$global_var", 1)
       assert { $global_var == 1 }
     ensure
       $global_var = nil
     end
+    # rubocop:enable Style/GlobalVars
   end
 end
