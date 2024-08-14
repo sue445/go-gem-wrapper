@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Dummy
-  class TestsTest < Test::Unit::TestCase
+  class TestsTest < Test::Unit::TestCase # rubocop:disable Metrics/ClassLength
     include TestUtils
 
     test "#rb_ivar_get" do
