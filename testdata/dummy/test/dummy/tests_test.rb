@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Dummy
-  class TestsTest < Test::Unit::TestCase
+  class TestsTest < Test::Unit::TestCase # rubocop:disable Metrics/ClassLength
     include TestUtils
 
     test "#rb_ivar_get" do
@@ -147,6 +147,13 @@ module Dummy
       ret = Dummy::Tests.rb_ary_shift(array)
       assert { array == [2] }
       assert { ret == 1 }
+    end
+
+    test ".rb_ary_unshift" do
+      array = [1]
+      ret = Dummy::Tests.rb_ary_unshift(array, 2)
+      assert { array == [2, 1] }
+      assert { ret == [2, 1] }
     end
   end
 end

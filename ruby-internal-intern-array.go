@@ -56,3 +56,12 @@ func RbAryPop(ary VALUE) VALUE {
 func RbAryShift(ary VALUE) VALUE {
 	return VALUE(C.rb_ary_shift(C.VALUE(ary)))
 }
+
+// RbAryUnshift calls `rb_ary_unshift` in C
+//
+// Original definition is following
+//
+//	VALUE rb_ary_unshift(VALUE ary, VALUE elem)
+func RbAryUnshift(ary VALUE, elem VALUE) VALUE {
+	return VALUE(C.rb_ary_unshift(C.VALUE(ary), C.VALUE(elem)))
+}
