@@ -31,3 +31,15 @@ func RbDefineSingletonMethod(obj VALUE, mid string, fun unsafe.Pointer, arity in
 func RbDefineMethodId(klass VALUE, mid ID, fun unsafe.Pointer, arity int) {
 	C.rb_define_method_id(C.VALUE(klass), C.ID(mid), toFunctionPointer(fun), C.int(arity))
 }
+
+// RbDefinePrivateMethod calls `rb_define_private_method` in C
+//
+// Original definition is following
+//
+//	void rb_define_private_method(VALUE klass, const char *mid, VALUE (*func)(ANYARGS), int arity)
+func RbDefinePrivateMethod(klass VALUE, mid string, fun unsafe.Pointer, arity int) {
+	char, clean := string2Char(mid)
+	defer clean()
+
+	C.rb_define_private_method(C.VALUE(klass), char, toFunctionPointer(fun), C.int(arity))
+}

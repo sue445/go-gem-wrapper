@@ -162,5 +162,9 @@ module Dummy
     test "#nop_rb_define_method_id" do
       assert { Dummy::Tests.new.respond_to?(:nop_rb_define_method_id) }
     end
+
+    test "#nop_rb_define_private_method" do
+      assert { Dummy::Tests.private_instance_methods(false).include?(:nop_rb_define_private_method) }
+    end
   end
 end
