@@ -148,5 +148,12 @@ module Dummy
       assert { array == [2] }
       assert { ret == 1 }
     end
+
+    test ".rb_ary_unshift" do
+      array = [1]
+      ret = Dummy::Tests.rb_ary_unshift(array, 2)
+      assert { array == [2, 1] }
+      assert { ret == [2, 1] }
+    end
   end
 end
