@@ -29,6 +29,7 @@ VALUE rb_dummy_tests_rb_ary_push(VALUE self, VALUE ary, VALUE elem);
 VALUE rb_dummy_tests_rb_ary_pop(VALUE self, VALUE ary);
 VALUE rb_dummy_tests_rb_ary_shift(VALUE self, VALUE ary);
 VALUE rb_dummy_tests_rb_ary_unshift(VALUE self, VALUE ary, VALUE elem);
+void  rb_dummy_tests_rb_define_variable(VALUE self, VALUE name, VALUE v);
 */
 import "C"
 
@@ -255,6 +256,12 @@ func rb_dummy_tests_rb_ary_unshift(_ C.VALUE, ary C.VALUE, elem C.VALUE) C.VALUE
 	return C.VALUE(ret)
 }
 
+//export rb_dummy_tests_rb_define_variable
+func rb_dummy_tests_rb_define_variable(_ C.VALUE, name C.VALUE, v C.VALUE) {
+	strName := ruby.Value2String(ruby.VALUE(name))
+	ruby.RbDefineVariable(strName, (*ruby.VALUE)(&v))
+}
+
 // defineMethodsToDummyTests define methods in Dummy::Tests
 func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	rb_cTests := ruby.RbDefineClassUnder(rb_mDummy, "Tests", ruby.VALUE(C.rb_cObject))
@@ -287,4 +294,5 @@ func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_ary_pop", C.rb_dummy_tests_rb_ary_pop, 1)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_ary_shift", C.rb_dummy_tests_rb_ary_shift, 1)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_ary_unshift", C.rb_dummy_tests_rb_ary_unshift, 2)
+	ruby.RbDefineSingletonMethod(rb_cTests, "rb_define_variable", C.rb_dummy_tests_rb_define_variable, 2)
 }
