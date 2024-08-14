@@ -22,3 +22,12 @@ func RbDefineSingletonMethod(obj VALUE, mid string, fun unsafe.Pointer, arity in
 
 	C.rb_define_singleton_method(C.VALUE(obj), char, toFunctionPointer(fun), C.int(arity))
 }
+
+// RbDefineMethodId calls `rb_define_method_id` in C
+//
+// Original definition is following
+//
+//	void rb_define_method_id(VALUE klass, ID mid, VALUE (*func)(ANYARGS), int arity)
+func RbDefineMethodId(klass VALUE, mid ID, fun unsafe.Pointer, arity int) {
+	C.rb_define_method_id(C.VALUE(klass), C.ID(mid), toFunctionPointer(fun), C.int(arity))
+}
