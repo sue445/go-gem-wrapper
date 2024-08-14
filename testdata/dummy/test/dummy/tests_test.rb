@@ -158,5 +158,9 @@ module Dummy
       assert { array == [2, 1] }
       assert { ret == [2, 1] }
     end
+
+    test "#nop_rb_define_method_id" do
+      assert { Dummy::Tests.new.respond_to?(:nop_rb_define_method_id) }
+    end
   end
 end
