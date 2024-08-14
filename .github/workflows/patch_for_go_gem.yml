@@ -28,7 +28,9 @@ jobs:
 
       matrix:
         golang:
-          - "1.22"
+          # TODO: Enable after repo is published
+          # - "1.22"
+          - "1.23"
         ruby:
           - "3.3"
 
