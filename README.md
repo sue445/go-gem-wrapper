@@ -211,7 +211,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [x] `rb_define_module_function`
 * [ ] `rb_define_module_id`
 * [x] `rb_define_module_under`
-* [ ] `rb_define_private_method`
+* [x] `rb_define_private_method`
 * [ ] `rb_define_protected_method`
 * [ ] `rb_define_readonly_variable`
 * [x] `rb_define_singleton_method`
