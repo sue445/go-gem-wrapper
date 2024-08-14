@@ -43,3 +43,15 @@ func RbDefinePrivateMethod(klass VALUE, mid string, fun unsafe.Pointer, arity in
 
 	C.rb_define_private_method(C.VALUE(klass), char, toFunctionPointer(fun), C.int(arity))
 }
+
+// RbDefineProtectedMethod calls `rb_define_protected_method` in C
+//
+// Original definition is following
+//
+//	void rb_define_protected_method(VALUE klass, const char *mid, VALUE (*func)(ANYARGS), int arity)
+func RbDefineProtectedMethod(klass VALUE, mid string, fun unsafe.Pointer, arity int) {
+	char, clean := string2Char(mid)
+	defer clean()
+
+	C.rb_define_protected_method(C.VALUE(klass), char, toFunctionPointer(fun), C.int(arity))
+}
