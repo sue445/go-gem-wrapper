@@ -212,7 +212,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_define_module_id`
 * [x] `rb_define_module_under`
 * [x] `rb_define_private_method`
-* [ ] `rb_define_protected_method`
+* [x] `rb_define_protected_method`
 * [ ] `rb_define_readonly_variable`
 * [x] `rb_define_singleton_method`
 * [ ] `rb_define_variable`

@@ -13,6 +13,7 @@ module Dummy
     def rb_ivar_set: (untyped ivar) -> void
 
     def nop_rb_define_method_id: () -> void
+    def nop_rb_define_protected_method: () -> void
 
     def self.rb_yield: (untyped) { (untyped) -> untyped } -> untyped
     def self.rb_block_proc: (untyped) { (untyped) -> untyped } -> untyped
