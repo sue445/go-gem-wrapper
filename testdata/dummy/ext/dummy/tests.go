@@ -5,6 +5,7 @@ package main
 
 void  rb_dummy_tests_nop_rb_define_method_id(VALUE self);
 void  rb_dummy_tests_nop_rb_define_private_method(VALUE self);
+void  rb_dummy_tests_nop_rb_define_protected_method(VALUE self);
 VALUE rb_dummy_tests_rb_ivar_get(VALUE self);
 void  rb_dummy_tests_rb_ivar_set(VALUE self, VALUE value);
 VALUE rb_dummy_tests_rb_yield(VALUE self, VALUE arg);
@@ -41,6 +42,10 @@ func rb_dummy_tests_nop_rb_define_method_id(_ C.VALUE) {
 
 //export rb_dummy_tests_nop_rb_define_private_method
 func rb_dummy_tests_nop_rb_define_private_method(_ C.VALUE) {
+}
+
+//export rb_dummy_tests_nop_rb_define_protected_method
+func rb_dummy_tests_nop_rb_define_protected_method(_ C.VALUE) {
 }
 
 //export rb_dummy_tests_rb_ivar_get
@@ -259,6 +264,7 @@ func defineMethodsToDummyTests(rb_mDummy ruby.VALUE) {
 
 	ruby.RbDefineMethodId(rb_cTests, ruby.RbIntern("nop_rb_define_method_id"), C.rb_dummy_tests_nop_rb_define_method_id, 0)
 	ruby.RbDefinePrivateMethod(rb_cTests, "nop_rb_define_private_method", C.rb_dummy_tests_nop_rb_define_private_method, 0)
+	ruby.RbDefineProtectedMethod(rb_cTests, "nop_rb_define_protected_method", C.rb_dummy_tests_nop_rb_define_protected_method, 0)
 
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_yield", C.rb_dummy_tests_rb_yield, 1)
 	ruby.RbDefineSingletonMethod(rb_cTests, "rb_block_proc", C.rb_dummy_tests_rb_block_proc, 1)
