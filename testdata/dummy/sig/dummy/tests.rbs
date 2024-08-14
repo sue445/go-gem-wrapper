@@ -36,6 +36,7 @@ module Dummy
     def self.rb_ary_pop: ([] ary) -> untyped
     def self.rb_ary_shift: ([] ary) -> untyped
     def self.rb_ary_unshift: ([] ary, untyped elem) -> []
+    def self.rb_define_variable: (string name, untyped var) -> void
 
     private
     def nop_rb_define_private_method: () -> void
