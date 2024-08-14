@@ -141,5 +141,12 @@ module Dummy
       assert { array == [1] }
       assert { ret == 2 }
     end
+
+    test ".rb_ary_shift" do
+      array = [1, 2]
+      ret = Dummy::Tests.rb_ary_shift(array)
+      assert { array == [2] }
+      assert { ret == 1 }
+    end
   end
 end

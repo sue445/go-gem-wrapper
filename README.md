@@ -132,7 +132,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [x] `rb_ary_new_capa`
 * [x] `rb_ary_pop`
 * [x] `rb_ary_push`
-* [ ] `rb_ary_shift`
+* [x] `rb_ary_shift`
 * [ ] `rb_ary_sort`
 * [ ] `rb_ary_store`
 * [ ] `rb_ary_to_s`

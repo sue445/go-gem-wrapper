@@ -31,5 +31,6 @@ module Dummy
     def self.rb_ary_new_capa: (Integer capa) -> []
     def self.rb_ary_push: ([] ary, untyped elem) -> []
     def self.rb_ary_pop: ([] ary) -> untyped
+    def self.rb_ary_shift: ([] ary) -> untyped
   end
 end

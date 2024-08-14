@@ -47,3 +47,12 @@ func RbAryPush(ary VALUE, elem VALUE) VALUE {
 func RbAryPop(ary VALUE) VALUE {
 	return VALUE(C.rb_ary_pop(C.VALUE(ary)))
 }
+
+// RbAryShift calls `rb_ary_shift` in C
+//
+// Original definition is following
+//
+//	VALUE rb_ary_shift(VALUE ary)
+func RbAryShift(ary VALUE) VALUE {
+	return VALUE(C.rb_ary_shift(C.VALUE(ary)))
+}
