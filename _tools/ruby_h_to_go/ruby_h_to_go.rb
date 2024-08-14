@@ -128,6 +128,14 @@ def generate_go_file(definition:, header_dir:)
     end
   end
 
+  definition[:args].each do |c_arg|
+    case c_arg[:name]
+    when "var"
+      # `var` is reserved in Go
+      c_arg[:name] = "v"
+    end
+  end
+
   go_function_name = snake_to_camel(definition[:function_name])
   go_function_args = definition[:args].map do |c_arg|
     "#{c_arg[:name]} #{ruby_c_type_to_go_type(c_arg[:type], type: :arg)}"
