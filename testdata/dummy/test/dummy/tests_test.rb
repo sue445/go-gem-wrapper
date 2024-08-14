@@ -132,7 +132,10 @@ module Dummy
     end
 
     test ".rb_ary_push" do
-      assert { Dummy::Tests.rb_ary_push([1], 2) == [1, 2] }
+      array = [1]
+      ret = Dummy::Tests.rb_ary_push(array, 2)
+      assert { array == [1, 2] }
+      assert { ret == [1, 2] }
     end
 
     test ".rb_ary_pop" do
