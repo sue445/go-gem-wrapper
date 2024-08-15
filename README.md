@@ -201,7 +201,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_define_class_id`
 * [x] `rb_define_class_under`
 * [ ] `rb_define_class_variable`
-* [ ] `rb_define_const`
+* [x] `rb_define_const`
 * [ ] `rb_define_global_const`
 * [ ] `rb_define_global_function`
 * [ ] `rb_define_hooked_variable`
