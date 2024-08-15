@@ -18,3 +18,15 @@ func RbDefineVariable(name string, v *VALUE) {
 
 	C.rb_define_variable(char, (*C.VALUE)(v))
 }
+
+// RbDefineConst calls `rb_define_const` in C
+//
+// Original definition is following
+//
+//	void rb_define_const(VALUE klass, const char *name, VALUE val)
+func RbDefineConst(klass VALUE, name string, val VALUE) {
+	char, clean := string2Char(name)
+	defer clean()
+
+	C.rb_define_const(C.VALUE(klass), char, C.VALUE(val))
+}
