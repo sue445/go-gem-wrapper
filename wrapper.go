@@ -47,12 +47,12 @@ func string2Char(str string) (*C.char, func()) {
 	return cstr, clean
 }
 
-// Char2String convert from [*Char] to Go string
+// Char2String convert from [*Char] to Go string without copy
 func Char2String(char *Char) string {
 	return char2String((*C.char)(char))
 }
 
-// char2String convert from `*C.char` to Go string. (for internal use within package)
+// char2String convert from `*C.char` to Go string without copy. (for internal use within package)
 func char2String(char *C.char) string {
 	return unsafe.String((*byte)(unsafe.Pointer(char)), C.strlen(char))
 }
@@ -94,12 +94,12 @@ func string2Value(str string) C.VALUE {
 	return rbUtf8StrNew(char, stringLen(str))
 }
 
-// toFunctionPointer returns a pointer to function.
+// toFunctionPointer returns a pointer to function without copy.
 func toFunctionPointer(fun unsafe.Pointer) *[0]byte {
 	return (*[0]byte)(fun)
 }
 
-// toCValueArray convert from [][VALUE] to `*C.VALUE`.
+// toCValueArray convert from [][VALUE] to `*C.VALUE` without copy.
 func toCValueArray(values []VALUE) *C.VALUE {
 	if len(values) == 0 {
 		return (*C.VALUE)(unsafe.Pointer(nil))
