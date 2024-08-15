@@ -179,5 +179,14 @@ module Dummy
       $global_var = nil
     end
     # rubocop:enable Style/GlobalVars
+
+    test ".rb_define_const" do
+      Dummy::Tests.rb_define_const("RB_DEFINE_CONST", 1)
+      assert { Dummy::Tests::RB_DEFINE_CONST == 1 }
+    ensure
+      Dummy::Tests.class_eval do
+        remove_const(:RB_DEFINE_CONST) if const_defined?(:RB_DEFINE_CONST, false)
+      end
+    end
   end
 end
