@@ -215,7 +215,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [x] `rb_define_protected_method`
 * [ ] `rb_define_readonly_variable`
 * [x] `rb_define_singleton_method`
-* [ ] `rb_define_variable`
+* [x] `rb_define_variable`
 * [ ] `rb_define_virtual_variable`
 * [ ] `rb_disable_super`
 * [ ] `rb_dvar_curr`
