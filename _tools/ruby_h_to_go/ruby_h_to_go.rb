@@ -133,6 +133,9 @@ def generate_go_file(definition:, header_dir:)
     when "var"
       # `var` is reserved in Go
       c_arg[:name] = "v"
+    when "func"
+      # `func` is reserved in Go
+      c_arg[:name] = "fun"
     end
   end
 
