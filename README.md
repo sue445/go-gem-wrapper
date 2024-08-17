@@ -196,6 +196,7 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [ ] `rb_cvar_set`
 * [ ] `rb_data_object_alloc`
 * [ ] `rb_define_alias`
+* [x] `rb_define_alloc_func`
 * [ ] `rb_define_attr`
 * [x] `rb_define_class`
 * [ ] `rb_define_class_id`

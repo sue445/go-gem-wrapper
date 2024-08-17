@@ -70,6 +70,7 @@ func Init_dummy() {
 	ruby.RbDefineClass("TestRbDefineClass", ruby.VALUE(C.rb_cObject))
 
 	defineMethodsToDummyTests(rb_mDummy)
+	defineMethodsToDummyGoStruct(rb_mDummy)
 }
 
 func main() {
