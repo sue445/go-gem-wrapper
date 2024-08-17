@@ -1,0 +1,4 @@
+module Dummy
+  class GoStruct
+  end
+end
