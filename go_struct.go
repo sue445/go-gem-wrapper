@@ -2,6 +2,9 @@ package ruby
 
 /*
 #include "ruby.h"
+
+VALUE NewGoStruct(VALUE klass, void *p);
+void* GetGoStruct(VALUE obj);
 */
 import "C"
 
@@ -22,4 +25,14 @@ func goobj_free(obj unsafe.Pointer) {
 	if objects[obj] <= 0 {
 		delete(objects, obj)
 	}
+}
+
+// NewGoStruct create Ruby object from Go object
+func NewGoStruct(klass VALUE, goobj unsafe.Pointer) VALUE {
+	return VALUE(C.NewGoStruct(C.VALUE(klass), goobj))
+}
+
+// GetGoStruct returns Go object from Ruby object
+func GetGoStruct(obj VALUE) unsafe.Pointer {
+	return C.GetGoStruct(C.VALUE(obj))
 }
