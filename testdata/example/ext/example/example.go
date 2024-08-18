@@ -66,7 +66,7 @@ func Init_example() {
 	// Create Example::TestRbDefineModuleUnder module
 	ruby.RbDefineModuleUnder(rb_mExample, "TestRbDefineModuleUnder")
 
-	// Create OuterClass class
+	// Create ::TestRbDefineClass class
 	ruby.RbDefineClass("TestRbDefineClass", ruby.VALUE(C.rb_cObject))
 
 	defineMethodsToExampleTests(rb_mExample)

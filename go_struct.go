@@ -28,6 +28,8 @@ func goobj_free(obj unsafe.Pointer) {
 }
 
 // NewGoStruct create Ruby object from Go object
+//
+// See also [RbDefineAllocFunc]
 func NewGoStruct(klass VALUE, goobj unsafe.Pointer) VALUE {
 	return VALUE(C.NewGoStruct(C.VALUE(klass), goobj))
 }
