@@ -1,4 +1,0 @@
-module Dummy
-  module TestRbDefineModuleUnder
-  end
-end

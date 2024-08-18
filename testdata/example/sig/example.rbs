@@ -1,0 +1,17 @@
+module Example
+  VERSION: String
+
+  class Error < StandardError
+  end
+
+  def self.sum: (Integer a, Integer b) -> Integer
+
+  def self.hello: (String name) -> String
+
+  def self.to_string: (untyped source) -> String
+
+  def self.max: (Integer, Integer) -> Integer
+  def max: (Integer, Integer) -> Integer
+
+  # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+end

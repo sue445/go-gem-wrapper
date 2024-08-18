@@ -27,7 +27,7 @@ updates:
       - root
 
   - package-ecosystem: gomod
-    directory: "/testdata/dummy/ext/dummy/"
+    directory: "/testdata/example/ext/example/"
     schedule:
       interval: weekly
       time: "05:00"
@@ -38,7 +38,7 @@ updates:
     labels:
       - dependencies
       - go
-      - dummy
+      - example
 
   - package-ecosystem: bundler
     directory: "/_tools/patch_for_go_gem/"

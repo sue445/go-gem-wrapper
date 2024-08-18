@@ -44,10 +44,10 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-          working-directory: testdata/dummy/
+          working-directory: testdata/example/
 
       - run: bundle update --jobs $(nproc) --retry 3
-        working-directory: testdata/dummy/
+        working-directory: testdata/example/
 
       - name: build and test (Go)
         run: |
@@ -57,7 +57,7 @@ jobs:
 
       - name: build and test (Ruby)
         run: bundle exec rake
-        working-directory: testdata/dummy/
+        working-directory: testdata/example/
 
       - name: Convert coverage to lcov
         uses: jandelgado/gcov2lcov-action@v1
@@ -122,13 +122,13 @@ jobs:
         with:
           ruby-version: ruby
           bundler-cache: true
-          working-directory: testdata/dummy/
+          working-directory: testdata/example/
 
       - run: bundle update --jobs $(nproc) --retry 3
-        working-directory: testdata/dummy/
+        working-directory: testdata/example/
 
       - run: bundle exec rake rubocop
-        working-directory: testdata/dummy/
+        working-directory: testdata/example/
 
       - name: Slack Notification (not success)
         uses: act10ns/slack@v2
@@ -148,19 +148,19 @@ jobs:
         with:
           ruby-version: ruby
           bundler-cache: true
-          working-directory: testdata/dummy/
+          working-directory: testdata/example/
 
       - run: bundle update --jobs $(nproc) --retry 3
-        working-directory: testdata/dummy/
+        working-directory: testdata/example/
 
       - run: bundle exec rbs collection install
-        working-directory: testdata/dummy/
+        working-directory: testdata/example/
 
       - run: bundle exec rbs validate
-        working-directory: testdata/dummy/
+        working-directory: testdata/example/
 
       - run: bundle exec steep check
-        working-directory: testdata/dummy/
+        working-directory: testdata/example/
 
       - name: Slack Notification (not success)
         uses: act10ns/slack@v2

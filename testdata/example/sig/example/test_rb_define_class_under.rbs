@@ -1,0 +1,4 @@
+module Example
+  class TestRbDefineClassUnder
+  end
+end

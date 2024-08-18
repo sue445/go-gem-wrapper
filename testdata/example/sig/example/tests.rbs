@@ -1,0 +1,45 @@
+module Example
+  class Tests
+    CONST: untyped
+
+    @ivar: untyped
+    @ivar2: untyped
+
+    attr_accessor ivar: untyped
+
+    def initialize: (?untyped ivar) -> void
+
+    def rb_ivar_get: () -> untyped
+    def rb_ivar_set: (untyped ivar) -> void
+
+    def nop_rb_define_method_id: () -> void
+    def nop_rb_define_protected_method: () -> void
+
+    def self.rb_yield: (untyped) { (untyped) -> untyped } -> untyped
+    def self.rb_block_proc: (untyped) { (untyped) -> untyped } -> untyped
+    def self.rb_funcall2: (Integer num, Integer ndigits) -> Integer
+    def self.rb_funcall3: (Integer num, Integer ndigits) -> Integer
+    def self.rb_alias: (string dst, string src) -> void
+    def self.rb_class2name: () -> string
+    def self.rb_attr: (string name, Integer need_reader, Integer need_writer, Integer honour_visibility) -> void
+    def self.rb_const_get: (string name) -> untyped
+    def self.rb_const_get_at: (string name) -> untyped
+    def self.rb_const_set: (string name, untyped val) -> void
+    def self.rb_const_defined: (string name) -> bool
+    def self.rb_const_defined_at: (string name) -> bool
+    def self.rb_eval_string: (string str) -> untyped
+    def self.rb_eval_string_protect: (string str) -> [untyped, Integer]
+    def self.rb_eval_string_wrap: (string str) -> [untyped, Integer]
+    def self.rb_ary_new: () -> []
+    def self.rb_ary_new_capa: (Integer capa) -> []
+    def self.rb_ary_push: ([] ary, untyped elem) -> []
+    def self.rb_ary_pop: ([] ary) -> untyped
+    def self.rb_ary_shift: ([] ary) -> untyped
+    def self.rb_ary_unshift: ([] ary, untyped elem) -> []
+    def self.rb_define_variable: (string name, untyped var) -> void
+    def self.rb_define_const: (string name, untyped val) -> void
+
+    private
+    def nop_rb_define_private_method: () -> void
+  end
+end
