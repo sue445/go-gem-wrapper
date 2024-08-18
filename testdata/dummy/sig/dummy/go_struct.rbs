@@ -1,6 +1,0 @@
-module Dummy
-  class GoStruct
-    def set: (Integer x, Integer y) -> void
-    def get: () -> [Integer, Integer]
-  end
-end

@@ -1,0 +1,4 @@
+module Example
+  module TestRbDefineModuleUnder
+  end
+end

@@ -18,16 +18,16 @@ See [_tools/ruby_h_to_go/](_tools/ruby_h_to_go/)
 Modify some of the auto-generated functions and add them to the ruby package in the top directory
 
 ### 3. Add a test that calls the added function
-There is a dummy gem for this wrapper in [testdata/dummy/](testdata/dummy/).
+There is a example gem for this wrapper in [testdata/example/](testdata/example/).
 
 Refer to following and add test code to call the added wrapper function.
 
-* [testdata/dummy/ext/dummy/tests.go](testdata/dummy/ext/dummy/tests.go)
-* [testdata/dummy/sig/dummy/tests.rbs](testdata/dummy/sig/dummy/tests.rbs)
-* [testdata/dummy/test/dummy/tests_test.rb](testdata/dummy/test/dummy/tests_test.rb)
+* [testdata/example/ext/example/tests.go](testdata/example/ext/example/tests.go)
+* [testdata/example/sig/example/tests.rbs](testdata/example/sig/example/tests.rbs)
+* [testdata/example/test/example/tests_test.rb](testdata/example/test/example/tests_test.rb)
 
 ### 4. Run test
-Run `rake ruby:build_dummy`.
+Run `rake ruby:build_example`.
 
 ### 5. Check coverage
 [Coverage](README.md#coverage) lists Ruby's C functions, so check the functions you have added. (if there is no entry, add it)

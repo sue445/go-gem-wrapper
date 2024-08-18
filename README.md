@@ -31,7 +31,7 @@ e.g.
 For example, consider the following Ruby method implemented in Go
 
 ```ruby
-module Dummy
+module Example
   def self.sum(a, b)
     a + b
   end
@@ -42,8 +42,8 @@ end
 ```go
 // ext/GEM_NAME/GEM_NAME.go
 
-//export rb_dummy_sum
-func rb_dummy_sum(_ C.VALUE, a C.VALUE, b C.VALUE) C.VALUE {
+//export rb_example_sum
+func rb_example_sum(_ C.VALUE, a C.VALUE, b C.VALUE) C.VALUE {
 	aLong := ruby.NUM2LONG(ruby.VALUE(a))
 	bLong := ruby.NUM2LONG(ruby.VALUE(b))
 
@@ -58,10 +58,10 @@ func rb_dummy_sum(_ C.VALUE, a C.VALUE, b C.VALUE) C.VALUE {
 // ext/GEM_NAME/GEM_NAME.go
 
 /*
-#include "dummy.h"
+#include "example.h"
 
 // TODO: Append this
-VALUE rb_dummy_sum(VALUE self, VALUE a, VALUE b);
+VALUE rb_example_sum(VALUE self, VALUE a, VALUE b);
 */
 import "C"
 ```
@@ -70,24 +70,24 @@ import "C"
 ```go
 // ext/GEM_NAME/GEM_NAME.go
 
-//export Init_dummy
-func Init_dummy() {
-	rb_mDummy := ruby.RbDefineModule("Dummy")
+//export Init_example
+func Init_example() {
+	rb_mExample := ruby.RbDefineModule("Example")
 
 	// TODO: Append this
-	ruby.RbDefineSingletonMethod(rb_mDummy, "sum", C.rb_dummy_sum, 2)
+	ruby.RbDefineSingletonMethod(rb_mExample, "sum", C.rb_example_sum, 2)
 }
 ```
 
 ### More examples
 See also
 
-* [testdata/dummy/ext/dummy/dummy.go](testdata/dummy/ext/dummy/dummy.go)
-* [testdata/dummy/ext/dummy/tests.go](testdata/dummy/ext/dummy/tests.go)
+* [testdata/example/ext/example/example.go](testdata/example/ext/example/example.go)
+* [testdata/example/ext/example/tests.go](testdata/example/ext/example/tests.go)
 
 ## Developing
 ### Build
-Run `rake ruby:build_dummy`. (`bundle exec` is not required)
+Run `rake ruby:build_example`. (`bundle exec` is not required)
 
 See `rake -T` for more tasks.
 

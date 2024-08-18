@@ -1,7 +1,7 @@
 namespace :ruby do
-  desc "Build testdata/dummy/"
-  task :build_dummy do
-    Dir.chdir(File.join(__dir__, "testdata", "dummy")) do
+  desc "Build testdata/example/"
+  task :build_example do
+    Dir.chdir(File.join(__dir__, "testdata", "example")) do
       sh "bundle config set --local path 'vendor/bundle'"
       sh "bundle install"
       sh "bundle exec rake all"
@@ -71,4 +71,4 @@ task release: :tag do
   sh "git push origin main"
 end
 
-task default: "ruby:build_dummy"
+task default: "ruby:build_example"
