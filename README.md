@@ -545,3 +545,6 @@ ref. https://docs.ruby-lang.org/ja/latest/function/index.html
 * [x] `RSTRING_LENINT`
 
 </details>
+
+## Original idea
+[Ruby meets Go - RubyKaigi 2015](https://rubykaigi.org/2015/presentations/mmasaki/)
