@@ -10,27 +10,29 @@ namespace :ruby do
 end
 
 def env_vars
+  ldflags = "-L#{RbConfig::CONFIG["libdir"]} -l#{RbConfig::CONFIG["RUBY_SO_NAME"]}"
+
   case `#{RbConfig::CONFIG["CC"]} --version` # rubocop:disable Lint/LiteralAsCondition
   when /Free Software Foundation/
-    ldflags = "-Wl,--unresolved-symbols=ignore-all"
+    ldflags << " -Wl,--unresolved-symbols=ignore-all"
   when /clang/
-    ldflags = "-undefined dynamic_lookup"
+    ldflags << " -undefined dynamic_lookup"
   end
 
+  cflags = "#{RbConfig::CONFIG["CFLAGS"]} -I#{RbConfig::CONFIG["rubyarchhdrdir"]} -I#{RbConfig::CONFIG["rubyhdrdir"]}"
+
   {
-    "CGO_CFLAGS" => "-I#{RbConfig::CONFIG["rubyarchhdrdir"]} -I#{RbConfig::CONFIG["rubyhdrdir"]}",
-    "CGO_LDFLAGS" => "'#{ldflags}'",
+    "CGO_CFLAGS" => cflags,
+    "CGO_LDFLAGS" => ldflags,
   }
 end
 
 namespace :go do
-  # FIXME: This doesn't work when test file is exists...
   desc "Run go test"
   task :test do
     sh env_vars, "go test -count=1 ${TEST_ARGS}"
   end
 
-  # FIXME: This doesn't work when test file is exists...
   desc "Run go test -race"
   task :testrace do
     sh env_vars, "go test -count=1 ${TEST_ARGS} -race"
