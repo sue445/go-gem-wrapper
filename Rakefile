@@ -24,11 +24,13 @@ def env_vars
 end
 
 namespace :go do
+  # FIXME: This doesn't work when test file is exists...
   desc "Run go test"
   task :test do
     sh env_vars, "go test -count=1 ${TEST_ARGS}"
   end
 
+  # FIXME: This doesn't work when test file is exists...
   desc "Run go test -race"
   task :testrace do
     sh env_vars, "go test -count=1 ${TEST_ARGS} -race"
