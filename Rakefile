@@ -9,28 +9,42 @@ namespace :ruby do
   end
 end
 
+# @return [Hash<String, String>]
 def env_vars
+  ldflags = "-L#{RbConfig::CONFIG["libdir"]} -l#{RbConfig::CONFIG["RUBY_SO_NAME"]}"
+
   case `#{RbConfig::CONFIG["CC"]} --version` # rubocop:disable Lint/LiteralAsCondition
   when /Free Software Foundation/
-    ldflags = "-Wl,--unresolved-symbols=ignore-all"
+    ldflags << " -Wl,--unresolved-symbols=ignore-all"
   when /clang/
-    ldflags = "-undefined dynamic_lookup"
+    ldflags << " -undefined dynamic_lookup"
+  end
+
+  cflags = "#{RbConfig::CONFIG["CFLAGS"]} -I#{RbConfig::CONFIG["rubyarchhdrdir"]} -I#{RbConfig::CONFIG["rubyhdrdir"]}"
+
+  # FIXME: Workaround for GitHub Actions
+  if ENV["GITHUB_ACTIONS"]
+    cflags.gsub!("-Wno-self-assign", "")
+    cflags.gsub!("-Wno-parentheses-equality", "")
+    cflags.gsub!("-Wno-constant-logical-operand", "")
+    cflags.gsub!("-Wsuggest-attribute=format", "")
+    cflags.gsub!("-Wold-style-definition", "")
+    cflags.gsub!("-Wsuggest-attribute=noreturn", "")
+    ldflags.gsub!("-Wl,--unresolved-symbols=ignore-all", "")
   end
 
   {
-    "CGO_CFLAGS" => "-I#{RbConfig::CONFIG["rubyarchhdrdir"]} -I#{RbConfig::CONFIG["rubyhdrdir"]}",
-    "CGO_LDFLAGS" => "'#{ldflags}'",
+    "CGO_CFLAGS" => cflags,
+    "CGO_LDFLAGS" => ldflags,
   }
 end
 
 namespace :go do
-  # FIXME: This doesn't work when test file is exists...
   desc "Run go test"
   task :test do
     sh env_vars, "go test -count=1 ${TEST_ARGS}"
   end
 
-  # FIXME: This doesn't work when test file is exists...
   desc "Run go test -race"
   task :testrace do
     sh env_vars, "go test -count=1 ${TEST_ARGS} -race"
