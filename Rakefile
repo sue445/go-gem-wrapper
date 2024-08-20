@@ -22,6 +22,17 @@ def env_vars
 
   cflags = "#{RbConfig::CONFIG["CFLAGS"]} -I#{RbConfig::CONFIG["rubyarchhdrdir"]} -I#{RbConfig::CONFIG["rubyhdrdir"]}"
 
+  # FIXME: Workaround for GitHub Actions
+  if ENV["GITHUB_ACTIONS"]
+    cflags.gsub!("-Wno-self-assign", "")
+    cflags.gsub!("-Wno-parentheses-equality", "")
+    cflags.gsub!("-Wno-constant-logical-operand", "")
+    cflags.gsub!("-Wsuggest-attribute=format", "")
+    cflags.gsub!("-Wold-style-definition", "")
+    cflags.gsub!("-Wsuggest-attribute=noreturn", "")
+    ldflags.gsub!("-Wl,--unresolved-symbols=ignore-all", "")
+  end
+
   {
     "CGO_CFLAGS" => cflags,
     "CGO_LDFLAGS" => ldflags,
