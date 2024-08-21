@@ -49,11 +49,6 @@ jobs:
       - run: bundle update --jobs $(nproc) --retry 3
         working-directory: testdata/example/
 
-      - name: export LD_LIBRARY_PATH
-        run: ruby -e "puts %Q(LD_LIBRARY_PATH=#{RbConfig::CONFIG['libdir']}:#{ENV['LD_LIBRARY_PATH']})" >> $GITHUB_ENV
-
-      - run: echo $LD_LIBRARY_PATH
-
       - name: build and test (Go)
         run: |
           set -xe
