@@ -33,7 +33,7 @@ def env_vars
     ldflags.gsub!("-Wl,--unresolved-symbols=ignore-all", "")
   end
 
-  ld_library_path = "#{RbConfig::CONFIG["libdir"]}:#{ENV["LD_LIBRARY_PATH"]}"
+  ld_library_path = RbConfig::CONFIG["libdir"]
 
   {
     "CGO_CFLAGS" => cflags,
