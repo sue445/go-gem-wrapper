@@ -71,6 +71,7 @@ func Init_example() {
 
 	defineMethodsToExampleTests(rb_mExample)
 	defineMethodsToExampleGoStruct(rb_mExample)
+	defineMethodsToExampleBenchmark(rb_mExample)
 }
 
 func main() {
