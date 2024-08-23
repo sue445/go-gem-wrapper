@@ -1,5 +1,6 @@
 module Example
   module Benchmark
     def self.tarai: (Integer x, Integer y, Integer z) -> Integer
+    def self.tarai_goroutine: (Integer x, Integer y, Integer z, Integer times) -> Array[Integer]
   end
 end
