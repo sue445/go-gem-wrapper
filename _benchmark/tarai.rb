@@ -2,6 +2,7 @@ require "benchmark/ips"
 
 require_relative "../testdata/example/lib/example"
 
+# c.f. https://www.ruby-lang.org/en/news/2020/12/25/ruby-3-0-0-released/
 def tarai(x, y, z) =
   x <= y ? y : tarai(tarai(x-1, y, z),
                      tarai(y-1, z, x),
