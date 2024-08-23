@@ -1,0 +1,5 @@
+module Example
+  module Benchmark
+    def self.tarai: (Integer x, Integer y, Integer z) -> Integer
+  end
+end
