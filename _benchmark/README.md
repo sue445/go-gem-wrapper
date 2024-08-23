@@ -3,9 +3,7 @@
 
 At first, run `rake ruby:build_example` at repository root.
 
-```bash
-bundle install
-```
+And run `bundle install` at this directory
 
 ## tarai
 ```bash
