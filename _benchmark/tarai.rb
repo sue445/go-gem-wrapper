@@ -15,14 +15,14 @@ Benchmark.ips do |x|
   # sequential version
   x.report("sequential"){ 4.times{ tarai(14, 7, 0) } }
 
-  # parallel version
+  # parallel version (with Ractor)
   x.report("parallel (Ractor)"){
     4.times.map do
       Ractor.new { tarai(14, 7, 0) }
     end.each(&:take)
   }
 
-  # goroutine version
+  # parallel version (with goroutine)
   x.report("parallel (goroutine)"){ Example::Benchmark.tarai_goroutine(14, 7, 0, 4) }
 
   x.compare!
