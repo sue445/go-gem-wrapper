@@ -21,5 +21,8 @@ Benchmark.ips do |x|
     end.each(&:take)
   }
 
+  # goroutine version
+  x.report("parallel (goroutine)"){ Example::Benchmark.tarai_goroutine(14, 7, 0, 4) }
+
   x.compare!
 end
