@@ -1,13 +1,7 @@
 # Benchmark
-## Setup
-
-At first, run `rake ruby:build_example` at repository root.
-
-And run `bundle install` at this directory
-
 ## tarai
 ```bash
-$ bundle exec ruby tarai.rb
+$ ruby tarai.rb
 ruby 3.3.4 (2024-07-09 revision be1089c8ec) [arm64-darwin23]
 Warming up --------------------------------------
           sequential     1.000 i/100ms

@@ -1,4 +1,18 @@
+require "bundler/inline"
+
+gemfile do
+  source "https://rubygems.org"
+  gem "benchmark-ips"
+end
+
 require "benchmark/ips"
+
+# Build native extension before running benchmark
+Dir.chdir(File.join(__dir__, "..", "testdata", "example")) do
+  system("bundle config set --local path 'vendor/bundle'", exception: true)
+  system("bundle install", exception: true)
+  system("bundle exec rake", exception: true)
+end
 
 require_relative "../testdata/example/lib/example"
 
