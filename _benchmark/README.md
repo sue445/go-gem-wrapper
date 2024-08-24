@@ -1,8 +1,4 @@
 # Benchmark
-## Setup
-
-At first, run `rake ruby:build_example` at repository root.
-
 ## tarai
 ```bash
 $ ruby tarai.rb
