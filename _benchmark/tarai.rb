@@ -1,3 +1,10 @@
+require "bundler/inline"
+
+gemfile do
+  source "https://rubygems.org"
+  gem "benchmark-ips"
+end
+
 require "benchmark/ips"
 
 require_relative "../testdata/example/lib/example"
