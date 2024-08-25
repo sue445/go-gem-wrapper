@@ -22,15 +22,33 @@ unless rubyarchhdrdir
   rubyarchhdrdir = RbConfig::CONFIG["rubyarchhdrdir"]
 end
 
+# Returns all header files included in ruby.h
+# @param rubyhdrdir [String]
+# @param rubyarchhdrdir [String]
+# @return [Array<String>]
+def included_ruby_header_files(rubyhdrdir:, rubyarchhdrdir:)
+  result = `gcc -M -I#{rubyarchhdrdir} -I#{rubyhdrdir}/ruby/backward -I#{rubyhdrdir} #{rubyhdrdir}/ruby.h`
+  header_files = result.delete_prefix("ruby.o:").lines.map do |line|
+    line.gsub("\\\n", "").strip
+  end
+
+  header_files.select do |file|
+    [rubyhdrdir, rubyarchhdrdir].any? { |dir| file.start_with?(dir) }
+  end
+end
+
 # Create c-for-go config file from ruby.yml.erb
 # @param rubyhdrdir [String]
 # @param rubyarchhdrdir [String]
 def create_c_for_go_config_file(rubyhdrdir:, rubyarchhdrdir:)
+  # Define variables for ruby.yml.erb
   include_paths = [
     rubyarchhdrdir,
     "#{rubyhdrdir}/ruby/backward",
     rubyhdrdir,
   ]
+
+  source_paths = included_ruby_header_files(rubyhdrdir:, rubyarchhdrdir:)
 
   config = ERB.new(File.read(SRC_CONFIG_ERB_FILE)).result(binding)
 
