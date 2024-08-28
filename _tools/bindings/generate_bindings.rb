@@ -1,3 +1,12 @@
+# Generate C-Go Bindings from "ruby.h"
+#
+# Requirements
+#   * https://github.com/xlab/c-for-go
+#     *  go install github.com/xlab/c-for-go@latest
+#
+# Usage
+#   ruby generate_bindings.rb
+
 require "optparse"
 require "erb"
 
