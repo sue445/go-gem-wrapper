@@ -20,6 +20,11 @@ TRANSLATOR:
     defines: expand
     enum: eval
 
+  PtrTips:
+    function:
+      - {target: "^rb_eval_string_wrap$",    tips: [0,ref]}
+      - {target: "^rb_eval_string_protect$", tips: [0,ref]}
+
   Rules:
     global:
       - {action: replace, from: "^_$", to: "arg"}

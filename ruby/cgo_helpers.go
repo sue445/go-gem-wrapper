@@ -1116,35 +1116,6 @@ func unpackArgSRbDataTypeT(x []RbDataTypeT) (unpacked *C.rb_data_type_t, allocs 
 	return
 }
 
-// copyPIntBytes copies the data from Go slice as *C.int.
-func copyPIntBytes(slice *sliceHeader) (*C.int, *cgoAllocMap) {
-	allocs := new(cgoAllocMap)
-	defer runtime.SetFinalizer(allocs, func(a *cgoAllocMap) {
-		go a.Free()
-	})
-
-	mem0 := unsafe.Pointer(C.CBytes(*(*[]byte)(unsafe.Pointer(&sliceHeader{
-		Data: slice.Data,
-		Len:  int(sizeOfIntValue) * slice.Len,
-		Cap:  int(sizeOfIntValue) * slice.Len,
-	}))))
-	allocs.Add(mem0)
-
-	return (*C.int)(mem0), allocs
-}
-
-// allocIntMemory allocates memory for type C.int in C.
-// The caller is responsible for freeing the this memory via C.free.
-func allocIntMemory(n int) unsafe.Pointer {
-	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfIntValue))
-	if mem == nil {
-		panic(fmt.Sprintln("memory alloc error: ", err))
-	}
-	return mem
-}
-
-const sizeOfIntValue = unsafe.Sizeof([1]C.int{})
-
 // copyPIDBytes copies the data from Go slice as *C.ID.
 func copyPIDBytes(slice *sliceHeader) (*C.ID, *cgoAllocMap) {
 	allocs := new(cgoAllocMap)
@@ -1202,6 +1173,35 @@ func allocUlongMemory(n int) unsafe.Pointer {
 }
 
 const sizeOfUlongValue = unsafe.Sizeof([1]C.ulong{})
+
+// copyPIntBytes copies the data from Go slice as *C.int.
+func copyPIntBytes(slice *sliceHeader) (*C.int, *cgoAllocMap) {
+	allocs := new(cgoAllocMap)
+	defer runtime.SetFinalizer(allocs, func(a *cgoAllocMap) {
+		go a.Free()
+	})
+
+	mem0 := unsafe.Pointer(C.CBytes(*(*[]byte)(unsafe.Pointer(&sliceHeader{
+		Data: slice.Data,
+		Len:  int(sizeOfIntValue) * slice.Len,
+		Cap:  int(sizeOfIntValue) * slice.Len,
+	}))))
+	allocs.Add(mem0)
+
+	return (*C.int)(mem0), allocs
+}
+
+// allocIntMemory allocates memory for type C.int in C.
+// The caller is responsible for freeing the this memory via C.free.
+func allocIntMemory(n int) unsafe.Pointer {
+	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfIntValue))
+	if mem == nil {
+		panic(fmt.Sprintln("memory alloc error: ", err))
+	}
+	return mem
+}
+
+const sizeOfIntValue = unsafe.Sizeof([1]C.int{})
 
 // copyPSizeTBytes copies the data from Go slice as *C.size_t.
 func copyPSizeTBytes(slice *sliceHeader) (*C.size_t, *cgoAllocMap) {

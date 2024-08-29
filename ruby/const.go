@@ -14,13 +14,13 @@ import "C"
 
 const (
 	// Qfalse as defined in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
-	Qfalse = 0x1044e77b0
+	Qfalse = 0x100e637b0
 	// Qnil as defined in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
-	Qnil = 0x1044e77b0
+	Qnil = 0x100e637b0
 	// Qtrue as defined in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
-	Qtrue = 0x1044e77b0
+	Qtrue = 0x100e637b0
 	// Qundef as defined in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
-	Qundef = 0x1044e77b0
+	Qundef = 0x100e637b0
 )
 
 // RbWarningCategoryT as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h

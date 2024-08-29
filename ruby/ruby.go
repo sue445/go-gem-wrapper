@@ -1336,10 +1336,10 @@ func RbEvalString(str string) VALUE {
 }
 
 // RbEvalStringProtect function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/eval.h
-func RbEvalStringProtect(str string, state []int32) VALUE {
+func RbEvalStringProtect(str string, state *int32) VALUE {
 	str = safeString(str)
 	cstr, cstrAllocMap := unpackPCharString(str)
-	cstate, cstateAllocMap := (*C.int)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&state)).Data)), cgoAllocsUnknown
+	cstate, cstateAllocMap := (*C.int)(unsafe.Pointer(state)), cgoAllocsUnknown
 	__ret := C.rb_eval_string_protect(cstr, cstate)
 	runtime.KeepAlive(cstateAllocMap)
 	runtime.KeepAlive(str)
@@ -1349,10 +1349,10 @@ func RbEvalStringProtect(str string, state []int32) VALUE {
 }
 
 // RbEvalStringWrap function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/eval.h
-func RbEvalStringWrap(str string, state []int32) VALUE {
+func RbEvalStringWrap(str string, state *int32) VALUE {
 	str = safeString(str)
 	cstr, cstrAllocMap := unpackPCharString(str)
-	cstate, cstateAllocMap := (*C.int)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&state)).Data)), cgoAllocsUnknown
+	cstate, cstateAllocMap := (*C.int)(unsafe.Pointer(state)), cgoAllocsUnknown
 	__ret := C.rb_eval_string_wrap(cstr, cstate)
 	runtime.KeepAlive(cstateAllocMap)
 	runtime.KeepAlive(str)
