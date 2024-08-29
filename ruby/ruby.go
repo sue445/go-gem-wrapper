@@ -40,6 +40,15 @@ func RbClearConstantCache() {
 	C.rb_clear_constant_cache()
 }
 
+// RB_CHR2FIX function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/arithmetic/char.h
+func RB_CHR2FIX(c byte) VALUE {
+	cc, ccAllocMap := (C.uchar)(c), cgoAllocsUnknown
+	__ret := C.RB_CHR2FIX(cc)
+	runtime.KeepAlive(ccAllocMap)
+	__v := (VALUE)(__ret)
+	return __v
+}
+
 // RbNum2charInline function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/arithmetic/char.h
 func RbNum2charInline(x VALUE) byte {
 	cx, cxAllocMap := (C.VALUE)(x), cgoAllocsUnknown
@@ -121,12 +130,39 @@ func RbFix2uint(num VALUE) uint64 {
 	return __v
 }
 
+// RB_FIX2INT function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/arithmetic/int.h
+func RB_FIX2INT(x VALUE) int32 {
+	cx, cxAllocMap := (C.VALUE)(x), cgoAllocsUnknown
+	__ret := C.RB_FIX2INT(cx)
+	runtime.KeepAlive(cxAllocMap)
+	__v := (int32)(__ret)
+	return __v
+}
+
 // RbNum2intInline function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/arithmetic/int.h
 func RbNum2intInline(x VALUE) int32 {
 	cx, cxAllocMap := (C.VALUE)(x), cgoAllocsUnknown
 	__ret := C.rb_num2int_inline(cx)
 	runtime.KeepAlive(cxAllocMap)
 	__v := (int32)(__ret)
+	return __v
+}
+
+// RB_NUM2UINT function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/arithmetic/int.h
+func RB_NUM2UINT(x VALUE) uint32 {
+	cx, cxAllocMap := (C.VALUE)(x), cgoAllocsUnknown
+	__ret := C.RB_NUM2UINT(cx)
+	runtime.KeepAlive(cxAllocMap)
+	__v := (uint32)(__ret)
+	return __v
+}
+
+// RB_FIX2UINT function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/arithmetic/int.h
+func RB_FIX2UINT(x VALUE) uint32 {
+	cx, cxAllocMap := (C.VALUE)(x), cgoAllocsUnknown
+	__ret := C.RB_FIX2UINT(cx)
+	runtime.KeepAlive(cxAllocMap)
+	__v := (uint32)(__ret)
 	return __v
 }
 
@@ -206,6 +242,15 @@ func RbNum2ulong(num VALUE) uint64 {
 	__ret := C.rb_num2ulong(cnum)
 	runtime.KeepAlive(cnumAllocMap)
 	__v := (uint64)(__ret)
+	return __v
+}
+
+// RB_INT2FIX function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/arithmetic/long.h
+func RB_INT2FIX(i int64) VALUE {
+	ci, ciAllocMap := (C.long)(i), cgoAllocsUnknown
+	__ret := C.RB_INT2FIX(ci)
+	runtime.KeepAlive(ciAllocMap)
+	__v := (VALUE)(__ret)
 	return __v
 }
 
@@ -386,6 +431,15 @@ func RbNum2shortInline(x VALUE) int16 {
 	__ret := C.rb_num2short_inline(cx)
 	runtime.KeepAlive(cxAllocMap)
 	__v := (int16)(__ret)
+	return __v
+}
+
+// RB_ST2FIX function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/arithmetic/st_data_t.h
+func RB_ST2FIX(i uint64) VALUE {
+	ci, ciAllocMap := (C.st_data_t)(i), cgoAllocsUnknown
+	__ret := C.RB_ST2FIX(ci)
+	runtime.KeepAlive(ciAllocMap)
+	__v := (VALUE)(__ret)
 	return __v
 }
 
@@ -646,8 +700,8 @@ func RbDebugRstringNullPtr(_func string) {
 	runtime.KeepAlive(c_funcAllocMap)
 }
 
-// RSTRINGLEN function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/core/rstring.h
-func RSTRINGLEN(str VALUE) int64 {
+// RSTRING_LEN function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/core/rstring.h
+func RSTRING_LEN(str VALUE) int64 {
 	cstr, cstrAllocMap := (C.VALUE)(str), cgoAllocsUnknown
 	__ret := C.RSTRING_LEN(cstr)
 	runtime.KeepAlive(cstrAllocMap)
@@ -655,8 +709,8 @@ func RSTRINGLEN(str VALUE) int64 {
 	return __v
 }
 
-// RSTRINGPTR function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/core/rstring.h
-func RSTRINGPTR(str VALUE) *byte {
+// RSTRING_PTR function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/core/rstring.h
+func RSTRING_PTR(str VALUE) *byte {
 	cstr, cstrAllocMap := (C.VALUE)(str), cgoAllocsUnknown
 	__ret := C.RSTRING_PTR(cstr)
 	runtime.KeepAlive(cstrAllocMap)
@@ -664,8 +718,8 @@ func RSTRINGPTR(str VALUE) *byte {
 	return __v
 }
 
-// RSTRINGEND function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/core/rstring.h
-func RSTRINGEND(str VALUE) *byte {
+// RSTRING_END function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/core/rstring.h
+func RSTRING_END(str VALUE) *byte {
 	cstr, cstrAllocMap := (C.VALUE)(str), cgoAllocsUnknown
 	__ret := C.RSTRING_END(cstr)
 	runtime.KeepAlive(cstrAllocMap)
@@ -673,8 +727,8 @@ func RSTRINGEND(str VALUE) *byte {
 	return __v
 }
 
-// RSTRINGLENINT function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/core/rstring.h
-func RSTRINGLENINT(str VALUE) int32 {
+// RSTRING_LENINT function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/core/rstring.h
+func RSTRING_LENINT(str VALUE) int32 {
 	cstr, cstrAllocMap := (C.VALUE)(str), cgoAllocsUnknown
 	__ret := C.RSTRING_LENINT(cstr)
 	runtime.KeepAlive(cstrAllocMap)
@@ -1536,6 +1590,219 @@ func RbFreezeSingletonClass(klass VALUE) {
 	runtime.KeepAlive(cklassAllocMap)
 }
 
+// RB_FL_ABLE function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_FL_ABLE(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_FL_ABLE(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_FL_TEST_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_FL_TEST_RAW(obj VALUE, flags VALUE) VALUE {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	cflags, cflagsAllocMap := (C.VALUE)(flags), cgoAllocsUnknown
+	__ret := C.RB_FL_TEST_RAW(cobj, cflags)
+	runtime.KeepAlive(cflagsAllocMap)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (VALUE)(__ret)
+	return __v
+}
+
+// RB_FL_TEST function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_FL_TEST(obj VALUE, flags VALUE) VALUE {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	cflags, cflagsAllocMap := (C.VALUE)(flags), cgoAllocsUnknown
+	__ret := C.RB_FL_TEST(cobj, cflags)
+	runtime.KeepAlive(cflagsAllocMap)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (VALUE)(__ret)
+	return __v
+}
+
+// RB_FL_ANY_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_FL_ANY_RAW(obj VALUE, flags VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	cflags, cflagsAllocMap := (C.VALUE)(flags), cgoAllocsUnknown
+	__ret := C.RB_FL_ANY_RAW(cobj, cflags)
+	runtime.KeepAlive(cflagsAllocMap)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_FL_ANY function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_FL_ANY(obj VALUE, flags VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	cflags, cflagsAllocMap := (C.VALUE)(flags), cgoAllocsUnknown
+	__ret := C.RB_FL_ANY(cobj, cflags)
+	runtime.KeepAlive(cflagsAllocMap)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_FL_ALL_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_FL_ALL_RAW(obj VALUE, flags VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	cflags, cflagsAllocMap := (C.VALUE)(flags), cgoAllocsUnknown
+	__ret := C.RB_FL_ALL_RAW(cobj, cflags)
+	runtime.KeepAlive(cflagsAllocMap)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_FL_ALL function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_FL_ALL(obj VALUE, flags VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	cflags, cflagsAllocMap := (C.VALUE)(flags), cgoAllocsUnknown
+	__ret := C.RB_FL_ALL(cobj, cflags)
+	runtime.KeepAlive(cflagsAllocMap)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_FL_SET_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_FL_SET_RAW(obj VALUE, flags VALUE) {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	cflags, cflagsAllocMap := (C.VALUE)(flags), cgoAllocsUnknown
+	C.RB_FL_SET_RAW(cobj, cflags)
+	runtime.KeepAlive(cflagsAllocMap)
+	runtime.KeepAlive(cobjAllocMap)
+}
+
+// RB_FL_SET function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_FL_SET(obj VALUE, flags VALUE) {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	cflags, cflagsAllocMap := (C.VALUE)(flags), cgoAllocsUnknown
+	C.RB_FL_SET(cobj, cflags)
+	runtime.KeepAlive(cflagsAllocMap)
+	runtime.KeepAlive(cobjAllocMap)
+}
+
+// RB_FL_UNSET_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_FL_UNSET_RAW(obj VALUE, flags VALUE) {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	cflags, cflagsAllocMap := (C.VALUE)(flags), cgoAllocsUnknown
+	C.RB_FL_UNSET_RAW(cobj, cflags)
+	runtime.KeepAlive(cflagsAllocMap)
+	runtime.KeepAlive(cobjAllocMap)
+}
+
+// RB_FL_UNSET function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_FL_UNSET(obj VALUE, flags VALUE) {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	cflags, cflagsAllocMap := (C.VALUE)(flags), cgoAllocsUnknown
+	C.RB_FL_UNSET(cobj, cflags)
+	runtime.KeepAlive(cflagsAllocMap)
+	runtime.KeepAlive(cobjAllocMap)
+}
+
+// RB_FL_REVERSE_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_FL_REVERSE_RAW(obj VALUE, flags VALUE) {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	cflags, cflagsAllocMap := (C.VALUE)(flags), cgoAllocsUnknown
+	C.RB_FL_REVERSE_RAW(cobj, cflags)
+	runtime.KeepAlive(cflagsAllocMap)
+	runtime.KeepAlive(cobjAllocMap)
+}
+
+// RB_FL_REVERSE function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_FL_REVERSE(obj VALUE, flags VALUE) {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	cflags, cflagsAllocMap := (C.VALUE)(flags), cgoAllocsUnknown
+	C.RB_FL_REVERSE(cobj, cflags)
+	runtime.KeepAlive(cflagsAllocMap)
+	runtime.KeepAlive(cobjAllocMap)
+}
+
+// RB_OBJ_TAINTABLE function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_OBJ_TAINTABLE(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_OBJ_TAINTABLE(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_OBJ_TAINTED_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_OBJ_TAINTED_RAW(obj VALUE) VALUE {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_OBJ_TAINTED_RAW(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (VALUE)(__ret)
+	return __v
+}
+
+// RB_OBJ_TAINTED function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_OBJ_TAINTED(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_OBJ_TAINTED(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_OBJ_TAINT_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_OBJ_TAINT_RAW(obj VALUE) {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	C.RB_OBJ_TAINT_RAW(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+}
+
+// RB_OBJ_TAINT function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_OBJ_TAINT(obj VALUE) {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	C.RB_OBJ_TAINT(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+}
+
+// RB_OBJ_INFECT_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_OBJ_INFECT_RAW(dst VALUE, src VALUE) {
+	cdst, cdstAllocMap := (C.VALUE)(dst), cgoAllocsUnknown
+	csrc, csrcAllocMap := (C.VALUE)(src), cgoAllocsUnknown
+	C.RB_OBJ_INFECT_RAW(cdst, csrc)
+	runtime.KeepAlive(csrcAllocMap)
+	runtime.KeepAlive(cdstAllocMap)
+}
+
+// RB_OBJ_INFECT function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_OBJ_INFECT(dst VALUE, src VALUE) {
+	cdst, cdstAllocMap := (C.VALUE)(dst), cgoAllocsUnknown
+	csrc, csrcAllocMap := (C.VALUE)(src), cgoAllocsUnknown
+	C.RB_OBJ_INFECT(cdst, csrc)
+	runtime.KeepAlive(csrcAllocMap)
+	runtime.KeepAlive(cdstAllocMap)
+}
+
+// RB_OBJ_FROZEN_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_OBJ_FROZEN_RAW(obj VALUE) VALUE {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_OBJ_FROZEN_RAW(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (VALUE)(__ret)
+	return __v
+}
+
+// RB_OBJ_FROZEN function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_OBJ_FROZEN(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_OBJ_FROZEN(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_OBJ_FREEZE_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
+func RB_OBJ_FREEZE_RAW(obj VALUE) {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	C.RB_OBJ_FREEZE_RAW(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+}
+
 // RbObjFreezeInline function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
 func RbObjFreezeInline(obj VALUE) {
 	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
@@ -1730,6 +1997,24 @@ func RbGcWritebarrierUnprotect(obj VALUE) {
 	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
 	C.rb_gc_writebarrier_unprotect(cobj)
 	runtime.KeepAlive(cobjAllocMap)
+}
+
+// RB_OBJ_PROMOTED_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/gc.h
+func RB_OBJ_PROMOTED_RAW(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_OBJ_PROMOTED_RAW(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_OBJ_PROMOTED function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/gc.h
+func RB_OBJ_PROMOTED(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_OBJ_PROMOTED(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
 }
 
 // RbObjWbUnprotect function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/gc.h
@@ -8740,6 +9025,87 @@ func RbScanArgsSet(kwFlag int32, argc int32, argv []VALUE, nLead int32, nOpt int
 	return __v
 }
 
+// RB_TEST function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
+func RB_TEST(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_TEST(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_NIL_P function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
+func RB_NIL_P(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_NIL_P(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_UNDEF_P function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
+func RB_UNDEF_P(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_UNDEF_P(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_NIL_OR_UNDEF_P function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
+func RB_NIL_OR_UNDEF_P(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_NIL_OR_UNDEF_P(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_FIXNUM_P function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
+func RB_FIXNUM_P(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_FIXNUM_P(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_STATIC_SYM_P function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
+func RB_STATIC_SYM_P(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_STATIC_SYM_P(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_FLONUM_P function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
+func RB_FLONUM_P(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_FLONUM_P(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_IMMEDIATE_P function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
+func RB_IMMEDIATE_P(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_IMMEDIATE_P(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_SPECIAL_CONST_P function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
+func RB_SPECIAL_CONST_P(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_SPECIAL_CONST_P(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
 // RbSpecialConstP function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
 func RbSpecialConstP(obj VALUE) VALUE {
 	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
@@ -8883,6 +9249,15 @@ func RbCheckType(obj VALUE, t int32) {
 	runtime.KeepAlive(cobjAllocMap)
 }
 
+// RB_BUILTIN_TYPE function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/value_type.h
+func RB_BUILTIN_TYPE(obj VALUE) C.enum_ {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_BUILTIN_TYPE(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (C.enum_)(__ret)
+	return __v
+}
+
 // RbIntegerTypeP function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/value_type.h
 func RbIntegerTypeP(obj VALUE) bool {
 	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
@@ -8898,6 +9273,44 @@ func RbType(obj VALUE) C.enum_ {
 	__ret := C.rb_type(cobj)
 	runtime.KeepAlive(cobjAllocMap)
 	__v := (C.enum_)(__ret)
+	return __v
+}
+
+// RB_FLOAT_TYPE_P function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/value_type.h
+func RB_FLOAT_TYPE_P(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_FLOAT_TYPE_P(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_DYNAMIC_SYM_P function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/value_type.h
+func RB_DYNAMIC_SYM_P(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_DYNAMIC_SYM_P(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_SYMBOL_P function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/value_type.h
+func RB_SYMBOL_P(obj VALUE) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	__ret := C.RB_SYMBOL_P(cobj)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
+	return __v
+}
+
+// RB_TYPE_P function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/value_type.h
+func RB_TYPE_P(obj VALUE, t C.enum_) bool {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	ct, ctAllocMap := (C.enum_)(t), cgoAllocsUnknown
+	__ret := C.RB_TYPE_P(cobj, ct)
+	runtime.KeepAlive(ctAllocMap)
+	runtime.KeepAlive(cobjAllocMap)
+	__v := (bool)(__ret)
 	return __v
 }
 

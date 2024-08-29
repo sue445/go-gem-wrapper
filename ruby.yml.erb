@@ -22,12 +22,9 @@ TRANSLATOR:
 
   Rules:
     global:
-      - {transform: title}
       - {action: replace, from: "^_$", to: "arg"}
 
     function:
-      - {transform: export}
-
       # FIXME: Because both `rb_hash` and `rb_Hash` are defined, causing the automatically generated function to duplicate and cause an error.
       - {action: ignore, from: "^rb_Hash$"}
 
@@ -53,17 +50,28 @@ TRANSLATOR:
       - {action: ignore, from: "^rb_time_timespec$"}
       - {action: ignore, from: "^rb_time_timeval$"}
 
-      - {action: accept, from: "^rb_"}
+      - {action: accept, from: "(?i)^rb_"}
       - {action: accept, from: "^RSTRING_"}
 
-    type:
+      # e.g.
+      # * rb_special_const_p -> rbSpecialConstP (to camel case)
+      # * rb_Integer -> rbInteger (to camel case)
+      # * RB_SPECIAL_CONST_P -> RB_SPECIAL_CONST_P (no changed)
+      - {transform: lower, from: ".*[a-z].*"}
+      - {action: replace, from: "_([^_A-Z]+)", to: "$1", transform: title}
+
       - {transform: export}
+
+    type:
       - {action: accept, from: "^fd_"}
       - {action: accept, from: "^rb_"}
       # - {action: accept, from: "^st_"}
       - {action: accept, from: "(?i)^ruby"}
       - {action: accept, from: "^ID$"}
       - {action: accept, from: "^VALUE$"}
+
+      - {load: snakecase}
+      - {transform: export}
 
     private:
       - {transform: unexport}
@@ -74,5 +82,3 @@ TRANSLATOR:
       - {action: doc, from: "^rb_proc_", to: "https://github.com/ruby/ruby/blob/master/include/ruby/internal/$path"}
       - {action: doc, from: "^st_",      to: "https://github.com/ruby/ruby/blob/master/include/$path"}
       - {action: doc, from: ".+",        to: "https://github.com/ruby/ruby/blob/master/include/ruby/$path"}
-      - {transform: export}
-      - {load: snakecase}
