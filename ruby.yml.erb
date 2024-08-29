@@ -24,6 +24,12 @@ TRANSLATOR:
     global:
       - {action: replace, from: "^_$", to: "arg"}
 
+    const:
+      - {action: accept, from: "^Q"}
+
+      - {load: snakecase}
+      - {transform: export}
+
     function:
       # FIXME: Because both `rb_hash` and `rb_Hash` are defined, causing the automatically generated function to duplicate and cause an error.
       - {action: ignore, from: "^rb_Hash$"}
