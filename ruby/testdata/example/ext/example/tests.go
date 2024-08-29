@@ -161,10 +161,10 @@ func rb_example_tests_rb_const_defined(klass C.VALUE, name C.VALUE) C.VALUE {
 
 	defined := ruby.RbConstDefined(ruby.VALUE(klass), constID)
 	if defined {
-		return C.VALUE(ruby.Qtrue())
+		return C.VALUE(ruby.Qtrue)
 	}
 
-	return C.VALUE(ruby.Qfalse())
+	return C.VALUE(ruby.Qfalse)
 }
 
 //export rb_example_tests_rb_const_defined_at
@@ -174,10 +174,10 @@ func rb_example_tests_rb_const_defined_at(klass C.VALUE, name C.VALUE) C.VALUE {
 
 	defined := ruby.RbConstDefinedAt(ruby.VALUE(klass), constID)
 	if defined {
-		return C.VALUE(ruby.Qtrue())
+		return C.VALUE(ruby.Qtrue)
 	}
 
-	return C.VALUE(ruby.Qfalse())
+	return C.VALUE(ruby.Qfalse)
 }
 
 //export rb_example_tests_rb_eval_string
