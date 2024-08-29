@@ -38,8 +38,8 @@ func rb_example_go_struct_get(self C.VALUE) C.VALUE {
 	data := (*GoStruct)(ruby.GetGoStruct(ruby.VALUE(self)))
 
 	ret := []ruby.VALUE{
-		ruby.INT2NUM(ruby.Int(data.x)),
-		ruby.INT2NUM(ruby.Int(data.y)),
+		ruby.INT2NUM(int32(data.x)),
+		ruby.INT2NUM(int32(data.y)),
 	}
 
 	return C.VALUE(ruby.Slice2rbAry(ret))

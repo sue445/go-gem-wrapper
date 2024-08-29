@@ -192,7 +192,7 @@ func rb_example_tests_rb_eval_string(_ C.VALUE, str C.VALUE) C.VALUE {
 func rb_example_tests_rb_eval_string_protect(_ C.VALUE, str C.VALUE) C.VALUE {
 	goStr := ruby.Value2String(ruby.VALUE(str))
 
-	var state ruby.Int
+	var state int32
 	ret := ruby.RbEvalStringProtect(goStr, &state)
 
 	slice := []ruby.VALUE{ret, ruby.INT2NUM(state)}
@@ -205,7 +205,7 @@ func rb_example_tests_rb_eval_string_protect(_ C.VALUE, str C.VALUE) C.VALUE {
 func rb_example_tests_rb_eval_string_wrap(_ C.VALUE, str C.VALUE) C.VALUE {
 	goStr := ruby.Value2String(ruby.VALUE(str))
 
-	var state ruby.Int
+	var state int32
 	ret := ruby.RbEvalStringWrap(goStr, &state)
 
 	slice := []ruby.VALUE{ret, ruby.INT2NUM(state)}

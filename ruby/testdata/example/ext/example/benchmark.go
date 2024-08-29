@@ -21,7 +21,7 @@ func rb_example_benchmark_tarai(_ C.VALUE, x C.VALUE, y C.VALUE, z C.VALUE) C.VA
 		int(ruby.NUM2INT(ruby.VALUE(z))),
 	)
 
-	return C.VALUE(ruby.INT2NUM(ruby.Int(ret)))
+	return C.VALUE(ruby.INT2NUM(int32(ret)))
 }
 
 func tarai(x int, y int, z int) int {
