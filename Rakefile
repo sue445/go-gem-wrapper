@@ -65,6 +65,11 @@ namespace :go do
     end
     sh env_vars, "golangci-lint run"
   end
+
+  desc "Generate ruby/*.go from ruby.h"
+  task :generate do
+    sh "ruby generate_bindings.rb"
+  end
 end
 
 namespace :patch_for_go_gem do
