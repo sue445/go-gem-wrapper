@@ -1,7 +1,7 @@
 namespace :ruby do
-  desc "Build testdata/example/"
+  desc "Build ruby/testdata/example/"
   task :build_example do
-    Dir.chdir(File.join(__dir__, "testdata", "example")) do
+    Dir.chdir(File.join(__dir__, "ruby", "testdata", "example")) do
       sh "bundle config set --local path 'vendor/bundle'"
       sh "bundle install"
       sh "bundle exec rake all"
@@ -45,12 +45,12 @@ end
 namespace :go do
   desc "Run go test"
   task :test do
-    sh env_vars, "go test -count=1 ${TEST_ARGS}"
+    sh env_vars, "go test -count=1 ${TEST_ARGS}  ./..."
   end
 
   desc "Run go test -race"
   task :testrace do
-    sh env_vars, "go test -count=1 ${TEST_ARGS} -race"
+    sh env_vars, "go test -count=1 ${TEST_ARGS} -race  ./..."
   end
 
   desc "Run go fmt"
