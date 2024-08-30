@@ -1,5 +1,10 @@
 package ruby
 
+/*
+#include "ruby.h"
+#include <stdlib.h>
+#include "cgo_helpers.h"
+*/
 import "C"
 
 import (
