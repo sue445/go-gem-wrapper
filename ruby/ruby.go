@@ -35,11 +35,6 @@ func RbAssertFailure(file string, line int32, name string, expr string) {
 	runtime.KeepAlive(cfileAllocMap)
 }
 
-// RbClearConstantCache function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/ruby/backward.h
-func RbClearConstantCache() {
-	C.rb_clear_constant_cache()
-}
-
 // RB_CHR2FIX function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/arithmetic/char.h
 func RB_CHR2FIX(c byte) VALUE {
 	cc, ccAllocMap := (C.uchar)(c), cgoAllocsUnknown
@@ -545,34 +540,10 @@ func RbDataObjectZalloc(klass VALUE, size uint64, dmark RUBYDATAFUNC, dfree RUBY
 	return __v
 }
 
-// RbDataObjectWrapWarning function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/core/rdata.h
-func RbDataObjectWrapWarning(klass VALUE, ptr unsafe.Pointer, mark RUBYDATAFUNC, free RUBYDATAFUNC) VALUE {
-	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
-	cptr, cptrAllocMap := ptr, cgoAllocsUnknown
-	cmark, cmarkAllocMap := mark.PassValue()
-	cfree, cfreeAllocMap := free.PassValue()
-	__ret := C.rb_data_object_wrap_warning(cklass, cptr, cmark, cfree)
-	runtime.KeepAlive(cfreeAllocMap)
-	runtime.KeepAlive(cmarkAllocMap)
-	runtime.KeepAlive(cptrAllocMap)
-	runtime.KeepAlive(cklassAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
 // RbDataObjectGet function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/core/rdata.h
 func RbDataObjectGet(obj VALUE) unsafe.Pointer {
 	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
 	__ret := C.rb_data_object_get(cobj)
-	runtime.KeepAlive(cobjAllocMap)
-	__v := *(*unsafe.Pointer)(unsafe.Pointer(&__ret))
-	return __v
-}
-
-// RbDataObjectGetWarning function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/core/rdata.h
-func RbDataObjectGetWarning(obj VALUE) unsafe.Pointer {
-	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
-	__ret := C.rb_data_object_get_warning(cobj)
 	runtime.KeepAlive(cobjAllocMap)
 	__v := *(*unsafe.Pointer)(unsafe.Pointer(&__ret))
 	return __v
@@ -590,21 +561,6 @@ func RbDataObjectMake(klass VALUE, markFunc RUBYDATAFUNC, freeFunc RUBYDATAFUNC,
 	runtime.KeepAlive(cdatapAllocMap)
 	runtime.KeepAlive(cfreeFuncAllocMap)
 	runtime.KeepAlive(cmarkFuncAllocMap)
-	runtime.KeepAlive(cklassAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
-// RbDataObjectAlloc function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/core/rdata.h
-func RbDataObjectAlloc(klass VALUE, data unsafe.Pointer, dmark RUBYDATAFUNC, dfree RUBYDATAFUNC) VALUE {
-	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
-	cdata, cdataAllocMap := data, cgoAllocsUnknown
-	cdmark, cdmarkAllocMap := dmark.PassValue()
-	cdfree, cdfreeAllocMap := dfree.PassValue()
-	__ret := C.rb_data_object_alloc(cklass, cdata, cdmark, cdfree)
-	runtime.KeepAlive(cdfreeAllocMap)
-	runtime.KeepAlive(cdmarkAllocMap)
-	runtime.KeepAlive(cdataAllocMap)
 	runtime.KeepAlive(cklassAllocMap)
 	__v := (VALUE)(__ret)
 	return __v
@@ -845,20 +801,6 @@ func RbDataTypedObjectMake(klass VALUE, kind []RbDataTypeT, datap []unsafe.Point
 	runtime.KeepAlive(cdatapAllocMap)
 	packSRbDataTypeT(kind, ckind)
 	runtime.KeepAlive(ckindAllocMap)
-	runtime.KeepAlive(cklassAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
-// RbDataTypedObjectAlloc function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/core/rtypeddata.h
-func RbDataTypedObjectAlloc(klass VALUE, datap unsafe.Pointer, kind []RbDataTypeT) VALUE {
-	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
-	cdatap, cdatapAllocMap := datap, cgoAllocsUnknown
-	ckind, ckindAllocMap := unpackArgSRbDataTypeT(kind)
-	__ret := C.rb_data_typed_object_alloc(cklass, cdatap, ckind)
-	packSRbDataTypeT(kind, ckind)
-	runtime.KeepAlive(ckindAllocMap)
-	runtime.KeepAlive(cdatapAllocMap)
 	runtime.KeepAlive(cklassAllocMap)
 	__v := (VALUE)(__ret)
 	return __v
@@ -1557,65 +1499,6 @@ func RB_FL_REVERSE(obj VALUE, flags VALUE) {
 	runtime.KeepAlive(cobjAllocMap)
 }
 
-// RB_OBJ_TAINTABLE function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
-func RB_OBJ_TAINTABLE(obj VALUE) bool {
-	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
-	__ret := C.RB_OBJ_TAINTABLE(cobj)
-	runtime.KeepAlive(cobjAllocMap)
-	__v := (bool)(__ret)
-	return __v
-}
-
-// RB_OBJ_TAINTED_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
-func RB_OBJ_TAINTED_RAW(obj VALUE) VALUE {
-	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
-	__ret := C.RB_OBJ_TAINTED_RAW(cobj)
-	runtime.KeepAlive(cobjAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
-// RB_OBJ_TAINTED function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
-func RB_OBJ_TAINTED(obj VALUE) bool {
-	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
-	__ret := C.RB_OBJ_TAINTED(cobj)
-	runtime.KeepAlive(cobjAllocMap)
-	__v := (bool)(__ret)
-	return __v
-}
-
-// RB_OBJ_TAINT_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
-func RB_OBJ_TAINT_RAW(obj VALUE) {
-	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
-	C.RB_OBJ_TAINT_RAW(cobj)
-	runtime.KeepAlive(cobjAllocMap)
-}
-
-// RB_OBJ_TAINT function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
-func RB_OBJ_TAINT(obj VALUE) {
-	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
-	C.RB_OBJ_TAINT(cobj)
-	runtime.KeepAlive(cobjAllocMap)
-}
-
-// RB_OBJ_INFECT_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
-func RB_OBJ_INFECT_RAW(dst VALUE, src VALUE) {
-	cdst, cdstAllocMap := (C.VALUE)(dst), cgoAllocsUnknown
-	csrc, csrcAllocMap := (C.VALUE)(src), cgoAllocsUnknown
-	C.RB_OBJ_INFECT_RAW(cdst, csrc)
-	runtime.KeepAlive(csrcAllocMap)
-	runtime.KeepAlive(cdstAllocMap)
-}
-
-// RB_OBJ_INFECT function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
-func RB_OBJ_INFECT(dst VALUE, src VALUE) {
-	cdst, cdstAllocMap := (C.VALUE)(dst), cgoAllocsUnknown
-	csrc, csrcAllocMap := (C.VALUE)(src), cgoAllocsUnknown
-	C.RB_OBJ_INFECT(cdst, csrc)
-	runtime.KeepAlive(csrcAllocMap)
-	runtime.KeepAlive(cdstAllocMap)
-}
-
 // RB_OBJ_FROZEN_RAW function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/fl_type.h
 func RB_OBJ_FROZEN_RAW(obj VALUE) VALUE {
 	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
@@ -1697,13 +1580,6 @@ func RbGcLocation(obj VALUE) VALUE {
 	runtime.KeepAlive(cobjAllocMap)
 	__v := (VALUE)(__ret)
 	return __v
-}
-
-// RbGcForceRecycle function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/gc.h
-func RbGcForceRecycle(obj VALUE) {
-	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
-	C.rb_gc_force_recycle(cobj)
-	runtime.KeepAlive(cobjAllocMap)
 }
 
 // RbGc function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/gc.h
@@ -3127,17 +3003,6 @@ func RbComplexNewPolar(abs VALUE, arg VALUE) VALUE {
 	cabs, cabsAllocMap := (C.VALUE)(abs), cgoAllocsUnknown
 	carg, cargAllocMap := (C.VALUE)(arg), cgoAllocsUnknown
 	__ret := C.rb_complex_new_polar(cabs, carg)
-	runtime.KeepAlive(cargAllocMap)
-	runtime.KeepAlive(cabsAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
-// RbComplexPolar function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/complex.h
-func RbComplexPolar(abs VALUE, arg VALUE) VALUE {
-	cabs, cabsAllocMap := (C.VALUE)(abs), cgoAllocsUnknown
-	carg, cargAllocMap := (C.VALUE)(arg), cgoAllocsUnknown
-	__ret := C.rb_complex_polar(cabs, carg)
 	runtime.KeepAlive(cargAllocMap)
 	runtime.KeepAlive(cabsAllocMap)
 	__v := (VALUE)(__ret)
@@ -7986,21 +7851,6 @@ func RbNeedBlock() {
 	C.rb_need_block()
 }
 
-// RbIterate function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/iterator.h
-func RbIterate(func1 VALUE, data1 VALUE, proc RbBlockCallFuncT, data2 VALUE) VALUE {
-	cfunc1, cfunc1AllocMap := func1.PassRef()
-	cdata1, cdata1AllocMap := (C.VALUE)(data1), cgoAllocsUnknown
-	cproc, cprocAllocMap := proc.PassValue()
-	cdata2, cdata2AllocMap := (C.VALUE)(data2), cgoAllocsUnknown
-	__ret := C.rb_iterate(cfunc1, cdata1, cproc, cdata2)
-	runtime.KeepAlive(cdata2AllocMap)
-	runtime.KeepAlive(cprocAllocMap)
-	runtime.KeepAlive(cdata1AllocMap)
-	runtime.KeepAlive(cfunc1AllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
 // RbBlockCall function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/iterator.h
 func RbBlockCall(obj VALUE, mid ID, argc int32, argv []VALUE, proc RbBlockCallFuncT, data2 VALUE) VALUE {
 	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
@@ -8423,24 +8273,6 @@ func RbCopyGenericIvar(clone VALUE, obj VALUE) {
 	C.rb_copy_generic_ivar(cclone, cobj)
 	runtime.KeepAlive(cobjAllocMap)
 	runtime.KeepAlive(ccloneAllocMap)
-}
-
-// RbCloneSetup function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/newobj.h
-func RbCloneSetup(clone VALUE, obj VALUE) {
-	cclone, ccloneAllocMap := (C.VALUE)(clone), cgoAllocsUnknown
-	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
-	C.rb_clone_setup(cclone, cobj)
-	runtime.KeepAlive(cobjAllocMap)
-	runtime.KeepAlive(ccloneAllocMap)
-}
-
-// RbDupSetup function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/newobj.h
-func RbDupSetup(dup VALUE, obj VALUE) {
-	cdup, cdupAllocMap := (C.VALUE)(dup), cgoAllocsUnknown
-	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
-	C.rb_dup_setup(cdup, cobj)
-	runtime.KeepAlive(cobjAllocMap)
-	runtime.KeepAlive(cdupAllocMap)
 }
 
 // RbScanArgsBadFormat function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/scan_args.h

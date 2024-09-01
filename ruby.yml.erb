@@ -116,6 +116,25 @@ TRANSLATOR:
       - {action: ignore, from: "^rb_gvar_var_marker$"}
       - {action: ignore, from: "^rb_str_setter$"}
 
+      # deprecated functions
+      - {action: ignore, from: "^RB_OBJ_INFECT$"}
+      - {action: ignore, from: "^RB_OBJ_INFECT_RAW$"}
+      - {action: ignore, from: "^RB_OBJ_TAINT$"}
+      - {action: ignore, from: "^RB_OBJ_TAINT_RAW$"}
+      - {action: ignore, from: "^RB_OBJ_TAINTABLE$"}
+      - {action: ignore, from: "^RB_OBJ_TAINTED$"}
+      - {action: ignore, from: "^RB_OBJ_TAINTED_RAW$"}
+      - {action: ignore, from: "^rb_clear_constant_cache$"}
+      - {action: ignore, from: "^rb_clone_setup$"}
+      - {action: ignore, from: "^rb_complex_polar$"}
+      - {action: ignore, from: "^rb_data_object_alloc$"}
+      - {action: ignore, from: "^rb_data_object_get_warning$"}
+      - {action: ignore, from: "^rb_data_object_wrap_warning$"}
+      - {action: ignore, from: "^rb_data_typed_object_alloc$"}
+      - {action: ignore, from: "^rb_dup_setup$"}
+      - {action: ignore, from: "^rb_gc_force_recycle$"}
+      - {action: ignore, from: "^rb_iterate$"}
+
       - {action: accept, from: "(?i)^rb_"}
       - {action: accept, from: "^RSTRING_"}
 
