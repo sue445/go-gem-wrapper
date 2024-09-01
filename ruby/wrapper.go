@@ -18,6 +18,11 @@ func byte2Cchar(b *byte) *C.char {
 	return (*C.char)(unsafe.Pointer(b))
 }
 
+// Byte2String convert from `*byte` to Go string
+func Byte2String(b *byte) string {
+	return unsafe.String(b, C.strlen((*C.char)(unsafe.Pointer(b))))
+}
+
 // String2Value convert from Go string to [VALUE]
 func String2Value(str string) VALUE {
 	return RbUtf8StrNew(str, int64(len(str)))

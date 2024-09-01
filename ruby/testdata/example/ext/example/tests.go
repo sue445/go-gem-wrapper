@@ -117,7 +117,8 @@ func rb_example_tests_rb_alias(klass C.VALUE, dst C.VALUE, src C.VALUE) {
 
 //export rb_example_tests_rb_class2name
 func rb_example_tests_rb_class2name(klass C.VALUE) C.VALUE {
-	str := ruby.RbClass2name(ruby.VALUE(klass))
+	b := ruby.RbClass2name(ruby.VALUE(klass))
+	str := ruby.Byte2String(b)
 	value := ruby.String2Value(str)
 	return C.VALUE(value)
 }
