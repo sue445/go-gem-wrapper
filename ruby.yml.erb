@@ -141,6 +141,9 @@ TRANSLATOR:
       # internal functions in ruby.h
       - {action: ignore, from: "^rb_scan_args_bad_format$"}
 
+      # FIXME: Monkey patched from C `VALUE(*func)(ANYARGS)` argument to Go `unsafe.Pointer` argument
+      - {action: ignore, from: "^rb_define_singleton_method$"}
+
       - {action: accept, from: "(?i)^rb_"}
       - {action: accept, from: "^RSTRING_"}
 

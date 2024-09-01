@@ -2923,21 +2923,6 @@ func RbDefinePrivateMethod(klass VALUE, mid string, _func VALUE, arity int32) {
 	runtime.KeepAlive(cklassAllocMap)
 }
 
-// RbDefineSingletonMethod function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/class.h
-func RbDefineSingletonMethod(obj VALUE, mid string, _func VALUE, arity int32) {
-	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
-	mid = safeString(mid)
-	cmid, cmidAllocMap := unpackPCharString(mid)
-	c_func, c_funcAllocMap := _func.PassRef()
-	carity, carityAllocMap := (C.int)(arity), cgoAllocsUnknown
-	C.rb_define_singleton_method(cobj, cmid, c_func, carity)
-	runtime.KeepAlive(carityAllocMap)
-	runtime.KeepAlive(c_funcAllocMap)
-	runtime.KeepAlive(mid)
-	runtime.KeepAlive(cmidAllocMap)
-	runtime.KeepAlive(cobjAllocMap)
-}
-
 // RbSingletonClass function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/class.h
 func RbSingletonClass(obj VALUE) VALUE {
 	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown

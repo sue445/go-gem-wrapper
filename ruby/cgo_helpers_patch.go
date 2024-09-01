@@ -8,6 +8,7 @@ package ruby
 import "C"
 
 import (
+	"runtime"
 	"unsafe"
 )
 
@@ -16,4 +17,19 @@ import (
 func (v VALUE) PassRef() (*[0]byte, *cgoAllocMap) {
 	ref := (*[0]byte)(unsafe.Pointer(&v))
 	return ref, cgoAllocsUnknown
+}
+
+// FIXME: Monkey patched from C `VALUE(*func)(ANYARGS)` argument to Go `unsafe.Pointer` argument
+
+// RbDefineSingletonMethod function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/intern/class.h
+func RbDefineSingletonMethod(obj VALUE, mid string, _func unsafe.Pointer, arity int32) {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	mid = safeString(mid)
+	cmid, cmidAllocMap := unpackPCharString(mid)
+	carity, carityAllocMap := (C.int)(arity), cgoAllocsUnknown
+	C.rb_define_singleton_method(cobj, cmid, toFunctionPointer(_func), carity)
+	runtime.KeepAlive(carityAllocMap)
+	runtime.KeepAlive(mid)
+	runtime.KeepAlive(cmidAllocMap)
+	runtime.KeepAlive(cobjAllocMap)
 }
