@@ -20,11 +20,6 @@ func byte2Cchar(b *byte) *C.char {
 
 // String2Value convert from Go string to [VALUE]
 func String2Value(str string) VALUE {
-	return VALUE(string2Value(str))
-}
-
-// string2Value convert from Go string to `C.VALUE`. (for internal use within package)
-func string2Value(str string) C.VALUE {
 	return RbUtf8StrNew(str, int64(len(str)))
 }
 
