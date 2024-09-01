@@ -10,7 +10,7 @@ import (
 
 // Value2String convert from [VALUE] to Go string
 func Value2String(str VALUE) string {
-	return C.GoStringN(byte2Cchar(RSTRING_PTR(str)), RSTRING_LENINT(str))
+	return C.GoStringN(byte2Cchar(RSTRING_PTR(str)), C.int(RSTRING_LENINT(str)))
 }
 
 // byte2Cchar convert from `*byte` to `*C.char`
