@@ -8275,13 +8275,6 @@ func RbCopyGenericIvar(clone VALUE, obj VALUE) {
 	runtime.KeepAlive(ccloneAllocMap)
 }
 
-// RbScanArgsBadFormat function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/scan_args.h
-func RbScanArgsBadFormat(arg0 []byte) {
-	carg0, carg0AllocMap := (*C.char)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&arg0)).Data)), cgoAllocsUnknown
-	C.rb_scan_args_bad_format(carg0)
-	runtime.KeepAlive(carg0AllocMap)
-}
-
 // RbScanArgsLengthMismatch function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/scan_args.h
 func RbScanArgsLengthMismatch(arg0 []byte, arg1 int32) {
 	carg0, carg0AllocMap := (*C.char)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&arg0)).Data)), cgoAllocsUnknown
