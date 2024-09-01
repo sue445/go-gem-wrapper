@@ -12,16 +12,7 @@ package ruby
 */
 import "C"
 
-const (
-	// Qfalse as defined in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
-	Qfalse = 0x1026b37b0
-	// Qnil as defined in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
-	Qnil = 0x1026b37b0
-	// Qtrue as defined in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
-	Qtrue = 0x1026b37b0
-	// Qundef as defined in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
-	Qundef = 0x1026b37b0
-)
+const ()
 
 // RbWarningCategoryT as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
 type RbWarningCategoryT int32
