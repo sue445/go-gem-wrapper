@@ -142,6 +142,7 @@ TRANSLATOR:
       - {action: ignore, from: "^rb_scan_args_bad_format$"}
 
       # FIXME: Monkey patched from C `VALUE(*func)(ANYARGS)` argument to Go `unsafe.Pointer` argument
+      - {action: ignore, from: "^rb_define_method$"}
       - {action: ignore, from: "^rb_define_module_function$"}
       - {action: ignore, from: "^rb_define_singleton_method$"}
 
