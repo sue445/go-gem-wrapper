@@ -1089,17 +1089,6 @@ func RbModSysFailStr(mod VALUE, msg VALUE) {
 	runtime.KeepAlive(cmodAllocMap)
 }
 
-// RbReadwriteSysFail function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
-func RbReadwriteSysFail(waiting C.enum_, msg string) {
-	cwaiting, cwaitingAllocMap := (C.enum_)(waiting), cgoAllocsUnknown
-	msg = safeString(msg)
-	cmsg, cmsgAllocMap := unpackPCharString(msg)
-	C.rb_readwrite_sys_fail(cwaiting, cmsg)
-	runtime.KeepAlive(msg)
-	runtime.KeepAlive(cmsgAllocMap)
-	runtime.KeepAlive(cwaitingAllocMap)
-}
-
 // RbIterBreak function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
 func RbIterBreak() {
 	C.rb_iter_break()
@@ -1190,19 +1179,6 @@ func RbModSyserrFailStr(mod VALUE, err int32, msg VALUE) {
 	runtime.KeepAlive(cmsgAllocMap)
 	runtime.KeepAlive(cerrAllocMap)
 	runtime.KeepAlive(cmodAllocMap)
-}
-
-// RbReadwriteSyserrFail function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
-func RbReadwriteSyserrFail(waiting C.enum_, err int32, msg string) {
-	cwaiting, cwaitingAllocMap := (C.enum_)(waiting), cgoAllocsUnknown
-	cerr, cerrAllocMap := (C.int)(err), cgoAllocsUnknown
-	msg = safeString(msg)
-	cmsg, cmsgAllocMap := unpackPCharString(msg)
-	C.rb_readwrite_syserr_fail(cwaiting, cerr, cmsg)
-	runtime.KeepAlive(msg)
-	runtime.KeepAlive(cmsgAllocMap)
-	runtime.KeepAlive(cerrAllocMap)
-	runtime.KeepAlive(cwaitingAllocMap)
 }
 
 // RbUnexpectedType function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
@@ -9249,30 +9225,12 @@ func RbCheckType(obj VALUE, t int32) {
 	runtime.KeepAlive(cobjAllocMap)
 }
 
-// RB_BUILTIN_TYPE function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/value_type.h
-func RB_BUILTIN_TYPE(obj VALUE) C.enum_ {
-	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
-	__ret := C.RB_BUILTIN_TYPE(cobj)
-	runtime.KeepAlive(cobjAllocMap)
-	__v := (C.enum_)(__ret)
-	return __v
-}
-
 // RbIntegerTypeP function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/value_type.h
 func RbIntegerTypeP(obj VALUE) bool {
 	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
 	__ret := C.rb_integer_type_p(cobj)
 	runtime.KeepAlive(cobjAllocMap)
 	__v := (bool)(__ret)
-	return __v
-}
-
-// RbType function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/value_type.h
-func RbType(obj VALUE) C.enum_ {
-	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
-	__ret := C.rb_type(cobj)
-	runtime.KeepAlive(cobjAllocMap)
-	__v := (C.enum_)(__ret)
 	return __v
 }
 
@@ -9298,17 +9256,6 @@ func RB_DYNAMIC_SYM_P(obj VALUE) bool {
 func RB_SYMBOL_P(obj VALUE) bool {
 	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
 	__ret := C.RB_SYMBOL_P(cobj)
-	runtime.KeepAlive(cobjAllocMap)
-	__v := (bool)(__ret)
-	return __v
-}
-
-// RB_TYPE_P function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/value_type.h
-func RB_TYPE_P(obj VALUE, t C.enum_) bool {
-	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
-	ct, ctAllocMap := (C.enum_)(t), cgoAllocsUnknown
-	__ret := C.RB_TYPE_P(cobj, ct)
-	runtime.KeepAlive(ctAllocMap)
 	runtime.KeepAlive(cobjAllocMap)
 	__v := (bool)(__ret)
 	return __v
