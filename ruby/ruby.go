@@ -640,13 +640,6 @@ func RbStrExportLocale(obj VALUE) VALUE {
 	return __v
 }
 
-// RbCheckSafeStr function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/core/rstring.h
-func RbCheckSafeStr(arg0 VALUE) {
-	carg0, carg0AllocMap := (C.VALUE)(arg0), cgoAllocsUnknown
-	C.rb_check_safe_str(carg0)
-	runtime.KeepAlive(carg0AllocMap)
-}
-
 // RbDebugRstringNullPtr function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/core/rstring.h
 func RbDebugRstringNullPtr(_func string) {
 	_func = safeString(_func)
