@@ -8871,17 +8871,6 @@ func RbGetPathNoChecksafe(arg0 VALUE) VALUE {
 	return __v
 }
 
-// RbVarargsBadLength function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/ruby/ruby.h
-func RbVarargsBadLength(arg0 int32, arg1 int32) int32 {
-	carg0, carg0AllocMap := (C.int)(arg0), cgoAllocsUnknown
-	carg1, carg1AllocMap := (C.int)(arg1), cgoAllocsUnknown
-	__ret := C.rb_varargs_bad_length(carg0, carg1)
-	runtime.KeepAlive(carg1AllocMap)
-	runtime.KeepAlive(carg0AllocMap)
-	__v := (int32)(__ret)
-	return __v
-}
-
 // RbClass2name function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/ruby/ruby.h
 func RbClass2name(klass VALUE) *byte {
 	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
