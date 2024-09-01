@@ -2871,19 +2871,6 @@ func RbObjSingletonMethods(argc int32, argv []VALUE, obj VALUE) VALUE {
 	return __v
 }
 
-// RbDefineMethodId function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/class.h
-func RbDefineMethodId(klass VALUE, mid ID, _func VALUE, arity int32) {
-	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
-	cmid, cmidAllocMap := (C.ID)(mid), cgoAllocsUnknown
-	c_func, c_funcAllocMap := _func.PassRef()
-	carity, carityAllocMap := (C.int)(arity), cgoAllocsUnknown
-	C.rb_define_method_id(cklass, cmid, c_func, carity)
-	runtime.KeepAlive(carityAllocMap)
-	runtime.KeepAlive(c_funcAllocMap)
-	runtime.KeepAlive(cmidAllocMap)
-	runtime.KeepAlive(cklassAllocMap)
-}
-
 // RbUndef function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/class.h
 func RbUndef(mod VALUE, mid ID) {
 	cmod, cmodAllocMap := (C.VALUE)(mod), cgoAllocsUnknown

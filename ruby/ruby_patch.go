@@ -96,3 +96,14 @@ func RbDefineProtectedMethod(klass VALUE, mid string, _func unsafe.Pointer, arit
 	runtime.KeepAlive(cmidAllocMap)
 	runtime.KeepAlive(cklassAllocMap)
 }
+
+// RbDefineMethodId function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/intern/class.h
+func RbDefineMethodId(klass VALUE, mid ID, _func unsafe.Pointer, arity int32) {
+	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
+	cmid, cmidAllocMap := (C.ID)(mid), cgoAllocsUnknown
+	carity, carityAllocMap := (C.int)(arity), cgoAllocsUnknown
+	C.rb_define_method_id(cklass, cmid, toFunctionPointer(_func), carity)
+	runtime.KeepAlive(carityAllocMap)
+	runtime.KeepAlive(cmidAllocMap)
+	runtime.KeepAlive(cklassAllocMap)
+}
