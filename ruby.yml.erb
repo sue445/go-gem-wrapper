@@ -18,7 +18,7 @@ PARSER:
 TRANSLATOR:
   ConstRules:
     defines: expand
-    enum: eval
+    enum: cgo
 
   PtrTips:
     function:
@@ -32,7 +32,15 @@ TRANSLATOR:
     const:
       - {action: accept, from: "^Q"}
 
+      # enums
+      - {action: accept, from: "^RB_IO_WAIT_"}
+      - {action: accept, from: "^RB_WARN_CATEGORY_"}
+      - {action: accept, from: "^rb_io_wait_readwrite$"}
+
+      # e.g. RB_IO_WAIT_READABLE -> RbIoWaitReadable
+      - {transform: lower}
       - {load: snakecase}
+
       - {transform: export}
 
     function:

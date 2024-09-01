@@ -14,20 +14,27 @@ import "C"
 
 const (
 	// Qfalse as defined in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
-	Qfalse = 0x100e637b0
+	Qfalse = 0x1026b37b0
 	// Qnil as defined in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
-	Qnil = 0x100e637b0
+	Qnil = 0x1026b37b0
 	// Qtrue as defined in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
-	Qtrue = 0x100e637b0
+	Qtrue = 0x1026b37b0
 	// Qundef as defined in https://github.com/ruby/ruby/blob/master/include/ruby/internal/special_consts.h
-	Qundef = 0x100e637b0
+	Qundef = 0x1026b37b0
 )
 
 // RbWarningCategoryT as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
 type RbWarningCategoryT int32
 
 // RbWarningCategoryT enumeration from https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
-const ()
+const (
+	RbWarnCategoryNone         RbWarningCategoryT = C.RB_WARN_CATEGORY_NONE
+	RbWarnCategoryDeprecated   RbWarningCategoryT = C.RB_WARN_CATEGORY_DEPRECATED
+	RbWarnCategoryExperimental RbWarningCategoryT = C.RB_WARN_CATEGORY_EXPERIMENTAL
+	RbWarnCategoryPerformance  RbWarningCategoryT = C.RB_WARN_CATEGORY_PERFORMANCE
+	RbWarnCategoryDefaultBits  RbWarningCategoryT = C.RB_WARN_CATEGORY_DEFAULT_BITS
+	RbWarnCategoryAllBits      RbWarningCategoryT = C.RB_WARN_CATEGORY_ALL_BITS
+)
 
 const ()
 
@@ -43,7 +50,12 @@ const ()
 
 const ()
 
-const ()
+const (
+	// RbIoWaitReadable as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
+	RbIoWaitReadable = C.RB_IO_WAIT_READABLE
+	// RbIoWaitWritable as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
+	RbIoWaitWritable = C.RB_IO_WAIT_WRITABLE
+)
 
 const ()
 
