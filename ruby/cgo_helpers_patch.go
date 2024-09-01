@@ -77,3 +77,16 @@ func RbDefineMethod(klass VALUE, mid string, _func unsafe.Pointer, arity int32) 
 	runtime.KeepAlive(cmidAllocMap)
 	runtime.KeepAlive(cklassAllocMap)
 }
+
+// RbDefinePrivateMethod function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/intern/class.h
+func RbDefinePrivateMethod(klass VALUE, mid string, _func unsafe.Pointer, arity int32) {
+	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
+	mid = safeString(mid)
+	cmid, cmidAllocMap := unpackPCharString(mid)
+	carity, carityAllocMap := (C.int)(arity), cgoAllocsUnknown
+	C.rb_define_private_method(cklass, cmid, toFunctionPointer(_func), carity)
+	runtime.KeepAlive(carityAllocMap)
+	runtime.KeepAlive(mid)
+	runtime.KeepAlive(cmidAllocMap)
+	runtime.KeepAlive(cklassAllocMap)
+}
