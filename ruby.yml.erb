@@ -72,6 +72,38 @@ TRANSLATOR:
       - {action: ignore, from: "^RB_BUILTIN_TYPE$"}
       - {action: ignore, from: "^RB_TYPE_P$"}
 
+      #  Go's variable-length arguments couldn't be passed directly to C
+      - {action: ignore, from: "^rb_ary_new_from_args$"}
+      - {action: ignore, from: "^rb_bug$"}
+      - {action: ignore, from: "^rb_category_compile_warn$"}
+      - {action: ignore, from: "^rb_category_warn$"}
+      - {action: ignore, from: "^rb_category_warning$"}
+      - {action: ignore, from: "^rb_compile_warn$"}
+      - {action: ignore, from: "^rb_compile_warning$"}
+      - {action: ignore, from: "^rb_data_define$"}
+      - {action: ignore, from: "^rb_fatal$"}
+      - {action: ignore, from: "^rb_frozen_error_raise$"}
+      - {action: ignore, from: "^rb_funcall$"}
+      - {action: ignore, from: "^rb_loaderror$"}
+      - {action: ignore, from: "^rb_loaderror_with_path$"}
+      - {action: ignore, from: "^rb_name_error$"}
+      - {action: ignore, from: "^rb_name_error_str$"}
+      - {action: ignore, from: "^rb_raise$"}
+      - {action: ignore, from: "^rb_rescue2$"}
+      - {action: ignore, from: "^rb_scan_args$"}
+      - {action: ignore, from: "^rb_scan_args_kw$"}
+      - {action: ignore, from: "^rb_sprintf$"}
+      - {action: ignore, from: "^rb_str_catf$"}
+      - {action: ignore, from: "^rb_struct_define$"}
+      - {action: ignore, from: "^rb_struct_define_under$"}
+      - {action: ignore, from: "^rb_struct_define_without_accessor$"}
+      - {action: ignore, from: "^rb_struct_define_without_accessor_under$"}
+      - {action: ignore, from: "^rb_struct_new$"}
+      - {action: ignore, from: "^rb_sys_warning$"}
+      - {action: ignore, from: "^rb_warn$"}
+      - {action: ignore, from: "^rb_warning$"}
+      - {action: ignore, from: "^rb_yield_values$"}
+
       - {action: accept, from: "(?i)^rb_"}
       - {action: accept, from: "^RSTRING_"}
 

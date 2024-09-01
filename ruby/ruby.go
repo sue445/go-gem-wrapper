@@ -1013,35 +1013,6 @@ func RbSetErrinfo(err VALUE) {
 	runtime.KeepAlive(cerrAllocMap)
 }
 
-// RbRaise function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
-func RbRaise(exc VALUE, fmt string) {
-	cexc, cexcAllocMap := (C.VALUE)(exc), cgoAllocsUnknown
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_raise(cexc, cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-	runtime.KeepAlive(cexcAllocMap)
-}
-
-// RbFatal function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
-func RbFatal(fmt string) {
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_fatal(cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-}
-
-// RbBug function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
-func RbBug(fmt string) {
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_bug(cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-}
-
 // RbBugErrno function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
 func RbBugErrno(msg string, err int32) {
 	msg = safeString(msg)
@@ -1204,102 +1175,6 @@ func RbRubyDebugPtr() *VALUE {
 	return __v
 }
 
-// RbWarning function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
-func RbWarning(fmt string) {
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_warning(cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-}
-
-// RbCategoryWarning function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
-func RbCategoryWarning(cat RbWarningCategoryT, fmt string) {
-	ccat, ccatAllocMap := (C.rb_warning_category_t)(cat), cgoAllocsUnknown
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_category_warning(ccat, cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-	runtime.KeepAlive(ccatAllocMap)
-}
-
-// RbCompileWarning function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
-func RbCompileWarning(file string, line int32, fmt string) {
-	file = safeString(file)
-	cfile, cfileAllocMap := unpackPCharString(file)
-	cline, clineAllocMap := (C.int)(line), cgoAllocsUnknown
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_compile_warning(cfile, cline, cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-	runtime.KeepAlive(clineAllocMap)
-	runtime.KeepAlive(file)
-	runtime.KeepAlive(cfileAllocMap)
-}
-
-// RbSysWarning function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
-func RbSysWarning(fmt string) {
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_sys_warning(cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-}
-
-// RbWarn function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
-func RbWarn(fmt string) {
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_warn(cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-}
-
-// RbCategoryWarn function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
-func RbCategoryWarn(cat RbWarningCategoryT, fmt string) {
-	ccat, ccatAllocMap := (C.rb_warning_category_t)(cat), cgoAllocsUnknown
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_category_warn(ccat, cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-	runtime.KeepAlive(ccatAllocMap)
-}
-
-// RbCompileWarn function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
-func RbCompileWarn(file string, line int32, fmt string) {
-	file = safeString(file)
-	cfile, cfileAllocMap := unpackPCharString(file)
-	cline, clineAllocMap := (C.int)(line), cgoAllocsUnknown
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_compile_warn(cfile, cline, cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-	runtime.KeepAlive(clineAllocMap)
-	runtime.KeepAlive(file)
-	runtime.KeepAlive(cfileAllocMap)
-}
-
-// RbCategoryCompileWarn function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/error.h
-func RbCategoryCompileWarn(cat RbWarningCategoryT, file string, line int32, fmt string) {
-	ccat, ccatAllocMap := (C.rb_warning_category_t)(cat), cgoAllocsUnknown
-	file = safeString(file)
-	cfile, cfileAllocMap := unpackPCharString(file)
-	cline, clineAllocMap := (C.int)(line), cgoAllocsUnknown
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_category_compile_warn(ccat, cfile, cline, cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-	runtime.KeepAlive(clineAllocMap)
-	runtime.KeepAlive(file)
-	runtime.KeepAlive(cfileAllocMap)
-	runtime.KeepAlive(ccatAllocMap)
-}
-
 // RbEvalString function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/eval.h
 func RbEvalString(str string) VALUE {
 	str = safeString(str)
@@ -1333,19 +1208,6 @@ func RbEvalStringWrap(str string, state *int32) VALUE {
 	runtime.KeepAlive(cstateAllocMap)
 	runtime.KeepAlive(str)
 	runtime.KeepAlive(cstrAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
-// RbFuncall function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/eval.h
-func RbFuncall(recv VALUE, mid ID, n int32) VALUE {
-	crecv, crecvAllocMap := (C.VALUE)(recv), cgoAllocsUnknown
-	cmid, cmidAllocMap := (C.ID)(mid), cgoAllocsUnknown
-	cn, cnAllocMap := (C.int)(n), cgoAllocsUnknown
-	__ret := C.rb_funcall(crecv, cmid, cn)
-	runtime.KeepAlive(cnAllocMap)
-	runtime.KeepAlive(cmidAllocMap)
-	runtime.KeepAlive(crecvAllocMap)
 	__v := (VALUE)(__ret)
 	return __v
 }
@@ -2096,15 +1958,6 @@ func RbAryNewCapa(capa int64) VALUE {
 	ccapa, ccapaAllocMap := (C.long)(capa), cgoAllocsUnknown
 	__ret := C.rb_ary_new_capa(ccapa)
 	runtime.KeepAlive(ccapaAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
-// RbAryNewFromArgs function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/array.h
-func RbAryNewFromArgs(n int64) VALUE {
-	cn, cnAllocMap := (C.long)(n), cgoAllocsUnknown
-	__ret := C.rb_ary_new_from_args(cn)
-	runtime.KeepAlive(cnAllocMap)
 	__v := (VALUE)(__ret)
 	return __v
 }
@@ -3701,59 +3554,6 @@ func RbExcNewStr(etype VALUE, str VALUE) VALUE {
 	runtime.KeepAlive(cetypeAllocMap)
 	__v := (VALUE)(__ret)
 	return __v
-}
-
-// RbLoaderror function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/error.h
-func RbLoaderror(fmt string) {
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_loaderror(cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-}
-
-// RbLoaderrorWithPath function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/error.h
-func RbLoaderrorWithPath(path VALUE, fmt string) {
-	cpath, cpathAllocMap := (C.VALUE)(path), cgoAllocsUnknown
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_loaderror_with_path(cpath, cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-	runtime.KeepAlive(cpathAllocMap)
-}
-
-// RbNameError function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/error.h
-func RbNameError(name ID, fmt string) {
-	cname, cnameAllocMap := (C.ID)(name), cgoAllocsUnknown
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_name_error(cname, cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-	runtime.KeepAlive(cnameAllocMap)
-}
-
-// RbNameErrorStr function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/error.h
-func RbNameErrorStr(name VALUE, fmt string) {
-	cname, cnameAllocMap := (C.VALUE)(name), cgoAllocsUnknown
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_name_error_str(cname, cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-	runtime.KeepAlive(cnameAllocMap)
-}
-
-// RbFrozenErrorRaise function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/error.h
-func RbFrozenErrorRaise(recv VALUE, fmt string) {
-	crecv, crecvAllocMap := (C.VALUE)(recv), cgoAllocsUnknown
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	C.rb_frozen_error_raise(crecv, cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-	runtime.KeepAlive(crecvAllocMap)
 }
 
 // RbInvalidStr function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/error.h
@@ -6076,17 +5876,6 @@ func RbFSprintf(argc int32, argv []VALUE) VALUE {
 	return __v
 }
 
-// RbSprintf function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/sprintf.h
-func RbSprintf(fmt string) VALUE {
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	__ret := C.rb_sprintf(cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
 // RbVsprintf function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/sprintf.h
 func RbVsprintf(fmt string, ap unsafe.Pointer) VALUE {
 	fmt = safeString(fmt)
@@ -6096,19 +5885,6 @@ func RbVsprintf(fmt string, ap unsafe.Pointer) VALUE {
 	runtime.KeepAlive(capAllocMap)
 	runtime.KeepAlive(fmt)
 	runtime.KeepAlive(cfmtAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
-// RbStrCatf function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/sprintf.h
-func RbStrCatf(dst VALUE, fmt string) VALUE {
-	cdst, cdstAllocMap := (C.VALUE)(dst), cgoAllocsUnknown
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	__ret := C.rb_str_catf(cdst, cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-	runtime.KeepAlive(cdstAllocMap)
 	__v := (VALUE)(__ret)
 	return __v
 }
@@ -6968,39 +6744,6 @@ func RbStrSucc(orig VALUE) VALUE {
 	return __v
 }
 
-// RbStructNew function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/struct.h
-func RbStructNew(klass VALUE) VALUE {
-	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
-	__ret := C.rb_struct_new(cklass)
-	runtime.KeepAlive(cklassAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
-// RbStructDefine function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/struct.h
-func RbStructDefine(name string) VALUE {
-	name = safeString(name)
-	cname, cnameAllocMap := unpackPCharString(name)
-	__ret := C.rb_struct_define(cname)
-	runtime.KeepAlive(name)
-	runtime.KeepAlive(cnameAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
-// RbStructDefineUnder function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/struct.h
-func RbStructDefineUnder(space VALUE, name string) VALUE {
-	cspace, cspaceAllocMap := (C.VALUE)(space), cgoAllocsUnknown
-	name = safeString(name)
-	cname, cnameAllocMap := unpackPCharString(name)
-	__ret := C.rb_struct_define_under(cspace, cname)
-	runtime.KeepAlive(name)
-	runtime.KeepAlive(cnameAllocMap)
-	runtime.KeepAlive(cspaceAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
 // RbStructAlloc function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/struct.h
 func RbStructAlloc(klass VALUE, values VALUE) VALUE {
 	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
@@ -7057,47 +6800,6 @@ func RbStructAllocNoinit(klass VALUE) VALUE {
 	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
 	__ret := C.rb_struct_alloc_noinit(cklass)
 	runtime.KeepAlive(cklassAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
-// RbStructDefineWithoutAccessor function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/struct.h
-func RbStructDefineWithoutAccessor(name string, super VALUE, _func RbAllocFuncT) VALUE {
-	name = safeString(name)
-	cname, cnameAllocMap := unpackPCharString(name)
-	csuper, csuperAllocMap := (C.VALUE)(super), cgoAllocsUnknown
-	c_func, c_funcAllocMap := _func.PassValue()
-	__ret := C.rb_struct_define_without_accessor(cname, csuper, c_func)
-	runtime.KeepAlive(c_funcAllocMap)
-	runtime.KeepAlive(csuperAllocMap)
-	runtime.KeepAlive(name)
-	runtime.KeepAlive(cnameAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
-// RbStructDefineWithoutAccessorUnder function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/struct.h
-func RbStructDefineWithoutAccessorUnder(outer VALUE, className string, super VALUE, alloc RbAllocFuncT) VALUE {
-	couter, couterAllocMap := (C.VALUE)(outer), cgoAllocsUnknown
-	className = safeString(className)
-	cclassName, cclassNameAllocMap := unpackPCharString(className)
-	csuper, csuperAllocMap := (C.VALUE)(super), cgoAllocsUnknown
-	calloc, callocAllocMap := alloc.PassValue()
-	__ret := C.rb_struct_define_without_accessor_under(couter, cclassName, csuper, calloc)
-	runtime.KeepAlive(callocAllocMap)
-	runtime.KeepAlive(csuperAllocMap)
-	runtime.KeepAlive(className)
-	runtime.KeepAlive(cclassNameAllocMap)
-	runtime.KeepAlive(couterAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
-// RbDataDefine function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/struct.h
-func RbDataDefine(super VALUE) VALUE {
-	csuper, csuperAllocMap := (C.VALUE)(super), cgoAllocsUnknown
-	__ret := C.rb_data_define(csuper)
-	runtime.KeepAlive(csuperAllocMap)
 	__v := (VALUE)(__ret)
 	return __v
 }
@@ -8215,15 +7917,6 @@ func RbYield(val VALUE) VALUE {
 	return __v
 }
 
-// RbYieldValues function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/iterator.h
-func RbYieldValues(n int32) VALUE {
-	cn, cnAllocMap := (C.int)(n), cgoAllocsUnknown
-	__ret := C.rb_yield_values(cn)
-	runtime.KeepAlive(cnAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
 // RbYieldValues2 function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/iterator.h
 func RbYieldValues2(n int32, argv []VALUE) VALUE {
 	cn, cnAllocMap := (C.int)(n), cgoAllocsUnknown
@@ -8366,21 +8059,6 @@ func RbRescue(bProc VALUE, data1 VALUE, rProc VALUE, data2 VALUE) VALUE {
 	crProc, crProcAllocMap := rProc.PassRef()
 	cdata2, cdata2AllocMap := (C.VALUE)(data2), cgoAllocsUnknown
 	__ret := C.rb_rescue(cbProc, cdata1, crProc, cdata2)
-	runtime.KeepAlive(cdata2AllocMap)
-	runtime.KeepAlive(crProcAllocMap)
-	runtime.KeepAlive(cdata1AllocMap)
-	runtime.KeepAlive(cbProcAllocMap)
-	__v := (VALUE)(__ret)
-	return __v
-}
-
-// RbRescue2 function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/iterator.h
-func RbRescue2(bProc VALUE, data1 VALUE, rProc VALUE, data2 VALUE) VALUE {
-	cbProc, cbProcAllocMap := bProc.PassRef()
-	cdata1, cdata1AllocMap := (C.VALUE)(data1), cgoAllocsUnknown
-	crProc, crProcAllocMap := rProc.PassRef()
-	cdata2, cdata2AllocMap := (C.VALUE)(data2), cgoAllocsUnknown
-	__ret := C.rb_rescue2(cbProc, cdata1, crProc, cdata2)
 	runtime.KeepAlive(cdata2AllocMap)
 	runtime.KeepAlive(crProcAllocMap)
 	runtime.KeepAlive(cdata1AllocMap)
@@ -8774,38 +8452,6 @@ func RbDupSetup(dup VALUE, obj VALUE) {
 	C.rb_dup_setup(cdup, cobj)
 	runtime.KeepAlive(cobjAllocMap)
 	runtime.KeepAlive(cdupAllocMap)
-}
-
-// RbScanArgs function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/scan_args.h
-func RbScanArgs(argc int32, argv []VALUE, fmt string) int32 {
-	cargc, cargcAllocMap := (C.int)(argc), cgoAllocsUnknown
-	cargv, cargvAllocMap := (*C.VALUE)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&argv)).Data)), cgoAllocsUnknown
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	__ret := C.rb_scan_args(cargc, cargv, cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-	runtime.KeepAlive(cargvAllocMap)
-	runtime.KeepAlive(cargcAllocMap)
-	__v := (int32)(__ret)
-	return __v
-}
-
-// RbScanArgsKw function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/scan_args.h
-func RbScanArgsKw(kwSplat int32, argc int32, argv []VALUE, fmt string) int32 {
-	ckwSplat, ckwSplatAllocMap := (C.int)(kwSplat), cgoAllocsUnknown
-	cargc, cargcAllocMap := (C.int)(argc), cgoAllocsUnknown
-	cargv, cargvAllocMap := (*C.VALUE)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&argv)).Data)), cgoAllocsUnknown
-	fmt = safeString(fmt)
-	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	__ret := C.rb_scan_args_kw(ckwSplat, cargc, cargv, cfmt)
-	runtime.KeepAlive(fmt)
-	runtime.KeepAlive(cfmtAllocMap)
-	runtime.KeepAlive(cargvAllocMap)
-	runtime.KeepAlive(cargcAllocMap)
-	runtime.KeepAlive(ckwSplatAllocMap)
-	__v := (int32)(__ret)
-	return __v
 }
 
 // RbScanArgsBadFormat function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/scan_args.h
