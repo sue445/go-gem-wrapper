@@ -2893,21 +2893,6 @@ func RbUndef(mod VALUE, mid ID) {
 	runtime.KeepAlive(cmodAllocMap)
 }
 
-// RbDefineProtectedMethod function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/class.h
-func RbDefineProtectedMethod(klass VALUE, mid string, _func VALUE, arity int32) {
-	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
-	mid = safeString(mid)
-	cmid, cmidAllocMap := unpackPCharString(mid)
-	c_func, c_funcAllocMap := _func.PassRef()
-	carity, carityAllocMap := (C.int)(arity), cgoAllocsUnknown
-	C.rb_define_protected_method(cklass, cmid, c_func, carity)
-	runtime.KeepAlive(carityAllocMap)
-	runtime.KeepAlive(c_funcAllocMap)
-	runtime.KeepAlive(mid)
-	runtime.KeepAlive(cmidAllocMap)
-	runtime.KeepAlive(cklassAllocMap)
-}
-
 // RbSingletonClass function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/class.h
 func RbSingletonClass(obj VALUE) VALUE {
 	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
