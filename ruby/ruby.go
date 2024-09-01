@@ -6646,17 +6646,6 @@ func RbStrSplit(str VALUE, delim string) VALUE {
 	return __v
 }
 
-// RbStrSetter function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/string.h
-func RbStrSetter(val VALUE, id ID, data []VALUE) {
-	cval, cvalAllocMap := (C.VALUE)(val), cgoAllocsUnknown
-	cid, cidAllocMap := (C.ID)(id), cgoAllocsUnknown
-	cdata, cdataAllocMap := (*C.VALUE)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&data)).Data)), cgoAllocsUnknown
-	C.rb_str_setter(cval, cid, cdata)
-	runtime.KeepAlive(cdataAllocMap)
-	runtime.KeepAlive(cidAllocMap)
-	runtime.KeepAlive(cvalAllocMap)
-}
-
 // RbStrIntern function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/string.h
 func RbStrIntern(str VALUE) VALUE {
 	cstr, cstrAllocMap := (C.VALUE)(str), cgoAllocsUnknown
@@ -8905,93 +8894,6 @@ func RB_SYMBOL_P(obj VALUE) bool {
 	runtime.KeepAlive(cobjAllocMap)
 	__v := (bool)(__ret)
 	return __v
-}
-
-// RbGvarUndefGetter function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/variable.h
-func RbGvarUndefGetter(id ID, data []VALUE) uint64 {
-	cid, cidAllocMap := (C.ID)(id), cgoAllocsUnknown
-	cdata, cdataAllocMap := (*C.VALUE)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&data)).Data)), cgoAllocsUnknown
-	__ret := C.rb_gvar_undef_getter(cid, cdata)
-	runtime.KeepAlive(cdataAllocMap)
-	runtime.KeepAlive(cidAllocMap)
-	__v := (uint64)(__ret)
-	return __v
-}
-
-// RbGvarUndefSetter function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/variable.h
-func RbGvarUndefSetter(val VALUE, id ID, data []VALUE) {
-	cval, cvalAllocMap := (C.VALUE)(val), cgoAllocsUnknown
-	cid, cidAllocMap := (C.ID)(id), cgoAllocsUnknown
-	cdata, cdataAllocMap := (*C.VALUE)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&data)).Data)), cgoAllocsUnknown
-	C.rb_gvar_undef_setter(cval, cid, cdata)
-	runtime.KeepAlive(cdataAllocMap)
-	runtime.KeepAlive(cidAllocMap)
-	runtime.KeepAlive(cvalAllocMap)
-}
-
-// RbGvarUndefMarker function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/variable.h
-func RbGvarUndefMarker(_var []VALUE) {
-	c_var, c_varAllocMap := (*C.VALUE)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&_var)).Data)), cgoAllocsUnknown
-	C.rb_gvar_undef_marker(c_var)
-	runtime.KeepAlive(c_varAllocMap)
-}
-
-// RbGvarValGetter function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/variable.h
-func RbGvarValGetter(id ID, data []VALUE) uint64 {
-	cid, cidAllocMap := (C.ID)(id), cgoAllocsUnknown
-	cdata, cdataAllocMap := (*C.VALUE)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&data)).Data)), cgoAllocsUnknown
-	__ret := C.rb_gvar_val_getter(cid, cdata)
-	runtime.KeepAlive(cdataAllocMap)
-	runtime.KeepAlive(cidAllocMap)
-	__v := (uint64)(__ret)
-	return __v
-}
-
-// RbGvarValSetter function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/variable.h
-func RbGvarValSetter(val VALUE, id ID, data []VALUE) {
-	cval, cvalAllocMap := (C.VALUE)(val), cgoAllocsUnknown
-	cid, cidAllocMap := (C.ID)(id), cgoAllocsUnknown
-	cdata, cdataAllocMap := (*C.VALUE)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&data)).Data)), cgoAllocsUnknown
-	C.rb_gvar_val_setter(cval, cid, cdata)
-	runtime.KeepAlive(cdataAllocMap)
-	runtime.KeepAlive(cidAllocMap)
-	runtime.KeepAlive(cvalAllocMap)
-}
-
-// RbGvarValMarker function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/variable.h
-func RbGvarValMarker(_var []VALUE) {
-	c_var, c_varAllocMap := (*C.VALUE)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&_var)).Data)), cgoAllocsUnknown
-	C.rb_gvar_val_marker(c_var)
-	runtime.KeepAlive(c_varAllocMap)
-}
-
-// RbGvarVarGetter function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/variable.h
-func RbGvarVarGetter(id ID, data []VALUE) uint64 {
-	cid, cidAllocMap := (C.ID)(id), cgoAllocsUnknown
-	cdata, cdataAllocMap := (*C.VALUE)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&data)).Data)), cgoAllocsUnknown
-	__ret := C.rb_gvar_var_getter(cid, cdata)
-	runtime.KeepAlive(cdataAllocMap)
-	runtime.KeepAlive(cidAllocMap)
-	__v := (uint64)(__ret)
-	return __v
-}
-
-// RbGvarVarSetter function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/variable.h
-func RbGvarVarSetter(val VALUE, id ID, data []VALUE) {
-	cval, cvalAllocMap := (C.VALUE)(val), cgoAllocsUnknown
-	cid, cidAllocMap := (C.ID)(id), cgoAllocsUnknown
-	cdata, cdataAllocMap := (*C.VALUE)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&data)).Data)), cgoAllocsUnknown
-	C.rb_gvar_var_setter(cval, cid, cdata)
-	runtime.KeepAlive(cdataAllocMap)
-	runtime.KeepAlive(cidAllocMap)
-	runtime.KeepAlive(cvalAllocMap)
-}
-
-// RbGvarVarMarker function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/variable.h
-func RbGvarVarMarker(_var []VALUE) {
-	c_var, c_varAllocMap := (*C.VALUE)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&_var)).Data)), cgoAllocsUnknown
-	C.rb_gvar_var_marker(c_var)
-	runtime.KeepAlive(c_varAllocMap)
 }
 
 // RbGvarReadonlySetter function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/variable.h

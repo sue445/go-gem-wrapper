@@ -104,6 +104,18 @@ TRANSLATOR:
       - {action: ignore, from: "^rb_warning$"}
       - {action: ignore, from: "^rb_yield_values$"}
 
+      # FIXME: call of non-function
+      - {action: ignore, from: "^rb_gvar_undef_getter$"}
+      - {action: ignore, from: "^rb_gvar_undef_setter$"}
+      - {action: ignore, from: "^rb_gvar_undef_marker$"}
+      - {action: ignore, from: "^rb_gvar_val_getter$"}
+      - {action: ignore, from: "^rb_gvar_val_setter$"}
+      - {action: ignore, from: "^rb_gvar_val_marker$"}
+      - {action: ignore, from: "^rb_gvar_var_getter$"}
+      - {action: ignore, from: "^rb_gvar_var_setter$"}
+      - {action: ignore, from: "^rb_gvar_var_marker$"}
+      - {action: ignore, from: "^rb_str_setter$"}
+
       - {action: accept, from: "(?i)^rb_"}
       - {action: accept, from: "^RSTRING_"}
 
