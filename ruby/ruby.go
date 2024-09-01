@@ -8038,21 +8038,6 @@ func RbDefineMethod(klass VALUE, mid string, _func VALUE, arity int32) {
 	runtime.KeepAlive(cklassAllocMap)
 }
 
-// RbDefineModuleFunction function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/method.h
-func RbDefineModuleFunction(klass VALUE, mid string, _func VALUE, arity int32) {
-	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
-	mid = safeString(mid)
-	cmid, cmidAllocMap := unpackPCharString(mid)
-	c_func, c_funcAllocMap := _func.PassRef()
-	carity, carityAllocMap := (C.int)(arity), cgoAllocsUnknown
-	C.rb_define_module_function(cklass, cmid, c_func, carity)
-	runtime.KeepAlive(carityAllocMap)
-	runtime.KeepAlive(c_funcAllocMap)
-	runtime.KeepAlive(mid)
-	runtime.KeepAlive(cmidAllocMap)
-	runtime.KeepAlive(cklassAllocMap)
-}
-
 // RbDefineGlobalFunction function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/method.h
 func RbDefineGlobalFunction(mid string, _func VALUE, arity int32) {
 	mid = safeString(mid)
