@@ -4,10 +4,18 @@ package ruby
 #include "ruby.h"
 */
 import "C"
+import (
+	"unsafe"
+)
 
 // Value2String convert from [VALUE] to Go string
 func Value2String(str VALUE) string {
-	return C.GoStringN(RSTRING_PTR(str), RSTRING_LENINT(str))
+	return C.GoStringN(byte2Cchar(RSTRING_PTR(str)), RSTRING_LENINT(str))
+}
+
+// byte2Cchar convert from `*byte` to `*C.char`
+func byte2Cchar(b *byte) *C.char {
+	return (*C.char)(unsafe.Pointer(b))
 }
 
 // String2Value convert from Go string to [VALUE]
