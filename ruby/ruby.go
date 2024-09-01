@@ -5735,10 +5735,10 @@ func RbFSprintf(argc int32, argv []VALUE) VALUE {
 }
 
 // RbVsprintf function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/sprintf.h
-func RbVsprintf(fmt string, ap unsafe.Pointer) VALUE {
+func RbVsprintf(fmt string, ap *VaList) VALUE {
 	fmt = safeString(fmt)
 	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	cap, capAllocMap := ap, cgoAllocsUnknown
+	cap, capAllocMap := (C.va_list)(unsafe.Pointer(ap)), cgoAllocsUnknown
 	__ret := C.rb_vsprintf(cfmt, cap)
 	runtime.KeepAlive(capAllocMap)
 	runtime.KeepAlive(fmt)
@@ -5748,11 +5748,11 @@ func RbVsprintf(fmt string, ap unsafe.Pointer) VALUE {
 }
 
 // RbStrVcatf function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/sprintf.h
-func RbStrVcatf(dst VALUE, fmt string, ap unsafe.Pointer) VALUE {
+func RbStrVcatf(dst VALUE, fmt string, ap *VaList) VALUE {
 	cdst, cdstAllocMap := (C.VALUE)(dst), cgoAllocsUnknown
 	fmt = safeString(fmt)
 	cfmt, cfmtAllocMap := unpackPCharString(fmt)
-	cap, capAllocMap := ap, cgoAllocsUnknown
+	cap, capAllocMap := (C.va_list)(unsafe.Pointer(ap)), cgoAllocsUnknown
 	__ret := C.rb_str_vcatf(cdst, cfmt, cap)
 	runtime.KeepAlive(capAllocMap)
 	runtime.KeepAlive(fmt)
@@ -7900,12 +7900,12 @@ func RbRescue(bProc VALUE, data1 VALUE, rProc VALUE, data2 VALUE) VALUE {
 }
 
 // RbVrescue2 function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/iterator.h
-func RbVrescue2(bProc VALUE, data1 VALUE, rProc VALUE, data2 VALUE, ap unsafe.Pointer) VALUE {
+func RbVrescue2(bProc VALUE, data1 VALUE, rProc VALUE, data2 VALUE, ap *VaList) VALUE {
 	cbProc, cbProcAllocMap := bProc.PassRef()
 	cdata1, cdata1AllocMap := (C.VALUE)(data1), cgoAllocsUnknown
 	crProc, crProcAllocMap := rProc.PassRef()
 	cdata2, cdata2AllocMap := (C.VALUE)(data2), cgoAllocsUnknown
-	cap, capAllocMap := ap, cgoAllocsUnknown
+	cap, capAllocMap := (C.va_list)(unsafe.Pointer(ap)), cgoAllocsUnknown
 	__ret := C.rb_vrescue2(cbProc, cdata1, crProc, cdata2, cap)
 	runtime.KeepAlive(capAllocMap)
 	runtime.KeepAlive(cdata2AllocMap)

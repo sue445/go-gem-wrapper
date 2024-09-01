@@ -20,6 +20,9 @@ type FdSet struct {
 	allocs89e67f53 interface{}
 }
 
+// VaList type as declared in https://github.com/ruby/ruby/blob/master/include/ruby/_types/_va_list.h
+type VaList unsafe.Pointer
+
 // FdMask type as declared in https://github.com/ruby/ruby/blob/master/include/ruby/sys/types.h
 type FdMask int32
 
