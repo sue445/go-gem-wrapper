@@ -107,3 +107,10 @@ func RbDefineMethodId(klass VALUE, mid ID, _func unsafe.Pointer, arity int32) {
 	runtime.KeepAlive(cmidAllocMap)
 	runtime.KeepAlive(cklassAllocMap)
 }
+
+// RbDefineAllocFunc function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/intern/vm.h
+func RbDefineAllocFunc(klass VALUE, _func unsafe.Pointer) {
+	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
+	C.rb_define_alloc_func(cklass, toFunctionPointer(_func))
+	runtime.KeepAlive(cklassAllocMap)
+}

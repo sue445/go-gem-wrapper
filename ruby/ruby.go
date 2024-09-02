@@ -7535,15 +7535,6 @@ func RbModModuleExec(argc int32, argv []VALUE, mod VALUE) VALUE {
 	return __v
 }
 
-// RbDefineAllocFunc function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/vm.h
-func RbDefineAllocFunc(klass VALUE, _func RbAllocFuncT) {
-	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
-	c_func, c_funcAllocMap := _func.PassValue()
-	C.rb_define_alloc_func(cklass, c_func)
-	runtime.KeepAlive(c_funcAllocMap)
-	runtime.KeepAlive(cklassAllocMap)
-}
-
 // RbUndefAllocFunc function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/vm.h
 func RbUndefAllocFunc(klass VALUE) {
 	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
