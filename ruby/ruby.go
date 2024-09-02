@@ -8629,10 +8629,10 @@ func RbGvarReadonlySetter(val VALUE, id ID, data []VALUE) {
 }
 
 // RbDefineVariable function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/variable.h
-func RbDefineVariable(name string, _var []VALUE) {
+func RbDefineVariable(name string, _var *VALUE) {
 	name = safeString(name)
 	cname, cnameAllocMap := unpackPCharString(name)
-	c_var, c_varAllocMap := (*C.VALUE)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&_var)).Data)), cgoAllocsUnknown
+	c_var, c_varAllocMap := (*C.VALUE)(unsafe.Pointer(_var)), cgoAllocsUnknown
 	C.rb_define_variable(cname, c_var)
 	runtime.KeepAlive(c_varAllocMap)
 	runtime.KeepAlive(name)
