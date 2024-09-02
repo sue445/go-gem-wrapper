@@ -8608,17 +8608,6 @@ func RB_SYMBOL_P(obj VALUE) bool {
 	return __v
 }
 
-// RbGvarReadonlySetter function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/variable.h
-func RbGvarReadonlySetter(val VALUE, id ID, data []VALUE) {
-	cval, cvalAllocMap := (C.VALUE)(val), cgoAllocsUnknown
-	cid, cidAllocMap := (C.ID)(id), cgoAllocsUnknown
-	cdata, cdataAllocMap := (*C.VALUE)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&data)).Data)), cgoAllocsUnknown
-	C.rb_gvar_readonly_setter(cval, cid, cdata)
-	runtime.KeepAlive(cdataAllocMap)
-	runtime.KeepAlive(cidAllocMap)
-	runtime.KeepAlive(cvalAllocMap)
-}
-
 // RbDefineVariable function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/variable.h
 func RbDefineVariable(name string, _var *VALUE) {
 	name = safeString(name)
