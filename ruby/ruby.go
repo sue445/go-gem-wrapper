@@ -11,10 +11,6 @@ package ruby
 #include "cgo_helpers.h"
 */
 import "C"
-import (
-	"runtime"
-	"unsafe"
-)
 
 // RbAssertFailure function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/ruby/assert.h
 func RbAssertFailure(file string, line int32, name string, expr string) {
@@ -2871,6 +2867,19 @@ func RbObjSingletonMethods(argc int32, argv []VALUE, obj VALUE) VALUE {
 	return __v
 }
 
+// RbDefineMethodId function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/class.h
+func RbDefineMethodId(klass VALUE, mid ID, _func VALUE, arity int32) {
+	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
+	cmid, cmidAllocMap := (C.ID)(mid), cgoAllocsUnknown
+	c_func, c_funcAllocMap := _func.PassRef()
+	carity, carityAllocMap := (C.int)(arity), cgoAllocsUnknown
+	C.rb_define_method_id(cklass, cmid, c_func, carity)
+	runtime.KeepAlive(carityAllocMap)
+	runtime.KeepAlive(c_funcAllocMap)
+	runtime.KeepAlive(cmidAllocMap)
+	runtime.KeepAlive(cklassAllocMap)
+}
+
 // RbUndef function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/class.h
 func RbUndef(mod VALUE, mid ID) {
 	cmod, cmodAllocMap := (C.VALUE)(mod), cgoAllocsUnknown
@@ -2878,6 +2887,51 @@ func RbUndef(mod VALUE, mid ID) {
 	C.rb_undef(cmod, cmid)
 	runtime.KeepAlive(cmidAllocMap)
 	runtime.KeepAlive(cmodAllocMap)
+}
+
+// RbDefineProtectedMethod function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/class.h
+func RbDefineProtectedMethod(klass VALUE, mid string, _func VALUE, arity int32) {
+	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
+	mid = safeString(mid)
+	cmid, cmidAllocMap := unpackPCharString(mid)
+	c_func, c_funcAllocMap := _func.PassRef()
+	carity, carityAllocMap := (C.int)(arity), cgoAllocsUnknown
+	C.rb_define_protected_method(cklass, cmid, c_func, carity)
+	runtime.KeepAlive(carityAllocMap)
+	runtime.KeepAlive(c_funcAllocMap)
+	runtime.KeepAlive(mid)
+	runtime.KeepAlive(cmidAllocMap)
+	runtime.KeepAlive(cklassAllocMap)
+}
+
+// RbDefinePrivateMethod function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/class.h
+func RbDefinePrivateMethod(klass VALUE, mid string, _func VALUE, arity int32) {
+	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
+	mid = safeString(mid)
+	cmid, cmidAllocMap := unpackPCharString(mid)
+	c_func, c_funcAllocMap := _func.PassRef()
+	carity, carityAllocMap := (C.int)(arity), cgoAllocsUnknown
+	C.rb_define_private_method(cklass, cmid, c_func, carity)
+	runtime.KeepAlive(carityAllocMap)
+	runtime.KeepAlive(c_funcAllocMap)
+	runtime.KeepAlive(mid)
+	runtime.KeepAlive(cmidAllocMap)
+	runtime.KeepAlive(cklassAllocMap)
+}
+
+// RbDefineSingletonMethod function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/class.h
+func RbDefineSingletonMethod(obj VALUE, mid string, _func VALUE, arity int32) {
+	cobj, cobjAllocMap := (C.VALUE)(obj), cgoAllocsUnknown
+	mid = safeString(mid)
+	cmid, cmidAllocMap := unpackPCharString(mid)
+	c_func, c_funcAllocMap := _func.PassRef()
+	carity, carityAllocMap := (C.int)(arity), cgoAllocsUnknown
+	C.rb_define_singleton_method(cobj, cmid, c_func, carity)
+	runtime.KeepAlive(carityAllocMap)
+	runtime.KeepAlive(c_funcAllocMap)
+	runtime.KeepAlive(mid)
+	runtime.KeepAlive(cmidAllocMap)
+	runtime.KeepAlive(cobjAllocMap)
 }
 
 // RbSingletonClass function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/class.h
@@ -7535,6 +7589,15 @@ func RbModModuleExec(argc int32, argv []VALUE, mod VALUE) VALUE {
 	return __v
 }
 
+// RbDefineAllocFunc function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/vm.h
+func RbDefineAllocFunc(klass VALUE, _func RbAllocFuncT) {
+	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
+	c_func, c_funcAllocMap := _func.PassValue()
+	C.rb_define_alloc_func(cklass, c_func)
+	runtime.KeepAlive(c_funcAllocMap)
+	runtime.KeepAlive(cklassAllocMap)
+}
+
 // RbUndefAllocFunc function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/intern/vm.h
 func RbUndefAllocFunc(klass VALUE) {
 	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
@@ -7969,6 +8032,36 @@ func RbAllocTmpBuffer2(store []VALUE, count int64, elsize uint64) unsafe.Pointer
 	runtime.KeepAlive(cstoreAllocMap)
 	__v := *(*unsafe.Pointer)(unsafe.Pointer(&__ret))
 	return __v
+}
+
+// RbDefineMethod function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/method.h
+func RbDefineMethod(klass VALUE, mid string, _func VALUE, arity int32) {
+	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
+	mid = safeString(mid)
+	cmid, cmidAllocMap := unpackPCharString(mid)
+	c_func, c_funcAllocMap := _func.PassRef()
+	carity, carityAllocMap := (C.int)(arity), cgoAllocsUnknown
+	C.rb_define_method(cklass, cmid, c_func, carity)
+	runtime.KeepAlive(carityAllocMap)
+	runtime.KeepAlive(c_funcAllocMap)
+	runtime.KeepAlive(mid)
+	runtime.KeepAlive(cmidAllocMap)
+	runtime.KeepAlive(cklassAllocMap)
+}
+
+// RbDefineModuleFunction function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/method.h
+func RbDefineModuleFunction(klass VALUE, mid string, _func VALUE, arity int32) {
+	cklass, cklassAllocMap := (C.VALUE)(klass), cgoAllocsUnknown
+	mid = safeString(mid)
+	cmid, cmidAllocMap := unpackPCharString(mid)
+	c_func, c_funcAllocMap := _func.PassRef()
+	carity, carityAllocMap := (C.int)(arity), cgoAllocsUnknown
+	C.rb_define_module_function(cklass, cmid, c_func, carity)
+	runtime.KeepAlive(carityAllocMap)
+	runtime.KeepAlive(c_funcAllocMap)
+	runtime.KeepAlive(mid)
+	runtime.KeepAlive(cmidAllocMap)
+	runtime.KeepAlive(cklassAllocMap)
 }
 
 // RbDefineGlobalFunction function as declared in https://github.com/ruby/ruby/blob/master/include/ruby/internal/method.h
