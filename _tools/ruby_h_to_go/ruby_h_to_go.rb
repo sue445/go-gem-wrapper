@@ -35,7 +35,7 @@ class Generator
     FileUtils.rm_f(Dir.glob(File.join(__dir__, "dist", "*.go")))
 
     function_definitions.each do |definition|
-      write_definition_to_go_file(
+      write_function_to_go_file(
         filepath:      definition[:filepath],
         args:          definition[:args],
         typeref:       definition[:typeref],
@@ -220,7 +220,7 @@ class Generator
   # @param typeref [String]
   # @param function_name [String]
   # @param definition [String]
-  def write_definition_to_go_file(filepath:, args:, typeref:, function_name:, definition:)
+  def write_function_to_go_file(filepath:, args:, typeref:, function_name:, definition:)
     go_file_name = filepath.delete_prefix(header_dir + File::SEPARATOR).gsub(File::SEPARATOR, "-").gsub(/\.h$/, ".go")
     go_file_path = File.join(__dir__, "dist", go_file_name)
 
