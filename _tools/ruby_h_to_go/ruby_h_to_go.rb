@@ -47,26 +47,46 @@ class Generator
   def extract_function_definitions
     stdout = `ctags --recurse --c-kinds=p --languages=C --language-force=C --fields=+n --extras=+q -f - #{header_dir}`
 
-    lines = stdout.each_line.select { |line| line.start_with?("rb_") }
-    lines.map do |line|
+    stdout.each_line.map do |line|
       parts = line.split("\t")
 
-      definition =
-        if parts[2].end_with?(";$/;\"")
-          parts[2].delete_prefix("/^").delete_suffix(";$/;\"")
-        else
-          line_num = parts[4].delete_prefix("line:").to_i
-          read_definition_from_header_file(parts[1], line_num).delete_suffix(";")
-        end
+      function_name = parts[0]
 
-      {
-        definition: definition,
-        function_name: parts[0],
-        filepath: parts[1],
-        typeref: definition[0...definition.index(parts[0])].gsub("char *", "char*").strip,
-        args:parse_definition_args(definition)
-      }
+      if should_generate_function?(function_name)
+        definition =
+          if parts[2].end_with?(";$/;\"")
+            parts[2].delete_prefix("/^").delete_suffix(";$/;\"")
+          else
+            line_num = parts[4].delete_prefix("line:").to_i
+            read_definition_from_header_file(parts[1], line_num).delete_suffix(";")
+          end
+
+        {
+          definition: definition,
+          function_name: parts[0],
+          filepath: parts[1],
+          typeref: definition[0...definition.index(parts[0])].gsub("char *", "char*").strip,
+          args:parse_definition_args(definition)
+        }
+      else
+        nil
+      end
+    end.compact
+  end
+
+  ALLOW_FUNCTION_NAME_PREFIXES = %w[rb_ rstring_]
+
+  # Whether generate C function to go
+  # @param function_name [String]
+  # @return [Boolean]
+  def should_generate_function?(function_name)
+    function_name = function_name.downcase
+
+    ALLOW_FUNCTION_NAME_PREFIXES.each do |prefix|
+      return true if function_name.start_with?(prefix)
     end
+
+    false
   end
 
   # @param file [String]
