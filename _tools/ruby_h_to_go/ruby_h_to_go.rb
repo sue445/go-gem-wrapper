@@ -33,7 +33,13 @@ class Generator
     FileUtils.rm_f(Dir.glob(File.join(__dir__, "dist", "*.go")))
 
     function_definitions.each do |definition|
-      write_definition_to_go_file(definition)
+      write_definition_to_go_file(
+        filepath:      definition[:filepath],
+        args:          definition[:args],
+        typeref:       definition[:typeref],
+        function_name: definition[:function_name],
+        definition:    definition[:definition],
+      )
     end
 
     Dir.chdir(File.join(__dir__, "dist")) do
@@ -177,9 +183,13 @@ class Generator
     end.compact
   end
 
-  # @param definition [Hash]
-  def write_definition_to_go_file(definition)
-    go_file_name = definition[:filepath].delete_prefix(header_dir + File::SEPARATOR).gsub(File::SEPARATOR, "-").gsub(/\.h$/, ".go")
+  # @param filepath [String]
+  # @param args [Array<Hash>]
+  # @param typeref [String]
+  # @param function_name [String]
+  # @param definition [String]
+  def write_definition_to_go_file(filepath:, args:, typeref:, function_name:, definition:)
+    go_file_name = filepath.delete_prefix(header_dir + File::SEPARATOR).gsub(File::SEPARATOR, "-").gsub(/\.h$/, ".go")
     go_file_path = File.join(__dir__, "dist", go_file_name)
 
     unless File.exist?(go_file_path)
@@ -196,7 +206,7 @@ class Generator
       end
     end
 
-    definition[:args].each do |c_arg|
+    args.each do |c_arg|
       case c_arg[:name]
       when "var"
         # `var` is reserved in Go
@@ -207,34 +217,34 @@ class Generator
       end
     end
 
-    go_function_name = snake_to_camel(definition[:function_name])
-    go_function_args = definition[:args].map do |c_arg|
+    go_function_name = snake_to_camel(function_name)
+    go_function_args = args.map do |c_arg|
       "#{c_arg[:name]} #{ruby_c_type_to_go_type(c_arg[:type], type: :arg)}"
     end
 
     go_function_typeref =
-      if definition[:typeref] == "void"
+      if typeref == "void"
         ""
       else
-        ruby_c_type_to_go_type(definition[:typeref], type: :return)
+        ruby_c_type_to_go_type(typeref, type: :return)
       end
 
     go_function_lines = [
-      "// #{go_function_name} calls `#{definition[:function_name]}` in C",
+      "// #{go_function_name} calls `#{function_name}` in C",
       "//",
       "// Original definition is following",
       "//",
-      "//\t#{definition[:definition]}",
+      "//\t#{definition}",
     ]
 
     go_function_lines << "func #{go_function_name}(#{go_function_args.join(", ")}) #{go_function_typeref} {"
 
-    call_c_method = "C.#{definition[:function_name]}("
+    call_c_method = "C.#{function_name}("
 
     casted_go_args = []
-    char_var_count = definition[:args].count { |c_arg| c_arg[:type] == "char*" }
+    char_var_count = args.count { |c_arg| c_arg[:type] == "char*" }
 
-    definition[:args].each do |c_arg|
+    args.each do |c_arg|
       if c_arg[:type] == "char*"
         if char_var_count >= 2
           char_var_name = "char#{snake_to_camel(c_arg[:name])}"
@@ -260,7 +270,7 @@ class Generator
     if go_function_typeref == ""
       go_function_lines << call_c_method
     else
-      go_function_lines << "return #{ruby_c_type_to_go_type(definition[:typeref])}(#{call_c_method})"
+      go_function_lines << "return #{ruby_c_type_to_go_type(typeref)}(#{call_c_method})"
     end
 
     go_function_lines << "}"
