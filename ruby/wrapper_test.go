@@ -3,7 +3,7 @@ package ruby_test
 import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
-	"github.com/sue445/go-gem-wrapper"
+	"github.com/sue445/go-gem-wrapper/ruby"
 	"testing"
 )
 

@@ -7,7 +7,7 @@ e.g. `void rb_raise(VALUE exc, const char *fmt, ...)`
 
 To avoid this problem, we need to call the C function without variable-length arguments
 
-See `RbRaise` implementation in [ruby-internal-error.go](ruby-internal-error.go) for details
+See `RbRaise` implementation in [ruby/ruby-internal-error.go](ruby/ruby-internal-error.go) for details
 
 ### 1. Generate skeleton
 Run `ruby _tools/ruby_h_to_go/ruby_h_to_go.rb`
@@ -18,13 +18,13 @@ See [_tools/ruby_h_to_go/](_tools/ruby_h_to_go/)
 Modify some of the auto-generated functions and add them to the ruby package in the top directory
 
 ### 3. Add a test that calls the added function
-There is a example gem for this wrapper in [testdata/example/](testdata/example/).
+There is a example gem for this wrapper in [ruby/testdata/example/](ruby/testdata/example/).
 
 Refer to following and add test code to call the added wrapper function.
 
-* [testdata/example/ext/example/tests.go](testdata/example/ext/example/tests.go)
-* [testdata/example/sig/example/tests.rbs](testdata/example/sig/example/tests.rbs)
-* [testdata/example/test/example/tests_test.rb](testdata/example/test/example/tests_test.rb)
+* [ruby/testdata/example/ext/example/tests.go](ruby/testdata/example/ext/example/tests.go)
+* [ruby/testdata/example/sig/example/tests.rbs](ruby/testdata/example/sig/example/tests.rbs)
+* [ruby/testdata/example/test/example/tests_test.rb](ruby/testdata/example/test/example/tests_test.rb)
 
 ### 4. Run test
 Run `rake ruby:build_example`.

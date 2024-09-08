@@ -10,7 +10,7 @@ VALUE rb_example_go_struct_get(VALUE self);
 import "C"
 
 import (
-	ruby "github.com/sue445/go-gem-wrapper"
+	"github.com/sue445/go-gem-wrapper/ruby"
 	"unsafe"
 )
 
