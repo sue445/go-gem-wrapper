@@ -51,6 +51,8 @@ class Generator
       )
     end
 
+    FileUtils.cp(File.join(__dir__, "..", "..", "ruby", "c_types.go"), File.join(__dir__, "dist"))
+
     Dir.chdir(File.join(__dir__, "dist")) do
       system("go fmt", exception: true)
     end
