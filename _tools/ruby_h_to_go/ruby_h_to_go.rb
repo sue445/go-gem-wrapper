@@ -242,6 +242,9 @@ class Generator
       when "func"
         # `func` is reserved in Go
         c_arg[:name] = "fun"
+      when "range"
+        # `range` is reserved in Go
+        c_arg[:name] = "r"
       end
     end
 
