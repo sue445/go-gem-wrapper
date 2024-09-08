@@ -111,9 +111,7 @@ class Generator
 
     return false if DENY_FUNCTION_NAMES.include?(function_name)
 
-    ALLOW_FUNCTION_NAME_PREFIXES.each do |prefix|
-      return true if function_name.start_with?(prefix)
-    end
+    return true if ALLOW_FUNCTION_NAME_PREFIXES.any? { |prefix| function_name.start_with?(prefix) }
 
     false
   end
