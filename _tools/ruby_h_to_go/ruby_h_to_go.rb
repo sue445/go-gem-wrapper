@@ -29,6 +29,8 @@ class Generator
   def perform
     function_definitions = extract_function_definitions
 
+    struct_definitions = extract_struct_definitions
+
     # Clean all generated files in dist/
     FileUtils.rm_f(Dir.glob(File.join(__dir__, "dist", "*.go")))
 
@@ -136,6 +138,36 @@ class Generator
       end
     end
     ""
+  end
+
+  # @return [Array<Hash>]
+  def extract_struct_definitions
+    stdout = `ctags --recurse --c-kinds=s --languages=C --language-force=C --fields=+n -f - #{header_dir}`
+
+    stdout.each_line.map do |line|
+      parts = line.split("\t")
+
+      struct_name = parts[0]
+
+      if should_generate_struct?(struct_name)
+        {
+          struct_name: struct_name,
+          filepath: parts[1],
+        }
+      else
+        nil
+      end
+    end.compact
+
+  end
+
+  # Whether generate C struct to go
+  # @param struct_name [String]
+  # @return [Boolean]
+  def should_generate_struct?(struct_name)
+    struct_name = struct_name.downcase
+
+    struct_name.start_with?("rb_")
   end
 
   # @param definition [String]
