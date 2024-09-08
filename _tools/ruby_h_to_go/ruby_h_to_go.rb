@@ -34,6 +34,13 @@ class Generator
     # Clean all generated files in dist/
     FileUtils.rm_f(Dir.glob(File.join(__dir__, "dist", "*.go")))
 
+    struct_definitions.each do |definition|
+      write_struct_to_go_file(
+        filepath: definition[:filepath],
+        struct_name: definition[:struct_name],
+      )
+    end
+
     function_definitions.each do |definition|
       write_function_to_go_file(
         filepath:      definition[:filepath],
@@ -221,8 +228,7 @@ class Generator
   # @param function_name [String]
   # @param definition [String]
   def write_function_to_go_file(filepath:, args:, typeref:, function_name:, definition:)
-    go_file_name = filepath.delete_prefix(header_dir + File::SEPARATOR).gsub(File::SEPARATOR, "-").gsub(/\.h$/, ".go")
-    go_file_path = File.join(__dir__, "dist", go_file_name)
+    go_file_path = ruby_h_path_to_go_file_path(filepath)
 
     generate_initial_go_file(go_file_path)
 
@@ -302,6 +308,13 @@ class Generator
     end
   end
 
+  # @param ruby_h_path [String]
+  # @return [String]
+  def ruby_h_path_to_go_file_path(ruby_h_path)
+    go_file_name = ruby_h_path.delete_prefix(header_dir + File::SEPARATOR).gsub(File::SEPARATOR, "-").gsub(/\.h$/, ".go")
+    File.join(__dir__, "dist", go_file_name)
+  end
+
   # Generate initial go file whether not exists
   # @param go_file_path [String]
   def generate_initial_go_file(go_file_path)
@@ -317,6 +330,26 @@ class Generator
         import "C"
 
       GO
+    end
+  end
+
+  # @param filepath [String]
+  # @param struct_name [String]
+  def write_struct_to_go_file(filepath:, struct_name:)
+    go_file_path = ruby_h_path_to_go_file_path(filepath)
+
+    generate_initial_go_file(go_file_path)
+
+    go_struct_name = snake_to_camel(struct_name)
+
+    content = <<~GO
+      // #{go_struct_name} is a type for passing `C.#{struct_name}` in and out of package
+      type #{go_struct_name} C.#{struct_name}
+
+    GO
+
+    File.open(go_file_path, "a") do |f|
+      f.write(content)
     end
   end
 
