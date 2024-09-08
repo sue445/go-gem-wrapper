@@ -192,19 +192,7 @@ class Generator
     go_file_name = filepath.delete_prefix(header_dir + File::SEPARATOR).gsub(File::SEPARATOR, "-").gsub(/\.h$/, ".go")
     go_file_path = File.join(__dir__, "dist", go_file_name)
 
-    unless File.exist?(go_file_path)
-      File.open(go_file_path, "wb") do |f|
-        f.write(<<~GO)
-          package ruby
-
-          /*
-          #include "ruby.h"
-          */
-          import "C"
-
-        GO
-      end
-    end
+    generate_initial_go_file(go_file_path)
 
     args.each do |c_arg|
       case c_arg[:name]
@@ -279,6 +267,24 @@ class Generator
 
     File.open(go_file_path, "a") do |f|
       f.write(go_function_lines.join("\n"))
+    end
+  end
+
+  # Generate initial go file whether not exists
+  # @param go_file_path [String]
+  def generate_initial_go_file(go_file_path)
+    return if File.exist?(go_file_path)
+
+    File.open(go_file_path, "wb") do |f|
+      f.write(<<~GO)
+        package ruby
+
+        /*
+        #include "ruby.h"
+        */
+        import "C"
+
+      GO
     end
   end
 
