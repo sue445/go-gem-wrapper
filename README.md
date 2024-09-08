@@ -82,8 +82,8 @@ func Init_example() {
 ### More examples
 See also
 
-* [testdata/example/ext/example/example.go](testdata/example/ext/example/example.go)
-* [testdata/example/ext/example/tests.go](testdata/example/ext/example/tests.go)
+* [ruby/testdata/example/ext/example/example.go](ruby/testdata/example/ext/example/example.go)
+* [ruby/testdata/example/ext/example/tests.go](ruby/testdata/example/ext/example/tests.go)
 
 ## Developing
 ### Build
