@@ -33,7 +33,7 @@ class Generator
     FileUtils.rm_f(Dir.glob(File.join(__dir__, "dist", "*.go")))
 
     function_definitions.each do |definition|
-      generate_go_file(definition)
+      write_definition_to_go_file(definition)
     end
 
     Dir.chdir(File.join(__dir__, "dist")) do
@@ -178,7 +178,7 @@ class Generator
   end
 
   # @param definition [Hash]
-  def generate_go_file(definition)
+  def write_definition_to_go_file(definition)
     go_file_name = definition[:filepath].delete_prefix(header_dir + File::SEPARATOR).gsub(File::SEPARATOR, "-").gsub(/\.h$/, ".go")
     go_file_path = File.join(__dir__, "dist", go_file_name)
 
