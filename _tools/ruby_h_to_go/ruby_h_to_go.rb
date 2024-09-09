@@ -79,11 +79,11 @@ class Generator
           end
 
         {
-          definition: definition,
+          definition:    definition,
           function_name: parts[0],
-          filepath: parts[1],
-          typeref: definition[0...definition.index(parts[0])].gsub("char *", "char*").strip,
-          args:parse_definition_args(definition)
+          filepath:      parts[1],
+          typeref:       definition[0...definition.index(parts[0])].gsub("char *", "char*").strip,
+          args:          parse_definition_args(definition)
         }
       else
         nil
@@ -161,7 +161,7 @@ class Generator
       if should_generate_struct?(struct_name)
         {
           struct_name: struct_name,
-          filepath: parts[1],
+          filepath:    parts[1],
         }
       else
         nil
