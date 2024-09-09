@@ -64,31 +64,29 @@ class Generator
   def extract_function_definitions
     stdout = `ctags --recurse --c-kinds=p --languages=C --language-force=C --fields=+n --extras=+q -f - #{header_dir}`
 
-    stdout.each_line.map do |line|
+    stdout.each_line.each_with_object([]) do |line, definitions|
       parts = line.split("\t")
 
       function_name = parts[0]
 
-      if should_generate_function?(function_name)
-        definition =
-          if parts[2].end_with?(";$/;\"")
-            parts[2].delete_prefix("/^").delete_suffix(";$/;\"")
-          else
-            line_num = parts[4].delete_prefix("line:").to_i
-            read_definition_from_header_file(parts[1], line_num).delete_suffix(";")
-          end
+      next unless should_generate_function?(function_name)
 
-        {
-          definition:    definition,
-          function_name: parts[0],
-          filepath:      parts[1],
-          typeref:       definition[0...definition.index(parts[0])].gsub("char *", "char*").strip,
-          args:          parse_definition_args(definition)
-        }
-      else
-        nil
-      end
-    end.compact
+      definition =
+        if parts[2].end_with?(";$/;\"")
+          parts[2].delete_prefix("/^").delete_suffix(";$/;\"")
+        else
+          line_num = parts[4].delete_prefix("line:").to_i
+          read_definition_from_header_file(parts[1], line_num).delete_suffix(";")
+        end
+
+      definitions << {
+        definition:    definition,
+        function_name: parts[0],
+        filepath:      parts[1],
+        typeref:       definition[0...definition.index(parts[0])].gsub("char *", "char*").strip,
+        args:          parse_definition_args(definition)
+      }
+    end
   end
 
   ALLOW_FUNCTION_NAME_PREFIXES = %w[rb_ rstring_]
@@ -153,21 +151,18 @@ class Generator
   def extract_struct_definitions
     stdout = `ctags --recurse --c-kinds=s --languages=C --language-force=C --fields=+n -f - #{header_dir}`
 
-    stdout.each_line.map do |line|
+    stdout.each_line.each_with_object([]) do |line, definitions|
       parts = line.split("\t")
 
       struct_name = parts[0]
 
-      if should_generate_struct?(struct_name)
-        {
-          struct_name: struct_name,
-          filepath:    parts[1],
-        }
-      else
-        nil
-      end
-    end.compact
+      next unless should_generate_struct?(struct_name)
 
+      definitions << {
+        struct_name: struct_name,
+        filepath:    parts[1],
+      }
+    end
   end
 
   # Whether generate C struct to go
