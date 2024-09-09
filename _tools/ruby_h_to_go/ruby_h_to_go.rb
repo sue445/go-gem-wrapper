@@ -36,10 +36,17 @@ class Generator
     # Clean all generated files in dist/
     FileUtils.rm_f(Dir.glob(File.join(__dir__, "dist", "*.go")))
 
+    type_definitions.each do |definition|
+      write_type_to_go_file(
+        filepath:  definition[:filepath],
+        type_name: definition[:type_name],
+      )
+    end
+
     struct_definitions.each do |definition|
-      write_struct_to_go_file(
-        filepath: definition[:filepath],
-        struct_name: definition[:struct_name],
+      write_type_to_go_file(
+        filepath:  definition[:filepath],
+        type_name: definition[:struct_name],
       )
     end
 
@@ -373,17 +380,17 @@ class Generator
   end
 
   # @param filepath [String]
-  # @param struct_name [String]
-  def write_struct_to_go_file(filepath:, struct_name:)
+  # @param type_name [String]
+  def write_type_to_go_file(filepath:, type_name:)
     go_file_path = ruby_h_path_to_go_file_path(filepath)
 
     generate_initial_go_file(go_file_path)
 
-    go_struct_name = snake_to_camel(struct_name)
+    go_type_name = snake_to_camel(type_name)
 
     content = <<~GO
-      // #{go_struct_name} is a type for passing `C.#{struct_name}` in and out of package
-      type #{go_struct_name} C.#{struct_name}
+      // #{go_type_name} is a type for passing `C.#{type_name}` in and out of package
+      type #{go_type_name} C.#{type_name}
 
     GO
 
