@@ -31,6 +31,8 @@ class Generator
 
     struct_definitions = extract_struct_definitions
 
+    type_definitions = extract_type_definitions
+
     # Clean all generated files in dist/
     FileUtils.rm_f(Dir.glob(File.join(__dir__, "dist", "*.go")))
 
@@ -177,6 +179,38 @@ class Generator
     struct_name = struct_name.downcase
 
     struct_name.start_with?("rb_")
+  end
+
+  # @return [Array<Hash>]
+  def extract_type_definitions
+    stdout = `ctags --recurse --c-kinds=t --languages=C --language-force=C --fields=+n -f - #{header_dir}`
+
+    stdout.each_line.each_with_object([]) do |line, definitions|
+      parts = line.split("\t")
+
+      type_name = parts[0]
+
+      next unless should_generate_type?(type_name)
+
+      definitions << {
+        type_name: type_name,
+        filepath:  parts[1],
+      }
+    end.uniq { |definition| definition[:type_name] }
+  end
+
+  ALLOW_TYPE_NAME_PREFIXES = %w[rb_ st_]
+  ALLOW_TYPE_NAMES = %w[id value]
+
+  # Whether generate C type to go
+  # @param type_name [String]
+  # @return [Boolean]
+  def should_generate_type?(type_name)
+    type_name = type_name.downcase
+
+    return true if ALLOW_TYPE_NAME_PREFIXES.any? { |prefix| type_name.start_with?(prefix) }
+
+    ALLOW_TYPE_NAMES.include?(type_name)
   end
 
   # @param definition [String]
