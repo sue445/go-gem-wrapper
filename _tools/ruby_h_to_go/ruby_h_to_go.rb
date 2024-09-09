@@ -79,12 +79,17 @@ class Generator
           read_definition_from_header_file(parts[1], line_num).delete_suffix(";")
         end
 
+      args = parse_definition_args(definition)
+
+      # Exclude functions with variable-length arguments
+      next if args&.last&.dig(:type) == "..."
+
       definitions << {
         definition:    definition,
         function_name: parts[0],
         filepath:      parts[1],
         typeref:       definition[0...definition.index(parts[0])].gsub("char *", "char*").strip,
-        args:          parse_definition_args(definition)
+        args:          args
       }
     end
   end
