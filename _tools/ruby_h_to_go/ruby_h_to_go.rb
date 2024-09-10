@@ -56,11 +56,12 @@ class Generator
 
     function_definitions.each do |definition|
       write_function_to_go_file(
-        filepath:      definition[:filepath],
-        args:          definition[:args],
-        typeref:       definition[:typeref],
-        function_name: definition[:function_name],
-        definition:    definition[:definition],
+        filepath:        definition[:filepath],
+        args:            definition[:args],
+        typeref:         definition[:typeref],
+        typeref_pointer: definition[:typeref_pointer],
+        function_name:   definition[:function_name],
+        definition:      definition[:definition],
       )
     end
 
@@ -97,12 +98,20 @@ class Generator
       # Exclude functions with variable-length arguments
       next if args&.last&.dig(:type) == "..."
 
+      typeref = definition[0...definition.index(parts[0])].gsub("char *", "char*").strip
+      typeref_pointer = nil
+      if typeref.end_with?("*")
+        typeref = typeref.delete_suffix("*").strip
+        typeref_pointer = :ref
+      end
+
       definitions << {
-        definition:    definition,
-        function_name: parts[0],
-        filepath:      parts[1],
-        typeref:       definition[0...definition.index(parts[0])].gsub("char *", "char*").strip,
-        args:          args
+        definition:      definition,
+        function_name:   parts[0],
+        filepath:        parts[1],
+        typeref:         typeref,
+        typeref_pointer: typeref_pointer,
+        args:            args
       }
     end
   end
@@ -294,9 +303,10 @@ class Generator
   # @param filepath [String]
   # @param args [Array<Hash>]
   # @param typeref [String]
+  # @param typeref_pointer [Symbol]
   # @param function_name [String]
   # @param definition [String]
-  def write_function_to_go_file(filepath:, args:, typeref:, function_name:, definition:)
+  def write_function_to_go_file(filepath:, args:, typeref:, typeref_pointer:, function_name:, definition:)
     go_file_path = ruby_h_path_to_go_file_path(filepath)
 
     generate_initial_go_file(go_file_path)
@@ -321,10 +331,10 @@ class Generator
     end
 
     go_function_typeref =
-      if typeref == "void"
+      if typeref == "void" && !typeref_pointer
         ""
       else
-        ruby_c_type_to_go_type(typeref, type: :return)
+        ruby_c_type_to_go_type(typeref, type: :return, pointer: typeref_pointer)
       end
 
     go_function_lines = [
@@ -386,7 +396,7 @@ class Generator
       go_function_lines.push(*after_call_function_lines)
     else
       go_function_lines.push(*before_call_function_lines)
-      go_function_lines << "ret := #{ruby_c_type_to_go_type(typeref)}(#{call_c_method})"
+      go_function_lines << "ret := #{go_function_typeref}(#{call_c_method})"
       go_function_lines.push(*after_call_function_lines)
       go_function_lines << "return ret"
     end
@@ -504,6 +514,8 @@ class Generator
     when /^[A-Z]+$/, "int"
       # e.g. VALUE
       return typename
+    when "void"
+      return "unsafe.Pointer" if pointer == :ref && type == :return
     end
 
     snake_to_camel(typename)
