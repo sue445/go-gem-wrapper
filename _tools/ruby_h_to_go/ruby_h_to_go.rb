@@ -324,6 +324,9 @@ class Generator
       when "range"
         # `range` is reserved in Go
         c_arg[:name] = "r"
+      when "type"
+        # `type` is reserved in Go
+        c_arg[:name] = "t"
       end
     end
 
