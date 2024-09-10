@@ -102,8 +102,8 @@ class Generator
 
       typeref = definition[0...definition.index(parts[0])].gsub("char *", "char*").strip
       typeref_pointer = nil
-      if typeref.end_with?("*")
-        typeref = typeref.delete_suffix("*").strip
+      if typeref.match?(/\*+$/)
+        typeref = typeref.gsub(/\*+$/, "").strip
         typeref_pointer = :ref
       end
 
@@ -259,7 +259,9 @@ class Generator
           }
         end
       else
-        if parts[-1].start_with?("*")
+        loop do
+          break unless parts[-1].start_with?("*")
+
           parts[-1].delete_prefix!("*")
           parts[-2] << "*"
         end
@@ -274,8 +276,8 @@ class Generator
         name = parts[-1]
 
         pointer = nil
-        if type.end_with?("*")
-          type.delete_suffix!("*")
+        if type.match?(/\*+$/)
+          type = type.gsub(/\*+$/, "").strip
           pointer = function_arg_pointer_hint(function_name, arg_pos-1)
         elsif /^void\s*\s/.match?(type) || /\(.*\)/.match?(type)
           # function pointer (e.g. void *(*func)(void *)) is treated as `void*`
