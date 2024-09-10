@@ -441,7 +441,7 @@ class Generator
     when "VALUE*"
       return "toCValueArray"
     when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
-      return "toFunctionPointer"
+      return "toCPointer"
     end
 
     "C.#{typename}"
