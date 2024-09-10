@@ -5,6 +5,7 @@
 
 require "optparse"
 require "fileutils"
+require "yaml"
 
 header_dir = nil
 
@@ -21,9 +22,12 @@ end
 class Generator
   attr_reader :header_dir
 
+  attr_reader :data
+
   # @param header_dir [String]
   def initialize(header_dir)
     @header_dir = header_dir
+    @data = YAML.load_file(File.join(__dir__, "ruby_h_to_go.yml"))
   end
 
   def perform
@@ -88,7 +92,7 @@ class Generator
           read_definition_from_header_file(parts[1], line_num).delete_suffix(";")
         end
 
-      args = parse_definition_args(definition)
+      args = parse_definition_args(function_name, definition)
 
       # Exclude functions with variable-length arguments
       next if args&.last&.dig(:type) == "..."
@@ -220,8 +224,9 @@ class Generator
     ALLOW_TYPE_NAMES.include?(type_name)
   end
 
+  # @param function_name [String]
   # @param definition [String]
-  def parse_definition_args(definition)
+  def parse_definition_args(function_name, definition)
     definition =~ /(?<=\()(.+)(?=\))/
     args = $1.split(",").map(&:strip)
 
@@ -257,10 +262,10 @@ class Generator
         type = type.delete_prefix("const ")
         name = parts[-1]
 
-        pointer = false
+        pointer = nil
         if type.end_with?("*")
           type.delete_suffix!("*")
-          pointer = true
+          pointer = function_arg_pointer_hint(function_name, arg_pos-1)
         end
 
         {
@@ -270,6 +275,16 @@ class Generator
         }
       end
     end.compact
+  end
+
+  # @param function_name [String]
+  # @param index [Integer] arg position
+  # @return [Symbol] :ref, :array
+  def function_arg_pointer_hint(function_name, index)
+    pointer_hint = data["pointer_hint"]["function"].dig(function_name, index)
+    return pointer_hint.to_sym if pointer_hint
+
+    :ref
   end
 
   # @param filepath [String]
@@ -342,12 +357,16 @@ class Generator
 
         casted_go_args << "#{char_var_name}"
       else
-        if c_arg[:pointer]
-          c_var_name = "c#{snake_to_camel(c_arg[:name])}"
+        if c_arg[:pointer] == :ref
+          if c_arg[:type] == "void"
+            casted_go_args << "toCPointer(#{c_arg[:name]})"
+          else
+            c_var_name = "c#{snake_to_camel(c_arg[:name])}"
 
-          before_call_function_lines << "var #{c_var_name} C.#{c_arg[:type]}"
-          after_call_function_lines << "*#{c_arg[:name]} = #{ruby_c_type_to_go_type(c_arg[:type], type: :arg)}(#{c_var_name})"
-          casted_go_args << "&#{c_var_name}"
+            before_call_function_lines << "var #{c_var_name} C.#{c_arg[:type]}"
+            after_call_function_lines << "*#{c_arg[:name]} = #{ruby_c_type_to_go_type(c_arg[:type], type: :arg)}(#{c_var_name})"
+            casted_go_args << "&#{c_var_name}"
+          end
         else
           casted_go_args << "#{cast_to_cgo_type(c_arg[:type])}(#{c_arg[:name]})"
         end
@@ -450,9 +469,9 @@ class Generator
   # Convert C type to Go type. (used in wrapper function args and return type etc)
   # @param typename [String]
   # @param type [Symbol,nil] :arg, :return
-  # @param pointer [Boolean] Whether pointer
+  # @param pointer [Symbol,nil] Whether pointer hint
   # @return [String]
-  def ruby_c_type_to_go_type(typename, type: nil, pointer: false)
+  def ruby_c_type_to_go_type(typename, type: nil, pointer: nil)
     if pointer
       case typename
       when "char", "const char"
@@ -462,13 +481,15 @@ class Generator
         else
           return "char2String"
         end
-      when "VALUE"
-        return "[]VALUE"
+      when "void"
+        return "unsafe.Pointer"
       end
 
       go_type_name = snake_to_camel(typename)
-      go_type_name = "*" + go_type_name if pointer
-      return go_type_name
+
+      return "[]#{go_type_name}" if pointer == :array
+
+      return "*#{go_type_name}"
     end
 
     case typename
