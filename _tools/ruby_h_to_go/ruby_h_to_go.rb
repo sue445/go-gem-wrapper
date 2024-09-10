@@ -268,7 +268,7 @@ class Generator
         end
 
         type = parts[0...-1].join(" ")
-        type = type.delete_prefix("const ")
+        type = type.delete_prefix("const ").delete_prefix("struct ").strip
         name = parts[-1]
 
         pointer = nil
