@@ -257,9 +257,16 @@ class Generator
         type = type.delete_prefix("const ")
         name = parts[-1]
 
+        pointer = false
+        if type.end_with?("*")
+          type.delete_suffix!("*")
+          pointer = true
+        end
+
         {
           type: type,
           name: name,
+          pointer: pointer
         }
       end
     end.compact
@@ -291,7 +298,7 @@ class Generator
 
     go_function_name = snake_to_camel(function_name)
     go_function_args = args.map do |c_arg|
-      "#{c_arg[:name]} #{ruby_c_type_to_go_type(c_arg[:type], type: :arg)}"
+      "#{c_arg[:name]} #{ruby_c_type_to_go_type(c_arg[:type], pointer: c_arg[:pointer], type: :arg)}"
     end
 
     go_function_typeref =
@@ -314,10 +321,13 @@ class Generator
     call_c_method = "C.#{function_name}("
 
     casted_go_args = []
-    char_var_count = args.count { |c_arg| c_arg[:type] == "char*" }
+    char_var_count = args.count { |c_arg| c_arg[:type] == "char" && c_arg[:pointer] }
+
+    before_call_function_lines = []
+    after_call_function_lines = []
 
     args.each do |c_arg|
-      if c_arg[:type] == "char*"
+      if c_arg[:type] == "char" && c_arg[:pointer]
         if char_var_count >= 2
           char_var_name = "char#{snake_to_camel(c_arg[:name])}"
           clean_var_name = "cleanChar#{(c_arg[:name])}"
@@ -332,7 +342,15 @@ class Generator
 
         casted_go_args << "#{char_var_name}"
       else
-        casted_go_args << "#{cast_to_cgo_type(c_arg[:type])}(#{c_arg[:name]})"
+        if c_arg[:pointer]
+          c_var_name = "c#{snake_to_camel(c_arg[:name])}"
+
+          before_call_function_lines << "var #{c_var_name} C.#{c_arg[:type]}"
+          after_call_function_lines << "*#{c_arg[:name]} = #{ruby_c_type_to_go_type(c_arg[:type], type: :arg)}(#{c_var_name})"
+          casted_go_args << "&#{c_var_name}"
+        else
+          casted_go_args << "#{cast_to_cgo_type(c_arg[:type])}(#{c_arg[:name]})"
+        end
       end
     end
 
@@ -340,9 +358,14 @@ class Generator
     call_c_method << ")"
 
     if go_function_typeref == ""
+      go_function_lines.push(*before_call_function_lines)
       go_function_lines << call_c_method
+      go_function_lines.push(*after_call_function_lines)
     else
-      go_function_lines << "return #{ruby_c_type_to_go_type(typeref)}(#{call_c_method})"
+      go_function_lines.push(*before_call_function_lines)
+      go_function_lines << "ret := #{ruby_c_type_to_go_type(typeref)}(#{call_c_method})"
+      go_function_lines.push(*after_call_function_lines)
+      go_function_lines << "return ret"
     end
 
     go_function_lines << "}"
@@ -426,21 +449,30 @@ class Generator
   # Convert C type to Go type. (used in wrapper function args and return type etc)
   # @param typename [String]
   # @param type [Symbol,nil] :arg, :return
+  # @param pointer [Boolean] Whether pointer
   # @return [String]
-  def ruby_c_type_to_go_type(typename, type: nil)
+  def ruby_c_type_to_go_type(typename, type: nil, pointer: false)
+    if pointer
+      case typename
+      when "char", "const char"
+        case type
+        when :arg, :return
+          return "string"
+        else
+          return "char2String"
+        end
+      when "VALUE"
+        return "[]VALUE"
+      end
+
+      go_type_name = snake_to_camel(typename)
+      go_type_name = "*" + go_type_name if pointer
+      return go_type_name
+    end
+
     case typename
     when "unsigned int", "unsigned long"
       return "uint"
-    when "char*", "const char*"
-      case type
-      when :arg, :return
-        return "string"
-      else
-        return "char2String"
-      end
-
-    when "VALUE*"
-      return "[]VALUE"
     when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
       return "unsafe.Pointer"
     when /^[A-Z]+$/, "int"
