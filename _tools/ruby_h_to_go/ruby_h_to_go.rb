@@ -266,6 +266,10 @@ class Generator
         if type.end_with?("*")
           type.delete_suffix!("*")
           pointer = function_arg_pointer_hint(function_name, arg_pos-1)
+        elsif /^void\s*\s/.match?(type)
+          # function pointer (e.g. void *(*func)(void *)) is treated as `void*`
+          type = "void"
+          pointer = :ref
         end
 
         {
