@@ -488,6 +488,8 @@ class Generator
   # @param pointer [Symbol,nil] Whether pointer hint
   # @return [String]
   def ruby_c_type_to_go_type(typename, type: nil, pointer: nil)
+    typename = typename.delete_prefix("struct ")
+
     if pointer
       case typename
       when "char", "const char"
