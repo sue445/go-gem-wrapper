@@ -270,7 +270,7 @@ class Generator
         end
 
         type = parts[0...-1].join(" ")
-        type = type.delete_prefix("const ").delete_prefix("struct ").strip
+        type = type.delete_prefix("const ").delete_prefix("volatile ").delete_prefix("struct ").strip
         name = parts[-1]
 
         pointer = nil
@@ -491,7 +491,7 @@ class Generator
   # @param pointer [Symbol,nil] Whether pointer hint
   # @return [String]
   def ruby_c_type_to_go_type(typename, type: nil, pointer: nil)
-    typename = typename.delete_prefix("struct ")
+    typename = typename.delete_prefix("struct ").delete_prefix("volatile ")
 
     if pointer
       case typename
