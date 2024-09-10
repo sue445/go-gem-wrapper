@@ -211,7 +211,7 @@ class Generator
   end
 
   ALLOW_TYPE_NAME_PREFIXES = %w[rb_ st_]
-  ALLOW_TYPE_NAMES = %w[id value]
+  ALLOW_TYPE_NAMES = %w[id value long_long]
 
   # Whether generate C type to go
   # @param type_name [String]
