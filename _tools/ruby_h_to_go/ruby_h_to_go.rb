@@ -93,6 +93,8 @@ class Generator
           read_definition_from_header_file(parts[1], line_num).delete_suffix(";")
         end
 
+      definition.gsub!(/\);.*/, ")")
+
       args = parse_definition_args(function_name, definition)
 
       # Exclude functions with variable-length arguments
