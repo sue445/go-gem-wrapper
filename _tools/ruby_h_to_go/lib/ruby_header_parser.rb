@@ -1,5 +1,11 @@
 require "yaml"
 
+require_relative "argument_definition"
+require_relative "function_definition"
+require_relative "struct_definition"
+require_relative "type_definition"
+require_relative "typeref_definition"
+
 class RubyHeaderParser
   attr_reader :header_dir
 
@@ -11,7 +17,7 @@ class RubyHeaderParser
     @data = YAML.load_file(File.join(__dir__, "ruby_header_parser.yml"))
   end
 
-  # @return [Array<Hash>]
+  # @return [Array<FunctionDefinition>]
   def extract_function_definitions
     stdout = `ctags --recurse --c-kinds=p --languages=C --language-force=C --fields=+n --extras=+q -f - #{header_dir}`
 
@@ -35,27 +41,28 @@ class RubyHeaderParser
       args = parse_definition_args(function_name, definition)
 
       # Exclude functions with variable-length arguments
-      next if args&.last&.dig(:type) == "..."
+      next if args&.last&.type == "..."
 
-      typeref = definition[0...definition.index(parts[0])].gsub("char *", "char*").strip
+      typeref_type = definition[0...definition.index(parts[0])].gsub("char *", "char*").strip
       typeref_pointer = nil
-      if typeref.match?(/\*+$/)
-        typeref = typeref.gsub(/\*+$/, "").strip
+      if typeref_type.match?(/\*+$/)
+        typeref_type = typeref_type.gsub(/\*+$/, "").strip
         typeref_pointer = :ref
       end
 
-      definitions << {
-        definition:      definition,
-        function_name:   parts[0],
-        filepath:        parts[1],
-        typeref:         typeref,
-        typeref_pointer: typeref_pointer,
-        args:            args
-      }
+      typeref = TyperefDefinition.new(type: typeref_type, pointer: typeref_pointer)
+
+      definitions << FunctionDefinition.new(
+        definition:  definition,
+        name:        parts[0],
+        filepath:    parts[1],
+        typeref:     typeref,
+        args:        args
+      )
     end
   end
 
-  # @return [Array<Hash>]
+  # @return [Array<StructDefinition>]
   def extract_struct_definitions
     stdout = `ctags --recurse --c-kinds=s --languages=C --language-force=C --fields=+n -f - #{header_dir}`
 
@@ -66,14 +73,14 @@ class RubyHeaderParser
 
       next unless should_generate_struct?(struct_name)
 
-      definitions << {
-        struct_name: struct_name,
-        filepath:    parts[1],
-      }
+      definitions << StructDefinition.new(
+        name:     struct_name,
+        filepath: parts[1],
+      )
     end
   end
 
-  # @return [Array<Hash>]
+  # @return [Array<TyperefDefinition>]
   def extract_type_definitions
     stdout = `ctags --recurse --c-kinds=t --languages=C --language-force=C --fields=+n -f - #{header_dir}`
 
@@ -84,11 +91,11 @@ class RubyHeaderParser
 
       next unless should_generate_type?(type_name)
 
-      definitions << {
-        type_name: type_name,
-        filepath:  parts[1],
-      }
-    end.uniq { |definition| definition[:type_name] }
+      definitions << TypeDefinition.new(
+        name:     type_name,
+        filepath: parts[1],
+      )
+    end.uniq(&:name)
   end
 
   private
@@ -176,6 +183,7 @@ class RubyHeaderParser
 
   # @param function_name [String]
   # @param definition [String]
+  # @return [Array<ArgumentDefinition>]
   def parse_definition_args(function_name, definition)
     definition =~ /(?<=\()(.+)(?=\))/
     args = $1.split(",").map(&:strip)
@@ -192,10 +200,12 @@ class RubyHeaderParser
           nil
         else
           name = "arg#{arg_pos}"
-          {
+
+          ArgumentDefinition.new(
             type: type,
             name: name,
-          }
+            pointer: nil,
+          )
         end
       else
         loop do
@@ -224,11 +234,11 @@ class RubyHeaderParser
           pointer = :ref
         end
 
-        {
+        ArgumentDefinition.new(
           type: type,
           name: name,
           pointer: pointer
-        }
+        )
       end
     end.compact
   end

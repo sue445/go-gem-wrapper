@@ -39,28 +39,15 @@ class Generator
     FileUtils.rm_f(Dir.glob(File.join(__dir__, "dist", "*.go")))
 
     type_definitions.each do |definition|
-      write_type_to_go_file(
-        filepath:  definition[:filepath],
-        type_name: definition[:type_name],
-      )
+      write_type_to_go_file(definition)
     end
 
     struct_definitions.each do |definition|
-      write_type_to_go_file(
-        filepath:  definition[:filepath],
-        type_name: definition[:struct_name],
-      )
+      write_type_to_go_file(definition)
     end
 
     function_definitions.each do |definition|
-      write_function_to_go_file(
-        filepath:        definition[:filepath],
-        args:            definition[:args],
-        typeref:         definition[:typeref],
-        typeref_pointer: definition[:typeref_pointer],
-        function_name:   definition[:function_name],
-        definition:      definition[:definition],
-      )
+      write_function_to_go_file(definition)
     end
 
     FileUtils.cp(File.join(__dir__, "..", "..", "ruby", "c_types.go"), File.join(__dir__, "dist"))
@@ -72,93 +59,87 @@ class Generator
 
   private
 
-
-  # @param filepath [String]
-  # @param args [Array<Hash>]
-  # @param typeref [String]
-  # @param typeref_pointer [Symbol]
-  # @param function_name [String]
-  # @param definition [String]
-  def write_function_to_go_file(filepath:, args:, typeref:, typeref_pointer:, function_name:, definition:)
-    go_file_path = ruby_h_path_to_go_file_path(filepath)
+  # @param definition [FunctionDefinition]
+  def write_function_to_go_file(definition)
+    go_file_path = ruby_h_path_to_go_file_path(definition.filepath)
 
     generate_initial_go_file(go_file_path)
 
-    args.each do |c_arg|
-      case c_arg[:name]
+    definition.args.each do |c_arg|
+      case c_arg.name
       when "var"
         # `var` is reserved in Go
-        c_arg[:name] = "v"
+        c_arg.name = "v"
       when "func"
         # `func` is reserved in Go
-        c_arg[:name] = "fun"
+        c_arg.name = "fun"
       when "range"
         # `range` is reserved in Go
-        c_arg[:name] = "r"
+        c_arg.name = "r"
       when "type"
         # `type` is reserved in Go
-        c_arg[:name] = "t"
+        c_arg.name = "t"
       end
     end
 
-    go_function_name = snake_to_camel(function_name)
-    go_function_args = args.map do |c_arg|
-      "#{c_arg[:name]} #{ruby_c_type_to_go_type(c_arg[:type], pointer: c_arg[:pointer], type: :arg)}"
+    go_function_name = snake_to_camel(definition.name)
+    go_function_args = definition.args.map do |c_arg|
+      "#{c_arg.name} #{ruby_c_type_to_go_type(c_arg.type, pointer: c_arg.pointer, type: :arg)}"
     end
 
     go_function_typeref =
-      if typeref == "void" && !typeref_pointer
+      if definition.typeref.type == "void" && !definition.typeref.pointer?
         ""
       else
-        ruby_c_type_to_go_type(typeref, type: :return, pointer: typeref_pointer)
+        ruby_c_type_to_go_type(definition.typeref.type, type: :return, pointer: definition.typeref.pointer)
       end
 
     go_function_lines = [
-      "// #{go_function_name} calls `#{function_name}` in C",
+      "// #{go_function_name} calls `#{definition.name}` in C",
       "//",
       "// Original definition is following",
       "//",
-      "//\t#{definition}",
+      "//\t#{definition.definition}",
     ]
 
     go_function_lines << "func #{go_function_name}(#{go_function_args.join(", ")}) #{go_function_typeref} {"
 
-    call_c_method = "C.#{function_name}("
+    call_c_method = "C.#{definition.name}("
 
     casted_go_args = []
-    char_var_count = args.count { |c_arg| c_arg[:type] == "char" && c_arg[:pointer] }
+    char_var_count = definition.args.count { |c_arg| c_arg.type == "char" && c_arg.pointer }
 
     before_call_function_lines = []
     after_call_function_lines = []
 
-    args.each do |c_arg|
-      if c_arg[:type] == "char" && c_arg[:pointer]
+    definition.args.each do |c_arg|
+      if c_arg.type == "char" && c_arg.pointer?
         if char_var_count >= 2
-          char_var_name = "char#{snake_to_camel(c_arg[:name])}"
-          clean_var_name = "cleanChar#{(c_arg[:name])}"
+          char_var_name = "char#{snake_to_camel(c_arg.name)}"
+          clean_var_name = "cleanChar#{(c_arg.name)}"
         else
           char_var_name = "char"
           clean_var_name = "clean"
         end
 
-        go_function_lines << "#{char_var_name}, #{clean_var_name} := string2Char(#{c_arg[:name]})"
+        go_function_lines << "#{char_var_name}, #{clean_var_name} := string2Char(#{c_arg.name})"
         go_function_lines << "defer #{clean_var_name}()"
         go_function_lines << ""
 
         casted_go_args << "#{char_var_name}"
       else
-        if c_arg[:pointer] == :ref
-          if c_arg[:type] == "void"
-            casted_go_args << "toCPointer(#{c_arg[:name]})"
+        if c_arg.pointer == :ref
+          if c_arg.type == "void"
+            casted_go_args << "toCPointer(#{c_arg.name})"
           else
-            c_var_name = "c#{snake_to_camel(c_arg[:name])}"
+            c_var_name = "c#{snake_to_camel(c_arg.name)}"
 
-            before_call_function_lines << "var #{c_var_name} C.#{c_arg[:type]}"
-            after_call_function_lines << "*#{c_arg[:name]} = #{ruby_c_type_to_go_type(c_arg[:type], type: :arg)}(#{c_var_name})"
+            before_call_function_lines << "var #{c_var_name} C.#{c_arg.type}"
+            after_call_function_lines << "*#{c_arg.name} = #{ruby_c_type_to_go_type(c_arg.type, type: :arg)}(#{c_var_name})"
             casted_go_args << "&#{c_var_name}"
           end
         else
-          casted_go_args << "#{cast_to_cgo_type(c_arg[:type])}(#{c_arg[:name]})"
+          casted_go_args << "#{cast_to_cgo_type(c_arg.type)}(#{c_arg.name})"
         end
       end
     end
@@ -211,18 +192,17 @@ class Generator
     end
   end
 
-  # @param filepath [String]
-  # @param type_name [String]
-  def write_type_to_go_file(filepath:, type_name:)
-    go_file_path = ruby_h_path_to_go_file_path(filepath)
+  # @param definition [TypeDefinition,StructDefinition]
+  def write_type_to_go_file(definition)
+    go_file_path = ruby_h_path_to_go_file_path(definition.filepath)
 
     generate_initial_go_file(go_file_path)
 
-    go_type_name = snake_to_camel(type_name)
+    go_type_name = snake_to_camel(definition.name)
 
     content = <<~GO
-      // #{go_type_name} is a type for passing `C.#{type_name}` in and out of package
-      type #{go_type_name} C.#{type_name}
+      // #{go_type_name} is a type for passing `C.#{definition.name}` in and out of package
+      type #{go_type_name} C.#{definition.name}
 
     GO
 
