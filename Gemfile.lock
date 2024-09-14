@@ -43,4 +43,8 @@ PLATFORMS
 
 DEPENDENCIES
   rspec
+  rspec-its
   serverspec
+
+BUNDLED WITH
+   2.5.16
