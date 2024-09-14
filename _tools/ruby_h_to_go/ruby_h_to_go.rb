@@ -29,7 +29,7 @@ class Generator
   end
 
   def perform
-    parser = RubyHeaderParser.new(header_dir)
+    parser = RubyHeaderParser::Parser.new(header_dir)
 
     function_definitions = parser.extract_function_definitions
     struct_definitions   = parser.extract_struct_definitions
@@ -59,7 +59,7 @@ class Generator
 
   private
 
-  # @param definition [FunctionDefinition]
+  # @param definition [RubyHeaderParser::FunctionDefinition]
   def write_function_to_go_file(definition)
     go_file_path = ruby_h_path_to_go_file_path(definition.filepath)
 
@@ -192,7 +192,7 @@ class Generator
     end
   end
 
-  # @param definition [TypeDefinition,StructDefinition]
+  # @param definition [RubyHeaderParser::TypeDefinition,RubyHeaderParser::StructDefinition]
   def write_type_to_go_file(definition)
     go_file_path = ruby_h_path_to_go_file_path(definition.filepath)
 
