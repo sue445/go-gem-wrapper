@@ -8,6 +8,9 @@ import "C"
 // Char is a type for passing `C.char` in and out of package
 type Char C.char
 
+// Uchar is a type for passing `C.uchar` in and out of package
+type Uchar C.uchar
+
 // Long is a type for passing `C.long` in and out of package
 type Long C.long
 
