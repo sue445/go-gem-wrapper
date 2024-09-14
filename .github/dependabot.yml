@@ -41,7 +41,7 @@ updates:
       - example
 
   - package-ecosystem: bundler
-    directory: "/_tools/patch_for_go_gem/"
+    directory: /
     schedule:
       interval: daily
       time: "05:00"

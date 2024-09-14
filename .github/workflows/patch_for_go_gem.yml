@@ -12,6 +12,8 @@ on:
     paths:
       - ".github/workflows/patch_for_go_gem.yml"
       - "_tools/patch_for_go_gem/**"
+      - "Gemfile"
+      - "Gemfile.lock"
 
 defaults:
   run:
@@ -45,7 +47,6 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-          working-directory: _tools/patch_for_go_gem/
 
       - run: bundle exec rspec
 
