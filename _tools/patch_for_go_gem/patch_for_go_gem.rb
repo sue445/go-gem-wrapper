@@ -202,9 +202,7 @@ class GemPatcher
       return
     end
 
-    File.open(file_path, "wb") do |f|
-      f.write(content)
-    end
+    File.binwrite(file_path, content)
 
     if is_updated
       puts "[INFO] #{file_path} is updated"

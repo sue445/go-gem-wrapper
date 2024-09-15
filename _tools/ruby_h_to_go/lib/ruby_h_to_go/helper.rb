@@ -21,8 +21,7 @@ module RubyHToGo
     def generate_initial_go_file(go_file_path)
       return if File.exist?(go_file_path)
 
-      File.open(go_file_path, "wb") do |f|
-        f.write(<<~GO)
+      File.binwrite(go_file_path, <<~GO)
           package ruby
 
           /*
@@ -31,7 +30,6 @@ module RubyHToGo
           import "C"
 
         GO
-      end
     end
 
     # Convert C type to Go type. (used in wrapper function args and return type etc)
