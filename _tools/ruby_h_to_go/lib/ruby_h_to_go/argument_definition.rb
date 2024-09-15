@@ -10,5 +10,25 @@ module RubyHToGo
     def initialize(definition)
       @definition = definition
     end
+
+    # @return [String] Variable name available in Go
+    def go_name
+      case name
+      when "var"
+        # `var` is reserved in Go
+        return "v"
+      when "func"
+        # `func` is reserved in Go
+        return "fun"
+      when "range"
+        # `range` is reserved in Go
+        return "r"
+      when "type"
+        # `type` is reserved in Go
+        return "t"
+      end
+
+      name
+    end
   end
 end

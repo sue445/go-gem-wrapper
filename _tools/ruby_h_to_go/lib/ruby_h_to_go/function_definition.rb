@@ -36,26 +36,9 @@ module RubyHToGo
 
     # @return [String]
     def generate_go_content
-      args.each do |c_arg|
-        case c_arg.name
-        when "var"
-          # `var` is reserved in Go
-          c_arg.name = "v"
-        when "func"
-          # `func` is reserved in Go
-          c_arg.name = "fun"
-        when "range"
-          # `range` is reserved in Go
-          c_arg.name = "r"
-        when "type"
-          # `type` is reserved in Go
-          c_arg.name = "t"
-        end
-      end
-
       go_function_name = snake_to_camel(name)
       go_function_args = args.map do |c_arg|
-        "#{c_arg.name} #{ruby_c_type_to_go_type(c_arg.type, pointer: c_arg.pointer, type: :arg)}"
+        "#{c_arg.go_name} #{ruby_c_type_to_go_type(c_arg.type, pointer: c_arg.pointer, type: :arg)}"
       end
 
       go_function_typeref =
@@ -86,14 +69,14 @@ module RubyHToGo
       args.each do |c_arg|
         if c_arg.type == "char" && c_arg.pointer?
           if char_var_count >= 2
-            char_var_name = "char#{snake_to_camel(c_arg.name)}"
-            clean_var_name = "cleanChar#{(c_arg.name)}"
+            char_var_name = "char#{snake_to_camel(c_arg.go_name)}"
+            clean_var_name = "cleanChar#{(c_arg.go_name)}"
           else
             char_var_name = "char"
             clean_var_name = "clean"
           end
 
-          go_function_lines << "#{char_var_name}, #{clean_var_name} := string2Char(#{c_arg.name})"
+          go_function_lines << "#{char_var_name}, #{clean_var_name} := string2Char(#{c_arg.go_name})"
           go_function_lines << "defer #{clean_var_name}()"
           go_function_lines << ""
 
@@ -101,16 +84,16 @@ module RubyHToGo
         else
           if c_arg.pointer == :ref
             if c_arg.type == "void"
-              casted_go_args << "toCPointer(#{c_arg.name})"
+              casted_go_args << "toCPointer(#{c_arg.go_name})"
             else
-              c_var_name = "c#{snake_to_camel(c_arg.name)}"
+              c_var_name = "c#{snake_to_camel(c_arg.go_name)}"
 
               before_call_function_lines << "var #{c_var_name} C.#{c_arg.type}"
-              after_call_function_lines << "*#{c_arg.name} = #{ruby_c_type_to_go_type(c_arg.type, type: :arg)}(#{c_var_name})"
+              after_call_function_lines << "*#{c_arg.go_name} = #{ruby_c_type_to_go_type(c_arg.type, type: :arg)}(#{c_var_name})"
               casted_go_args << "&#{c_var_name}"
             end
           else
-            casted_go_args << "#{cast_to_cgo_type(c_arg.type)}(#{c_arg.name})"
+            casted_go_args << "#{cast_to_cgo_type(c_arg.type)}(#{c_arg.go_name})"
           end
         end
       end
