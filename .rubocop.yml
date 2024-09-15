@@ -3,6 +3,15 @@ AllCops:
   NewCops: enable
   SuggestExtensions: false
 
+  Exclude:
+    - "ruby/testdata/example/vendor/**/*"
+
+    # ref. https://github.com/rubocop/rubocop/blob/v1.66.1/config/default.yml
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+    - '.git/**/*'
+
 Gemspec/DevelopmentDependencies:
   EnforcedStyle: gemspec
 
