@@ -77,9 +77,9 @@ module RubyHToGo
           casted_go_args << "#{char_var_name}"
         elsif c_arg.pointer == :ref
           if c_arg.type == "void"
-              casted_go_args << "toCPointer(#{c_arg.go_name})"
+            casted_go_args << "toCPointer(#{c_arg.go_name})"
           else
-              c_var_name = "c#{snake_to_camel(c_arg.go_name)}"
+            c_var_name = "c#{snake_to_camel(c_arg.go_name)}"
 
               before_call_function_lines << "var #{c_var_name} C.#{c_arg.type}"
               after_call_function_lines << "*#{c_arg.go_name} = #{ruby_c_type_to_go_type(c_arg.type, type: :arg)}(#{c_var_name})" # rubocop:disable Layout/SpaceAroundOperators
@@ -87,7 +87,7 @@ module RubyHToGo
               casted_go_args << "&#{c_var_name}"
           end
         else
-            casted_go_args << "#{cast_to_cgo_type(c_arg.type)}(#{c_arg.go_name})"
+          casted_go_args << "#{cast_to_cgo_type(c_arg.type)}(#{c_arg.go_name})"
         end
       end
 
