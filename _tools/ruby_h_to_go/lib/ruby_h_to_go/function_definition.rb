@@ -99,7 +99,7 @@ module RubyHToGo
 if go_function_typeref == ""
         go_function_lines << call_c_method
         go_function_lines.push(*after_call_function_lines)
-      else
+else
         go_function_lines << "ret := #{go_function_typeref}(#{call_c_method})"
         go_function_lines.push(*after_call_function_lines)
         go_function_lines << "return ret"
