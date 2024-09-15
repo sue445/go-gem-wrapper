@@ -47,12 +47,12 @@ end
 namespace :go do
   desc "Run go test"
   task :test do
-    sh env_vars, "go test -count=1 ${TEST_ARGS}  ./..."
+    sh env_vars, "go test -mod=readonly -count=1 ${TEST_ARGS}  ./..."
   end
 
   desc "Run go test -race"
   task :testrace do
-    sh env_vars, "go test -count=1 ${TEST_ARGS} -race  ./..."
+    sh env_vars, "go test -mod=readonly -count=1 ${TEST_ARGS} -race  ./..."
   end
 
   desc "Run go fmt"
