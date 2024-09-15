@@ -128,9 +128,9 @@ class GemPatcher
     content = File.read(extconf_rb_path)
 
     unless content.include?(<<~RUBY)
-        require "mkmf"
+      require "mkmf"
   
-        find_executable("go")
+      find_executable("go")
     RUBY
 
       content.gsub!(<<~RUBY, <<~RUBY)
@@ -149,9 +149,9 @@ class GemPatcher
     end
 
     unless content.include?(<<~RUBY)
-        create_makefile("#{gem_name}/#{gem_name}")
+      create_makefile("#{gem_name}/#{gem_name}")
   
-        case `\#{CONFIG["CC"]} --version` # rubocop:disable Lint/LiteralAsCondition
+      case `\#{CONFIG["CC"]} --version` # rubocop:disable Lint/LiteralAsCondition
     RUBY
 
       content.gsub!(<<~RUBY, <<~RUBY)
