@@ -145,7 +145,7 @@ module RubyHeaderParser
     # @param file [String]
     # @param line_num [Integer]
     def read_definition_from_header_file(file, line_num)
-      definition = ""
+      definition = +""
 
       File.open(file, "r") do |f|
         f.each_with_index do |line, index|
