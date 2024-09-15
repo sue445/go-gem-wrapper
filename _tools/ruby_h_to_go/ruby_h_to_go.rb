@@ -11,7 +11,7 @@ require_relative "lib/ruby_h_to_go"
 header_dir = nil
 
 opt = OptionParser.new
-opt.on("-H HEADER_DIR") {|v| header_dir = v }
+opt.on("-H HEADER_DIR") { |v| header_dir = v }
 
 opt.parse!(ARGV)
 

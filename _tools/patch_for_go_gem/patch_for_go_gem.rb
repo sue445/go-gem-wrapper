@@ -4,8 +4,8 @@ gemspec_file = nil
 dry_run = false
 
 opt = OptionParser.new
-opt.on("-f", "--file=GEMSPEC_FILE") {|v| gemspec_file = v }
-opt.on("--dry-run") {|v| dry_run = v }
+opt.on("-f", "--file=GEMSPEC_FILE") { |v| gemspec_file = v }
+opt.on("--dry-run") { |v| dry_run = v }
 
 opt.parse!(ARGV)
 
