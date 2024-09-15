@@ -53,7 +53,7 @@ module RubyHToGo
           return "unsafe.Pointer"
         end
 
-        go_type_name = ruby_c_type_to_go_type(typename, type: type, pointer: nil)
+        go_type_name = ruby_c_type_to_go_type(typename, type:, pointer: nil)
 
         return "[]#{go_type_name}" if pointer == :array
 

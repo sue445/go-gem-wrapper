@@ -51,11 +51,11 @@ module RubyHeaderParser
         typeref = TyperefDefinition.new(type: typeref_type, pointer: typeref_pointer)
 
         definitions << FunctionDefinition.new(
-          definition: definition,
+          definition:,
           name:       parts[0],
           filepath:   parts[1],
-          typeref:    typeref,
-          args:       args
+          typeref:,
+          args:
         )
       end
     end
@@ -200,8 +200,8 @@ module RubyHeaderParser
             name = "arg#{arg_pos}"
 
             ArgumentDefinition.new(
-              type:    type,
-              name:    name,
+              type:,
+              name:,
               pointer: nil,
             )
           end
@@ -233,9 +233,9 @@ module RubyHeaderParser
           end
 
           ArgumentDefinition.new(
-            type:    type,
-            name:    name,
-            pointer: pointer
+            type:,
+            name:,
+            pointer:
           )
         end
       end.compact
