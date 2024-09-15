@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require "optparse"
 
 gemspec_file = nil
 dry_run = false
 
 opt = OptionParser.new
-opt.on("-f", "--file=GEMSPEC_FILE") {|v| gemspec_file = v }
-opt.on("--dry-run") {|v| dry_run = v }
+opt.on("-f", "--file=GEMSPEC_FILE") { |v| gemspec_file = v }
+opt.on("--dry-run") { |v| dry_run = v }
 
 opt.parse!(ARGV)
 
@@ -13,6 +15,7 @@ raise "--file is required" unless gemspec_file
 raise "#{gemspec_file} isn't gemspec" unless File.extname(gemspec_file) == ".gemspec"
 raise "#{gemspec_file} isn't found" unless File.exist?(gemspec_file)
 
+# Patch to make a gem into a Go gem right after `bundle gem`
 class GemPatcher
   attr_reader :gemspec_file
 
@@ -55,7 +58,7 @@ class GemPatcher
   # @param str [String]
   # @return [String]
   def snake_to_camel(str)
-    str.split("_").map(&:capitalize).join.gsub(/(?<=\d)([a-z])/) { _1.upcase }
+    str.split("_").map(&:capitalize).join.gsub(/(?<=\d)([a-z])/) { _1.upcase } # rubocop:disable Style/SymbolProc
   end
 
   # Create <gem_name>.go
@@ -94,7 +97,7 @@ class GemPatcher
     return if File.exist?(go_mod_path)
 
     `go version` =~ /go version go([.\d]+)/
-    go_version = $1
+    go_version = ::Regexp.last_match(1)
 
     raise "go isn't found in PATH" unless go_version
 
@@ -128,10 +131,10 @@ class GemPatcher
     content = File.read(extconf_rb_path)
 
     unless content.include?(<<~RUBY)
-        require "mkmf"
-  
-        find_executable("go")
-      RUBY
+      require "mkmf"
+
+      find_executable("go")
+    RUBY
 
       content.gsub!(<<~RUBY, <<~RUBY)
         require "mkmf"
@@ -149,10 +152,10 @@ class GemPatcher
     end
 
     unless content.include?(<<~RUBY)
-        create_makefile("#{gem_name}/#{gem_name}")
-  
-        case `\#{CONFIG["CC"]} --version` # rubocop:disable Lint/LiteralAsCondition
-      RUBY
+      create_makefile("#{gem_name}/#{gem_name}")
+
+      case `\#{CONFIG["CC"]} --version` # rubocop:disable Lint/LiteralAsCondition
+    RUBY
 
       content.gsub!(<<~RUBY, <<~RUBY)
         create_makefile("#{gem_name}/#{gem_name}")
@@ -202,9 +205,7 @@ class GemPatcher
       return
     end
 
-    File.open(file_path, "wb") do |f|
-      f.write(content)
-    end
+    File.binwrite(file_path, content)
 
     if is_updated
       puts "[INFO] #{file_path} is updated"

@@ -1,0 +1,28 @@
+---
+path: ".gem_rbs_collection"
+gems:
+- name: base64
+  version: '0'
+  source:
+    type: stdlib
+- name: diff-lcs
+  version: '1.5'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: e193a147feaf08d096fa1b78d1581854e27f4b40
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: fileutils
+  version: '0'
+  source:
+    type: stdlib
+- name: rake
+  version: '13.0'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 3670834268f4ea9c10aefeffae7e072b51256375
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+gemfile_lock_path: Gemfile.lock

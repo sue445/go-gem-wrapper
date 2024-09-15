@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module RubyHToGo
+  # helper methods for generating go coce
   module Helper
     # @param header_dir [String]
     # @param ruby_header_file [String]
@@ -10,8 +13,9 @@ module RubyHToGo
     # @param str [String]
     # @return [String]
     def snake_to_camel(str)
-      return str if %w(VALUE ID).include?(str)
-      str.split("_").map(&:capitalize).join.gsub(/(?<=\d)([a-z])/) { _1.upcase }
+      return str if %w[VALUE ID].include?(str)
+
+      str.split("_").map(&:capitalize).join.gsub(/(?<=\d)([a-z])/) { _1.upcase } # rubocop:disable Style/SymbolProc
     end
 
     # Generate initial go file whether not exists
@@ -19,17 +23,15 @@ module RubyHToGo
     def generate_initial_go_file(go_file_path)
       return if File.exist?(go_file_path)
 
-      File.open(go_file_path, "wb") do |f|
-        f.write(<<~GO)
-          package ruby
-  
-          /*
-          #include "ruby.h"
-          */
-          import "C"
+      File.binwrite(go_file_path, <<~GO)
+        package ruby
 
-        GO
-      end
+        /*
+        #include "ruby.h"
+        */
+        import "C"
+
+      GO
     end
 
     # Convert C type to Go type. (used in wrapper function args and return type etc)
@@ -53,7 +55,7 @@ module RubyHToGo
           return "unsafe.Pointer"
         end
 
-        go_type_name = ruby_c_type_to_go_type(typename, type: type, pointer: nil)
+        go_type_name = ruby_c_type_to_go_type(typename, type:, pointer: nil)
 
         return "[]#{go_type_name}" if pointer == :array
 

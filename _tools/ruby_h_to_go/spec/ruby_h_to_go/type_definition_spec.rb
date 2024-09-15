@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe RubyHToGo::TypeDefinition do
   describe "#generate_go_content" do
     subject { RubyHToGo::TypeDefinition.new(definition).generate_go_content }
@@ -5,7 +7,7 @@ RSpec.describe RubyHToGo::TypeDefinition do
     context "rb_data_type_struct" do
       let(:definition) do
         RubyHeaderParser::TypeDefinition.new(
-          name: "VALUE",
+          name:     "VALUE",
           filepath: "/path/to/include/ruby/internal/value.h",
         )
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe RubyHeaderParser::Parser do
   let(:parser) { RubyHeaderParser::Parser.new(RbConfig::CONFIG["rubyhdrdir"]) }
 
@@ -19,7 +21,7 @@ RSpec.describe RubyHeaderParser::Parser do
       end
 
       its(:name)       { should eq "rb_define_method" }
-      its(:definition) { should eq "void rb_define_method(VALUE klass, const char *mid, VALUE (*func)(ANYARGS), int arity)" }
+      its(:definition) { should eq "void rb_define_method(VALUE klass, const char *mid, VALUE (*func)(ANYARGS), int arity)" } # rubocop:disable Layout/LineLength
       its(:filepath)   { should be_end_with "/ruby/internal/method.h" }
       its(:typeref)    { should eq typedef(type: "void") }
       its(:args)       { should eq args }
@@ -40,7 +42,7 @@ RSpec.describe RubyHeaderParser::Parser do
       end
 
       its(:name)       { should eq "rb_block_call" }
-      its(:definition) { should eq "VALUE rb_block_call(VALUE obj, ID mid, int argc, const VALUE *argv, rb_block_call_func_t proc, VALUE data2)" }
+      its(:definition) { should eq "VALUE rb_block_call(VALUE obj, ID mid, int argc, const VALUE *argv, rb_block_call_func_t proc, VALUE data2)" } # rubocop:disable Layout/LineLength
       its(:filepath)   { should be_end_with "/ruby/internal/iterator.h" }
       its(:typeref)    { should eq typedef(type: "VALUE") }
       its(:args)       { should eq args }

@@ -1,7 +1,14 @@
+# frozen_string_literal: true
+
 module RubyHeaderParser
+  # parse `ruby.h` using `ctags`
   class Parser
+    # @!attribute [r] header_dir
+    #   @return [String]
     attr_reader :header_dir
 
+    # @!attribute [r] data
+    #   @return [Hash]
     attr_reader :data
 
     # @param header_dir [String]
@@ -14,7 +21,7 @@ module RubyHeaderParser
     def extract_function_definitions
       stdout = `ctags --recurse --c-kinds=p --languages=C --language-force=C --fields=+n --extras=+q -f - #{header_dir}`
 
-      stdout.each_line.each_with_object([]) do |line, definitions|
+      stdout.each_line.with_object([]) do |line, definitions|
         parts = line.split("\t")
 
         function_name = parts[0]
@@ -46,11 +53,11 @@ module RubyHeaderParser
         typeref = TyperefDefinition.new(type: typeref_type, pointer: typeref_pointer)
 
         definitions << FunctionDefinition.new(
-          definition:  definition,
-          name:        parts[0],
-          filepath:    parts[1],
-          typeref:     typeref,
-          args:        args
+          definition:,
+          name:       parts[0],
+          filepath:   parts[1],
+          typeref:,
+          args:,
         )
       end
     end
@@ -59,7 +66,7 @@ module RubyHeaderParser
     def extract_struct_definitions
       stdout = `ctags --recurse --c-kinds=s --languages=C --language-force=C --fields=+n -f - #{header_dir}`
 
-      stdout.each_line.each_with_object([]) do |line, definitions|
+      stdout.each_line.with_object([]) do |line, definitions|
         parts = line.split("\t")
 
         struct_name = parts[0]
@@ -77,7 +84,7 @@ module RubyHeaderParser
     def extract_type_definitions
       stdout = `ctags --recurse --c-kinds=t --languages=C --language-force=C --fields=+n -f - #{header_dir}`
 
-      stdout.each_line.each_with_object([]) do |line, definitions|
+      stdout.each_line.with_object([]) do |line, definitions|
         parts = line.split("\t")
 
         type_name = parts[0]
@@ -93,7 +100,7 @@ module RubyHeaderParser
 
     private
 
-    ALLOW_FUNCTION_NAME_PREFIXES = %w[rb_ rstring_]
+    ALLOW_FUNCTION_NAME_PREFIXES = %w[rb_ rstring_].freeze
 
     DENY_FUNCTION_NAMES = [
       # deprecated functions
@@ -120,7 +127,7 @@ module RubyHeaderParser
 
       # internal functions in ruby.h
       "rb_scan_args_bad_format",
-    ]
+    ].freeze
 
     # Whether generate C function to go
     # @param function_name [String]
@@ -138,7 +145,7 @@ module RubyHeaderParser
     # @param file [String]
     # @param line_num [Integer]
     def read_definition_from_header_file(file, line_num)
-      definition = ""
+      definition = +""
 
       File.open(file, "r") do |f|
         f.each_with_index do |line, index|
@@ -160,8 +167,8 @@ module RubyHeaderParser
       struct_name.start_with?("rb_")
     end
 
-    ALLOW_TYPE_NAME_PREFIXES = %w[rb_ st_]
-    ALLOW_TYPE_NAMES = %w[id value long_long]
+    ALLOW_TYPE_NAME_PREFIXES = %w[rb_ st_].freeze
+    ALLOW_TYPE_NAMES = %w[id value long_long].freeze
 
     # Whether generate C type to go
     # @param type_name [String]
@@ -179,12 +186,12 @@ module RubyHeaderParser
     # @return [Array<RubyHeaderParser::ArgumentDefinition>]
     def parse_definition_args(function_name, definition)
       definition =~ /(?<=\()(.+)(?=\))/
-      args = $1.split(",").map(&:strip)
+      args = ::Regexp.last_match(1).split(",").map(&:strip)
 
       arg_pos = 0
       args.map do |str|
         arg_pos += 1
-        parts = str.split(" ")
+        parts = str.split
 
         if parts.count < 2
           type = parts[0]
@@ -195,8 +202,8 @@ module RubyHeaderParser
             name = "arg#{arg_pos}"
 
             ArgumentDefinition.new(
-              type: type,
-              name: name,
+              type:,
+              name:,
               pointer: nil,
             )
           end
@@ -220,7 +227,7 @@ module RubyHeaderParser
           pointer = nil
           if type.match?(/\*+$/)
             type = type.gsub(/\*+$/, "").strip
-            pointer = function_arg_pointer_hint(function_name, arg_pos-1)
+            pointer = function_arg_pointer_hint(function_name, arg_pos - 1)
           elsif /^void\s*\s/.match?(type) || /\(.*\)/.match?(type)
             # function pointer (e.g. void *(*func)(void *)) is treated as `void*`
             type = "void"
@@ -228,9 +235,9 @@ module RubyHeaderParser
           end
 
           ArgumentDefinition.new(
-            type: type,
-            name: name,
-            pointer: pointer
+            type:,
+            name:,
+            pointer:,
           )
         end
       end.compact

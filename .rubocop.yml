@@ -1,0 +1,58 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 3.3
+  NewCops: enable
+  SuggestExtensions: false
+
+  Exclude:
+    - "_benchmark/**/*"
+    - "ruby/testdata/example/vendor/**/*"
+
+    # ref. https://github.com/rubocop/rubocop/blob/v1.66.1/config/default.yml
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+    - '.git/**/*'
+
+Gemspec/RequireMFA:
+  Enabled: false
+
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
+
+Layout/SpaceAroundOperators:
+  Exclude:
+    # Suppress line breaks in spec files (e.g `it { should xxxx }`, `its(:method) { should xxxx }` )
+    - "**/*_spec.rb"
+
+Metrics/BlockLength:
+  Exclude:
+    - "*.gemspec"
+    - "**/*_spec.rb"
+
+Style/Documentation:
+  Exclude:
+    - "**/*_test.rb"
+
+Style/NumericPredicate:
+  EnforcedStyle: comparison
+
+Style/SingleLineMethods:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma

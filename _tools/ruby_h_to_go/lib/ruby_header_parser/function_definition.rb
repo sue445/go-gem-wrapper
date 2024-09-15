@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module RubyHeaderParser
+  # function definition in header file
   class FunctionDefinition
     # @!attribute name
     #   @return [String]

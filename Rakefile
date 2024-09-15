@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
+require "rubocop/rake_task"
+
+RuboCop::RakeTask.new
+
 namespace :ruby do
   desc "Build ruby/testdata/example/"
   task :build_example do
     Dir.chdir(File.join(__dir__, "ruby", "testdata", "example")) do
-      sh "bundle config set --local path 'vendor/bundle'"
-      sh "bundle install"
       sh "bundle exec rake all"
     end
   end
@@ -36,8 +40,8 @@ def env_vars
   ld_library_path = RbConfig::CONFIG["libdir"]
 
   {
-    "CGO_CFLAGS" => cflags,
-    "CGO_LDFLAGS" => ldflags,
+    "CGO_CFLAGS"      => cflags,
+    "CGO_LDFLAGS"     => ldflags,
     "LD_LIBRARY_PATH" => ld_library_path,
   }
 end
@@ -45,12 +49,12 @@ end
 namespace :go do
   desc "Run go test"
   task :test do
-    sh env_vars, "go test -count=1 ${TEST_ARGS}  ./..."
+    sh env_vars, "go test -mod=readonly -count=1 ${TEST_ARGS}  ./..."
   end
 
   desc "Run go test -race"
   task :testrace do
-    sh env_vars, "go test -count=1 ${TEST_ARGS} -race  ./..."
+    sh env_vars, "go test -mod=readonly -count=1 ${TEST_ARGS} -race  ./..."
   end
 
   desc "Run go fmt"
@@ -83,6 +87,13 @@ namespace :ruby_h_to_go do
       sh "rspec"
     end
   end
+end
+
+desc "Check rbs"
+task :rbs do
+  sh "rbs collection install"
+  sh "rbs validate"
+  sh "steep check"
 end
 
 desc "Create and push tag"

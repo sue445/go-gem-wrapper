@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module RubyHeaderParser
+  # type definition in header file
   class TypeDefinition
     # @!attribute name
     #   @return [String]

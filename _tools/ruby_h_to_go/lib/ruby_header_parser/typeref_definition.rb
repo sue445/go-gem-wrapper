@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module RubyHeaderParser
+  # typeref definition for {RubyHeaderParser::FunctionDefinition}
   class TyperefDefinition
     # @!attribute type
     #   @return [String]

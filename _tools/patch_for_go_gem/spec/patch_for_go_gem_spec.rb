@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe "patch_for_go_gem.rb" do
   gem_name = "new_gem"
 
@@ -17,7 +19,7 @@ RSpec.describe "patch_for_go_gem.rb" do
         ].each do |file_name|
           file_path = File.join(gem_name, "ext", gem_name, file_name)
           puts "----------------------------------------"
-          puts "#{file_path}"
+          puts file_path
           puts "----------------------------------------"
           puts File.read(file_path)
           puts ""
@@ -45,11 +47,11 @@ RSpec.describe "patch_for_go_gem.rb" do
   describe file(File.join(gem_name, "ext", gem_name, "#{gem_name}.c")) do
     it { should be_file }
     it { should exist }
-    its(:content) { should match /^#include "_cgo_export.h"$/ }
-    its(:content) { should_not match /VALUE\s*rb/ }
+    its(:content) { should match(/^#include "_cgo_export.h"$/) }
+    its(:content) { should_not match(/VALUE\s*rb/) }
     its(:content) { should_not include "RUBY_FUNC_EXPORTED void" }
-    its(:content) { should_not match /Init_.+\(void\)/ }
-    its(:content) { should_not match /rb_m.+\s*=\s*rb_define_module\(".+"\);/ }
+    its(:content) { should_not match(/Init_.+\(void\)/) }
+    its(:content) { should_not match(/rb_m.+\s*=\s*rb_define_module\(".+"\);/) }
   end
 
   describe file(File.join(gem_name, "ext", gem_name, "#{gem_name}.go")) do
@@ -59,12 +61,12 @@ RSpec.describe "patch_for_go_gem.rb" do
     let(:content) do
       <<~GO
         package main
-  
+
         /*
         #include "#{gem_name}.h"
         */
         import "C"
-  
+
       GO
     end
 
@@ -78,7 +80,7 @@ RSpec.describe "patch_for_go_gem.rb" do
     let(:content) do
       <<~GO
         module github.com/username/#{gem_name}
-  
+
       GO
     end
 

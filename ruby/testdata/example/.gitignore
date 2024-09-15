@@ -12,4 +12,3 @@
 mkmf.log
 /vendor/bundle/
 Gemfile.lock
-.gem_rbs_collection/

@@ -46,16 +46,12 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-          working-directory: ${{ env.TEST_GEM_DIR }}
-
-      - run: bundle update --jobs $(nproc) --retry 3
-        working-directory: ${{ env.TEST_GEM_DIR }}
 
       - name: build and test (Go)
         run: |
           set -xe
-          rake go:test
-          rake go:testrace
+          bundle exec rake go:test
+          bundle exec rake go:testrace
 
       - name: build and test (Ruby)
         run: bundle exec rake
@@ -126,13 +122,8 @@ jobs:
         with:
           ruby-version: ruby
           bundler-cache: true
-          working-directory: ${{ env.TEST_GEM_DIR }}
-
-      - run: bundle update --jobs $(nproc) --retry 3
-        working-directory: ${{ env.TEST_GEM_DIR }}
 
       - run: bundle exec rake rubocop
-        working-directory: ${{ env.TEST_GEM_DIR }}
 
       - name: Slack Notification (not success)
         uses: act10ns/slack@v2
@@ -152,19 +143,10 @@ jobs:
         with:
           ruby-version: ruby
           bundler-cache: true
-          working-directory: ${{ env.TEST_GEM_DIR }}
-
-      - run: bundle update --jobs $(nproc) --retry 3
-        working-directory: ${{ env.TEST_GEM_DIR }}
 
       - run: bundle exec rbs collection install
-        working-directory: ${{ env.TEST_GEM_DIR }}
-
       - run: bundle exec rbs validate
-        working-directory: ${{ env.TEST_GEM_DIR }}
-
       - run: bundle exec steep check
-        working-directory: ${{ env.TEST_GEM_DIR }}
 
       - name: Slack Notification (not success)
         uses: act10ns/slack@v2
