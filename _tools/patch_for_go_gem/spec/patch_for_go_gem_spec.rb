@@ -45,11 +45,11 @@ RSpec.describe "patch_for_go_gem.rb" do
   describe file(File.join(gem_name, "ext", gem_name, "#{gem_name}.c")) do
     it { should be_file }
     it { should exist }
-    its(:content) { should match /^#include "_cgo_export.h"$/ }
-    its(:content) { should_not match /VALUE\s*rb/ }
+    its(:content) { should match(/^#include "_cgo_export.h"$/) }
+    its(:content) { should_not match(/VALUE\s*rb/) }
     its(:content) { should_not include "RUBY_FUNC_EXPORTED void" }
-    its(:content) { should_not match /Init_.+\(void\)/ }
-    its(:content) { should_not match /rb_m.+\s*=\s*rb_define_module\(".+"\);/ }
+    its(:content) { should_not match(/Init_.+\(void\)/) }
+    its(:content) { should_not match(/rb_m.+\s*=\s*rb_define_module\(".+"\);/) }
   end
 
   describe file(File.join(gem_name, "ext", gem_name, "#{gem_name}.go")) do
