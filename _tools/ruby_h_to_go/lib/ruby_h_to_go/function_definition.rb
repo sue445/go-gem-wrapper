@@ -64,7 +64,7 @@ module RubyHToGo
         if c_arg.type == "char" && c_arg.pointer?
           if char_var_count >= 2
             char_var_name = "char#{snake_to_camel(c_arg.go_name)}"
-            clean_var_name = "cleanChar#{(c_arg.go_name)}"
+            clean_var_name = "cleanChar#{c_arg.go_name}"
           else
             char_var_name = "char"
             clean_var_name = "clean"
