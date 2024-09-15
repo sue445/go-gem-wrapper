@@ -76,6 +76,15 @@ namespace :patch_for_go_gem do
   end
 end
 
+namespace :ruby_h_to_go do
+  desc "Run _tools/ruby_h_to_go test"
+  task :test do
+    Dir.chdir(File.join(__dir__, "_tools", "ruby_h_to_go")) do
+      sh "rspec"
+    end
+  end
+end
+
 desc "Create and push tag"
 task :tag do
   version = File.read("VERSION")
