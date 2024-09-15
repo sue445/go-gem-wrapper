@@ -5,8 +5,8 @@ Convert Ruby C function definition in `ruby.h` to Go source and dump to `dist/`.
 * Ruby
 * Go
 * ctags
-  * NOTE: `universal-ctags` is required when macOS
-  * c.f. https://formulae.brew.sh/formula/universal-ctags
+  * macOS: `brew install universal-ctags`
+  * Ubuntu: `apt-get install -y universal-ctags`
 
 ## Usage
 ```bash
