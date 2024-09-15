@@ -13,9 +13,6 @@ AllCops:
     - 'vendor/**/*'
     - '.git/**/*'
 
-Gemspec/DevelopmentDependencies:
-  EnforcedStyle: gemspec
-
 Gemspec/RequireMFA:
   Enabled: false
 
