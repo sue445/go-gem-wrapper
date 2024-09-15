@@ -1,4 +1,5 @@
 module RubyHToGo
+  # Proxy class for generating go function
   class FunctionDefinition
     extend Forwardable
 

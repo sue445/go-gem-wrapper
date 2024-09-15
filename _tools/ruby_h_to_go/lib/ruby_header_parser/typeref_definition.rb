@@ -1,4 +1,5 @@
 module RubyHeaderParser
+  # typeref definition for {RubyHeaderParser::FunctionDefinition}
   class TyperefDefinition
     # @!attribute type
     #   @return [String]

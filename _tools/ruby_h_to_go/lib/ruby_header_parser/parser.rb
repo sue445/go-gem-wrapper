@@ -1,7 +1,12 @@
 module RubyHeaderParser
+  # parse `ruby.h` using `ctags`
   class Parser
+    # @!attribute [r] header_dir
+    #   @return [String]
     attr_reader :header_dir
 
+    # @!attribute [r] data
+    #   @return [Hash]
     attr_reader :data
 
     # @param header_dir [String]

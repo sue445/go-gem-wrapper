@@ -1,4 +1,5 @@
 module RubyHToGo
+  # Proxy class for generating typeref in go function
   class TyperefDefinition
     extend Forwardable
 

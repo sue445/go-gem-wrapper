@@ -1,4 +1,5 @@
 module RubyHToGo
+  # Proxy class for generating argument in go function
   class ArgumentDefinition
     extend Forwardable
 

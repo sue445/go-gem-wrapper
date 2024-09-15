@@ -1,4 +1,5 @@
 module RubyHeaderParser
+  # type definition in header file
   class TypeDefinition
     # @!attribute name
     #   @return [String]
