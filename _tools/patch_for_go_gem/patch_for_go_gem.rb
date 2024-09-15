@@ -94,7 +94,7 @@ class GemPatcher
     return if File.exist?(go_mod_path)
 
     `go version` =~ /go version go([.\d]+)/
-    go_version = $1
+    go_version = ::Regexp.last_match(1)
 
     raise "go isn't found in PATH" unless go_version
 

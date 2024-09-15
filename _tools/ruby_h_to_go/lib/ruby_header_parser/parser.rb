@@ -184,7 +184,7 @@ module RubyHeaderParser
     # @return [Array<RubyHeaderParser::ArgumentDefinition>]
     def parse_definition_args(function_name, definition)
       definition =~ /(?<=\()(.+)(?=\))/
-      args = $1.split(",").map(&:strip)
+      args = ::Regexp.last_match(1).split(",").map(&:strip)
 
       arg_pos = 0
       args.map do |str|
