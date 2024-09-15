@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module RubyHToGo
   # helper methods for generating go coce
   module Helper

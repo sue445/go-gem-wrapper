@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "yaml"
 
 require_relative "ruby_header_parser/argument_definition"

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module RubyHToGo
   # Proxy class for generating go type
   class TypeDefinition

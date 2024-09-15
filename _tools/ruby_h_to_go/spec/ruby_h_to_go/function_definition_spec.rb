@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.describe RubyHToGo::FunctionDefinition do
   describe "#generate_go_content" do
     subject { RubyHToGo::FunctionDefinition.new(definition).generate_go_content }

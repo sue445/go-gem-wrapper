@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.describe RubyHeaderParser::Parser do
   let(:parser) { RubyHeaderParser::Parser.new(RbConfig::CONFIG["rubyhdrdir"]) }
 

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module RubyHeaderParser
   # parse `ruby.h` using `ctags`
   class Parser
