@@ -104,7 +104,7 @@ else
         go_function_lines << "ret := #{go_function_typeref}(#{call_c_method})"
         go_function_lines.push(*after_call_function_lines)
         go_function_lines << "return ret"
-      end
+end
 
       go_function_lines << "}"
       go_function_lines << ""
