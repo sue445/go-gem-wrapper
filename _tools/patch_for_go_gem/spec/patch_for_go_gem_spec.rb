@@ -19,7 +19,7 @@ RSpec.describe "patch_for_go_gem.rb" do
         ].each do |file_name|
           file_path = File.join(gem_name, "ext", gem_name, file_name)
           puts "----------------------------------------"
-          puts file_path.to_s
+          puts file_path
           puts "----------------------------------------"
           puts File.read(file_path)
           puts ""
