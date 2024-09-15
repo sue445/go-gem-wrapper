@@ -59,12 +59,12 @@ RSpec.describe "patch_for_go_gem.rb" do
     let(:content) do
       <<~GO
         package main
-  
+
         /*
         #include "#{gem_name}.h"
         */
         import "C"
-  
+
       GO
     end
 
@@ -78,7 +78,7 @@ RSpec.describe "patch_for_go_gem.rb" do
     let(:content) do
       <<~GO
         module github.com/username/#{gem_name}
-  
+
       GO
     end
 

@@ -129,7 +129,7 @@ class GemPatcher
 
     unless content.include?(<<~RUBY)
       require "mkmf"
-  
+
       find_executable("go")
     RUBY
 
@@ -150,7 +150,7 @@ class GemPatcher
 
     unless content.include?(<<~RUBY)
       create_makefile("#{gem_name}/#{gem_name}")
-  
+
       case `\#{CONFIG["CC"]} --version` # rubocop:disable Lint/LiteralAsCondition
     RUBY
 

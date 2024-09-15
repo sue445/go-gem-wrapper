@@ -24,7 +24,7 @@ module RubyHToGo
       File.open(go_file_path, "wb") do |f|
         f.write(<<~GO)
           package ruby
-  
+
           /*
           #include "ruby.h"
           */
