@@ -71,7 +71,7 @@ namespace :patch_for_go_gem do
   desc "Run _tools/patch_for_go_gem test"
   task :test do
     Dir.chdir(File.join(__dir__, "_tools", "patch_for_go_gem")) do
-      sh "bundle exec rspec"
+      sh "rspec"
     end
   end
 end
