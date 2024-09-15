@@ -29,7 +29,7 @@ module RubyHToGo
           */
           import "C"
 
-        GO
+      GO
     end
 
     # Convert C type to Go type. (used in wrapper function args and return type etc)
