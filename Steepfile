@@ -3,9 +3,9 @@
 # D = Steep::Diagnostic
 
 target :lib do
-  signature "sig"
+  signature "ruby/testdata/example/sig"
 
-  check "lib" # Directory name
+  check "ruby/testdata/example/lib" # Directory name
   # check "Gemfile"                   # File name
   # check "app/models/**/*.rb"        # Glob
   # ignore "lib/templates/*.rb"

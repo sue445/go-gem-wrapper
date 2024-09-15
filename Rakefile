@@ -87,6 +87,13 @@ namespace :ruby_h_to_go do
   end
 end
 
+desc "Check rbs"
+task :rbs do
+  sh "rbs collection install"
+  sh "rbs validate"
+  sh "steep check"
+end
+
 desc "Create and push tag"
 task :tag do
   version = File.read("VERSION")
