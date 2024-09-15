@@ -8,6 +8,7 @@ gem "rspec-its"
 gem "rubocop", require: false
 gem "rubocop_auto_corrector", require: false
 gem "serverspec"
+gem "yard"
 
 # for ruby/testdata/example/
 gem "rake-compiler"
