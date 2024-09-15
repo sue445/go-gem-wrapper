@@ -54,8 +54,8 @@ jobs:
       - name: build and test (Go)
         run: |
           set -xe
-          rake go:test
-          rake go:testrace
+          bundle exec rake go:test
+          bundle exec rake go:testrace
 
       - name: build and test (Ruby)
         run: bundle exec rake
