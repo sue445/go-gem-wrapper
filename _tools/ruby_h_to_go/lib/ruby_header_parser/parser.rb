@@ -20,7 +20,7 @@ module RubyHeaderParser
     def extract_function_definitions
       stdout = `ctags --recurse --c-kinds=p --languages=C --language-force=C --fields=+n --extras=+q -f - #{header_dir}`
 
-      stdout.each_line.each_with_object([]) do |line, definitions|
+      stdout.each_line.with_object([]) do |line, definitions|
         parts = line.split("\t")
 
         function_name = parts[0]
@@ -65,7 +65,7 @@ module RubyHeaderParser
     def extract_struct_definitions
       stdout = `ctags --recurse --c-kinds=s --languages=C --language-force=C --fields=+n -f - #{header_dir}`
 
-      stdout.each_line.each_with_object([]) do |line, definitions|
+      stdout.each_line.with_object([]) do |line, definitions|
         parts = line.split("\t")
 
         struct_name = parts[0]
@@ -83,7 +83,7 @@ module RubyHeaderParser
     def extract_type_definitions
       stdout = `ctags --recurse --c-kinds=t --languages=C --language-force=C --fields=+n -f - #{header_dir}`
 
-      stdout.each_line.each_with_object([]) do |line, definitions|
+      stdout.each_line.with_object([]) do |line, definitions|
         parts = line.split("\t")
 
         type_name = parts[0]
