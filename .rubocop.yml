@@ -18,6 +18,7 @@ Gemspec/RequireMFA:
 
 Layout/HashAlignment:
   EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
 
 Layout/SpaceAroundOperators:
   Exclude:
