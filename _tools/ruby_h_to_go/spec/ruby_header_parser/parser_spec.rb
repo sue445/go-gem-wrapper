@@ -1,14 +1,6 @@
 RSpec.describe RubyHeaderParser::Parser do
   let(:parser) { RubyHeaderParser::Parser.new(RbConfig::CONFIG["rubyhdrdir"]) }
 
-  def argument(type:, name:, pointer: nil)
-    RubyHeaderParser::ArgumentDefinition.new(type:, name:, pointer:)
-  end
-
-  def typedef(type:, pointer: nil)
-    RubyHeaderParser::TyperefDefinition.new(type:, pointer:)
-  end
-
   describe "#extract_function_definitions" do
     subject(:definitions) { parser.extract_function_definitions }
 
