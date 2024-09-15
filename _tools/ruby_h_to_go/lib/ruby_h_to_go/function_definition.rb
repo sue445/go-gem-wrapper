@@ -85,7 +85,7 @@ module RubyHToGo
               after_call_function_lines << "*#{c_arg.go_name} = #{ruby_c_type_to_go_type(c_arg.type, type: :arg)}(#{c_var_name})" # rubocop:disable Layout/SpaceAroundOperators
 
               casted_go_args << "&#{c_var_name}"
-            end
+          end
         else
             casted_go_args << "#{cast_to_cgo_type(c_arg.type)}(#{c_arg.go_name})"
         end
