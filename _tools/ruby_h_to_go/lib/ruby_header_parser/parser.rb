@@ -225,7 +225,7 @@ module RubyHeaderParser
           pointer = nil
           if type.match?(/\*+$/)
             type = type.gsub(/\*+$/, "").strip
-            pointer = function_arg_pointer_hint(function_name, arg_pos-1)
+            pointer = function_arg_pointer_hint(function_name, arg_pos - 1)
           elsif /^void\s*\s/.match?(type) || /\(.*\)/.match?(type)
             # function pointer (e.g. void *(*func)(void *)) is treated as `void*`
             type = "void"
