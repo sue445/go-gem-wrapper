@@ -126,13 +126,8 @@ jobs:
         with:
           ruby-version: ruby
           bundler-cache: true
-          working-directory: ${{ env.TEST_GEM_DIR }}
-
-      - run: bundle update --jobs $(nproc) --retry 3
-        working-directory: ${{ env.TEST_GEM_DIR }}
 
       - run: bundle exec rake rubocop
-        working-directory: ${{ env.TEST_GEM_DIR }}
 
       - name: Slack Notification (not success)
         uses: act10ns/slack@v2

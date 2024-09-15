@@ -1,14 +1,24 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    ast (2.4.2)
     base64 (0.2.0)
     diff-lcs (1.5.1)
+    json (2.7.2)
+    language_server-protocol (3.17.0.3)
     multi_json (1.15.0)
     net-scp (4.0.0)
       net-ssh (>= 2.6.5, < 8.0.0)
     net-ssh (7.2.3)
     net-telnet (0.2.0)
+    parallel (1.26.3)
+    parser (3.3.5.0)
+      ast (~> 2.4.1)
+      racc
+    racc (1.8.1)
+    rainbow (3.1.1)
     rake (13.2.1)
+    regexp_parser (2.9.2)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -25,6 +35,21 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-support (3.13.1)
+    rubocop (1.66.1)
+      json (~> 2.3)
+      language_server-protocol (>= 3.17.0)
+      parallel (~> 1.10)
+      parser (>= 3.3.0.2)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 2.4, < 3.0)
+      rubocop-ast (>= 1.32.2, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 3.0)
+    rubocop-ast (1.32.3)
+      parser (>= 3.3.1.0)
+    rubocop_auto_corrector (0.5.0)
+      rubocop (>= 1.30.0)
+    ruby-progressbar (1.13.0)
     serverspec (2.42.3)
       multi_json
       rspec (~> 3.0)
@@ -37,6 +62,7 @@ GEM
       net-ssh (>= 2.7)
       net-telnet
       sfl
+    unicode-display_width (2.6.0)
 
 PLATFORMS
   arm64-darwin-23
@@ -46,6 +72,8 @@ DEPENDENCIES
   rake
   rspec
   rspec-its
+  rubocop
+  rubocop_auto_corrector
   serverspec
 
 BUNDLED WITH

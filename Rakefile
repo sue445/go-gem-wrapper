@@ -1,3 +1,7 @@
+require "rubocop/rake_task"
+
+RuboCop::RakeTask.new
+
 namespace :ruby do
   desc "Build ruby/testdata/example/"
   task :build_example do

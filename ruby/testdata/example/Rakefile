@@ -10,10 +10,6 @@ Rake::TestTask.new(:test) do |t|
   t.ruby_opts = ["-r./test/test_helper"]
 end
 
-require "rubocop/rake_task"
-
-RuboCop::RakeTask.new
-
 require "rake/extensiontask"
 
 task build: :compile
@@ -33,4 +29,4 @@ end
 
 task default: %i[clobber compile test]
 
-task all: %i[clobber compile test rubocop rbs]
+task all: %i[clobber compile test rbs]
