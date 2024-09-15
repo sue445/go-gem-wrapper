@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module RubyHeaderParser
   # argument definition for {RubyHeaderParser::FunctionDefinition}
   class ArgumentDefinition

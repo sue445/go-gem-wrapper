@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Convert Ruby C function definition to Go source and dump to dist/
 #
 # Usage:

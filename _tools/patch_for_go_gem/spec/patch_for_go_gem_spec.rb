@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe "patch_for_go_gem.rb" do
   gem_name = "new_gem"
 

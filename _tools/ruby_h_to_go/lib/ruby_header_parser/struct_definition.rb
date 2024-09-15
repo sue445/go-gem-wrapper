@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module RubyHeaderParser
   # struct definition in header file
   class StructDefinition

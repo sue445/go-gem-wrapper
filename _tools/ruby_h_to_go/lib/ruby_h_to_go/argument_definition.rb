@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module RubyHToGo
   # Proxy class for generating argument in go function
   class ArgumentDefinition

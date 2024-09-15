@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "rspec/its"
 
 require_relative "../lib/ruby_header_parser"

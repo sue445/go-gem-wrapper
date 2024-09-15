@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe RubyHToGo::TypeDefinition do
   describe "#generate_go_content" do
     subject { RubyHToGo::TypeDefinition.new(definition).generate_go_content }

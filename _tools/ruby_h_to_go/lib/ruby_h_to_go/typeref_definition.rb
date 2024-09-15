@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module RubyHToGo
   # Proxy class for generating typeref in go function
   class TyperefDefinition
