@@ -46,10 +46,6 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-          working-directory: ${{ env.TEST_GEM_DIR }}
-
-      - run: bundle update --jobs $(nproc) --retry 3
-        working-directory: ${{ env.TEST_GEM_DIR }}
 
       - name: build and test (Go)
         run: |

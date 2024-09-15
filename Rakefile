@@ -6,8 +6,6 @@ namespace :ruby do
   desc "Build ruby/testdata/example/"
   task :build_example do
     Dir.chdir(File.join(__dir__, "ruby", "testdata", "example")) do
-      sh "bundle config set --local path 'vendor/bundle'"
-      sh "bundle install"
       sh "bundle exec rake all"
     end
   end
