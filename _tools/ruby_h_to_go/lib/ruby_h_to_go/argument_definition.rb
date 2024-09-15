@@ -30,5 +30,10 @@ module RubyHToGo
 
       name
     end
+
+    # @return [String]
+    def go_function_arg
+      "#{go_name} #{ruby_c_type_to_go_type(type, pointer:, type: :arg)}"
+    end
   end
 end
