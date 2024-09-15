@@ -16,7 +16,7 @@ opt.on("-H HEADER_DIR") { |v| header_dir = v }
 opt.parse!(ARGV)
 
 # Use default header file and include paths
-header_dir = RbConfig::CONFIG["rubyhdrdir"] unless header_dir
+header_dir ||= RbConfig::CONFIG["rubyhdrdir"]
 
 class Generator
   attr_reader :header_dir
