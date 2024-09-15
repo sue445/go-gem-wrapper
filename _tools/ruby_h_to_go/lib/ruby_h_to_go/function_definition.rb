@@ -78,7 +78,7 @@ module RubyHToGo
         elsif c_arg.pointer == :ref
           if c_arg.type == "void"
               casted_go_args << "toCPointer(#{c_arg.go_name})"
-            else
+          else
               c_var_name = "c#{snake_to_camel(c_arg.go_name)}"
 
               before_call_function_lines << "var #{c_var_name} C.#{c_arg.type}"
@@ -86,7 +86,7 @@ module RubyHToGo
 
               casted_go_args << "&#{c_var_name}"
             end
-          else
+        else
             casted_go_args << "#{cast_to_cgo_type(c_arg.type)}(#{c_arg.go_name})"
         end
       end
