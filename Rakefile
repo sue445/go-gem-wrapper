@@ -89,6 +89,11 @@ namespace :ruby_h_to_go do
   end
 end
 
+desc "Run _tools/ruby_h_to_go"
+task :ruby_h_to_go do
+  sh "./_tools/ruby_h_to_go/exe/ruby_h_to_go"
+end
+
 desc "Check rbs"
 task :rbs do
   sh "rbs collection install"
