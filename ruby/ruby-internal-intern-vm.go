@@ -65,5 +65,5 @@ func RbAttr(klass VALUE, name ID, needReader bool, needWriter bool, honourVisibi
 //		ruby.RbDefineAllocFunc(rb_cGoStruct, C.go_struct_alloc)
 //	}
 func RbDefineAllocFunc(klass VALUE, fun unsafe.Pointer) {
-	C.rb_define_alloc_func(C.VALUE(klass), toFunctionPointer(fun))
+	C.rb_define_alloc_func(C.VALUE(klass), toCPointer(fun))
 }

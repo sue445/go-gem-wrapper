@@ -71,9 +71,16 @@ namespace :patch_for_go_gem do
   desc "Run _tools/patch_for_go_gem test"
   task :test do
     Dir.chdir(File.join(__dir__, "_tools", "patch_for_go_gem")) do
-      sh "bundle config set --local path 'vendor/bundle'"
-      sh "bundle install"
-      sh "bundle exec rspec"
+      sh "rspec"
+    end
+  end
+end
+
+namespace :ruby_h_to_go do
+  desc "Run _tools/ruby_h_to_go test"
+  task :test do
+    Dir.chdir(File.join(__dir__, "_tools", "ruby_h_to_go")) do
+      sh "rspec"
     end
   end
 end

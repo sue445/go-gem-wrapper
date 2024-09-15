@@ -17,7 +17,7 @@ func RbDefineMethod(klass VALUE, mid string, fun unsafe.Pointer, arity int) {
 	char, clean := string2Char(mid)
 	defer clean()
 
-	C.rb_define_method(C.VALUE(klass), char, toFunctionPointer(fun), C.int(arity))
+	C.rb_define_method(C.VALUE(klass), char, toCPointer(fun), C.int(arity))
 }
 
 // RbDefineModuleFunction calls `rb_define_module_function` in C
@@ -59,5 +59,5 @@ func RbDefineModuleFunction(klass VALUE, mid string, fun unsafe.Pointer, arity i
 	char, clean := string2Char(mid)
 	defer clean()
 
-	C.rb_define_module_function(C.VALUE(klass), char, toFunctionPointer(fun), C.int(arity))
+	C.rb_define_module_function(C.VALUE(klass), char, toCPointer(fun), C.int(arity))
 }

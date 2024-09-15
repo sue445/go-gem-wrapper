@@ -1,4 +1,4 @@
-name: patch_for_go_gem
+name: ruby_h_to_go
 
 on:
   push:
@@ -10,18 +10,18 @@ on:
       - synchronize
       - reopened
     paths:
-      - ".github/workflows/patch_for_go_gem.yml"
-      - "_tools/patch_for_go_gem/**"
+      - ".github/workflows/ruby_h_to_go.yml"
+      - "_tools/ruby_h_to_go/**"
       - "Gemfile"
       - "Gemfile.lock"
 
 defaults:
   run:
-    working-directory: _tools/patch_for_go_gem/
+    working-directory: _tools/ruby_h_to_go/
 
 jobs:
   test:
-    name: "test (Go ${{ matrix.golang }}, Ruby ${{ matrix.ruby }})"
+    name: "test (Ruby ${{ matrix.ruby }})"
 
     runs-on: ubuntu-latest
 
@@ -29,24 +29,19 @@ jobs:
       fail-fast: false
 
       matrix:
-        golang:
-          # TODO: Enable after repo is published
-          # - "1.22"
-          - "1.23"
         ruby:
           - "3.3"
 
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v5
-        with:
-          go-version: ${{ matrix.golang }}
-
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
+
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y universal-ctags
 
       - run: bundle exec rspec
 

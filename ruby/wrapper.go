@@ -94,9 +94,9 @@ func string2Value(str string) C.VALUE {
 	return rbUtf8StrNew(char, stringLen(str))
 }
 
-// toFunctionPointer returns a pointer to function without copy.
-func toFunctionPointer(fun unsafe.Pointer) *[0]byte {
-	return (*[0]byte)(fun)
+// toCPointer convert from `unsafe.Pointer` to C pointer without copy.
+func toCPointer(ptr unsafe.Pointer) *[0]byte {
+	return (*[0]byte)(ptr)
 }
 
 // toCValueArray convert from [][VALUE] to `*C.VALUE` without copy.
