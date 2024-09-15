@@ -40,8 +40,8 @@ def env_vars
   ld_library_path = RbConfig::CONFIG["libdir"]
 
   {
-    "CGO_CFLAGS" => cflags,
-    "CGO_LDFLAGS" => ldflags,
+    "CGO_CFLAGS"      => cflags,
+    "CGO_LDFLAGS"     => ldflags,
     "LD_LIBRARY_PATH" => ld_library_path,
   }
 end
