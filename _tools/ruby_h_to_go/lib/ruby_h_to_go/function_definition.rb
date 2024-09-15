@@ -39,12 +39,7 @@ module RubyHToGo
       go_function_name = snake_to_camel(name)
       go_function_args = args.map(&:go_function_arg)
 
-      go_function_typeref =
-        if typeref.type == "void" && !typeref.pointer?
-          ""
-        else
-          ruby_c_type_to_go_type(typeref.type, type: :return, pointer: typeref.pointer)
-        end
+      go_function_typeref = typeref.go_function_typeref
 
       go_function_lines = [
         "// #{go_function_name} calls `#{name}` in C",
@@ -115,28 +110,6 @@ module RubyHToGo
       go_function_lines << ""
 
       go_function_lines.join("\n")
-    end
-
-    private
-
-    # Cast C type to cgo type. (Used in wrapper function)
-    # @param typename [String]
-    # @return [String]
-    def cast_to_cgo_type(typename)
-      case typename
-      when "unsigned long"
-        return "C.ulong"
-      when "unsigned int"
-        return "C.uint"
-      when "unsigned char"
-        return "C.uchar"
-      when "VALUE*"
-        return "toCValueArray"
-      when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
-        return "toCPointer"
-      end
-
-      "C.#{typename}"
     end
   end
 end

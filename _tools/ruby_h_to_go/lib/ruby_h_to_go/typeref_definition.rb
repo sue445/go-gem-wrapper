@@ -10,5 +10,12 @@ module RubyHToGo
     def initialize(definition)
       @definition = definition
     end
+
+    # @return [String]
+    def go_function_typeref
+      return "" if type == "void" && !pointer?
+
+      ruby_c_type_to_go_type(type, type: :return, pointer:)
+    end
   end
 end

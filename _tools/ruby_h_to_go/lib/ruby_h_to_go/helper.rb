@@ -76,5 +76,25 @@ module RubyHToGo
 
       snake_to_camel(typename)
     end
+
+    # Cast C type to cgo type. (Used in wrapper function)
+    # @param typename [String]
+    # @return [String]
+    def cast_to_cgo_type(typename)
+      case typename
+      when "unsigned long"
+        return "C.ulong"
+      when "unsigned int"
+        return "C.uint"
+      when "unsigned char"
+        return "C.uchar"
+      when "VALUE*"
+        return "toCValueArray"
+      when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
+        return "toCPointer"
+      end
+
+      "C.#{typename}"
+    end
   end
 end
