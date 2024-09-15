@@ -10,7 +10,7 @@ To avoid this problem, we need to call the C function without variable-length ar
 See `RbRaise` implementation in [ruby/ruby-internal-error.go](ruby/ruby-internal-error.go) for details
 
 ### 1. Generate skeleton
-Run `ruby _tools/ruby_h_to_go/ruby_h_to_go.rb`
+Run `bundle exec rake ruby_h_to_go`
 
 See [_tools/ruby_h_to_go/](_tools/ruby_h_to_go/)
 

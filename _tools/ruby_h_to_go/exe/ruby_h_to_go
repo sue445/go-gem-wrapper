@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Convert Ruby C function definition to Go source and dump to dist/
+#
+# Usage:
+#   ./ruby_h_to_go -H path/to/ruby/header/dir
+
+require "optparse"
+require "fileutils"
+
+require_relative "../lib/ruby_h_to_go"
+
+header_dir = nil
+
+opt = OptionParser.new
+opt.on("-H HEADER_DIR") { |v| header_dir = v }
+
+opt.parse!(ARGV)
+
+# Use default header file and include paths
+header_dir ||= RbConfig::CONFIG["rubyhdrdir"]
+
+RubyHToGo::Cli.new(header_dir:, dist_dir: File.join(__dir__, "..", "dist")).perform
