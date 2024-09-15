@@ -6,7 +6,7 @@
 require "optparse"
 require "fileutils"
 
-require_relative "lib/ruby_header_parser"
+require_relative "lib/ruby_h_to_go"
 
 header_dir = nil
 
@@ -31,9 +31,9 @@ class Generator
   def perform
     parser = RubyHeaderParser::Parser.new(header_dir)
 
-    function_definitions = parser.extract_function_definitions
-    struct_definitions   = parser.extract_struct_definitions
-    type_definitions     = parser.extract_type_definitions
+    function_definitions = parser.extract_function_definitions.map { |d| RubyHToGo::FunctionDefinition.new(d) }
+    struct_definitions   = parser.extract_struct_definitions.map { |d| RubyHToGo::StructDefinition.new(d) }
+    type_definitions     = parser.extract_type_definitions.map { |d| RubyHToGo::TypeDefinition.new(d) }
 
     # Clean all generated files in dist/
     FileUtils.rm_f(Dir.glob(File.join(__dir__, "dist", "*.go")))
@@ -59,7 +59,7 @@ class Generator
 
   private
 
-  # @param definition [RubyHeaderParser::FunctionDefinition]
+  # @param definition [RubyHToGo::FunctionDefinition]
   def write_function_to_go_file(definition)
     go_file_path = ruby_h_path_to_go_file_path(definition.filepath)
 
@@ -192,7 +192,7 @@ class Generator
     end
   end
 
-  # @param definition [RubyHeaderParser::TypeDefinition,RubyHeaderParser::StructDefinition]
+  # @param definition [RubyHToGo::TypeDefinition,RubyHToGo::StructDefinition]
   def write_type_to_go_file(definition)
     go_file_path = ruby_h_path_to_go_file_path(definition.filepath)
 
