@@ -75,7 +75,7 @@ module RubyHToGo
           go_function_lines << "defer #{clean_var_name}()"
           go_function_lines << ""
 
-          casted_go_args << "#{char_var_name}"
+          casted_go_args << char_var_name.to_s
         elsif c_arg.pointer == :ref
           if c_arg.type == "void"
             casted_go_args << "toCPointer(#{c_arg.go_name})"
