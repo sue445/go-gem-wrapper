@@ -22,12 +22,12 @@ module RubyHToGo
       return if File.exist?(go_file_path)
 
       File.binwrite(go_file_path, <<~GO)
-          package ruby
+        package ruby
 
-          /*
-          #include "ruby.h"
-          */
-          import "C"
+        /*
+        #include "ruby.h"
+        */
+        import "C"
 
       GO
     end
