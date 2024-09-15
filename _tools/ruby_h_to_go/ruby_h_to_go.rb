@@ -18,7 +18,7 @@ opt.parse!(ARGV)
 # Use default header file and include paths
 header_dir ||= RbConfig::CONFIG["rubyhdrdir"]
 
-class Generator
+class Generator # rubocop:disable Style/Documentation
   attr_reader :header_dir
 
   # @param header_dir [String]

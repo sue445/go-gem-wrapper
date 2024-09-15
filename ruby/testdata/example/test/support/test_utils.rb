@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module TestUtils
+module TestUtils # rubocop:disable Style/Documentation
   # @yield
   def silence_warning
     original_verbose = $VERBOSE

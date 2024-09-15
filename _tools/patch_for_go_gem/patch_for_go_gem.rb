@@ -13,6 +13,7 @@ raise "--file is required" unless gemspec_file
 raise "#{gemspec_file} isn't gemspec" unless File.extname(gemspec_file) == ".gemspec"
 raise "#{gemspec_file} isn't found" unless File.exist?(gemspec_file)
 
+# Patch to make a gem into a Go gem right after `bundle gem`
 class GemPatcher
   attr_reader :gemspec_file
 

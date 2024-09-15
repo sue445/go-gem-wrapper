@@ -29,6 +29,10 @@ Metrics/BlockLength:
     - "*.gemspec"
     - "**/*_spec.rb"
 
+Style/Documentation:
+  Exclude:
+    - "**/*_test.rb"
+
 Style/NumericPredicate:
   EnforcedStyle: comparison
 
