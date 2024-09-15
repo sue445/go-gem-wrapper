@@ -4,6 +4,7 @@ AllCops:
   SuggestExtensions: false
 
   Exclude:
+    - "_benchmark/**/*"
     - "ruby/testdata/example/vendor/**/*"
 
     # ref. https://github.com/rubocop/rubocop/blob/v1.66.1/config/default.yml
@@ -18,9 +19,18 @@ Gemspec/DevelopmentDependencies:
 Gemspec/RequireMFA:
   Enabled: false
 
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+
+Layout/SpaceAroundOperators:
+  Exclude:
+    # Suppress line breaks in spec files (e.g `it { should xxxx }`, `its(:method) { should xxxx }` )
+    - "**/*_spec.rb"
+
 Metrics/BlockLength:
   Exclude:
     - "*.gemspec"
+    - "**/*_spec.rb"
 
 Style/NumericPredicate:
   EnforcedStyle: comparison
@@ -33,3 +43,12 @@ Style/StringLiterals:
 
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
