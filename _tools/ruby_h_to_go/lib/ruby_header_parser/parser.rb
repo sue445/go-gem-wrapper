@@ -190,7 +190,7 @@ module RubyHeaderParser
       arg_pos = 0
       args.map do |str|
         arg_pos += 1
-        parts = str.split(" ")
+        parts = str.split
 
         if parts.count < 2
           type = parts[0]
