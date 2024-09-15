@@ -5,11 +5,11 @@ RSpec.describe RubyHToGo::FunctionDefinition do
     context "rb_define_method" do
       let(:definition) do
         RubyHeaderParser::FunctionDefinition.new(
-          name: "rb_define_method",
+          name:       "rb_define_method",
           definition: "void rb_define_method(VALUE klass, const char *mid, VALUE (*func)(ANYARGS), int arity)",
-          filepath: "/path/to/include/ruby/internal/method.h",
-          typeref: typedef(type: "void"),
-          args: [
+          filepath:   "/path/to/include/ruby/internal/method.h",
+          typeref:    typedef(type: "void"),
+          args:       [
             argument(type: "VALUE", name: "klass"),
             argument(type: "char", name: "mid", pointer: :ref),
             argument(type: "void", name: "arg3", pointer: :ref),
@@ -41,11 +41,11 @@ RSpec.describe RubyHToGo::FunctionDefinition do
     context "rb_block_call" do
       let(:definition) do
         RubyHeaderParser::FunctionDefinition.new(
-          name: "rb_block_call",
+          name:       "rb_block_call",
           definition: "VALUE rb_block_call(VALUE obj, ID mid, int argc, const VALUE *argv, rb_block_call_func_t proc, VALUE data2)",
-          filepath: "/path/to/include/ruby/internal/iterator.h",
-          typeref: typedef(type: "VALUE"),
-          args: [
+          filepath:   "/path/to/include/ruby/internal/iterator.h",
+          typeref:    typedef(type: "VALUE"),
+          args:       [
             argument(type: "VALUE", name: "obj"),
             argument(type: "ID", name: "mid"),
             argument(type: "int", name: "argc"),
@@ -79,11 +79,11 @@ RSpec.describe RubyHToGo::FunctionDefinition do
     context "rb_thread_call_with_gvl" do
       let(:definition) do
         RubyHeaderParser::FunctionDefinition.new(
-          name: "rb_thread_call_with_gvl",
+          name:       "rb_thread_call_with_gvl",
           definition: "void *rb_thread_call_with_gvl(void *(*func)(void *), void *data1)",
-          filepath: "/path/to/include/rubythread.h",
-          typeref: typedef(type: "void", pointer: :ref),
-          args: [
+          filepath:   "/path/to/include/rubythread.h",
+          typeref:    typedef(type: "void", pointer: :ref),
+          args:       [
             argument(type: "void", name: "arg1", pointer: :ref),
             argument(type: "void", name: "data1", pointer: :ref),
           ],

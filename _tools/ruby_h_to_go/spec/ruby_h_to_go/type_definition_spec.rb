@@ -5,7 +5,7 @@ RSpec.describe RubyHToGo::TypeDefinition do
     context "rb_data_type_struct" do
       let(:definition) do
         RubyHeaderParser::TypeDefinition.new(
-          name: "VALUE",
+          name:     "VALUE",
           filepath: "/path/to/include/ruby/internal/value.h",
         )
       end
