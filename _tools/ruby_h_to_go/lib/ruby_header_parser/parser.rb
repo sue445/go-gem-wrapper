@@ -55,7 +55,7 @@ module RubyHeaderParser
           name:       parts[0],
           filepath:   parts[1],
           typeref:,
-          args:
+          args:,
         )
       end
     end
@@ -235,7 +235,7 @@ module RubyHeaderParser
           ArgumentDefinition.new(
             type:,
             name:,
-            pointer:
+            pointer:,
           )
         end
       end.compact
