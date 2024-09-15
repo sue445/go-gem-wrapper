@@ -44,7 +44,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
       let(:definition) do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_block_call",
-          definition: "VALUE rb_block_call(VALUE obj, ID mid, int argc, const VALUE *argv, rb_block_call_func_t proc, VALUE data2)",
+          definition: "VALUE rb_block_call(VALUE obj, ID mid, int argc, const VALUE *argv, rb_block_call_func_t proc, VALUE data2)", # rubocop:disable Layout/LineLength
           filepath:   "/path/to/include/ruby/internal/iterator.h",
           typeref:    typedef(type: "VALUE"),
           args:       [
