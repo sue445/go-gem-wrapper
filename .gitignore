@@ -20,3 +20,5 @@ vendor/
 # Go workspace file
 go.work
 go.work.sum
+
+.gem_rbs_collection/
