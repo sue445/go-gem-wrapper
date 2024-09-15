@@ -131,7 +131,7 @@ class GemPatcher
         require "mkmf"
   
         find_executable("go")
-      RUBY
+    RUBY
 
       content.gsub!(<<~RUBY, <<~RUBY)
         require "mkmf"
@@ -152,7 +152,7 @@ class GemPatcher
         create_makefile("#{gem_name}/#{gem_name}")
   
         case `\#{CONFIG["CC"]} --version` # rubocop:disable Lint/LiteralAsCondition
-      RUBY
+    RUBY
 
       content.gsub!(<<~RUBY, <<~RUBY)
         create_makefile("#{gem_name}/#{gem_name}")
