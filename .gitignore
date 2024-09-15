@@ -22,3 +22,5 @@ go.work
 go.work.sum
 
 .gem_rbs_collection/
+.yardoc/
+doc/

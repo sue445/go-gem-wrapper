@@ -1,0 +1,8 @@
+--markup markdown
+--no-private
+--hide-void-return
+_tools/ruby_h_to_go/*.rb
+_tools/ruby_h_to_go/lib/**/*.rb
+-
+CHANGELOG.md
+LICENSE
