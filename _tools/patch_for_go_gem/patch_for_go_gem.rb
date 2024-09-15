@@ -58,7 +58,7 @@ class GemPatcher
   # @param str [String]
   # @return [String]
   def snake_to_camel(str)
-    str.split("_").map(&:capitalize).join.gsub(/(?<=\d)([a-z])/) { _1.upcase }
+    str.split("_").map(&:capitalize).join.gsub(/(?<=\d)([a-z])/) { _1.upcase } # rubocop:disable Style/SymbolProc
   end
 
   # Create <gem_name>.go
