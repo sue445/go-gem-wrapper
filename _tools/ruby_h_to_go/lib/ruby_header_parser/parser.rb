@@ -99,7 +99,7 @@ module RubyHeaderParser
 
     private
 
-    ALLOW_FUNCTION_NAME_PREFIXES = %w[rb_ rstring_]
+    ALLOW_FUNCTION_NAME_PREFIXES = %w[rb_ rstring_].freeze
 
     DENY_FUNCTION_NAMES = [
       # deprecated functions
@@ -126,7 +126,7 @@ module RubyHeaderParser
 
       # internal functions in ruby.h
       "rb_scan_args_bad_format",
-    ]
+    ].freeze
 
     # Whether generate C function to go
     # @param function_name [String]
@@ -166,8 +166,8 @@ module RubyHeaderParser
       struct_name.start_with?("rb_")
     end
 
-    ALLOW_TYPE_NAME_PREFIXES = %w[rb_ st_]
-    ALLOW_TYPE_NAMES = %w[id value long_long]
+    ALLOW_TYPE_NAME_PREFIXES = %w[rb_ st_].freeze
+    ALLOW_TYPE_NAMES = %w[id value long_long].freeze
 
     # Whether generate C type to go
     # @param type_name [String]
