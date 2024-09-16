@@ -190,7 +190,7 @@ module RubyHeaderParser
       signature = signature.strip.delete_prefix("(").delete_suffix(")")
       return [] if signature.match?(/^void$/i)
 
-      args = signature.split(",").map(&:strip)
+      args = Util.split_signature(signature)
 
       arg_pos = 0
       args.map do |str|
