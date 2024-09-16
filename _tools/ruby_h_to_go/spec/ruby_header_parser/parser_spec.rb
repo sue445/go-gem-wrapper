@@ -62,6 +62,7 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:definition) { should eq "void *rb_thread_call_with_gvl(void *(*func)(void *), void *data1)" }
       its(:filepath)   { should be_end_with "/ruby/thread.h" }
       its(:typeref)    { should eq typedef(type: "void", pointer: :ref) }
+      its(:args)       { should eq args }
     end
   end
 
