@@ -25,8 +25,7 @@ module RubyHToGo
       write_struct_definitions_to_go_file
       write_function_definitions_to_go_file
 
-      FileUtils.cp(File.join(__dir__, "..", "..", "..", "..", "ruby", "c_types.go"), dist_dir)
-
+      copy_go_files
       remove_unused_imports
       go_fmt
     end
@@ -62,6 +61,17 @@ module RubyHToGo
     # Clean all generated files in dist/
     def clean_generated_files
       FileUtils.rm_f(Dir.glob(File.join(dist_dir, "*.go")))
+    end
+
+    def copy_go_files
+      # FIXME: This is a temporary process until all possible contents of `ruby/*.go` are replaced
+      #       with automatically generated files. (Currently output to `dist/` as it is incomplete)
+      %w[
+        c_types.go
+        wrapper.go
+      ].each do |file|
+        FileUtils.cp(File.join(__dir__, "..", "..", "..", "..", "ruby", file), dist_dir)
+      end
     end
 
     def remove_unused_imports
