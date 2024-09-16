@@ -31,6 +31,9 @@ module RubyHToGo
         */
         import "C"
 
+        import (
+          "unsafe"
+        )
       GO
     end
 
