@@ -64,6 +64,25 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typedef(type: "void", pointer: :ref) }
       its(:args)       { should eq args }
     end
+
+    context "rb_tracepoint_new" do
+      subject { definitions.find { |d| d.name == "rb_tracepoint_new" } }
+
+      let(:args) do
+        [
+          argument(type: "VALUE", name: "target_thread_not_supported_yet"),
+          argument(type: "rb_event_flag_t", name: "events"),
+          argument(type: "void", name: "arg3", pointer: :ref),
+          argument(type: "void", name: "data", pointer: :ref),
+        ]
+      end
+
+      its(:name)       { should eq "rb_tracepoint_new" }
+      its(:definition) { should eq "VALUE rb_tracepoint_new(VALUE target_thread_not_supported_yet, rb_event_flag_t events, void (*func)(VALUE, void *), void *data)" }
+      its(:filepath)   { should be_end_with "/ruby/debug.h" }
+      its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_struct_definitions" do

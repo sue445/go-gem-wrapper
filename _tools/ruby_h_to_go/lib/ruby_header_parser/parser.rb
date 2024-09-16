@@ -19,7 +19,7 @@ module RubyHeaderParser
 
     # @return [Array<RubyHeaderParser::FunctionDefinition>]
     def extract_function_definitions
-      stdout = `ctags --recurse --c-kinds=p --languages=C --language-force=C --fields=+n --extras=+q -f - #{header_dir}`
+      stdout = `ctags --recurse --c-kinds=p --languages=C --language-force=C --fields=+nS --extras=+q -f - #{header_dir}`
 
       stdout.each_line.with_object([]) do |line, definitions|
         parts = line.split("\t")
@@ -32,13 +32,13 @@ module RubyHeaderParser
           if parts[2].end_with?(";$/;\"")
             parts[2].delete_prefix("/^").delete_suffix(";$/;\"")
           else
-            line_num = parts[4].delete_prefix("line:").to_i
+            line_num = Util.find_field(parts, "line").to_i
             read_definition_from_header_file(parts[1], line_num).delete_suffix(";")
           end
 
         definition.gsub!(/\);.*/, ")")
 
-        args = parse_definition_args(function_name, definition)
+        args = parse_definition_args(function_name, Util.find_field(parts, "signature"))
 
         # Exclude functions with variable-length arguments
         next if args&.last&.type == "..."
@@ -182,11 +182,15 @@ module RubyHeaderParser
     end
 
     # @param function_name [String]
-    # @param definition [String]
+    # @param signature [String,nil]
     # @return [Array<RubyHeaderParser::ArgumentDefinition>]
-    def parse_definition_args(function_name, definition)
-      definition =~ /(?<=\()(.+)(?=\))/
-      args = ::Regexp.last_match(1).split(",").map(&:strip)
+    def parse_definition_args(function_name, signature)
+      return [] unless signature
+
+      signature = signature.strip.delete_prefix("(").delete_suffix(")")
+      return [] if signature.match?(/^void$/i)
+
+      args = Util.split_signature(signature)
 
       arg_pos = 0
       args.map do |str|
@@ -194,19 +198,11 @@ module RubyHeaderParser
         parts = str.split
 
         if parts.count < 2
-          type = parts[0]
-
-          if type =~ /^void$/i
-            nil
-          else
-            name = "arg#{arg_pos}"
-
-            ArgumentDefinition.new(
-              type:,
-              name:,
-              pointer: nil,
-            )
-          end
+          ArgumentDefinition.new(
+            type:    parts[0],
+            name:    "arg#{arg_pos}",
+            pointer: nil,
+          )
         else
           loop do
             break unless parts[-1].start_with?("*")
