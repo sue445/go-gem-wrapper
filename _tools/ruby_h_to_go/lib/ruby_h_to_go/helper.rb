@@ -34,6 +34,7 @@ module RubyHToGo
         import (
           "unsafe"
         )
+
       GO
     end
 
