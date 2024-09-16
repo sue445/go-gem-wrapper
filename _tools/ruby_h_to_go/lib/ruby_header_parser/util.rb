@@ -13,5 +13,11 @@ module RubyHeaderParser
 
       nil
     end
+
+    # @param signature [String]
+    # @return [Array<String>]
+    def self.split_signature(signature)
+      signature.scan(/[^,]+\([^()]*\)|[^,]+/).map(&:strip)
+    end
   end
 end
