@@ -27,6 +27,7 @@ module RubyHToGo
 
       FileUtils.cp(File.join(__dir__, "..", "..", "..", "..", "ruby", "c_types.go"), dist_dir)
 
+      remove_unused_imports
       go_fmt
     end
 
@@ -61,6 +62,15 @@ module RubyHToGo
     # Clean all generated files in dist/
     def clean_generated_files
       FileUtils.rm_f(Dir.glob(File.join(dist_dir, "*.go")))
+    end
+
+    def remove_unused_imports
+      ret = system("which goimports")
+      raise "goimports isn't installed. Run `go install golang.org/x/tools/cmd/goimports@latest`" unless ret
+
+      Dir.chdir(dist_dir) do
+        system("goimports -w *.go", exception: true)
+      end
     end
 
     def go_fmt
