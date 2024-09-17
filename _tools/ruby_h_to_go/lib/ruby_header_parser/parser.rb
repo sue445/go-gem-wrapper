@@ -208,7 +208,7 @@ module RubyHeaderParser
 
           if parts[-1] =~ /\[([0-9]+)\]$/
             parts[-1].gsub!(/\[([0-9]+)\]$/, "")
-            length = $1.to_i
+            length = ::Regexp.last_match(1).to_i
             pointer = :array
           end
 
