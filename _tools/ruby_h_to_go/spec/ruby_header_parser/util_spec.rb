@@ -66,6 +66,7 @@ RSpec.describe RubyHeaderParser::Util do
       "const char*"              | "char*"
       "volatile size_t"          | "size_t"
       "struct timeval"           | "timeval"
+      "const char* const*"       | "char*"
     end
 
     with_them do

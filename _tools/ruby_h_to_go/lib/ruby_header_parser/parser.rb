@@ -196,10 +196,11 @@ module RubyHeaderParser
           )
         else
           loop do
-            break unless parts[-1].start_with?("*")
+            pointer_index = parts.index("*")
+            break unless pointer_index
 
-            parts[-1].delete_prefix!("*")
-            parts[-2] << "*"
+            parts[pointer_index-1] << "*"
+            parts.delete_at(pointer_index)
           end
 
           pointer = nil
