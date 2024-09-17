@@ -68,6 +68,7 @@ module RubyHToGo
       #       with automatically generated files. (Currently output to `dist/` as it is incomplete)
       %w[
         c_types.go
+        types.go
         wrapper.go
       ].each do |file|
         FileUtils.cp(File.join(__dir__, "..", "..", "..", "..", "ruby", file), dist_dir)

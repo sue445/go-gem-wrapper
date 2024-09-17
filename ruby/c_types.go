@@ -23,6 +23,15 @@ type Double C.double
 // Short is a type for passing `C.short` in and out of package
 type Short C.short
 
+// Ushort is a type for passing `C.ushort` in and out of package
+type Ushort C.ushort
+
+// Longlong is a type for passing `C.longlong` in and out of package
+type Longlong C.longlong
+
+// Ulonglong is a type for passing `C.ulonglong` in and out of package
+type Ulonglong C.ulonglong
+
 // IntptrT is a type for passing `C.intptr_t` in and out of package
 type IntptrT C.intptr_t
 
@@ -34,3 +43,18 @@ type UintptrT C.uintptr_t
 
 // SizeT is a type for passing `C.size_t` in and out of package
 type SizeT C.size_t
+
+// SsizeT is a type for passing `C.ssize_t` in and out of package
+type SsizeT C.ssize_t
+
+// Timeval is a type for passing `C.timeval` in and out of package
+type Timeval C.timeval
+
+// VaList is a type for passing `C.va_list` in and out of package
+type VaList C.va_list
+
+// FdSet is a type for passing `C.fd_set` in and out of package
+type FdSet C.fd_set
+
+// ModeT is a type for passing `C.mode_t` in and out of package
+type ModeT C.mode_t

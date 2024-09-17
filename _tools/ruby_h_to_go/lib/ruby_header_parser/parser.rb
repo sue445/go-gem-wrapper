@@ -159,7 +159,7 @@ module RubyHeaderParser
     end
 
     ALLOW_TYPE_NAME_PREFIXES = %w[rb_ st_].freeze
-    ALLOW_TYPE_NAMES = %w[id value long_long].freeze
+    ALLOW_TYPE_NAMES = %w[id value].freeze
 
     # Whether generate C type to go
     # @param type_name [String]
