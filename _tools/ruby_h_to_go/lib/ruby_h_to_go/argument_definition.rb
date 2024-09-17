@@ -5,7 +5,7 @@ module RubyHToGo
   class ArgumentDefinition
     extend Forwardable
 
-    def_delegators :@definition, :==, :type, :type=, :name, :name=, :pointer, :pointer=, :pointer?
+    def_delegators :@definition, :==, :type, :type=, :name, :name=, :pointer, :pointer=, :pointer?, :length, :length=
 
     include Helper
 

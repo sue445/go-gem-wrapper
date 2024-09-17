@@ -83,6 +83,23 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typedef(type: "VALUE") }
       its(:args)       { should eq args }
     end
+
+    context "rb_uv_to_utf8" do
+      subject { definitions.find { |d| d.name == "rb_uv_to_utf8" } }
+
+      let(:args) do
+        [
+          argument(type: "char", name: "buf", pointer: :array, length: 6),
+          argument(type: "unsigned long", name: "uv"),
+        ]
+      end
+
+      its(:name)       { should eq "rb_uv_to_utf8" }
+      its(:definition) { should eq "int rb_uv_to_utf8(char buf[6], unsigned long uv)" } # rubocop:disable Layout/LineLength
+      its(:filepath)   { should be_end_with "/ruby/internal/intern/bignum.h" }
+      its(:typeref)    { should eq typedef(type: "int") }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_struct_definitions" do

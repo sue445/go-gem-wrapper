@@ -202,6 +202,15 @@ module RubyHeaderParser
             parts[-2] << "*"
           end
 
+          pointer = nil
+          length = 0
+
+          if parts[-1] =~ /\[([0-9]+)\]$/
+            parts[-1].gsub!(/\[([0-9]+)\]$/, "")
+            length = $1.to_i
+            pointer = :array
+          end
+
           unless parts[-1] =~ /^[0-9a-zA-Z_]+$/
             # last elements isn't dummy argument
             parts << "arg#{arg_pos}"
@@ -210,10 +219,9 @@ module RubyHeaderParser
           type = Util.sanitize_type(parts[0...-1].join(" "))
           name = parts[-1]
 
-          pointer = nil
           if type.match?(/\*+$/)
             type = type.gsub(/\*+$/, "").strip
-            pointer = function_arg_pointer_hint(function_name, arg_pos - 1)
+            pointer = function_arg_pointer_hint(function_name, arg_pos - 1) unless pointer
           elsif /^void\s*\s/.match?(type) || /\(.*\)/.match?(type)
             # function pointer (e.g. void *(*func)(void *)) is treated as `void*`
             type = "void"
@@ -224,6 +232,7 @@ module RubyHeaderParser
             type:,
             name:,
             pointer:,
+            length:,
           )
         end
       end.compact
