@@ -100,6 +100,25 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typedef(type: "int") }
       its(:args)       { should eq args }
     end
+
+    context "rb_funcallv" do
+      subject { definitions.find { |d| d.name == "rb_funcallv" } }
+
+      let(:args) do
+        [
+          argument(type: "VALUE", name: "recv"),
+          argument(type: "ID", name: "mid"),
+          argument(type: "int", name: "argc"),
+          argument(type: "VALUE", name: "argv", pointer: :array),
+        ]
+      end
+
+      its(:name)       { should eq "rb_funcallv" }
+      its(:definition) { should eq "VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)" } # rubocop:disable Layout/LineLength
+      its(:filepath)   { should be_end_with "/ruby/internal/eval.h" }
+      its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_struct_definitions" do
