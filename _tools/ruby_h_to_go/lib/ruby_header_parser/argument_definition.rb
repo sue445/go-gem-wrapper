@@ -33,7 +33,8 @@ module RubyHeaderParser
     # @param other [ArgumentDefinition]
     # @return [Boolean]
     def ==(other)
-      other.is_a?(ArgumentDefinition) && type == other.type && name == other.name && pointer == other.pointer && length == other.length
+      other.is_a?(ArgumentDefinition) && type == other.type && name == other.name && pointer == other.pointer &&
+        length == other.length
     end
 
     # @return [Boolean]
