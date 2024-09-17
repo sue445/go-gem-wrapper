@@ -99,6 +99,20 @@ func toCPointer(ptr unsafe.Pointer) *[0]byte {
 	return (*[0]byte)(ptr)
 }
 
+// toCArray converts a slice of any type to a C pointer without copy.
+//
+// Example
+//
+//	var values []VALUE
+//	cValues := toCArray[VALUE, C.VALUE](values)
+func toCArray[FROM any, TO any](values []FROM) *TO {
+	if len(values) == 0 {
+		return (*TO)(unsafe.Pointer(nil))
+	}
+
+	return (*TO)(unsafe.Pointer(&values[0]))
+}
+
 // toCValueArray convert from [][VALUE] to `*C.VALUE` without copy.
 func toCValueArray(values []VALUE) *C.VALUE {
 	if len(values) == 0 {
