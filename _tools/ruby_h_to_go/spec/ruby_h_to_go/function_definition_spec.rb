@@ -82,7 +82,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
       let(:definition) do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_funcallv",
-          definition: "VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)", # rubocop:disable Layout/LineLength
+          definition: "VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)",
           filepath:   "/path/to/include/ruby/internal/eval.h",
           typeref:    typedef(type: "VALUE"),
           args:       [

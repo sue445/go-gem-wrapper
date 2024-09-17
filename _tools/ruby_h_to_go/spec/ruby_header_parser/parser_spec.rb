@@ -95,7 +95,7 @@ RSpec.describe RubyHeaderParser::Parser do
       end
 
       its(:name)       { should eq "rb_uv_to_utf8" }
-      its(:definition) { should eq "int rb_uv_to_utf8(char buf[6], unsigned long uv)" } # rubocop:disable Layout/LineLength
+      its(:definition) { should eq "int rb_uv_to_utf8(char buf[6], unsigned long uv)" }
       its(:filepath)   { should be_end_with "/ruby/internal/intern/bignum.h" }
       its(:typeref)    { should eq typedef(type: "int") }
       its(:args)       { should eq args }
@@ -114,7 +114,7 @@ RSpec.describe RubyHeaderParser::Parser do
       end
 
       its(:name)       { should eq "rb_funcallv" }
-      its(:definition) { should eq "VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)" } # rubocop:disable Layout/LineLength
+      its(:definition) { should eq "VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)" }
       its(:filepath)   { should be_end_with "/ruby/internal/eval.h" }
       its(:typeref)    { should eq typedef(type: "VALUE") }
       its(:args)       { should eq args }
