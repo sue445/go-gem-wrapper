@@ -207,8 +207,7 @@ module RubyHeaderParser
             parts << "arg#{arg_pos}"
           end
 
-          type = parts[0...-1].join(" ")
-          type = type.delete_prefix("const ").delete_prefix("volatile ").delete_prefix("struct ").strip
+          type = Util.sanitize_type(parts[0...-1].join(" "))
           name = parts[-1]
 
           pointer = nil
@@ -245,6 +244,8 @@ module RubyHeaderParser
     # @return [RubyHeaderParser::TyperefDefinition]
     def create_typeref(definition, function_name)
       typeref_type = definition[0...definition.index(function_name)].gsub("char *", "char*").strip
+      typeref_type = Util.sanitize_type(typeref_type)
+
       typeref_pointer = nil
       if typeref_type.match?(/\*+$/)
         typeref_type = typeref_type.gsub(/\*+$/, "").strip
