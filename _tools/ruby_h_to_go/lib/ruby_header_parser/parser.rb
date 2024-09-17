@@ -199,7 +199,7 @@ module RubyHeaderParser
             pointer_index = parts.index("*")
             break unless pointer_index
 
-            parts[pointer_index-1] << "*"
+            parts[pointer_index - 1] << "*"
             parts.delete_at(pointer_index)
           end
 
