@@ -143,5 +143,37 @@ RSpec.describe RubyHToGo::FunctionDefinition do
 
       it { should eq go_content }
     end
+
+    context "rb_uv_to_utf8" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_uv_to_utf8",
+          definition: "int rb_uv_to_utf8(char buf[6], unsigned long uv)",
+          filepath:   "/path/to/include/intern/bignum.h",
+          typeref:    typedef(type: "int"),
+          args:       [
+            argument(type: "char", name: "buf", pointer: :array, length: 6),
+            argument(type: "unsigned long", name: "uv"),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbUvToUtf8 calls `rb_uv_to_utf8` in C
+          //
+          // Original definition is following
+          //
+          //	int rb_uv_to_utf8(char buf[6], unsigned long uv)
+          func RbUvToUtf8(buf []Char, uv uint) int {
+          ret := int(C.rb_uv_to_utf8(toCArray[Char, C.char](buf), C.ulong(uv)))
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
   end
 end

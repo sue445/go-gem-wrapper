@@ -49,11 +49,13 @@ module RubyHToGo
       if pointer
         case typename
         when "char", "const char"
-          case type
-          when :arg, :return
-            return "string"
-          else
-            return "char2String"
+          if pointer == :ref
+            case type
+            when :arg, :return
+              return "string"
+            else
+              return "char2String"
+            end
           end
         when "void"
           return "unsafe.Pointer"
