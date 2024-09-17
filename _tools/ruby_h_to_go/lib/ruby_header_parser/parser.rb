@@ -159,7 +159,7 @@ module RubyHeaderParser
     end
 
     ALLOW_TYPE_NAME_PREFIXES = %w[rb_ st_].freeze
-    ALLOW_TYPE_NAMES = %w[id value long_long].freeze
+    ALLOW_TYPE_NAMES = %w[id value].freeze
 
     # Whether generate C type to go
     # @param type_name [String]
@@ -196,10 +196,20 @@ module RubyHeaderParser
           )
         else
           loop do
-            break unless parts[-1].start_with?("*")
+            pointer_index = parts.index("*")
+            break unless pointer_index
 
-            parts[-1].delete_prefix!("*")
-            parts[-2] << "*"
+            parts[pointer_index - 1] << "*"
+            parts.delete_at(pointer_index)
+          end
+
+          pointer = nil
+          length = 0
+
+          if parts[-1] =~ /\[([0-9]+)\]$/
+            parts[-1].gsub!(/\[([0-9]+)\]$/, "")
+            length = ::Regexp.last_match(1).to_i
+            pointer = :array
           end
 
           unless parts[-1] =~ /^[0-9a-zA-Z_]+$/
@@ -207,14 +217,12 @@ module RubyHeaderParser
             parts << "arg#{arg_pos}"
           end
 
-          type = parts[0...-1].join(" ")
-          type = type.delete_prefix("const ").delete_prefix("volatile ").delete_prefix("struct ").strip
+          type = Util.sanitize_type(parts[0...-1].join(" "))
           name = parts[-1]
 
-          pointer = nil
           if type.match?(/\*+$/)
             type = type.gsub(/\*+$/, "").strip
-            pointer = function_arg_pointer_hint(function_name, arg_pos - 1)
+            pointer ||= function_arg_pointer_hint(function_name, arg_pos - 1)
           elsif /^void\s*\s/.match?(type) || /\(.*\)/.match?(type)
             # function pointer (e.g. void *(*func)(void *)) is treated as `void*`
             type = "void"
@@ -225,6 +233,7 @@ module RubyHeaderParser
             type:,
             name:,
             pointer:,
+            length:,
           )
         end
       end.compact
@@ -245,6 +254,8 @@ module RubyHeaderParser
     # @return [RubyHeaderParser::TyperefDefinition]
     def create_typeref(definition, function_name)
       typeref_type = definition[0...definition.index(function_name)].gsub("char *", "char*").strip
+      typeref_type = Util.sanitize_type(typeref_type)
+
       typeref_pointer = nil
       if typeref_type.match?(/\*+$/)
         typeref_type = typeref_type.gsub(/\*+$/, "").strip

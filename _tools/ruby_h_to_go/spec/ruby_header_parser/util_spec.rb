@@ -54,4 +54,23 @@ RSpec.describe RubyHeaderParser::Util do
       it { should eq args }
     end
   end
+
+  describe ".sanitize_type" do
+    subject { RubyHeaderParser::Util.sanitize_type(type) }
+
+    using RSpec::Parameterized::TableSyntax
+    where(:type, :expected) do
+      "RUBY_EXTERN int"          | "int"
+      "RUBY_EXTERN volatile int" | "int"
+      "enum rb_io_buffer_flags"  | "rb_io_buffer_flags"
+      "const char*"              | "char*"
+      "volatile size_t"          | "size_t"
+      "struct timeval"           | "timeval"
+      "const char* const*"       | "char*"
+    end
+
+    with_them do
+      it { should eq expected }
+    end
+  end
 end

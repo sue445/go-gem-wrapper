@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module TestHelper # rubocop:disable Style/Documentation
-  def argument(type:, name:, pointer: nil)
-    RubyHeaderParser::ArgumentDefinition.new(type:, name:, pointer:)
+  def argument(type:, name:, pointer: nil, length: 0)
+    RubyHeaderParser::ArgumentDefinition.new(type:, name:, pointer:, length:)
   end
 
   def typedef(type:, pointer: nil)

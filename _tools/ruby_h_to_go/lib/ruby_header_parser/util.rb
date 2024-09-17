@@ -19,5 +19,11 @@ module RubyHeaderParser
     def self.split_signature(signature)
       signature.scan(/[^,]+\([^()]*\)|[^,]+/).map(&:strip)
     end
+
+    # @param type [String]
+    # @return [String]
+    def self.sanitize_type(type)
+      type.gsub(/(RUBY_EXTERN|enum|volatile|const|struct)\s+/i, "").gsub("const*", "").strip
+    end
   end
 end

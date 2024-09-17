@@ -83,6 +83,59 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typedef(type: "VALUE") }
       its(:args)       { should eq args }
     end
+
+    context "rb_uv_to_utf8" do
+      subject { definitions.find { |d| d.name == "rb_uv_to_utf8" } }
+
+      let(:args) do
+        [
+          argument(type: "char", name: "buf", pointer: :array, length: 6),
+          argument(type: "unsigned long", name: "uv"),
+        ]
+      end
+
+      its(:name)       { should eq "rb_uv_to_utf8" }
+      its(:definition) { should eq "int rb_uv_to_utf8(char buf[6], unsigned long uv)" }
+      its(:filepath)   { should be_end_with "/ruby/internal/intern/bignum.h" }
+      its(:typeref)    { should eq typedef(type: "int") }
+      its(:args)       { should eq args }
+    end
+
+    context "rb_funcallv" do
+      subject { definitions.find { |d| d.name == "rb_funcallv" } }
+
+      let(:args) do
+        [
+          argument(type: "VALUE", name: "recv"),
+          argument(type: "ID", name: "mid"),
+          argument(type: "int", name: "argc"),
+          argument(type: "VALUE", name: "argv", pointer: :array),
+        ]
+      end
+
+      its(:name)       { should eq "rb_funcallv" }
+      its(:definition) { should eq "VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)" }
+      its(:filepath)   { should be_end_with "/ruby/internal/eval.h" }
+      its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:args)       { should eq args }
+    end
+
+    context "rb_find_file_ext" do
+      subject { definitions.find { |d| d.name == "rb_find_file_ext" } }
+
+      let(:args) do
+        [
+          argument(type: "VALUE", name: "feature", pointer: :ref),
+          argument(type: "char", name: "exts", pointer: :ref),
+        ]
+      end
+
+      its(:name)       { should eq "rb_find_file_ext" }
+      its(:definition) { should eq "int rb_find_file_ext(VALUE *feature, const char *const *exts)" }
+      its(:filepath)   { should be_end_with "/ruby/internal/intern/file.h" }
+      its(:typeref)    { should eq typedef(type: "int") }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_struct_definitions" do

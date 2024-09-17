@@ -99,13 +99,18 @@ func toCPointer(ptr unsafe.Pointer) *[0]byte {
 	return (*[0]byte)(ptr)
 }
 
-// toCValueArray convert from [][VALUE] to `*C.VALUE` without copy.
-func toCValueArray(values []VALUE) *C.VALUE {
+// toCArray converts a slice of any type to a C pointer without copy.
+//
+// Example
+//
+//	var values []VALUE
+//	cValues := toCArray[VALUE, C.VALUE](values)
+func toCArray[FROM any, TO any](values []FROM) *TO {
 	if len(values) == 0 {
-		return (*C.VALUE)(unsafe.Pointer(nil))
+		return (*TO)(unsafe.Pointer(nil))
 	}
 
-	return (*C.VALUE)(unsafe.Pointer(&values[0]))
+	return (*TO)(unsafe.Pointer(&values[0]))
 }
 
 // CallFunction calls receiver's method. (wrapper for [RbFuncallv])

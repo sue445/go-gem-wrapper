@@ -49,11 +49,13 @@ module RubyHToGo
       if pointer
         case typename
         when "char", "const char"
-          case type
-          when :arg, :return
-            return "string"
-          else
-            return "char2String"
+          if pointer == :ref
+            case type
+            when :arg, :return
+              return "string"
+            else
+              return "char2String"
+            end
           end
         when "void"
           return "unsafe.Pointer"
@@ -69,8 +71,14 @@ module RubyHToGo
       case typename
       when "unsigned int", "unsigned long"
         return "uint"
+      when "unsigned short"
+        return "Ushort"
       when "unsigned char"
         return "Uchar"
+      when "LONG_LONG"
+        return "Longlong"
+      when "unsigned LONG_LONG"
+        return "Ulonglong"
       when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
         return "unsafe.Pointer"
       when /^[A-Z]+$/, "int"
@@ -94,8 +102,12 @@ module RubyHToGo
         return "C.uint"
       when "unsigned char"
         return "C.uchar"
-      when "VALUE*"
-        return "toCValueArray"
+      when "unsigned short"
+        return "C.ushort"
+      when "LONG_LONG"
+        return "C.Longlong"
+      when "unsigned LONG_LONG"
+        return "C.Ulonglong"
       when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
         return "toCPointer"
       end

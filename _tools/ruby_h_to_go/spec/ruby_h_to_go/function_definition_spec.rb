@@ -78,6 +78,40 @@ RSpec.describe RubyHToGo::FunctionDefinition do
       it { should eq go_content }
     end
 
+    context "rb_funcallv" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_funcallv",
+          definition: "VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)",
+          filepath:   "/path/to/include/ruby/internal/eval.h",
+          typeref:    typedef(type: "VALUE"),
+          args:       [
+            argument(type: "VALUE", name: "recv"),
+            argument(type: "ID", name: "mid"),
+            argument(type: "int", name: "argc"),
+            argument(type: "VALUE", name: "argv", pointer: :array),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbFuncallv calls `rb_funcallv` in C
+          //
+          // Original definition is following
+          //
+          //	VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)
+          func RbFuncallv(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
+          ret := VALUE(C.rb_funcallv(C.VALUE(recv), C.ID(mid), C.int(argc), toCArray[VALUE, C.VALUE](argv)))
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
+
     context "rb_thread_call_with_gvl" do
       let(:definition) do
         RubyHeaderParser::FunctionDefinition.new(
@@ -101,6 +135,38 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //	void *rb_thread_call_with_gvl(void *(*func)(void *), void *data1)
           func RbThreadCallWithGvl(arg1 unsafe.Pointer, data1 unsafe.Pointer) unsafe.Pointer {
           ret := unsafe.Pointer(C.rb_thread_call_with_gvl(toCPointer(arg1), toCPointer(data1)))
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
+
+    context "rb_uv_to_utf8" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_uv_to_utf8",
+          definition: "int rb_uv_to_utf8(char buf[6], unsigned long uv)",
+          filepath:   "/path/to/include/intern/bignum.h",
+          typeref:    typedef(type: "int"),
+          args:       [
+            argument(type: "char", name: "buf", pointer: :array, length: 6),
+            argument(type: "unsigned long", name: "uv"),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbUvToUtf8 calls `rb_uv_to_utf8` in C
+          //
+          // Original definition is following
+          //
+          //	int rb_uv_to_utf8(char buf[6], unsigned long uv)
+          func RbUvToUtf8(buf []Char, uv uint) int {
+          ret := int(C.rb_uv_to_utf8(toCArray[Char, C.char](buf), C.ulong(uv)))
           return ret
           }
 

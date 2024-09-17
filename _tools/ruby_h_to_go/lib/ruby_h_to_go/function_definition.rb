@@ -57,13 +57,13 @@ module RubyHToGo
       call_c_method = "C.#{name}("
 
       casted_go_args = []
-      char_var_count = args.count { |c_arg| c_arg.type == "char" && c_arg.pointer }
+      char_var_count = args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :ref }
 
       before_call_function_lines = []
       after_call_function_lines = []
 
       args.each do |c_arg|
-        if c_arg.type == "char" && c_arg.pointer?
+        if c_arg.type == "char" && c_arg.pointer == :ref
           if char_var_count >= 2
             char_var_name = "char#{snake_to_camel(c_arg.go_name)}"
             clean_var_name = "cleanChar#{c_arg.go_name}"
@@ -83,14 +83,14 @@ module RubyHToGo
           else
             c_var_name = "c#{snake_to_camel(c_arg.go_name)}"
 
-            before_call_function_lines << "var #{c_var_name} C.#{c_arg.type}"
+            before_call_function_lines << "var #{c_var_name} #{cast_to_cgo_type(c_arg.type)}"
             after_call_function_lines <<
               "*#{c_arg.go_name} = #{ruby_c_type_to_go_type(c_arg.type, type: :arg)}(#{c_var_name})"
 
             casted_go_args << "&#{c_var_name}"
           end
         else
-          casted_go_args << "#{cast_to_cgo_type(c_arg.type)}(#{c_arg.go_name})"
+          casted_go_args << c_arg.cast_to_cgo
         end
       end
 
