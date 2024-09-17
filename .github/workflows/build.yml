@@ -12,7 +12,6 @@ on:
     paths-ignore:
       - ".github/workflows/patch_for_go_gem.yml"
       - "_benchmark/**"
-      - "_tools/**"
 
 env:
   TEST_ARGS: -coverprofile coverage.out -covermode atomic

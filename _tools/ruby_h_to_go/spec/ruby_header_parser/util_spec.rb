@@ -25,13 +25,33 @@ RSpec.describe RubyHeaderParser::Util do
     context "simple case" do
       let(:signature) { "VALUE obj, ID mid, int argc, const VALUE *argv, rb_block_call_func_t proc, VALUE data2" }
 
-      it { should eq ["VALUE obj", "ID mid", "int argc", "const VALUE *argv", "rb_block_call_func_t proc", "VALUE data2"] }
+      let(:args) do
+        [
+          "VALUE obj",
+          "ID mid",
+          "int argc",
+          "const VALUE *argv",
+          "rb_block_call_func_t proc",
+          "VALUE data2",
+        ]
+      end
+
+      it { should eq args }
     end
 
     context "with function pointer" do
-      let(:signature) { "VALUE target_thread_not_supported_yet,rb_event_flag_t events,void (* func)(VALUE,void *),void * data" }
+      let(:signature) { "VALUE target_thread_not_supported_yet,rb_event_flag_t events,void (* func)(VALUE,void *),void * data" } # rubocop:disable Layout/LineLength
 
-      it { should eq ["VALUE target_thread_not_supported_yet", "rb_event_flag_t events", "void (* func)(VALUE,void *)", "void * data"] }
+      let(:args) do
+        [
+          "VALUE target_thread_not_supported_yet",
+          "rb_event_flag_t events",
+          "void (* func)(VALUE,void *)",
+          "void * data",
+        ]
+      end
+
+      it { should eq args }
     end
   end
 end
