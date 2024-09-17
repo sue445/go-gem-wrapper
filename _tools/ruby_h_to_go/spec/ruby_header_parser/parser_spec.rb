@@ -78,7 +78,7 @@ RSpec.describe RubyHeaderParser::Parser do
       end
 
       its(:name)       { should eq "rb_tracepoint_new" }
-      its(:definition) { should eq "VALUE rb_tracepoint_new(VALUE target_thread_not_supported_yet, rb_event_flag_t events, void (*func)(VALUE, void *), void *data)" }
+      its(:definition) { should eq "VALUE rb_tracepoint_new(VALUE target_thread_not_supported_yet, rb_event_flag_t events, void (*func)(VALUE, void *), void *data)" } # rubocop:disable Layout/LineLength
       its(:filepath)   { should be_end_with "/ruby/debug.h" }
       its(:typeref)    { should eq typedef(type: "VALUE") }
       its(:args)       { should eq args }

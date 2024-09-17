@@ -19,7 +19,7 @@ module RubyHeaderParser
 
     # @return [Array<RubyHeaderParser::FunctionDefinition>]
     def extract_function_definitions
-      stdout = `ctags --recurse --c-kinds=p --languages=C --language-force=C --fields=+nS --extras=+q -f - #{header_dir}`
+      stdout = `ctags --recurse --c-kinds=p --languages=C --language-force=C --fields=+nS --extras=+q -f - #{header_dir}` # rubocop:disable Layout/LineLength
 
       stdout.each_line.with_object([]) do |line, definitions|
         parts = line.split("\t")
@@ -43,20 +43,11 @@ module RubyHeaderParser
         # Exclude functions with variable-length arguments
         next if args&.last&.type == "..."
 
-        typeref_type = definition[0...definition.index(parts[0])].gsub("char *", "char*").strip
-        typeref_pointer = nil
-        if typeref_type.match?(/\*+$/)
-          typeref_type = typeref_type.gsub(/\*+$/, "").strip
-          typeref_pointer = :ref
-        end
-
-        typeref = TyperefDefinition.new(type: typeref_type, pointer: typeref_pointer)
-
         definitions << FunctionDefinition.new(
           definition:,
           name:       parts[0],
           filepath:   parts[1],
-          typeref:,
+          typeref:    create_typeref(definition, function_name),
           args:,
         )
       end
@@ -247,6 +238,20 @@ module RubyHeaderParser
       return pointer_hint.to_sym if pointer_hint
 
       :ref
+    end
+
+    # @param definition [String]
+    # @param function_name [String]
+    # @return [RubyHeaderParser::TyperefDefinition]
+    def create_typeref(definition, function_name)
+      typeref_type = definition[0...definition.index(function_name)].gsub("char *", "char*").strip
+      typeref_pointer = nil
+      if typeref_type.match?(/\*+$/)
+        typeref_type = typeref_type.gsub(/\*+$/, "").strip
+        typeref_pointer = :ref
+      end
+
+      TyperefDefinition.new(type: typeref_type, pointer: typeref_pointer)
     end
   end
 end
