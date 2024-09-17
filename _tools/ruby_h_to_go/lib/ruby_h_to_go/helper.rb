@@ -106,8 +106,6 @@ module RubyHToGo
         return "C.Longlong"
       when "unsigned LONG_LONG"
         return "C.Ulonglong"
-      when "VALUE*"
-        return "toCValueArray"
       when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
         return "toCPointer"
       end

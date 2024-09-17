@@ -113,15 +113,6 @@ func toCArray[FROM any, TO any](values []FROM) *TO {
 	return (*TO)(unsafe.Pointer(&values[0]))
 }
 
-// toCValueArray convert from [][VALUE] to `*C.VALUE` without copy.
-func toCValueArray(values []VALUE) *C.VALUE {
-	if len(values) == 0 {
-		return (*C.VALUE)(unsafe.Pointer(nil))
-	}
-
-	return (*C.VALUE)(unsafe.Pointer(&values[0]))
-}
-
 // CallFunction calls receiver's method. (wrapper for [RbFuncallv])
 func CallFunction(receiver VALUE, methodName string, args ...VALUE) VALUE {
 	return RbFuncallv(receiver, RbIntern(methodName), len(args), args)

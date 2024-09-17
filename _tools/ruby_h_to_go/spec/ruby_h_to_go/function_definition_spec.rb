@@ -102,7 +102,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //
           //	VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)
           func RbFuncallv(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
-          ret := return VALUE(C.rb_funcallv(C.VALUE(recv), C.ID(mid), C.int(argc), toCValueArray(argv)))
+          ret := VALUE(C.rb_funcallv(C.VALUE(recv), C.ID(mid), C.int(argc), toCArray[VALUE, C.VALUE](argv)))
           return ret
           }
 

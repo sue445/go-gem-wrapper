@@ -33,5 +33,12 @@ module RubyHToGo
     def go_function_arg
       "#{go_name} #{ruby_c_type_to_go_type(type, pointer:, type: :arg)}"
     end
+
+    # @return [String]
+    def cast_to_cgo
+      return "toCArray[#{ruby_c_type_to_go_type(type)}, #{cast_to_cgo_type(type)}](#{go_name})" if pointer == :array
+
+      "#{cast_to_cgo_type(type)}(#{go_name})"
+    end
   end
 end

@@ -90,7 +90,7 @@ module RubyHToGo
             casted_go_args << "&#{c_var_name}"
           end
         else
-          casted_go_args << "#{cast_to_cgo_type(c_arg.type)}(#{c_arg.go_name})"
+          casted_go_args << c_arg.cast_to_cgo
         end
       end
 

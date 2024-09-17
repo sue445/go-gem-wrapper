@@ -17,7 +17,7 @@ import (
 //
 //	VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)
 func RbFuncallv(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
-	return VALUE(C.rb_funcallv(C.VALUE(recv), C.ID(mid), C.int(argc), toCValueArray(argv)))
+	return VALUE(C.rb_funcallv(C.VALUE(recv), C.ID(mid), C.int(argc), toCArray[VALUE, C.VALUE](argv)))
 }
 
 // RbFuncall2 is alias to [RbFuncallv]
@@ -31,7 +31,7 @@ func RbFuncall2(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
 //
 //	VALUE rb_funcallv_public(VALUE recv, ID mid, int argc, const VALUE *argv)
 func RbFuncallvPublic(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
-	return VALUE(C.rb_funcallv_public(C.VALUE(recv), C.ID(mid), C.int(argc), toCValueArray(argv)))
+	return VALUE(C.rb_funcallv_public(C.VALUE(recv), C.ID(mid), C.int(argc), toCArray[VALUE, C.VALUE](argv)))
 }
 
 // RbFuncall3 is alias to [RbFuncallvPublic]
