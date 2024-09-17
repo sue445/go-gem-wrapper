@@ -47,8 +47,9 @@ type SizeT C.size_t
 // SsizeT is a type for passing `C.ssize_t` in and out of package
 type SsizeT C.ssize_t
 
+// FIXME: could not determine kind of name for C.timeval
 // Timeval is a type for passing `C.timeval` in and out of package
-type Timeval C.timeval
+// type Timeval C.timeval
 
 // VaList is a type for passing `C.va_list` in and out of package
 type VaList C.va_list
