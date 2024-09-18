@@ -8,13 +8,13 @@ module RubyHeaderParser
     attr_reader :header_dir
 
     # @!attribute [r] data
-    #   @return [Hash]
+    #   @return [RubyHeaderParser::Data]
     attr_reader :data
 
     # @param header_dir [String]
     def initialize(header_dir)
       @header_dir = header_dir
-      @data = YAML.load_file(File.join(__dir__, "ruby_header_parser.yml"))
+      @data = Data.new
     end
 
     # @return [Array<RubyHeaderParser::FunctionDefinition>]
@@ -222,7 +222,7 @@ module RubyHeaderParser
 
           if type.match?(/\*+$/)
             type = type.gsub(/\*+$/, "").strip
-            pointer ||= function_arg_pointer_hint(function_name, arg_pos - 1)
+            pointer ||= data.function_arg_pointer_hint(function_name:, index: arg_pos - 1)
           elsif /^void\s*\s/.match?(type) || /\(.*\)/.match?(type)
             # function pointer (e.g. void *(*func)(void *)) is treated as `void*`
             type = "void"
@@ -237,16 +237,6 @@ module RubyHeaderParser
           )
         end
       end.compact
-    end
-
-    # @param function_name [String]
-    # @param index [Integer] arg position
-    # @return [Symbol] :ref, :array
-    def function_arg_pointer_hint(function_name, index)
-      pointer_hint = data["pointer_hint"]["function"].dig(function_name, index)
-      return pointer_hint.to_sym if pointer_hint
-
-      :ref
     end
 
     # @param definition [String]
