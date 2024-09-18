@@ -2,15 +2,35 @@
 
 require "rubocop/rake_task"
 
-RuboCop::RakeTask.new
+RuboCop::RakeTask.new("ruby:rubocop")
 
 namespace :ruby do
-  desc "Build ruby/testdata/example/"
-  task :build_example do
-    Dir.chdir(File.join(__dir__, "ruby", "testdata", "example")) do
-      sh "bundle exec rake all"
+  namespace :example do
+    desc "Build ruby/testdata/example/"
+    task :build do
+      Dir.chdir(File.join(__dir__, "ruby", "testdata", "example")) do
+        sh "bundle exec rake all"
+      end
     end
   end
+
+  namespace :rbs do
+    desc "`rbs collection install` and `git commit`"
+    task :install do
+      sh "rbs collection install"
+      sh "git add rbs_collection.lock.yaml"
+      sh "git commit -m 'rbs collection install' || true"
+    end
+  end
+
+  desc "Check rbs"
+  task :rbs do
+    sh "rbs validate"
+    sh "steep check"
+  end
+
+  desc "Run all build tasks in ruby"
+  task build_all: %w[example:build rubocop rbs]
 end
 
 # @return [Hash<String, String>]
@@ -69,6 +89,9 @@ namespace :go do
     end
     sh env_vars, "golangci-lint run"
   end
+
+  desc "Run all build tasks in go"
+  task build_all: %i[test fmt lint]
 end
 
 namespace :patch_for_go_gem do
@@ -94,13 +117,6 @@ task :ruby_h_to_go do
   sh "./_tools/ruby_h_to_go/exe/ruby_h_to_go"
 end
 
-desc "Check rbs"
-task :rbs do
-  sh "rbs collection install"
-  sh "rbs validate"
-  sh "steep check"
-end
-
 desc "Create and push tag"
 task :tag do
   version = File.read("VERSION")
@@ -113,4 +129,6 @@ task release: :tag do
   sh "git push origin main"
 end
 
-task default: "ruby:build_example"
+task build_all: %w[ruby:build_all go:build_all ruby_h_to_go:test patch_for_go_gem:test]
+
+task default: :build_all

@@ -1,10 +1,26 @@
 ---
 path: ".gem_rbs_collection"
 gems:
+- name: ast
+  version: '2.4'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: f5ccba01753a601607c36f3eb1b5b213307300ab
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 - name: base64
   version: '0'
   source:
     type: stdlib
+- name: binding_of_caller
+  version: '1.0'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: f5ccba01753a601607c36f3eb1b5b213307300ab
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 - name: diff-lcs
   version: '1.5'
   source:
@@ -17,12 +33,52 @@ gems:
   version: '0'
   source:
     type: stdlib
+- name: logger
+  version: '0'
+  source:
+    type: stdlib
+- name: monitor
+  version: '0'
+  source:
+    type: stdlib
+- name: optparse
+  version: '0'
+  source:
+    type: stdlib
+- name: parser
+  version: '3.2'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: f5ccba01753a601607c36f3eb1b5b213307300ab
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 - name: rake
   version: '13.0'
   source:
     type: git
     name: ruby/gem_rbs_collection
     revision: 3670834268f4ea9c10aefeffae7e072b51256375
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: ripper
+  version: '0'
+  source:
+    type: stdlib
+- name: rspec-parameterized-core
+  version: 1.0.1
+  source:
+    type: rubygems
+- name: rspec-parameterized-table_syntax
+  version: 1.0.1
+  source:
+    type: rubygems
+- name: yard
+  version: '0.9'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: f5ccba01753a601607c36f3eb1b5b213307300ab
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 gemfile_lock_path: Gemfile.lock
