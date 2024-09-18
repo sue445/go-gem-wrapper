@@ -80,7 +80,7 @@ module RubyHeaderParser
 
         type_name = parts[0]
 
-        next unless should_generate_type?(type_name)
+        next unless data.should_generate_type?(type_name)
 
         definitions << TypeDefinition.new(
           name:     type_name,
@@ -105,20 +105,6 @@ module RubyHeaderParser
         end
       end
       ""
-    end
-
-    ALLOW_TYPE_NAME_PREFIXES = %w[rb_ st_].freeze
-    ALLOW_TYPE_NAMES = %w[id value].freeze
-
-    # Whether generate C type to go
-    # @param type_name [String]
-    # @return [Boolean]
-    def should_generate_type?(type_name)
-      type_name = type_name.downcase
-
-      return true if ALLOW_TYPE_NAME_PREFIXES.any? { |prefix| type_name.start_with?(prefix) }
-
-      ALLOW_TYPE_NAMES.include?(type_name)
     end
 
     # @param function_name [String]
