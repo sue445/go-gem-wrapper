@@ -11,6 +11,13 @@ namespace :ruby do
       sh "bundle exec rake all"
     end
   end
+
+  desc "Check rbs"
+  task :rbs do
+    sh "rbs collection install"
+    sh "rbs validate"
+    sh "steep check"
+  end
 end
 
 # @return [Hash<String, String>]
@@ -92,13 +99,6 @@ end
 desc "Run _tools/ruby_h_to_go"
 task :ruby_h_to_go do
   sh "./_tools/ruby_h_to_go/exe/ruby_h_to_go"
-end
-
-desc "Check rbs"
-task :rbs do
-  sh "rbs collection install"
-  sh "rbs validate"
-  sh "steep check"
 end
 
 desc "Create and push tag"
