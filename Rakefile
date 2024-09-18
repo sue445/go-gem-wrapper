@@ -5,10 +5,12 @@ require "rubocop/rake_task"
 RuboCop::RakeTask.new
 
 namespace :ruby do
-  desc "Build ruby/testdata/example/"
-  task :build_example do
-    Dir.chdir(File.join(__dir__, "ruby", "testdata", "example")) do
-      sh "bundle exec rake all"
+  namespace :example do
+    desc "Build ruby/testdata/example/"
+    task :build do
+      Dir.chdir(File.join(__dir__, "ruby", "testdata", "example")) do
+        sh "bundle exec rake all"
+      end
     end
   end
 
@@ -28,7 +30,7 @@ namespace :ruby do
   end
 
   desc "Run all build tasks in ruby"
-  task build_all: %i[build_example rbs]
+  task build_all: %w[example:build rbs]
 end
 
 # @return [Hash<String, String>]
