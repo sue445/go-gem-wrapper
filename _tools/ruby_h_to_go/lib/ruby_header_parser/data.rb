@@ -15,7 +15,7 @@ module RubyHeaderParser
     # @param index [Integer] arg position (0 origin)
     # @return [Symbol] :ref, :array
     def function_arg_pointer_hint(function_name:, index:)
-      pointer_hint = data["pointer_hint"]["function"].dig(function_name, index)
+      pointer_hint = data["function"]["pointer_hint"].dig(function_name, index)
       return pointer_hint.to_sym if pointer_hint
 
       :ref

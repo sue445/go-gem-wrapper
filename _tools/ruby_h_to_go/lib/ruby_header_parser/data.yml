@@ -1,5 +1,5 @@
-pointer_hint:
-  function:
+function:
+  pointer_hint:
     rb_funcallv:
       3: array
     rb_funcallv_public:
