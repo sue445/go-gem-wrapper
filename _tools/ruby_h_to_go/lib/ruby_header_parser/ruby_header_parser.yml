@@ -1,6 +1,0 @@
-pointer_hint:
-  function:
-    rb_funcallv:
-      3: array
-    rb_funcallv_public:
-      3: array

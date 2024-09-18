@@ -1,0 +1,47 @@
+function:
+  allow_name:
+    - !ruby/regexp /^rb_/
+    - !ruby/regexp /^rstring_/
+
+  deny_name:
+    # deprecated functions
+    - rb_check_safe_str
+    - rb_clear_constant_cache
+    - rb_clone_setup
+    - rb_complex_polar
+    - rb_data_object_alloc
+    - rb_data_object_get_warning
+    - rb_data_object_wrap_warning
+    - rb_data_typed_object_alloc
+    - rb_dup_setup
+    - rb_gc_force_recycle
+    - rb_iterate
+    - rb_obj_infect
+    - rb_obj_infect_raw
+    - rb_obj_taint
+    - rb_obj_taint_raw
+    - rb_obj_taintable
+    - rb_obj_tainted
+    - rb_obj_tainted_raw
+    - rb_scan_args_length_mismatch
+    - rb_varargs_bad_length
+
+    # internal functions in ruby.h
+    - rb_scan_args_bad_format
+
+  pointer_hint:
+    rb_funcallv:
+      3: array
+    rb_funcallv_public:
+      3: array
+
+struct:
+  allow_name:
+    - !ruby/regexp /^rb_/
+
+type:
+  allow_name:
+    - !ruby/regexp /^rb_/
+    - !ruby/regexp /^st_/
+    - id
+    - value

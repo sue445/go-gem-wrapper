@@ -8,13 +8,13 @@ module RubyHeaderParser
     attr_reader :header_dir
 
     # @!attribute [r] data
-    #   @return [Hash]
+    #   @return [RubyHeaderParser::Data]
     attr_reader :data
 
     # @param header_dir [String]
     def initialize(header_dir)
       @header_dir = header_dir
-      @data = YAML.load_file(File.join(__dir__, "ruby_header_parser.yml"))
+      @data = Data.new
     end
 
     # @return [Array<RubyHeaderParser::FunctionDefinition>]
@@ -26,7 +26,7 @@ module RubyHeaderParser
 
         function_name = parts[0]
 
-        next unless should_generate_function?(function_name)
+        next unless data.should_generate_function?(function_name)
 
         definition =
           if parts[2].end_with?(";$/;\"")
@@ -62,7 +62,7 @@ module RubyHeaderParser
 
         struct_name = parts[0]
 
-        next unless should_generate_struct?(struct_name)
+        next unless data.should_generate_struct?(struct_name)
 
         definitions << StructDefinition.new(
           name:     struct_name,
@@ -80,7 +80,7 @@ module RubyHeaderParser
 
         type_name = parts[0]
 
-        next unless should_generate_type?(type_name)
+        next unless data.should_generate_type?(type_name)
 
         definitions << TypeDefinition.new(
           name:     type_name,
@@ -90,48 +90,6 @@ module RubyHeaderParser
     end
 
     private
-
-    ALLOW_FUNCTION_NAME_PREFIXES = %w[rb_ rstring_].freeze
-
-    DENY_FUNCTION_NAMES = [
-      # deprecated functions
-      "rb_check_safe_str",
-      "rb_clear_constant_cache",
-      "rb_clone_setup",
-      "rb_complex_polar",
-      "rb_data_object_alloc",
-      "rb_data_object_get_warning",
-      "rb_data_object_wrap_warning",
-      "rb_data_typed_object_alloc",
-      "rb_dup_setup",
-      "rb_gc_force_recycle",
-      "rb_iterate",
-      "rb_obj_infect",
-      "rb_obj_infect_raw",
-      "rb_obj_taint",
-      "rb_obj_taint_raw",
-      "rb_obj_taintable",
-      "rb_obj_tainted",
-      "rb_obj_tainted_raw",
-      "rb_scan_args_length_mismatch",
-      "rb_varargs_bad_length",
-
-      # internal functions in ruby.h
-      "rb_scan_args_bad_format",
-    ].freeze
-
-    # Whether generate C function to go
-    # @param function_name [String]
-    # @return [Boolean]
-    def should_generate_function?(function_name)
-      function_name = function_name.downcase
-
-      return false if DENY_FUNCTION_NAMES.include?(function_name)
-
-      return true if ALLOW_FUNCTION_NAME_PREFIXES.any? { |prefix| function_name.start_with?(prefix) }
-
-      false
-    end
 
     # @param file [String]
     # @param line_num [Integer]
@@ -147,29 +105,6 @@ module RubyHeaderParser
         end
       end
       ""
-    end
-
-    # Whether generate C struct to go
-    # @param struct_name [String]
-    # @return [Boolean]
-    def should_generate_struct?(struct_name)
-      struct_name = struct_name.downcase
-
-      struct_name.start_with?("rb_")
-    end
-
-    ALLOW_TYPE_NAME_PREFIXES = %w[rb_ st_].freeze
-    ALLOW_TYPE_NAMES = %w[id value].freeze
-
-    # Whether generate C type to go
-    # @param type_name [String]
-    # @return [Boolean]
-    def should_generate_type?(type_name)
-      type_name = type_name.downcase
-
-      return true if ALLOW_TYPE_NAME_PREFIXES.any? { |prefix| type_name.start_with?(prefix) }
-
-      ALLOW_TYPE_NAMES.include?(type_name)
     end
 
     # @param function_name [String]
@@ -222,7 +157,7 @@ module RubyHeaderParser
 
           if type.match?(/\*+$/)
             type = type.gsub(/\*+$/, "").strip
-            pointer ||= function_arg_pointer_hint(function_name, arg_pos - 1)
+            pointer ||= data.function_arg_pointer_hint(function_name:, index: arg_pos - 1)
           elsif /^void\s*\s/.match?(type) || /\(.*\)/.match?(type)
             # function pointer (e.g. void *(*func)(void *)) is treated as `void*`
             type = "void"
@@ -237,16 +172,6 @@ module RubyHeaderParser
           )
         end
       end.compact
-    end
-
-    # @param function_name [String]
-    # @param index [Integer] arg position
-    # @return [Symbol] :ref, :array
-    def function_arg_pointer_hint(function_name, index)
-      pointer_hint = data["pointer_hint"]["function"].dig(function_name, index)
-      return pointer_hint.to_sym if pointer_hint
-
-      :ref
     end
 
     # @param definition [String]
