@@ -20,4 +20,26 @@ RSpec.describe RubyHeaderParser::Data do
       it { should eq :ref }
     end
   end
+
+  describe "#should_generate_function?" do
+    subject { data.should_generate_function?(function_name) }
+
+    context "rb function (denied)" do
+      let(:function_name) { "rb_check_safe_str" }
+
+      it { should eq false }
+    end
+
+    context "rb function (allowed)" do
+      let(:function_name) { "rb_define_class" }
+
+      it { should eq true }
+    end
+
+    context "no rb function" do
+      let(:function_name) { "sprintf" }
+
+      it { should eq false }
+    end
+  end
 end

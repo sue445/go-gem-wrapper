@@ -8,7 +8,8 @@ module RubyHeaderParser
     attr_reader :data
 
     def initialize
-      @data = YAML.load_file(File.join(__dir__, "data.yml"))
+      yaml = File.read(File.join(__dir__, "data.yml"))
+      @data = YAML.safe_load(yaml, permitted_classes: [Regexp])
     end
 
     # @param function_name [String]
@@ -19,6 +20,17 @@ module RubyHeaderParser
       return pointer_hint.to_sym if pointer_hint
 
       :ref
+    end
+
+    # Whether generate C function to go
+    # @param function_name [String]
+    # @return [Boolean]
+    def should_generate_function?(function_name)
+      function_name = function_name.downcase
+
+      return false if data["function"]["deny_name"].any? { |format| format === function_name }
+
+      data["function"]["allow_name"].any? { |format| format === function_name }
     end
   end
 end
