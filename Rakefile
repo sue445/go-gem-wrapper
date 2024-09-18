@@ -26,6 +26,9 @@ namespace :ruby do
     sh "rbs validate"
     sh "steep check"
   end
+
+  desc "Run all build tasks in ruby"
+  task build_all: %i[build_example rbs]
 end
 
 # @return [Hash<String, String>]
@@ -84,6 +87,9 @@ namespace :go do
     end
     sh env_vars, "golangci-lint run"
   end
+
+  desc "Run all build tasks in go"
+  task build_all: %i[test fmt lint]
 end
 
 namespace :patch_for_go_gem do
@@ -121,4 +127,6 @@ task release: :tag do
   sh "git push origin main"
 end
 
-task default: "ruby:build_example"
+task build_all: %w[ruby:build_all go:build_all rubocop ruby_h_to_go:test patch_for_go_gem:test]
+
+task default: :build_all
