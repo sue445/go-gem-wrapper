@@ -28,9 +28,9 @@ module RubyHeaderParser
     def should_generate_function?(function_name)
       function_name = function_name.downcase
 
-      return false if data["function"]["deny_name"].any? { |format| format === function_name }
+      return false if data["function"]["deny_name"].any? { |format| format === function_name } # rubocop:disable Style/CaseEquality
 
-      data["function"]["allow_name"].any? { |format| format === function_name }
+      data["function"]["allow_name"].any? { |format| format === function_name } # rubocop:disable Style/CaseEquality
     end
 
     # Whether generate C struct to go
@@ -39,7 +39,7 @@ module RubyHeaderParser
     def should_generate_struct?(struct_name)
       struct_name = struct_name.downcase
 
-      data["struct"]["allow_name"].any? { |format| format === struct_name }
+      data["struct"]["allow_name"].any? { |format| format === struct_name } # rubocop:disable Style/CaseEquality
     end
 
     # Whether generate C type to go
@@ -48,7 +48,7 @@ module RubyHeaderParser
     def should_generate_type?(type_name)
       type_name = type_name.downcase
 
-      data["type"]["allow_name"].any? { |format| format === type_name }
+      data["type"]["allow_name"].any? { |format| format === type_name } # rubocop:disable Style/CaseEquality
     end
   end
 end
