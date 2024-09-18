@@ -38,3 +38,10 @@ function:
 struct:
   allow_name:
     - !ruby/regexp /^rb_/
+
+type:
+  allow_name:
+    - !ruby/regexp /^rb_/
+    - !ruby/regexp /^st_/
+    - id
+    - value

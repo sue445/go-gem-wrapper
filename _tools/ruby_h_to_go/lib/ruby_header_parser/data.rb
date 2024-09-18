@@ -41,5 +41,14 @@ module RubyHeaderParser
 
       data["struct"]["allow_name"].any? { |format| format === struct_name }
     end
+
+    # Whether generate C type to go
+    # @param type_name [String]
+    # @return [Boolean]
+    def should_generate_type?(type_name)
+      type_name = type_name.downcase
+
+      data["type"]["allow_name"].any? { |format| format === type_name }
+    end
   end
 end

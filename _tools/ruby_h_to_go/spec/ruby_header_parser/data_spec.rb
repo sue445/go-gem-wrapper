@@ -58,4 +58,26 @@ RSpec.describe RubyHeaderParser::Data do
       it { should eq false }
     end
   end
+
+  describe "#should_generate_type?" do
+    subject { data.should_generate_type?(type_name) }
+
+    context "rb type" do
+      let(:type_name) { "rb_data_type_t" }
+
+      it { should eq true }
+    end
+
+    context "VALUE" do
+      let(:type_name) { "VALUE" }
+
+      it { should eq true }
+    end
+
+    context "unknown" do
+      let(:type_name) { "unknown" }
+
+      it { should eq false }
+    end
+  end
 end
