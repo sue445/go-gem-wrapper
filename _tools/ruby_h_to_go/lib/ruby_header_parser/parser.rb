@@ -62,7 +62,7 @@ module RubyHeaderParser
 
         struct_name = parts[0]
 
-        next unless should_generate_struct?(struct_name)
+        next unless data.should_generate_struct?(struct_name)
 
         definitions << StructDefinition.new(
           name:     struct_name,
@@ -105,15 +105,6 @@ module RubyHeaderParser
         end
       end
       ""
-    end
-
-    # Whether generate C struct to go
-    # @param struct_name [String]
-    # @return [Boolean]
-    def should_generate_struct?(struct_name)
-      struct_name = struct_name.downcase
-
-      struct_name.start_with?("rb_")
     end
 
     ALLOW_TYPE_NAME_PREFIXES = %w[rb_ st_].freeze
