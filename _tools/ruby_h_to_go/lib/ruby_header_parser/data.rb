@@ -32,5 +32,14 @@ module RubyHeaderParser
 
       data["function"]["allow_name"].any? { |format| format === function_name }
     end
+
+    # Whether generate C struct to go
+    # @param struct_name [String]
+    # @return [Boolean]
+    def should_generate_struct?(struct_name)
+      struct_name = struct_name.downcase
+
+      data["struct"]["allow_name"].any? { |format| format === struct_name }
+    end
   end
 end

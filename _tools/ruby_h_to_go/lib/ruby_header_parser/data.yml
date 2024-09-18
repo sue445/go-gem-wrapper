@@ -34,3 +34,7 @@ function:
       3: array
     rb_funcallv_public:
       3: array
+
+struct:
+  allow_name:
+    - !ruby/regexp /^rb_/

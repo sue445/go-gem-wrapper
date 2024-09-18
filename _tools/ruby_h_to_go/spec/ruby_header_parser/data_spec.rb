@@ -42,4 +42,20 @@ RSpec.describe RubyHeaderParser::Data do
       it { should eq false }
     end
   end
+
+  describe "#should_generate_struct?" do
+    subject { data.should_generate_struct?(struct_name) }
+
+    context "rb struct" do
+      let(:struct_name) { "rb_random_struct" }
+
+      it { should eq true }
+    end
+
+    context "non rb struct" do
+      let(:struct_name) { "fuga" }
+
+      it { should eq false }
+    end
+  end
 end
