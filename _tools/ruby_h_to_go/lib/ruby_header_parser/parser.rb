@@ -26,7 +26,7 @@ module RubyHeaderParser
 
         function_name = parts[0]
 
-        next unless should_generate_function?(function_name)
+        next unless data.should_generate_function?(function_name)
 
         definition =
           if parts[2].end_with?(";$/;\"")
@@ -90,48 +90,6 @@ module RubyHeaderParser
     end
 
     private
-
-    ALLOW_FUNCTION_NAME_PREFIXES = %w[rb_ rstring_].freeze
-
-    DENY_FUNCTION_NAMES = [
-      # deprecated functions
-      "rb_check_safe_str",
-      "rb_clear_constant_cache",
-      "rb_clone_setup",
-      "rb_complex_polar",
-      "rb_data_object_alloc",
-      "rb_data_object_get_warning",
-      "rb_data_object_wrap_warning",
-      "rb_data_typed_object_alloc",
-      "rb_dup_setup",
-      "rb_gc_force_recycle",
-      "rb_iterate",
-      "rb_obj_infect",
-      "rb_obj_infect_raw",
-      "rb_obj_taint",
-      "rb_obj_taint_raw",
-      "rb_obj_taintable",
-      "rb_obj_tainted",
-      "rb_obj_tainted_raw",
-      "rb_scan_args_length_mismatch",
-      "rb_varargs_bad_length",
-
-      # internal functions in ruby.h
-      "rb_scan_args_bad_format",
-    ].freeze
-
-    # Whether generate C function to go
-    # @param function_name [String]
-    # @return [Boolean]
-    def should_generate_function?(function_name)
-      function_name = function_name.downcase
-
-      return false if DENY_FUNCTION_NAMES.include?(function_name)
-
-      return true if ALLOW_FUNCTION_NAME_PREFIXES.any? { |prefix| function_name.start_with?(prefix) }
-
-      false
-    end
 
     # @param file [String]
     # @param line_num [Integer]
