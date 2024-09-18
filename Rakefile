@@ -12,9 +12,17 @@ namespace :ruby do
     end
   end
 
+  namespace :rbs do
+    desc "`rbs collection install` and `git commit`"
+    task :install do
+      sh "rbs collection install"
+      sh "git add rbs_collection.lock.yaml"
+      sh "git commit -m 'rbs collection install' || true"
+    end
+  end
+
   desc "Check rbs"
   task :rbs do
-    sh "rbs collection install"
     sh "rbs validate"
     sh "steep check"
   end
