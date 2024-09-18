@@ -2,7 +2,7 @@
 
 require "rubocop/rake_task"
 
-RuboCop::RakeTask.new
+RuboCop::RakeTask.new("ruby:rubocop")
 
 namespace :ruby do
   namespace :example do
@@ -30,7 +30,7 @@ namespace :ruby do
   end
 
   desc "Run all build tasks in ruby"
-  task build_all: %w[example:build rbs]
+  task build_all: %w[example:build rubocop rbs]
 end
 
 # @return [Hash<String, String>]
@@ -129,6 +129,6 @@ task release: :tag do
   sh "git push origin main"
 end
 
-task build_all: %w[ruby:build_all go:build_all rubocop ruby_h_to_go:test patch_for_go_gem:test]
+task build_all: %w[ruby:build_all go:build_all ruby_h_to_go:test patch_for_go_gem:test]
 
 task default: :build_all
