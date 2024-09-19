@@ -2,7 +2,7 @@
 
 module RubyHToGo
   # helper methods for generating go coce
-  module Helper
+  module GeneratorHelper
     # @param header_dir [String]
     # @param ruby_header_file [String]
     # @return [String]

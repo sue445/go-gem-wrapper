@@ -7,7 +7,7 @@ module RubyHToGo
 
     def_delegators :@definition, :==, :type, :type=, :name, :name=, :pointer, :pointer=, :pointer?, :length, :length=
 
-    include Helper
+    include GeneratorHelper
 
     # @param definition [RubyHeaderParser::ArgumentDefinition]
     def initialize(definition)
