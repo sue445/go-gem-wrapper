@@ -7,19 +7,22 @@ module RubyHToGo
 
     def_delegators :@definition, :==, :type, :type=, :name, :name=, :pointer, :pointer=, :pointer?, :length, :length=
 
-    include Helper
+    include GeneratorHelper
 
     # @param definition [RubyHeaderParser::ArgumentDefinition]
     def initialize(definition)
       @definition = definition
     end
 
-    # These are reserved in Go
     C_NAME_TO_GO_NAME = {
+      # These are reserved in Go
       "var"   => "v",
       "func"  => "fun",
       "range" => "r",
       "type"  => "r",
+
+      # Can't use "_" as a value
+      "_"     => "arg",
     }.freeze
 
     # @return [String] Variable name available in Go

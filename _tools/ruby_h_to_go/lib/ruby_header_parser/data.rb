@@ -26,8 +26,6 @@ module RubyHeaderParser
     # @param function_name [String]
     # @return [Boolean]
     def should_generate_function?(function_name)
-      function_name = function_name.downcase
-
       return false if data["function"]["deny_name"].any? { |format| format === function_name } # rubocop:disable Style/CaseEquality
 
       data["function"]["allow_name"].any? { |format| format === function_name } # rubocop:disable Style/CaseEquality
@@ -37,8 +35,6 @@ module RubyHeaderParser
     # @param struct_name [String]
     # @return [Boolean]
     def should_generate_struct?(struct_name)
-      struct_name = struct_name.downcase
-
       data["struct"]["allow_name"].any? { |format| format === struct_name } # rubocop:disable Style/CaseEquality
     end
 
@@ -46,8 +42,6 @@ module RubyHeaderParser
     # @param type_name [String]
     # @return [Boolean]
     def should_generate_type?(type_name)
-      type_name = type_name.downcase
-
       data["type"]["allow_name"].any? { |format| format === type_name } # rubocop:disable Style/CaseEquality
     end
   end

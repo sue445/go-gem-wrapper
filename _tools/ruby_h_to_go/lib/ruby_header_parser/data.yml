@@ -1,7 +1,7 @@
 function:
   allow_name:
-    - !ruby/regexp /^rb_/
-    - !ruby/regexp /^rstring_/
+    - !ruby/regexp /^rb_/i
+    - !ruby/regexp /^rstring_/i
 
   deny_name:
     # deprecated functions
@@ -29,6 +29,11 @@ function:
     # internal functions in ruby.h
     - rb_scan_args_bad_format
 
+    # FIXME: Both `rb_hash` and `rb_Hash` are defined in ruby.h
+    #        Converting to Go function names would result in both being `RbHash`
+    #        Exclude one of the function names because duplicate function names will result in an error.
+    - rb_Hash
+
   pointer_hint:
     rb_funcallv:
       3: array
@@ -37,11 +42,14 @@ function:
 
 struct:
   allow_name:
-    - !ruby/regexp /^rb_/
+    - !ruby/regexp /^rb_/i
+    - re_registers
 
 type:
   allow_name:
-    - !ruby/regexp /^rb_/
-    - !ruby/regexp /^st_/
-    - id
-    - value
+    - !ruby/regexp /^rb_/i
+    - !ruby/regexp /^st_/i
+    - ID
+    - VALUE
+    - regex_t
+    - OnigPosition

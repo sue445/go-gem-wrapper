@@ -59,3 +59,16 @@ type FdSet C.fd_set
 
 // ModeT is a type for passing `C.mode_t` in and out of package
 type ModeT C.mode_t
+
+// Bool is a type for passing `C.bool` in and out of package
+type Bool C.bool
+
+// IsTrue checks whether true
+func (b Bool) IsTrue() bool {
+	return C.bool(b) == C.bool(true)
+}
+
+// IsFalse checks whether false
+func (b Bool) IsFalse() bool {
+	return C.bool(b) == C.bool(false)
+}
