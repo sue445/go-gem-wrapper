@@ -29,6 +29,11 @@ function:
     # internal functions in ruby.h
     - rb_scan_args_bad_format
 
+    # FIXME: Both `rb_hash` and `rb_Hash` are defined in ruby.h
+    #        Converting to Go function names would result in both being `RbHash`
+    #        Exclude one of the function names because duplicate function names will result in an error.
+    - rb_Hash
+
   pointer_hint:
     rb_funcallv:
       3: array
