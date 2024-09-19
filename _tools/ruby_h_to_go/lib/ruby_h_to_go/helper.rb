@@ -82,7 +82,7 @@ module RubyHToGo
         return "Longlong"
       when "unsigned LONG_LONG"
         return "Ulonglong"
-      when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
+      when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/, "RUBY_DATA_FUNC"
         return "unsafe.Pointer"
       when /^[A-Z]+$/, "int"
         # e.g. VALUE
@@ -111,7 +111,7 @@ module RubyHToGo
         return "C.Longlong"
       when "unsigned LONG_LONG"
         return "C.Ulonglong"
-      when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/
+      when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/, "RUBY_DATA_FUNC"
         return "toCPointer"
       end
 
