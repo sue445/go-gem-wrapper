@@ -1,7 +1,7 @@
 function:
   allow_name:
-    - !ruby/regexp /^rb_/
-    - !ruby/regexp /^rstring_/
+    - !ruby/regexp /^rb_/i
+    - !ruby/regexp /^rstring_/i
 
   deny_name:
     # deprecated functions
@@ -37,11 +37,11 @@ function:
 
 struct:
   allow_name:
-    - !ruby/regexp /^rb_/
+    - !ruby/regexp /^rb_/i
 
 type:
   allow_name:
-    - !ruby/regexp /^rb_/
-    - !ruby/regexp /^st_/
-    - id
-    - value
+    - !ruby/regexp /^rb_/i
+    - !ruby/regexp /^st_/i
+    - ID
+    - VALUE
