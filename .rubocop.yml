@@ -18,6 +18,9 @@ AllCops:
 Gemspec/RequireMFA:
   Enabled: false
 
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
 Layout/HashAlignment:
   EnforcedColonStyle: table
   EnforcedHashRocketStyle: table

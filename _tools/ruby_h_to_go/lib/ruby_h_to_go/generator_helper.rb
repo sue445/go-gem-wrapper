@@ -7,7 +7,8 @@ module RubyHToGo
     # @param ruby_header_file [String]
     # @return [String]
     def go_file_name(header_dir:, ruby_header_file:)
-      ruby_header_file.delete_prefix(header_dir + File::SEPARATOR).gsub(File::SEPARATOR, "_").gsub(/\.h$/, ".go")
+      ruby_header_file.delete_prefix(header_dir + File::SEPARATOR).gsub(File::SEPARATOR, "_").
+        gsub(/\.h$/, "_generated.go")
     end
 
     # @param str [String]
