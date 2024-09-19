@@ -16,5 +16,3 @@ Convert Ruby C function definition in `ruby.h` to Go source and dump to `dist/`.
 ```
 
 * `-H` : path to ruby header dir. (default: `RbConfig::CONFIG["rubyhdrdir"]`)
-
-In many cases there is an error on the last `go fmt`, but it's not a problem :sweat_smile:
