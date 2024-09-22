@@ -83,14 +83,15 @@ module RubyHToGo
     end
 
     def copy_go_files
-      # FIXME: This is a temporary process until all possible contents of `ruby/*.go` are replaced
-      #       with automatically generated files. (Currently output to `dist/` as it is incomplete)
+      src_dir = File.expand_path("../../../../ruby", __dir__)
+      return if src_dir == dist_dir
+
       %w[
         c_types.go
         types.go
         wrapper.go
       ].each do |file|
-        FileUtils.cp(File.join(__dir__, "..", "..", "..", "..", "ruby", file), dist_dir)
+        FileUtils.cp(File.join(src_dir, file), dist_dir)
       end
     end
 
