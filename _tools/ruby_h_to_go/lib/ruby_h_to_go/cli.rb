@@ -43,7 +43,7 @@ module RubyHToGo
       end
 
       type_definitions.each do |definition|
-        definition.write_go_file(dist_dir:, header_dir:)
+        definition.write_go_file(dist_dir)
       end
     end
 
@@ -53,7 +53,7 @@ module RubyHToGo
       end
 
       struct_definitions.each do |definition|
-        definition.write_go_file(dist_dir:, header_dir:)
+        definition.write_go_file(dist_dir)
       end
     end
 
@@ -63,7 +63,7 @@ module RubyHToGo
       end
 
       function_definitions.each do |definition|
-        definition.write_go_file(dist_dir:, header_dir:)
+        definition.write_go_file(dist_dir)
       end
     end
 

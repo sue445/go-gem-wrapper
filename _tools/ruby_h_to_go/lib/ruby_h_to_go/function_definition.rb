@@ -31,8 +31,7 @@ module RubyHToGo
 
     # Write definition as go file
     # @param [String] dist_dir
-    # @param [String] header_dir
-    def write_go_file(dist_dir:, header_dir:)
+    def write_go_file(dist_dir)
       go_file_path = File.join(dist_dir, generate_go_file_name(header_dir:, ruby_header_file: filepath))
 
       generate_initial_go_file(go_file_path)
