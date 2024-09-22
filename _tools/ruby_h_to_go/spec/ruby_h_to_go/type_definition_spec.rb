@@ -2,7 +2,9 @@
 
 RSpec.describe RubyHToGo::TypeDefinition do
   describe "#generate_go_content" do
-    subject { RubyHToGo::TypeDefinition.new(definition).generate_go_content }
+    subject { RubyHToGo::TypeDefinition.new(definition:, header_dir:).generate_go_content }
+
+    let(:header_dir) { "/path/to/include" }
 
     context "rb_data_type_struct" do
       let(:definition) do

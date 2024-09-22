@@ -2,7 +2,9 @@
 
 RSpec.describe RubyHToGo::FunctionDefinition do
   describe "#generate_go_content" do
-    subject { RubyHToGo::FunctionDefinition.new(definition).generate_go_content }
+    subject { RubyHToGo::FunctionDefinition.new(definition:, header_dir:).generate_go_content }
+
+    let(:header_dir) { "/path/to/include" }
 
     context "rb_define_method" do
       let(:definition) do

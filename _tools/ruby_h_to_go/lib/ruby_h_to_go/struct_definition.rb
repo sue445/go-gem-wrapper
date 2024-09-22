@@ -3,6 +3,10 @@
 module RubyHToGo
   # Proxy class for generating go type
   class StructDefinition
+    # @!attribute [r] header_dir
+    #   @return [String]
+    attr_reader :header_dir
+
     extend Forwardable
 
     def_delegators :@definition, :==, :name, :name=, :filepath, :filepath=
@@ -10,8 +14,10 @@ module RubyHToGo
     include GeneratorHelper
 
     # @param definition [RubyHeaderParser::StructDefinition]
-    def initialize(definition)
+    # @param header_dir [String]
+    def initialize(definition:, header_dir:)
       @definition = definition
+      @header_dir = header_dir
     end
 
     # Write definition as go file
