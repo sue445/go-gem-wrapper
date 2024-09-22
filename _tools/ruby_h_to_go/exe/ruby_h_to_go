@@ -12,13 +12,17 @@ require "fileutils"
 require_relative "../lib/ruby_h_to_go"
 
 header_dir = nil
+dist_dir = nil
 
 opt = OptionParser.new
 opt.on("-H", "--header-dir HEADER_DIR", "ruby header dir (default: #{RbConfig::CONFIG["rubyhdrdir"]})") { |v| header_dir = v }
+opt.on("-D", "--dist-dir DIST_DIR", "dist dir for auto-generated Go code (default: #{File.join(__dir__, "..", "dist")})") { |v| dist_dir = v }
 
 opt.parse!(ARGV)
 
 # Use default header file and include paths
 header_dir ||= RbConfig::CONFIG["rubyhdrdir"]
 
-RubyHToGo::Cli.new(header_dir:, dist_dir: File.join(__dir__, "..", "dist")).perform
+dist_dir ||= File.join(__dir__, "..", "dist")
+
+RubyHToGo::Cli.new(header_dir:, dist_dir:).perform
