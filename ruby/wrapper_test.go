@@ -2,9 +2,10 @@ package ruby_test
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/sue445/go-gem-wrapper/ruby"
-	"testing"
 )
 
 func TestBool2Int(t *testing.T) {
