@@ -138,6 +138,28 @@ RSpec.describe RubyHeaderParser::Parser do
     end
   end
 
+  describe "#extract_static_inline_function_definitions" do
+    subject(:definitions) { parser.extract_static_inline_function_definitions }
+
+    its(:count) { should be > 0 }
+
+    context "rb_num2int_inline" do
+      subject { definitions.find { |d| d.name == "rb_num2int_inline" } }
+
+      let(:args) do
+        [
+          argument(type: "VALUE", name: "x"),
+        ]
+      end
+
+      its(:name)       { should eq "rb_num2int_inline" }
+      its(:definition) { should eq "rb_num2int_inline(VALUE x)" }
+      its(:filepath)   { should be_end_with "/ruby/internal/arithmetic/int.h" }
+      its(:typeref)    { should eq typedef(type: "int") }
+      its(:args)       { should eq args }
+    end
+  end
+
   describe "#extract_struct_definitions" do
     subject(:definitions) { parser.extract_struct_definitions }
 
