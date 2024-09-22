@@ -15,7 +15,7 @@ header_dir = nil
 dist_dir = nil
 
 DEFAULT_RUBY_HEADER_DIR = RbConfig::CONFIG["rubyhdrdir"]
-DEFAULT_DIST_DIR = File.join(__dir__, "..", "dist")
+DEFAULT_DIST_DIR = File.expand_path("../dist", __dir__)
 
 opt = OptionParser.new
 opt.on("-H", "--header-dir HEADER_DIR", "ruby header dir (default: #{DEFAULT_RUBY_HEADER_DIR})") { |v| header_dir = v }
