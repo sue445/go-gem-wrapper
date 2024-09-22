@@ -33,10 +33,14 @@ module RubyHToGo
 
     # @return [String]
     def generate_go_content
+      github_url = generate_include_github_url(header_dir:, ruby_header_file: filepath)
+
       go_type_name = snake_to_camel(name)
 
       <<~GO
         // #{go_type_name} is a type for passing `C.#{name}` in and out of package
+        //
+        // ref. #{github_url}
         type #{go_type_name} C.#{name}
 
       GO

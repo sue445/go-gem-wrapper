@@ -17,6 +17,8 @@ RSpec.describe RubyHToGo::StructDefinition do
       let(:go_content) do
         <<~GO
           // RbDataTypeStruct is a type for passing `C.rb_data_type_struct` in and out of package
+          //
+          // ref. https://github.com/ruby/ruby/blob/master/include/ruby/internal/core/rtypeddata.h
           type RbDataTypeStruct C.rb_data_type_struct
 
         GO

@@ -29,6 +29,8 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           // Original definition is following
           //
           //	void rb_define_method(VALUE klass, const char *mid, VALUE (*func)(ANYARGS), int arity)
+          //
+          // ref. https://github.com/ruby/ruby/blob/master/include/ruby/internal/method.h
           func RbDefineMethod(klass VALUE, mid string, arg3 unsafe.Pointer, arity int)  {
           char, clean := string2Char(mid)
           defer clean()
@@ -67,6 +69,8 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           // Original definition is following
           //
           //	VALUE rb_block_call(VALUE obj, ID mid, int argc, const VALUE *argv, rb_block_call_func_t proc, VALUE data2)
+          //
+          // ref. https://github.com/ruby/ruby/blob/master/include/ruby/internal/iterator.h
           func RbBlockCall(obj VALUE, mid ID, argc int, argv *VALUE, proc RbBlockCallFuncT, data2 VALUE) VALUE {
           var cArgv C.VALUE
           ret := VALUE(C.rb_block_call(C.VALUE(obj), C.ID(mid), C.int(argc), &cArgv, C.rb_block_call_func_t(proc), C.VALUE(data2)))
@@ -103,6 +107,8 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           // Original definition is following
           //
           //	VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)
+          //
+          // ref. https://github.com/ruby/ruby/blob/master/include/ruby/internal/eval.h
           func RbFuncallv(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
           ret := VALUE(C.rb_funcallv(C.VALUE(recv), C.ID(mid), C.int(argc), toCArray[VALUE, C.VALUE](argv)))
           return ret
@@ -135,6 +141,8 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           // Original definition is following
           //
           //	void *rb_thread_call_with_gvl(void *(*func)(void *), void *data1)
+          //
+          // ref. https://github.com/ruby/ruby/blob/master/include/rubythread.h
           func RbThreadCallWithGvl(arg1 unsafe.Pointer, data1 unsafe.Pointer) unsafe.Pointer {
           ret := unsafe.Pointer(C.rb_thread_call_with_gvl(toCPointer(arg1), toCPointer(data1)))
           return ret
@@ -167,6 +175,8 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           // Original definition is following
           //
           //	int rb_uv_to_utf8(char buf[6], unsigned long uv)
+          //
+          // ref. https://github.com/ruby/ruby/blob/master/include/intern/bignum.h
           func RbUvToUtf8(buf []Char, uv uint) int {
           ret := int(C.rb_uv_to_utf8(toCArray[Char, C.char](buf), C.ulong(uv)))
           return ret
