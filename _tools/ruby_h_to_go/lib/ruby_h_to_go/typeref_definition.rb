@@ -3,6 +3,10 @@
 module RubyHToGo
   # Proxy class for generating typeref in go function
   class TyperefDefinition
+    # @!attribute [r] header_dir
+    #   @return [String]
+    attr_reader :header_dir
+
     extend Forwardable
 
     def_delegators :@definition, :==, :type, :type=, :pointer, :pointer=, :pointer?
@@ -10,8 +14,9 @@ module RubyHToGo
     include GeneratorHelper
 
     # @param definition [RubyHeaderParser::TyperefDefinition]
-    def initialize(definition)
+    def initialize(definition:, header_dir:)
       @definition = definition
+      @header_dir = header_dir
     end
 
     # @return [String]

@@ -3,6 +3,10 @@
 module RubyHToGo
   # Proxy class for generating go function
   class FunctionDefinition
+    # @!attribute [r] header_dir
+    #   @return [String]
+    attr_reader :header_dir
+
     extend Forwardable
 
     def_delegators :@definition, :==, :name, :name=, :definition, :definition=, :filepath, :filepath=
@@ -10,25 +14,25 @@ module RubyHToGo
     include GeneratorHelper
 
     # @param definition [RubyHeaderParser::FunctionDefinition]
-    def initialize(definition)
+    def initialize(definition:, header_dir:)
       @definition = definition
+      @header_dir = header_dir
     end
 
     # @return [RubyHToGo::TyperefDefinition]
     def typeref
-      @typeref ||= RubyHToGo::TyperefDefinition.new(@definition.typeref)
+      @typeref ||= RubyHToGo::TyperefDefinition.new(definition: @definition.typeref, header_dir:)
     end
 
     # @return [Array<RubyHToGo::ArgumentDefinition>]
     def args
-      @args ||= @definition.args.map { |arg| RubyHToGo::ArgumentDefinition.new(arg) }
+      @args ||= @definition.args.map { |arg| RubyHToGo::ArgumentDefinition.new(definition: arg, header_dir:) }
     end
 
     # Write definition as go file
     # @param [String] dist_dir
-    # @param [String] header_dir
-    def write_go_file(dist_dir:, header_dir:)
-      go_file_path = File.join(dist_dir, go_file_name(header_dir:, ruby_header_file: filepath))
+    def write_go_file(dist_dir)
+      go_file_path = File.join(dist_dir, generate_go_file_name(header_dir:, ruby_header_file: filepath))
 
       generate_initial_go_file(go_file_path)
 
@@ -44,12 +48,16 @@ module RubyHToGo
 
       go_function_typeref = typeref.go_function_typeref
 
+      github_url = generate_include_github_url(header_dir:, ruby_header_file: filepath)
+
       go_function_lines = [
         "// #{go_function_name} calls `#{name}` in C",
         "//",
         "// Original definition is following",
         "//",
         "//\t#{definition}",
+        "//",
+        "// ref. #{github_url}",
       ]
 
       go_function_lines << "func #{go_function_name}(#{go_function_args.join(", ")}) #{go_function_typeref} {"

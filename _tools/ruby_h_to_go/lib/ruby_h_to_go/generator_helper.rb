@@ -6,9 +6,18 @@ module RubyHToGo
     # @param header_dir [String]
     # @param ruby_header_file [String]
     # @return [String]
-    def go_file_name(header_dir:, ruby_header_file:)
+    def generate_go_file_name(header_dir:, ruby_header_file:)
       ruby_header_file.delete_prefix(header_dir + File::SEPARATOR).gsub(File::SEPARATOR, "_").
         gsub(/\.h$/, "_generated.go")
+    end
+
+    # Generate GitHub url in https://github.com/ruby/ruby
+    # @param header_dir [String]
+    # @param ruby_header_file [String]
+    # @return [String]
+    def generate_include_github_url(header_dir:, ruby_header_file:)
+      file = ruby_header_file.delete_prefix(header_dir + File::SEPARATOR)
+      "https://github.com/ruby/ruby/blob/master/include/#{file}"
     end
 
     # @param str [String]

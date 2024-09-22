@@ -38,23 +38,32 @@ module RubyHToGo
     end
 
     def write_type_definitions_to_go_file
-      type_definitions = parser.extract_type_definitions.map { |d| RubyHToGo::TypeDefinition.new(d) }
+      type_definitions = parser.extract_type_definitions.map do |definition|
+        RubyHToGo::TypeDefinition.new(definition:, header_dir:)
+      end
+
       type_definitions.each do |definition|
-        definition.write_go_file(dist_dir:, header_dir:)
+        definition.write_go_file(dist_dir)
       end
     end
 
     def write_struct_definitions_to_go_file
-      struct_definitions = parser.extract_struct_definitions.map { |d| RubyHToGo::StructDefinition.new(d) }
+      struct_definitions = parser.extract_struct_definitions.map do |definition|
+        RubyHToGo::StructDefinition.new(definition:, header_dir:)
+      end
+
       struct_definitions.each do |definition|
-        definition.write_go_file(dist_dir:, header_dir:)
+        definition.write_go_file(dist_dir)
       end
     end
 
     def write_function_definitions_to_go_file
-      function_definitions = parser.extract_function_definitions.map { |d| RubyHToGo::FunctionDefinition.new(d) }
+      function_definitions = parser.extract_function_definitions.map do |definition|
+        RubyHToGo::FunctionDefinition.new(definition:, header_dir:)
+      end
+
       function_definitions.each do |definition|
-        definition.write_go_file(dist_dir:, header_dir:)
+        definition.write_go_file(dist_dir)
       end
     end
 

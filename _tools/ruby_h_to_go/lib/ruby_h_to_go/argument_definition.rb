@@ -3,6 +3,10 @@
 module RubyHToGo
   # Proxy class for generating argument in go function
   class ArgumentDefinition
+    # @!attribute [r] header_dir
+    #   @return [String]
+    attr_reader :header_dir
+
     extend Forwardable
 
     def_delegators :@definition, :==, :type, :type=, :name, :name=, :pointer, :pointer=, :pointer?, :length, :length=
@@ -10,8 +14,10 @@ module RubyHToGo
     include GeneratorHelper
 
     # @param definition [RubyHeaderParser::ArgumentDefinition]
-    def initialize(definition)
+    # @param header_dir [String]
+    def initialize(definition:, header_dir:)
       @definition = definition
+      @header_dir = header_dir
     end
 
     C_NAME_TO_GO_NAME = {
