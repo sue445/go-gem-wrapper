@@ -6,6 +6,7 @@ gem "rake"
 gem "rspec"
 gem "rspec-its"
 gem "rspec-parameterized"
+gem "rspec-temp_dir"
 gem "rubocop", require: false
 gem "rubocop_auto_corrector", require: false
 gem "serverspec"

@@ -2,6 +2,7 @@
 
 require "rspec/its"
 require "rspec/parameterized"
+require "rspec/temp_dir"
 
 require_relative "../lib/ruby_header_parser"
 require_relative "../lib/ruby_h_to_go"
