@@ -55,6 +55,16 @@ module RubyHToGo
         RubyHToGo::FunctionDefinition.new(definition:, header_dir:)
       end
 
+      static_inline_function_definitions = parser.extract_static_inline_function_definitions.map do |definition|
+        RubyHToGo::FunctionDefinition.new(definition:, header_dir:)
+      end
+
+      static_inline_function_definitions.each do |static_inline_function_definition|
+        unless function_definitions.map(&:name).include?(static_inline_function_definition.name)
+          function_definitions << static_inline_function_definition
+        end
+      end
+
       function_definitions.each do |definition|
         definition.write_go_file(dist_dir)
       end
