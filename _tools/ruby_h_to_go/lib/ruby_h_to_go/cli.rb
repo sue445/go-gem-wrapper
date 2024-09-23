@@ -30,13 +30,6 @@ module RubyHToGo
       go_fmt
     end
 
-    private
-
-    # @return [RubyHeaderParser::Parser]
-    def parser
-      @parser ||= RubyHeaderParser::Parser.new(header_dir)
-    end
-
     def write_type_definitions_to_go_file
       type_definitions = parser.extract_type_definitions.map do |definition|
         RubyHToGo::TypeDefinition.new(definition:, header_dir:)
@@ -62,9 +55,26 @@ module RubyHToGo
         RubyHToGo::FunctionDefinition.new(definition:, header_dir:)
       end
 
+      static_inline_function_definitions = parser.extract_static_inline_function_definitions.map do |definition|
+        RubyHToGo::FunctionDefinition.new(definition:, header_dir:)
+      end
+
+      static_inline_function_definitions.each do |static_inline_function_definition|
+        unless function_definitions.map(&:name).include?(static_inline_function_definition.name)
+          function_definitions << static_inline_function_definition
+        end
+      end
+
       function_definitions.each do |definition|
         definition.write_go_file(dist_dir)
       end
+    end
+
+    private
+
+    # @return [RubyHeaderParser::Parser]
+    def parser
+      @parser ||= RubyHeaderParser::Parser.new(header_dir)
     end
 
     # Clean all generated files in dist/

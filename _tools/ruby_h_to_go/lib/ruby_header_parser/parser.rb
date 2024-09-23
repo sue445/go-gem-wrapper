@@ -2,7 +2,7 @@
 
 module RubyHeaderParser
   # parse `ruby.h` using `ctags`
-  class Parser
+  class Parser # rubocop:disable Metrics/ClassLength
     # @!attribute [r] header_dir
     #   @return [String]
     attr_reader :header_dir
@@ -19,43 +19,17 @@ module RubyHeaderParser
 
     # @return [Array<RubyHeaderParser::FunctionDefinition>]
     def extract_function_definitions
-      stdout = `ctags --recurse --c-kinds=p --languages=C --language-force=C --fields=+nS --extras=+q -f - #{header_dir}` # rubocop:disable Layout/LineLength
+      __extract_function_definitions(c_kinds: "p", is_parse_multiline_definition: true)
+    end
 
-      stdout.each_line.with_object([]) do |line, definitions|
-        parts = line.split("\t")
-
-        function_name = parts[0]
-
-        next unless data.should_generate_function?(function_name)
-
-        definition =
-          if parts[2].end_with?(";$/;\"")
-            parts[2].delete_prefix("/^").delete_suffix(";$/;\"")
-          else
-            line_num = Util.find_field(parts, "line").to_i
-            read_definition_from_header_file(parts[1], line_num).delete_suffix(";")
-          end
-
-        definition.gsub!(/\);.*/, ")")
-
-        args = parse_definition_args(function_name, Util.find_field(parts, "signature"))
-
-        # Exclude functions with variable-length arguments
-        next if args&.last&.type == "..."
-
-        definitions << FunctionDefinition.new(
-          definition:,
-          name:       parts[0],
-          filepath:   parts[1],
-          typeref:    create_typeref(definition, function_name),
-          args:,
-        )
-      end
+    # @return [Array<RubyHeaderParser::FunctionDefinition>]
+    def extract_static_inline_function_definitions
+      __extract_function_definitions(c_kinds: "+p-d", is_parse_multiline_definition: false)
     end
 
     # @return [Array<RubyHeaderParser::StructDefinition>]
     def extract_struct_definitions
-      stdout = `ctags --recurse --c-kinds=s --languages=C --language-force=C --fields=+n -f - #{header_dir}`
+      stdout = execute_ctags("--c-kinds=s --fields=+n")
 
       stdout.each_line.with_object([]) do |line, definitions|
         parts = line.split("\t")
@@ -73,7 +47,7 @@ module RubyHeaderParser
 
     # @return [Array<RubyHeaderParser::TyperefDefinition>]
     def extract_type_definitions
-      stdout = `ctags --recurse --c-kinds=t --languages=C --language-force=C --fields=+n -f - #{header_dir}`
+      stdout = execute_ctags("--c-kinds=t --fields=+n")
 
       stdout.each_line.with_object([]) do |line, definitions|
         parts = line.split("\t")
@@ -91,6 +65,46 @@ module RubyHeaderParser
 
     private
 
+    # @param c_kinds [String]
+    # @param is_parse_multiline_definition [Boolean]
+    # @return [Array<RubyHeaderParser::FunctionDefinition>]
+    def __extract_function_definitions(c_kinds:, is_parse_multiline_definition:)
+      stdout = execute_ctags("--c-kinds=#{c_kinds} --fields=+nS --extras=+q")
+
+      stdout.each_line.with_object([]) do |line, definitions|
+        parts = line.split("\t")
+
+        function_name = parts[0]
+
+        next unless data.should_generate_function?(function_name)
+
+        line_num = Util.find_field(parts, "line").to_i
+        definition =
+          parse_function_definition(filepath: parts[1], pattern: parts[2], line_num:, is_parse_multiline_definition:)
+
+        args = parse_definition_args(function_name, Util.find_field(parts, "signature"))
+
+        # Exclude functions with variable-length arguments
+        next if args&.last&.type == "..."
+
+        typeref_field = Util.find_field(parts, "typeref:typename")
+
+        definitions << FunctionDefinition.new(
+          definition:,
+          name:       parts[0],
+          filepath:   parts[1],
+          typeref:    create_typeref(definition:, function_name:, typeref_field:),
+          args:,
+        )
+      end
+    end
+
+    # @param args [String]
+    # @return [String]
+    def execute_ctags(args = "")
+      `ctags --recurse --languages=C --language-force=C #{args} -f - #{header_dir}`
+    end
+
     # @param file [String]
     # @param line_num [Integer]
     def read_definition_from_header_file(file, line_num)
@@ -105,6 +119,24 @@ module RubyHeaderParser
         end
       end
       ""
+    end
+
+    # @param filepath [String]
+    # @param pattern [String]
+    # @param line_num [Integer]
+    # @param is_parse_multiline_definition [Boolean]
+    # @return [String]
+    def parse_function_definition(filepath:, pattern:, line_num:, is_parse_multiline_definition:)
+      definition =
+        if pattern.end_with?("$/;\"")
+          pattern.delete_prefix("/^").delete_suffix("$/;\"")
+        elsif is_parse_multiline_definition
+          read_definition_from_header_file(filepath, line_num)
+        else
+          pattern.delete_prefix("/^")
+        end
+
+      definition.delete_suffix(";")
     end
 
     # @param function_name [String]
@@ -176,10 +208,17 @@ module RubyHeaderParser
 
     # @param definition [String]
     # @param function_name [String]
+    # @param typeref_field [String,nil]
     # @return [RubyHeaderParser::TyperefDefinition]
-    def create_typeref(definition, function_name)
-      typeref_type = definition[0...definition.index(function_name)].gsub("char *", "char*").strip
-      typeref_type = Util.sanitize_type(typeref_type)
+    def create_typeref(definition:, function_name:, typeref_field:)
+      typeref_type =
+        if typeref_field
+          typeref_field.gsub(/^RBIMPL_ATTR_NONNULL\s*\(\(\)\)/, "").strip
+        else
+          # parse typeref in definition
+          type = definition[0...definition.index(function_name)].gsub("char *", "char*").strip
+          Util.sanitize_type(type)
+        end
 
       typeref_pointer = nil
       if typeref_type.match?(/\*+$/)
