@@ -19,7 +19,7 @@ module RubyHeaderParser
 
     # @return [Array<RubyHeaderParser::FunctionDefinition>]
     def extract_function_definitions
-      stdout = `ctags --recurse --c-kinds=p --languages=C --language-force=C --fields=+nS --extras=+q -f - #{header_dir}` # rubocop:disable Layout/LineLength
+      stdout = execute_ctags("--c-kinds=p --fields=+nS --extras=+q")
 
       stdout.each_line.with_object([]) do |line, definitions|
         parts = line.split("\t")
@@ -55,7 +55,7 @@ module RubyHeaderParser
 
     # @return [Array<RubyHeaderParser::StructDefinition>]
     def extract_struct_definitions
-      stdout = `ctags --recurse --c-kinds=s --languages=C --language-force=C --fields=+n -f - #{header_dir}`
+      stdout = execute_ctags("--c-kinds=s --fields=+n")
 
       stdout.each_line.with_object([]) do |line, definitions|
         parts = line.split("\t")
@@ -73,7 +73,7 @@ module RubyHeaderParser
 
     # @return [Array<RubyHeaderParser::TyperefDefinition>]
     def extract_type_definitions
-      stdout = `ctags --recurse --c-kinds=t --languages=C --language-force=C --fields=+n -f - #{header_dir}`
+      stdout = execute_ctags("--c-kinds=t --fields=+n")
 
       stdout.each_line.with_object([]) do |line, definitions|
         parts = line.split("\t")
@@ -90,6 +90,12 @@ module RubyHeaderParser
     end
 
     private
+
+    # @param args [String]
+    # @return [String]
+    def execute_ctags(args = "")
+      `ctags --recurse --languages=C --language-force=C #{args} -f - #{header_dir}`
+    end
 
     # @param file [String]
     # @param line_num [Integer]
