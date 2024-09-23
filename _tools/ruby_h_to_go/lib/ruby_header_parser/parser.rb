@@ -216,11 +216,12 @@ module RubyHeaderParser
     def create_typeref(definition:, function_name:, typeref_field:)
       typeref_type =
         if typeref_field
-          typeref_field.gsub(/^RBIMPL_ATTR_NONNULL\s*\(\(\)\)/, "").strip
+          type = typeref_field.gsub(/[A-Z_]+\s*\(\(.*\)\)/, "").gsub("RUBY_SYMBOL_EXPORT_BEGIN", "")
+          Util.sanitize_type(type) # rubocop:disable Style/IdenticalConditionalBranches
         else
           # parse typeref in definition
           type = definition[0...definition.index(function_name)].gsub("char *", "char*").strip
-          Util.sanitize_type(type)
+          Util.sanitize_type(type) # rubocop:disable Style/IdenticalConditionalBranches
         end
 
       typeref_pointer = nil
