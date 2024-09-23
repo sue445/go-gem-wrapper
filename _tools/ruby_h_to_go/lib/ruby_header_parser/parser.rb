@@ -19,12 +19,12 @@ module RubyHeaderParser
 
     # @return [Array<RubyHeaderParser::FunctionDefinition>]
     def extract_function_definitions
-      __extract_function_definitions(c_kinds: "p", is_parse_multiline_definition: true)
+      __extract_function_definitions(c_kinds: "p", kind: "p", is_parse_multiline_definition: true)
     end
 
     # @return [Array<RubyHeaderParser::FunctionDefinition>]
     def extract_static_inline_function_definitions
-      __extract_function_definitions(c_kinds: "+p-d", is_parse_multiline_definition: false)
+      __extract_function_definitions(c_kinds: "+p-d", kind: "f", is_parse_multiline_definition: false)
     end
 
     # @return [Array<RubyHeaderParser::StructDefinition>]
@@ -66,9 +66,10 @@ module RubyHeaderParser
     private
 
     # @param c_kinds [String]
+    # @param kind [String]
     # @param is_parse_multiline_definition [Boolean]
     # @return [Array<RubyHeaderParser::FunctionDefinition>]
-    def __extract_function_definitions(c_kinds:, is_parse_multiline_definition:)
+    def __extract_function_definitions(c_kinds:, kind:, is_parse_multiline_definition:)
       stdout = execute_ctags("--c-kinds=#{c_kinds} --fields=+nS --extras=+q")
 
       stdout.each_line.with_object([]) do |line, definitions|
@@ -77,6 +78,8 @@ module RubyHeaderParser
         function_name = parts[0]
 
         next unless data.should_generate_function?(function_name)
+
+        next unless parts[3] == kind
 
         line_num = Util.find_field(parts, "line").to_i
         definition =
