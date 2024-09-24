@@ -30,6 +30,7 @@ module RubyHeaderParser
     # @return [Boolean]
     def should_generate_function?(function_name:, filepath:)
       return false if data["function"]["exclude_name"].any? { |format| format === function_name }
+      return false if data["function"]["exclude_file"].any? { |format| format === filepath }
 
       data["function"]["include_name"].any? { |format| format === function_name }
     end
@@ -40,6 +41,7 @@ module RubyHeaderParser
     # @return [Boolean]
     def should_generate_struct?(struct_name:, filepath:)
       return false if data["struct"]["exclude_name"].any? { |format| format === struct_name }
+      return false if data["struct"]["exclude_file"].any? { |format| format === filepath }
 
       data["struct"]["include_name"].any? { |format| format === struct_name }
     end
@@ -50,6 +52,7 @@ module RubyHeaderParser
     # @return [Boolean]
     def should_generate_type?(type_name:, filepath:)
       return false if data["type"]["exclude_name"].any? { |format| format === type_name }
+      return false if data["type"]["exclude_file"].any? { |format| format === filepath }
 
       data["type"]["include_name"].any? { |format| format === type_name }
     end
