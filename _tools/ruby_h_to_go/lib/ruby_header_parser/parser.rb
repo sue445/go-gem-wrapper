@@ -48,7 +48,6 @@ module RubyHeaderParser
         parts = line.split("\t")
 
         struct_name = parts[0]
-
         next unless data.should_generate_struct?(struct_name:)
 
         definitions << StructDefinition.new(
@@ -89,7 +88,7 @@ module RubyHeaderParser
         function_name = parts[0]
         filepath = parts[1]
 
-        next unless data.should_generate_function?(function_name:)
+        next unless data.should_generate_function?(function_name:, filepath: filepath_without_header_dir(filepath))
 
         next unless parts[3] == kind
 
