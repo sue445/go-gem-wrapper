@@ -22,14 +22,16 @@ module RubyHeaderParser
       :ref
     end
 
+    # rubocop:disable Style/CaseEquality
+
     # Whether generate C function to go
     # @param function_name [String]
     # @param filepath [String]
     # @return [Boolean]
     def should_generate_function?(function_name:, filepath:)
-      return false if data["function"]["exclude_name"].any? { |format| format === function_name } # rubocop:disable Style/CaseEquality
+      return false if data["function"]["exclude_name"].any? { |format| format === function_name }
 
-      data["function"]["include_name"].any? { |format| format === function_name } # rubocop:disable Style/CaseEquality
+      data["function"]["include_name"].any? { |format| format === function_name }
     end
 
     # Whether generate C struct to go
@@ -37,9 +39,9 @@ module RubyHeaderParser
     # @param filepath [String]
     # @return [Boolean]
     def should_generate_struct?(struct_name:, filepath:)
-      return false if data["struct"]["exclude_name"].any? { |format| format === struct_name } # rubocop:disable Style/CaseEquality
+      return false if data["struct"]["exclude_name"].any? { |format| format === struct_name }
 
-      data["struct"]["include_name"].any? { |format| format === struct_name } # rubocop:disable Style/CaseEquality
+      data["struct"]["include_name"].any? { |format| format === struct_name }
     end
 
     # Whether generate C type to go
@@ -47,9 +49,11 @@ module RubyHeaderParser
     # @param filepath [String]
     # @return [Boolean]
     def should_generate_type?(type_name:, filepath:)
-      return false if data["type"]["exclude_name"].any? { |format| format === type_name } # rubocop:disable Style/CaseEquality
+      return false if data["type"]["exclude_name"].any? { |format| format === type_name }
 
-      data["type"]["include_name"].any? { |format| format === type_name } # rubocop:disable Style/CaseEquality
+      data["type"]["include_name"].any? { |format| format === type_name }
     end
+
+    # rubocop:enable Style/CaseEquality
   end
 end

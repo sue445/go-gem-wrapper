@@ -37,6 +37,8 @@ function:
     # Available only in certain platform
     - !ruby/regexp /^rb_w32_/i
 
+  exclude_file: []
+
   pointer_hint:
     rb_funcallv:
       3: array
@@ -50,6 +52,8 @@ struct:
 
   exclude_name: []
 
+  exclude_file: []
+
 type:
   include_name:
     - !ruby/regexp /^rb_/i
@@ -60,3 +64,5 @@ type:
     - OnigPosition
 
   exclude_name: []
+
+  exclude_file: []
