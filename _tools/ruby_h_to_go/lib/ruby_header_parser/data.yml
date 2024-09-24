@@ -34,6 +34,9 @@ function:
     #        Exclude one of the function names because duplicate function names will result in an error.
     - rb_Hash
 
+    # Available only in certain platform
+    - !ruby/regexp /^rb_w32_/i
+
   pointer_hint:
     rb_funcallv:
       3: array

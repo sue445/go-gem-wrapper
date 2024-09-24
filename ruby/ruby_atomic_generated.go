@@ -14,31 +14,3 @@ import "C"
 //
 // ref. https://github.com/ruby/ruby/blob/master/include/ruby/atomic.h
 type RbAtomicT C.rb_atomic_t
-
-// RbW32AtomicCas calls `rb_w32_atomic_cas` in C
-//
-// Original definition is following
-//
-//	rb_w32_atomic_cas(volatile rb_atomic_t *var, rb_atomic_t oldval, rb_atomic_t newval)
-//
-// ref. https://github.com/ruby/ruby/blob/master/include/ruby/atomic.h
-func RbW32AtomicCas(v *RbAtomicT, oldval RbAtomicT, newval RbAtomicT) RbAtomicT {
-	var cV C.rb_atomic_t
-	ret := RbAtomicT(C.rb_w32_atomic_cas(&cV, C.rb_atomic_t(oldval), C.rb_atomic_t(newval)))
-	*v = RbAtomicT(cV)
-	return ret
-}
-
-// RbW32AtomicOr calls `rb_w32_atomic_or` in C
-//
-// Original definition is following
-//
-//	rb_w32_atomic_or(volatile rb_atomic_t *var, rb_atomic_t val)
-//
-// ref. https://github.com/ruby/ruby/blob/master/include/ruby/atomic.h
-func RbW32AtomicOr(v *RbAtomicT, val RbAtomicT) RbAtomicT {
-	var cV C.rb_atomic_t
-	ret := RbAtomicT(C.rb_w32_atomic_or(&cV, C.rb_atomic_t(val)))
-	*v = RbAtomicT(cV)
-	return ret
-}
