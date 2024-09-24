@@ -42,6 +42,8 @@ module RubyHeaderParser
     # @param type_name [String]
     # @return [Boolean]
     def should_generate_type?(type_name)
+      return false if data["type"]["deny_name"].any? { |format| format === type_name } # rubocop:disable Style/CaseEquality
+
       data["type"]["allow_name"].any? { |format| format === type_name } # rubocop:disable Style/CaseEquality
     end
   end

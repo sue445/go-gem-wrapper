@@ -53,3 +53,5 @@ type:
     - VALUE
     - regex_t
     - OnigPosition
+
+  deny_name:
