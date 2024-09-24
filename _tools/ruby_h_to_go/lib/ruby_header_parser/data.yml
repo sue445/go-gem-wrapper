@@ -1,9 +1,9 @@
 function:
-  allow_name:
+  include_name:
     - !ruby/regexp /^rb_/i
     - !ruby/regexp /^rstring_/i
 
-  deny_name:
+  exclude_name:
     # deprecated functions
     - rb_check_safe_str
     - rb_clear_constant_cache
@@ -41,12 +41,12 @@ function:
       3: array
 
 struct:
-  allow_name:
+  include_name:
     - !ruby/regexp /^rb_/i
     - re_registers
 
 type:
-  allow_name:
+  include_name:
     - !ruby/regexp /^rb_/i
     - !ruby/regexp /^st_/i
     - ID
@@ -54,4 +54,4 @@ type:
     - regex_t
     - OnigPosition
 
-  deny_name:
+  exclude_name:

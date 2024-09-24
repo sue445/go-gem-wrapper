@@ -26,25 +26,25 @@ module RubyHeaderParser
     # @param function_name [String]
     # @return [Boolean]
     def should_generate_function?(function_name)
-      return false if data["function"]["deny_name"].any? { |format| format === function_name } # rubocop:disable Style/CaseEquality
+      return false if data["function"]["exclude_name"].any? { |format| format === function_name } # rubocop:disable Style/CaseEquality
 
-      data["function"]["allow_name"].any? { |format| format === function_name } # rubocop:disable Style/CaseEquality
+      data["function"]["include_name"].any? { |format| format === function_name } # rubocop:disable Style/CaseEquality
     end
 
     # Whether generate C struct to go
     # @param struct_name [String]
     # @return [Boolean]
     def should_generate_struct?(struct_name)
-      data["struct"]["allow_name"].any? { |format| format === struct_name } # rubocop:disable Style/CaseEquality
+      data["struct"]["include_name"].any? { |format| format === struct_name } # rubocop:disable Style/CaseEquality
     end
 
     # Whether generate C type to go
     # @param type_name [String]
     # @return [Boolean]
     def should_generate_type?(type_name)
-      return false if data["type"]["deny_name"].any? { |format| format === type_name } # rubocop:disable Style/CaseEquality
+      return false if data["type"]["exclude_name"].any? { |format| format === type_name } # rubocop:disable Style/CaseEquality
 
-      data["type"]["allow_name"].any? { |format| format === type_name } # rubocop:disable Style/CaseEquality
+      data["type"]["include_name"].any? { |format| format === type_name } # rubocop:disable Style/CaseEquality
     end
   end
 end
