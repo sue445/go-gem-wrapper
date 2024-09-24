@@ -9,7 +9,7 @@ module RubyHeaderParser
 
     def initialize
       yaml = File.read(File.join(__dir__, "data.yml"))
-      @data = YAML.safe_load(yaml, permitted_classes: [Regexp])
+      @data = YAML.safe_load(yaml, aliases: true, permitted_classes: [Regexp])
     end
 
     # @param function_name [String]

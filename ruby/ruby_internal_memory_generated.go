@@ -27,20 +27,6 @@ func RbFreeTmpBuffer(store *VALUE) {
 	*store = VALUE(cStore)
 }
 
-// RbGcGuardedPtrVal calls `rb_gc_guarded_ptr_val` in C
-//
-// Original definition is following
-//
-//	volatile VALUE *rb_gc_guarded_ptr_val(volatile VALUE *ptr, VALUE val)
-//
-// ref. https://github.com/ruby/ruby/blob/master/include/ruby/internal/memory.h
-func RbGcGuardedPtrVal(ptr *VALUE, val VALUE) *VALUE {
-	var cPtr C.VALUE
-	ret := *VALUE(C.rb_gc_guarded_ptr_val(&cPtr, C.VALUE(val)))
-	*ptr = VALUE(cPtr)
-	return ret
-}
-
 // RbAllocTmpBuffer2 calls `rb_alloc_tmp_buffer2` in C
 //
 // Original definition is following

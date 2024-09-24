@@ -245,22 +245,6 @@ func RbStGetKey(arg1 *StTable, arg2 StDataT, arg3 *StDataT) int {
 	return ret
 }
 
-// RbStInitExistingTableWithSize calls `rb_st_init_existing_table_with_size` in C
-//
-// Original definition is following
-//
-//	st_table *rb_st_init_existing_table_with_size(st_table *tab, const struct st_hash_type *type, st_index_t size)
-//
-// ref. https://github.com/ruby/ruby/blob/master/include/ruby/st.h
-func RbStInitExistingTableWithSize(tab *StTable, r *StHashType, size StIndexT) *StTable {
-	var cTab C.st_table
-	var cR C.st_hash_type
-	ret := *StTable(C.rb_st_init_existing_table_with_size(&cTab, &cR, C.st_index_t(size)))
-	*tab = StTable(cTab)
-	*r = StHashType(cR)
-	return ret
-}
-
 // RbStInitNumtable calls `rb_st_init_numtable` in C
 //
 // Original definition is following
@@ -330,34 +314,6 @@ func RbStInitStrtable() *StTable {
 // ref. https://github.com/ruby/ruby/blob/master/include/ruby/st.h
 func RbStInitStrtableWithSize(arg1 StIndexT) *StTable {
 	ret := (*StTable)(C.rb_st_init_strtable_with_size(C.st_index_t(arg1)))
-	return ret
-}
-
-// RbStInitTable calls `rb_st_init_table` in C
-//
-// Original definition is following
-//
-//	st_table *rb_st_init_table(const struct st_hash_type *)
-//
-// ref. https://github.com/ruby/ruby/blob/master/include/ruby/st.h
-func RbStInitTable(arg1 *StHashType) *StTable {
-	var cArg1 C.st_hash_type
-	ret := *StTable(C.rb_st_init_table(&cArg1))
-	*arg1 = StHashType(cArg1)
-	return ret
-}
-
-// RbStInitTableWithSize calls `rb_st_init_table_with_size` in C
-//
-// Original definition is following
-//
-//	st_table *rb_st_init_table_with_size(const struct st_hash_type *, st_index_t)
-//
-// ref. https://github.com/ruby/ruby/blob/master/include/ruby/st.h
-func RbStInitTableWithSize(arg1 *StHashType, arg2 StIndexT) *StTable {
-	var cArg1 C.st_hash_type
-	ret := *StTable(C.rb_st_init_table_with_size(&cArg1, C.st_index_t(arg2)))
-	*arg1 = StHashType(cArg1)
 	return ret
 }
 

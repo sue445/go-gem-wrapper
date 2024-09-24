@@ -42,7 +42,7 @@ func RbNum2Ull(num VALUE) Ulonglong {
 //
 // ref. https://github.com/ruby/ruby/blob/master/include/ruby/internal/arithmetic/long_long.h
 func RbUll2Inum(num Ulonglong) VALUE {
-	ret := VALUE(C.rb_ull2inum(C.Ulonglong(num)))
+	ret := VALUE(C.rb_ull2inum(C.ulonglong(num)))
 	return ret
 }
 
@@ -78,6 +78,6 @@ func RbNum2UllInline(x VALUE) Ulonglong {
 //
 // ref. https://github.com/ruby/ruby/blob/master/include/ruby/internal/arithmetic/long_long.h
 func RbUll2NumInline(n Ulonglong) VALUE {
-	ret := VALUE(C.rb_ull2num_inline(C.Ulonglong(n)))
+	ret := VALUE(C.rb_ull2num_inline(C.ulonglong(n)))
 	return ret
 }

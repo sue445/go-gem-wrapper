@@ -82,20 +82,6 @@ func RbTimeTimespecInterval(num VALUE) Timespec {
 	return ret
 }
 
-// RbTimeTimespecNew calls `rb_time_timespec_new` in C
-//
-// Original definition is following
-//
-//	VALUE rb_time_timespec_new(const struct timespec *ts, int offset)
-//
-// ref. https://github.com/ruby/ruby/blob/master/include/ruby/internal/intern/time.h
-func RbTimeTimespecNew(ts *Timespec, offset int) VALUE {
-	var cTs C.timespec
-	ret := VALUE(C.rb_time_timespec_new(&cTs, C.int(offset)))
-	*ts = Timespec(cTs)
-	return ret
-}
-
 // RbTimeTimeval calls `rb_time_timeval` in C
 //
 // Original definition is following
@@ -118,17 +104,4 @@ func RbTimeTimeval(time VALUE) Timeval {
 func RbTimeUtcOffset(time VALUE) VALUE {
 	ret := VALUE(C.rb_time_utc_offset(C.VALUE(time)))
 	return ret
-}
-
-// RbTimespecNow calls `rb_timespec_now` in C
-//
-// Original definition is following
-//
-//	void rb_timespec_now(struct timespec *ts)
-//
-// ref. https://github.com/ruby/ruby/blob/master/include/ruby/internal/intern/time.h
-func RbTimespecNow(ts *Timespec) {
-	var cTs C.timespec
-	C.rb_timespec_now(&cTs)
-	*ts = Timespec(cTs)
 }

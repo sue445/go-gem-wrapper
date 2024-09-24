@@ -237,15 +237,3 @@ func RbYieldValuesKw(n int, argv *VALUE, kw_splat int) VALUE {
 	*argv = VALUE(cArgv)
 	return ret
 }
-
-// RbIterateDeprecated calls `rb_iterate_deprecated` in C
-//
-// Original definition is following
-//
-//	rb_iterate_deprecated(VALUE (*iter)(VALUE), VALUE data1, rb_block_call_func_t bl, VALUE data2)
-//
-// ref. https://github.com/ruby/ruby/blob/master/include/ruby/internal/iterator.h
-func RbIterateDeprecated(arg1 unsafe.Pointer, data1 VALUE, bl RbBlockCallFuncT, data2 VALUE) VALUE {
-	ret := VALUE(C.rb_iterate_deprecated(toCPointer(arg1), C.VALUE(data1), C.rb_block_call_func_t(bl), C.VALUE(data2)))
-	return ret
-}

@@ -215,20 +215,6 @@ func RbGcStat(key_or_buf VALUE) SizeT {
 	return ret
 }
 
-// RbGcUnprotectLogging calls `rb_gc_unprotect_logging` in C
-//
-// Original definition is following
-//
-//	void rb_gc_unprotect_logging(void *objptr, const char *filename, int line)
-//
-// ref. https://github.com/ruby/ruby/blob/master/include/ruby/internal/gc.h
-func RbGcUnprotectLogging(objptr unsafe.Pointer, filename string, line int) {
-	char, clean := string2Char(filename)
-	defer clean()
-
-	C.rb_gc_unprotect_logging(toCPointer(objptr), char, C.int(line))
-}
-
 // RbGcUnregisterAddress calls `rb_gc_unregister_address` in C
 //
 // Original definition is following
