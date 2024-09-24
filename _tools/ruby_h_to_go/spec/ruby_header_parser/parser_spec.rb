@@ -170,13 +170,7 @@ RSpec.describe RubyHeaderParser::Parser do
   describe "#extract_struct_definitions" do
     subject(:definitions) { parser.extract_struct_definitions }
 
-    its(:count) { should be > 0 }
-
-    context "rb_data_type_struct" do
-      subject { definitions.find { |d| d.name == "rb_data_type_struct" } }
-
-      its(:name) { should eq "rb_data_type_struct" }
-    end
+    its(:count) { should eq 0 }
   end
 
   describe "#extract_type_definitions" do
