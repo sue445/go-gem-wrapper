@@ -13,6 +13,10 @@ RSpec.describe RubyHToGo::Cli do
   describe "#perform" do
     subject { cli.perform }
 
+    before do
+      FileUtils.cp(File.join(project_root_dir, "go.mod"), temp_dir)
+    end
+
     it { expect { subject }.not_to raise_error }
   end
 end
