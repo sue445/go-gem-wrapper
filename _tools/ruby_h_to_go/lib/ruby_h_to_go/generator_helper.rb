@@ -101,9 +101,9 @@ module RubyHToGo
       when "unsigned short"
         return "C.ushort"
       when "LONG_LONG"
-        return "C.Longlong"
+        return "C.longlong"
       when "unsigned LONG_LONG"
-        return "C.Ulonglong"
+        return "C.ulonglong"
       when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/, "RUBY_DATA_FUNC"
         return "toCPointer"
       end
