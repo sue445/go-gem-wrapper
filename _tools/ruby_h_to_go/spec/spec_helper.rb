@@ -111,3 +111,8 @@ RSpec.configure do |config|
     meta[:aggregate_failures] = true
   end
 end
+
+# @return [String]
+def project_root_dir
+  File.expand_path("../../..", __dir__)
+end

@@ -21,7 +21,7 @@ defaults:
 
 jobs:
   test:
-    name: "test (Ruby ${{ matrix.ruby }})"
+    name: "test (Go ${{ matrix.golang }}, Ruby ${{ matrix.ruby }})"
 
     runs-on: ubuntu-latest
 
@@ -29,11 +29,19 @@ jobs:
       fail-fast: false
 
       matrix:
+        golang:
+          # TODO: Enable after repo is published
+          # - "1.22"
+          - "1.23"
         ruby:
           - "3.3"
 
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.golang }}
 
       - uses: ruby/setup-ruby@v1
         with:
@@ -42,6 +50,8 @@ jobs:
 
       - run: sudo apt-get update
       - run: sudo apt-get install -y universal-ctags
+
+      - run: go install golang.org/x/tools/cmd/goimports@latest
 
       - run: bundle exec rspec
 

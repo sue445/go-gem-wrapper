@@ -143,6 +143,11 @@ RSpec.describe RubyHeaderParser::Parser do
 
     its(:count) { should be > 0 }
 
+    it "should not return type defined in typedef" do
+      definition_names = definitions.map(&:name)
+      expect(definition_names).not_to include("rb_event_flag_t")
+    end
+
     context "rb_num2int_inline" do
       subject { definitions.find { |d| d.name == "rb_num2int_inline" } }
 

@@ -10,20 +10,12 @@ RSpec.describe RubyHToGo::Cli do
     )
   end
 
-  describe "#write_type_definitions_to_go_file" do
-    subject { cli.write_type_definitions_to_go_file }
+  describe "#perform" do
+    subject { cli.perform }
 
-    it { expect { subject }.not_to raise_error }
-  end
-
-  describe "#write_struct_definitions_to_go_file" do
-    subject { cli.write_struct_definitions_to_go_file }
-
-    it { expect { subject }.not_to raise_error }
-  end
-
-  describe "#write_function_definitions_to_go_file" do
-    subject { cli.write_function_definitions_to_go_file }
+    before do
+      FileUtils.cp(File.join(project_root_dir, "go.mod"), temp_dir)
+    end
 
     it { expect { subject }.not_to raise_error }
   end
