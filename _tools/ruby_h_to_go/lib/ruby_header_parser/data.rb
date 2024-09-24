@@ -35,6 +35,8 @@ module RubyHeaderParser
     # @param struct_name [String]
     # @return [Boolean]
     def should_generate_struct?(struct_name)
+      return false if data["struct"]["exclude_name"].any? { |format| format === struct_name } # rubocop:disable Style/CaseEquality
+
       data["struct"]["include_name"].any? { |format| format === struct_name } # rubocop:disable Style/CaseEquality
     end
 

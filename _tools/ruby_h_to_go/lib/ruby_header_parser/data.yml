@@ -48,6 +48,8 @@ struct:
     - !ruby/regexp /^rb_/i
     - re_registers
 
+  exclude_name: []
+
 type:
   include_name:
     - !ruby/regexp /^rb_/i
