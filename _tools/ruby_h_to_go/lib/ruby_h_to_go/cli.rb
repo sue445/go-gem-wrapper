@@ -43,6 +43,8 @@ module RubyHToGo
       end
 
       type_definitions.each do |definition|
+        next unless target_header_file?(definition.filepath)
+
         definition.write_go_file(dist_dir)
       end
     end
@@ -53,6 +55,8 @@ module RubyHToGo
       end
 
       struct_definitions.each do |definition|
+        next unless target_header_file?(definition.filepath)
+
         definition.write_go_file(dist_dir)
       end
     end
@@ -73,6 +77,8 @@ module RubyHToGo
       end
 
       function_definitions.each do |definition|
+        next unless target_header_file?(definition.filepath)
+
         definition.write_go_file(dist_dir)
       end
     end
@@ -108,6 +114,12 @@ module RubyHToGo
       Dir.chdir(dist_dir) do
         system("go fmt", exception: true)
       end
+    end
+
+    # @param filename [String]
+    # @return [Boolean]
+    def target_header_file?(filename)
+      File.extname(filename) == ".h"
     end
   end
 end
