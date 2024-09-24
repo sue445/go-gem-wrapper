@@ -54,4 +54,4 @@ type:
     - regex_t
     - OnigPosition
 
-  exclude_name:
+  exclude_name: []
