@@ -110,7 +110,14 @@ module RubyHToGo
         go_function_lines << call_c_method
         go_function_lines.push(*after_call_function_lines)
       else
-        go_function_lines << "ret := #{go_function_typeref}(#{call_c_method})"
+        cast_func =
+          if go_function_typeref.start_with?("*")
+            "(#{go_function_typeref})"
+          else
+            go_function_typeref
+          end
+
+        go_function_lines << "ret := #{cast_func}(#{call_c_method})"
         go_function_lines.push(*after_call_function_lines)
         go_function_lines << "return ret"
       end

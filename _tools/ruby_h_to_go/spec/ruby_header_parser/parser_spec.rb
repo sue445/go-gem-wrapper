@@ -136,6 +136,20 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typedef(type: "int") }
       its(:args)       { should eq args }
     end
+
+    context "rb_errno_ptr" do
+      subject { definitions.find { |d| d.name == "rb_errno_ptr" } }
+
+      let(:args) do
+        []
+      end
+
+      its(:name)       { should eq "rb_errno_ptr" }
+      its(:definition) { should eq "int *rb_errno_ptr(void)" }
+      its(:filepath)   { should be_end_with "/ruby/ruby.h" }
+      its(:typeref)    { should eq typedef(type: "int", pointer: :ref) }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_static_inline_function_definitions" do

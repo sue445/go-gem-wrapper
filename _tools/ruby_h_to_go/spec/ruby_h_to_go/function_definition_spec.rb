@@ -187,5 +187,36 @@ RSpec.describe RubyHToGo::FunctionDefinition do
 
       it { should eq go_content }
     end
+
+    context "rb_errno_ptr" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_errno_ptr",
+          definition: "int *rb_errno_ptr(void)",
+          filepath:   "/path/to/include/ruby/ruby.h",
+          typeref:    typedef(type: "int", pointer: :ref),
+          args:       [],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbErrnoPtr calls `rb_errno_ptr` in C
+          //
+          // Original definition is following
+          //
+          //	int *rb_errno_ptr(void)
+          //
+          // ref. https://github.com/ruby/ruby/blob/master/include/ruby/ruby.h
+          func RbErrnoPtr() *int {
+          ret := (*int)(C.rb_errno_ptr())
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
   end
 end
