@@ -76,14 +76,14 @@ module RubyHeaderParser
         parts = line.split("\t")
 
         function_name = parts[0]
+        filepath = parts[1]
 
         next unless data.should_generate_function?(function_name)
 
         next unless parts[3] == kind
 
         line_num = Util.find_field(parts, "line").to_i
-        definition =
-          parse_function_definition(filepath: parts[1], pattern: parts[2], line_num:, is_parse_multiline_definition:)
+        definition = parse_function_definition(filepath:, pattern: parts[2], line_num:, is_parse_multiline_definition:)
 
         args = parse_definition_args(function_name, Util.find_field(parts, "signature"))
 
@@ -94,9 +94,9 @@ module RubyHeaderParser
 
         definitions << FunctionDefinition.new(
           definition:,
-          name:       parts[0],
-          filepath:   parts[1],
-          typeref:    create_typeref(definition:, function_name:, typeref_field:),
+          name:       function_name,
+          filepath:,
+          typeref:    create_typeref(definition:, function_name:, typeref_field:, filepath:, line_num:),
           args:,
         )
       end
@@ -212,17 +212,11 @@ module RubyHeaderParser
     # @param definition [String]
     # @param function_name [String]
     # @param typeref_field [String,nil]
+    # @param filepath [String]
+    # @param line_num [Integer]
     # @return [RubyHeaderParser::TyperefDefinition]
-    def create_typeref(definition:, function_name:, typeref_field:)
-      typeref_type =
-        if typeref_field
-          type = typeref_field.gsub(/[A-Z_]+\s*\(\(.*\)\)/, "").gsub("RUBY_SYMBOL_EXPORT_BEGIN", "")
-          Util.sanitize_type(type) # rubocop:disable Style/IdenticalConditionalBranches
-        else
-          # parse typeref in definition
-          type = definition[0...definition.index(function_name)].gsub("char *", "char*").strip
-          Util.sanitize_type(type) # rubocop:disable Style/IdenticalConditionalBranches
-        end
+    def create_typeref(definition:, function_name:, typeref_field:, filepath:, line_num:)
+      typeref_type = parse_typeref_type(definition:, function_name:, typeref_field:, filepath:, line_num:)
 
       typeref_pointer = nil
       if typeref_type.match?(/\*+$/)
@@ -231,6 +225,40 @@ module RubyHeaderParser
       end
 
       TyperefDefinition.new(type: typeref_type, pointer: typeref_pointer)
+    end
+
+    # @param definition [String]
+    # @param function_name [String]
+    # @param typeref_field [String,nil]
+    # @param filepath [String]
+    # @param line_num [Integer]
+    # @return [String]
+    def parse_typeref_type(definition:, function_name:, typeref_field:, filepath:, line_num:)
+      typeref_type =
+        if typeref_field
+          typeref_field.gsub(/[A-Z_]+\s*\(\(.*\)\)/, "").gsub("RUBY_SYMBOL_EXPORT_BEGIN", "")
+        else
+          # parse typeref in definition
+          definition[0...definition.index(function_name)].gsub("char *", "char*").strip
+        end
+
+      typeref_type = Util.sanitize_type(typeref_type)
+      return typeref_type unless typeref_type.empty?
+
+      # Check prev line
+      line = read_file_line(filepath:, line_num: line_num - 1)
+      return Util.sanitize_type(line) if line
+
+      ""
+    end
+
+    # @param filepath [String]
+    # @param line_num [Integer]
+    def read_file_line(filepath:, line_num:)
+      return nil if line_num < 1
+
+      lines = File.open(filepath, "rb") { |f| f.readlines(chomp: true) }
+      lines[line_num - 1]
     end
   end
 end

@@ -23,7 +23,7 @@ module RubyHeaderParser
     # @param type [String]
     # @return [String]
     def self.sanitize_type(type)
-      type.gsub(/(RUBY_EXTERN|enum|volatile|const|struct)\s+/i, "").gsub("const*", "").strip
+      type.gsub(/(RUBY_EXTERN|enum|volatile|const|struct|static\s+inline)\s+/i, "").gsub("const*", "").strip
     end
   end
 end
