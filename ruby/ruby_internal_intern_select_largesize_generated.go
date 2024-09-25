@@ -71,6 +71,26 @@ func RbFdInit(f *RbFdsetT) {
 	*f = RbFdsetT(cF)
 }
 
+// RbFdSelect calls `rb_fd_select` in C
+//
+// Original definition is following
+//
+//	int rb_fd_select(int nfds, rb_fdset_t *rfds, rb_fdset_t *wfds, rb_fdset_t *efds, struct timeval *timeout)
+//
+// ref. https://github.com/ruby/ruby/blob/master/include/ruby/internal/intern/select/largesize.h
+func RbFdSelect(nfds int, rfds *RbFdsetT, wfds *RbFdsetT, efds *RbFdsetT, timeout *Timeval) int {
+	var cRfds C.rb_fdset_t
+	var cWfds C.rb_fdset_t
+	var cEfds C.rb_fdset_t
+	var cTimeout C.struct_timeval
+	ret := int(C.rb_fd_select(C.int(nfds), &cRfds, &cWfds, &cEfds, &cTimeout))
+	*rfds = RbFdsetT(cRfds)
+	*wfds = RbFdsetT(cWfds)
+	*efds = RbFdsetT(cEfds)
+	*timeout = Timeval(cTimeout)
+	return ret
+}
+
 // RbFdSet calls `rb_fd_set` in C
 //
 // Original definition is following

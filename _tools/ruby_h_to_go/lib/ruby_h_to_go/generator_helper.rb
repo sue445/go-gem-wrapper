@@ -104,6 +104,10 @@ module RubyHToGo
         return "C.longlong"
       when "unsigned LONG_LONG"
         return "C.ulonglong"
+      when "timeval"
+        return "C.struct_timeval"
+      when "timespec"
+        return "C.struct_timespec"
       when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/, "RUBY_DATA_FUNC"
         return "toCPointer"
       end

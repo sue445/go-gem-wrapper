@@ -40,20 +40,11 @@ function:
     # FIXME: Workaround for "could not determine kind of name for C.rb_gc_unprotect_logging"
     - rb_gc_unprotect_logging
 
-    # FIXME: Workaround for "could not determine kind of name for C.timeval"
-    - rb_thread_fd_select
-    - rb_fd_select
-    - rb_thread_wait_for
-
     # FIXME: Workaround for "could not determine kind of name for C.rb_iterate_deprecated"
     - rb_iterate_deprecated
 
     # FIXME: Workaround for "could not determine kind of name for C.rb_gc_guarded_ptr_val"
     - rb_gc_guarded_ptr_val
-
-    # FIXME: Workaround for "could not determine kind of name for C.timespec"
-    - rb_time_timespec_new
-    - rb_timespec_now
 
     # FIXME: Workaround for "could not determine kind of name for C.st_hash_type"
     - rb_st_init_existing_table_with_size

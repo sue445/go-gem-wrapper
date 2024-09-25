@@ -388,6 +388,17 @@ func RbThreadWaitFd(fd int) int {
 	return ret
 }
 
+// RbThreadWaitFor calls `rb_thread_wait_for` in C
+//
+// Original definition is following
+//
+//	void rb_thread_wait_for(struct timeval time)
+//
+// ref. https://github.com/ruby/ruby/blob/master/include/ruby/internal/intern/thread.h
+func RbThreadWaitFor(time Timeval) {
+	C.rb_thread_wait_for(C.struct_timeval(time))
+}
+
 // RbThreadWakeup calls `rb_thread_wakeup` in C
 //
 // Original definition is following
