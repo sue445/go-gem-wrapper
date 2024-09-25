@@ -177,6 +177,22 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typedef(type: "int") }
       its(:args)       { should eq args }
     end
+
+    context "rb_int2num_inline" do
+      subject { definitions.find { |d| d.name == "rb_int2num_inline" } }
+
+      let(:args) do
+        [
+          argument(type: "int", name: "v"),
+        ]
+      end
+
+      its(:name)       { should eq "rb_int2num_inline" }
+      its(:definition) { should eq "rb_int2num_inline(int v)" }
+      its(:filepath)   { should be_end_with "/ruby/internal/arithmetic/int.h" }
+      its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_struct_definitions" do
