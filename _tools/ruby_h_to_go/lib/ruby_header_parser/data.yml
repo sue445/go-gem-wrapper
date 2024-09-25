@@ -16,10 +16,10 @@ function:
     - rb_dup_setup
     - rb_gc_force_recycle
     - rb_iterate
-    - rb_obj_infect
-    - rb_obj_infect_raw
-    - rb_obj_taint
-    - rb_obj_taint_raw
+    - RB_OBJ_INFECT
+    - RB_OBJ_INFECT_RAW
+    - RB_OBJ_TAINT
+    - RB_OBJ_TAINT_RAW
     - rb_obj_taintable
     - rb_obj_tainted
     - rb_obj_tainted_raw
