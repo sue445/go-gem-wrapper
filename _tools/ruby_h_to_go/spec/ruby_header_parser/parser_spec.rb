@@ -150,6 +150,20 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typedef(type: "int", pointer: :ref) }
       its(:args)       { should eq args }
     end
+
+    context "rb_block_proc" do
+      subject { definitions.find { |d| d.name == "rb_block_proc" } }
+
+      let(:args) do
+        []
+      end
+
+      its(:name)       { should eq "rb_block_proc" }
+      its(:definition) { should eq "VALUE rb_block_proc(void)" }
+      its(:filepath)   { should be_end_with "/ruby/internal/intern/proc.h" }
+      its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_static_inline_function_definitions" do
