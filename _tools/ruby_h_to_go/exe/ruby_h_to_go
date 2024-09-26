@@ -22,7 +22,7 @@ DEFAULT_RUBY_HEADER_FILE = File.join(RbConfig::CONFIG["rubyhdrdir"], "ruby.h")
 DEFAULT_INCLUDE_PATHS = [
   RbConfig::CONFIG["rubyarchhdrdir"],
   RbConfig::CONFIG["rubyhdrdir"],
-]
+].freeze
 
 DEFAULT_DIST_DIR = File.expand_path("../dist", __dir__)
 
