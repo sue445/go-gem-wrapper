@@ -8,7 +8,7 @@ RSpec.describe RubyHToGo::Cli do
       header_file:                   File.join(RbConfig::CONFIG["rubyhdrdir"], "ruby.h"),
       include_paths:                 [RbConfig::CONFIG["rubyarchhdrdir"], RbConfig::CONFIG["rubyhdrdir"]],
       dist_dir:                      temp_dir,
-      dist_preprocessed_header_file:
+      dist_preprocessed_header_file:,
     )
   end
 
