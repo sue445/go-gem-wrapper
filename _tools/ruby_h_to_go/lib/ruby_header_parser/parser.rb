@@ -116,7 +116,7 @@ include_paths: [RbConfig::CONFIG["rubyarchhdrdir"], RbConfig::CONFIG["rubyhdrdir
     # @return [String]
     def execute_ctags(args = "")
       unless File.exist?(dist_preprocessed_header_file)
-        include_args = include_paths.map {|path| "-I #{path}" }.join(" ")
+        include_args = include_paths.map { |path| "-I #{path}" }.join(" ")
         system("gcc -E #{include_args} #{header_file} -o #{dist_preprocessed_header_file}", exception: true)
       end
 
