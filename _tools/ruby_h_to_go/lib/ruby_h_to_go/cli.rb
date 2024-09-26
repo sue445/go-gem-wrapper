@@ -53,35 +53,31 @@ module RubyHToGo
 
     def write_type_definitions_to_go_file
       type_definitions = parser.extract_type_definitions.map do |definition|
-        RubyHToGo::TypeDefinition.new(definition:, header_dir: "")
+        RubyHToGo::TypeDefinition.new(definition:)
       end
 
       type_definitions.each do |definition|
-        next unless target_header_file?(definition.filepath)
-
         definition.write_go_file(dist_dir)
       end
     end
 
     def write_struct_definitions_to_go_file
       struct_definitions = parser.extract_struct_definitions.map do |definition|
-        RubyHToGo::StructDefinition.new(definition:, header_dir: "")
+        RubyHToGo::StructDefinition.new(definition:)
       end
 
       struct_definitions.each do |definition|
-        next unless target_header_file?(definition.filepath)
-
         definition.write_go_file(dist_dir)
       end
     end
 
     def write_function_definitions_to_go_file
       function_definitions = parser.extract_function_definitions.map do |definition|
-        RubyHToGo::FunctionDefinition.new(definition:, header_dir: "")
+        RubyHToGo::FunctionDefinition.new(definition:)
       end
 
       static_inline_function_definitions = parser.extract_static_inline_function_definitions.map do |definition|
-        RubyHToGo::FunctionDefinition.new(definition:, header_dir: "")
+        RubyHToGo::FunctionDefinition.new(definition:)
       end
 
       static_inline_function_definitions.each do |static_inline_function_definition|
@@ -91,8 +87,6 @@ module RubyHToGo
       end
 
       function_definitions.each do |definition|
-        next unless target_header_file?(definition.filepath)
-
         definition.write_go_file(dist_dir)
       end
     end
@@ -128,12 +122,6 @@ module RubyHToGo
       Dir.chdir(dist_dir) do
         system("go fmt", exception: true)
       end
-    end
-
-    # @param filename [String]
-    # @return [Boolean]
-    def target_header_file?(filename)
-      File.extname(filename) == ".h"
     end
   end
 end

@@ -3,30 +3,25 @@
 module RubyHToGo
   # Proxy class for generating go function
   class FunctionDefinition
-    # @!attribute [r] header_dir
-    #   @return [String]
-    attr_reader :header_dir
-
     extend Forwardable
 
-    def_delegators :@definition, :==, :name, :name=, :definition, :definition=, :filepath, :filepath=
+    def_delegators :@definition, :==, :name, :name=, :definition, :definition=
 
     include GeneratorHelper
 
     # @param definition [RubyHeaderParser::FunctionDefinition]
-    def initialize(definition:, header_dir:)
+    def initialize(definition:)
       @definition = definition
-      @header_dir = header_dir
     end
 
     # @return [RubyHToGo::TyperefDefinition]
     def typeref
-      @typeref ||= RubyHToGo::TyperefDefinition.new(definition: @definition.typeref, header_dir:)
+      @typeref ||= RubyHToGo::TyperefDefinition.new(definition: @definition.typeref)
     end
 
     # @return [Array<RubyHToGo::ArgumentDefinition>]
     def args
-      @args ||= @definition.args.map { |arg| RubyHToGo::ArgumentDefinition.new(definition: arg, header_dir:) }
+      @args ||= @definition.args.map { |arg| RubyHToGo::ArgumentDefinition.new(definition: arg) }
     end
 
     # Write definition as go file

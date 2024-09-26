@@ -51,8 +51,7 @@ module RubyHeaderParser
         next unless data.should_generate_struct?(struct_name)
 
         definitions << StructDefinition.new(
-          name:     struct_name,
-          filepath: parts[1],
+          name: struct_name,
         )
       end
     end
@@ -69,8 +68,7 @@ module RubyHeaderParser
         next unless data.should_generate_type?(type_name)
 
         definitions << TypeDefinition.new(
-          name:     type_name,
-          filepath: parts[1],
+          name: type_name,
         )
       end.uniq(&:name)
     end
@@ -107,7 +105,6 @@ module RubyHeaderParser
         definitions << FunctionDefinition.new(
           definition:,
           name:       function_name,
-          filepath:,
           typeref:    create_typeref(definition:, function_name:, typeref_field:, filepath:, line_num:),
           args:,
         )

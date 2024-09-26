@@ -11,10 +11,6 @@ module RubyHeaderParser
     #   @return [String]
     attr_accessor :definition
 
-    # @!attribute filepath
-    #   @return [String]
-    attr_accessor :filepath
-
     # @!attribute typeref
     #   @return [TyperefDefinition]
     attr_accessor :typeref
@@ -25,13 +21,11 @@ module RubyHeaderParser
 
     # @param name [String]
     # @param definition [String]
-    # @param filepath [String]
     # @param typeref [TyperefDefinition]
     # @param args [Array<ArgumentDefinition>]
-    def initialize(name:, definition:, filepath:, typeref:, args:)
+    def initialize(name:, definition:, typeref:, args:)
       @name = name
       @definition = definition
-      @filepath = filepath
       @typeref = typeref
       @args = args
     end
@@ -40,7 +34,7 @@ module RubyHeaderParser
     # @return [Boolean]
     def ==(other)
       other.is_a?(FunctionDefinition) && name == other.name && definition == other.definition &&
-        filepath == other.filepath && typeref == other.typeref && args == other.args
+        typeref == other.typeref && args == other.args
     end
   end
 end
