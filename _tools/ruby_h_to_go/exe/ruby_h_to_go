@@ -41,7 +41,8 @@ opt.on("-D", "--dist-dir DIST_DIR", "dist dir for auto-generated Go code (defaul
   dist_dir = v
 end
 
-opt.on("-p", "--dist-dir DIST_DIR", "dist preprocessed ruby header file (default: #{DEFAULT_DIST_PREPROCESSED_HEADER_FILE})") do |v|
+opt.on("-p", "--dist-dir DIST_DIR", 
+"dist preprocessed ruby header file (default: #{DEFAULT_DIST_PREPROCESSED_HEADER_FILE})") do |v|
   dist_preprocessed_header_file = v
 end
 
