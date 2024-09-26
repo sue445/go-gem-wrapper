@@ -8,27 +8,51 @@
 
 require "optparse"
 require "fileutils"
+require "tmpdir"
 
 require_relative "../lib/ruby_h_to_go"
 
-header_dir = nil
+header_file = nil
+include_paths = nil
 dist_dir = nil
+dist_preprocessed_header_file = nil
 
-DEFAULT_RUBY_HEADER_DIR = RbConfig::CONFIG["rubyhdrdir"]
+DEFAULT_RUBY_HEADER_FILE = File.join(RbConfig::CONFIG["rubyhdrdir"], "ruby.h")
+
+DEFAULT_INCLUDE_PATHS = [
+  RbConfig::CONFIG["rubyarchhdrdir"],
+  RbConfig::CONFIG["rubyhdrdir"],
+].freeze
+
 DEFAULT_DIST_DIR = File.expand_path("../dist", __dir__)
 
+DEFAULT_DIST_PREPROCESSED_HEADER_FILE = File.join(Dir.tmpdir, "ruby_preprocessed.h")
+
 opt = OptionParser.new
-opt.on("-H", "--header-dir HEADER_DIR", "ruby header dir (default: #{DEFAULT_RUBY_HEADER_DIR})") { |v| header_dir = v }
+opt.on("-H", "--header-file HEADER_FILE", "ruby header file (default: #{DEFAULT_RUBY_HEADER_FILE})") do |v|
+  header_file = v
+end
+
+opt.on("-I", "--include-path path1,path2", Array, "include paths (default: #{DEFAULT_INCLUDE_PATHS})") do |v|
+  include_paths = v
+end
 
 opt.on("-D", "--dist-dir DIST_DIR", "dist dir for auto-generated Go code (default: #{DEFAULT_DIST_DIR})") do |v|
   dist_dir = v
 end
 
+opt.on("-p", "--dist-dir DIST_DIR",
+       "dist preprocessed ruby header file (default: #{DEFAULT_DIST_PREPROCESSED_HEADER_FILE})") do |v|
+  dist_preprocessed_header_file = v
+end
+
 opt.parse!(ARGV)
 
 # Use default header file and include paths
-header_dir ||= DEFAULT_RUBY_HEADER_DIR
+header_file ||= DEFAULT_RUBY_HEADER_FILE
+include_paths ||= DEFAULT_INCLUDE_PATHS
 
 dist_dir ||= DEFAULT_DIST_DIR
+dist_preprocessed_header_file ||= DEFAULT_DIST_PREPROCESSED_HEADER_FILE
 
-RubyHToGo::Cli.new(header_dir:, dist_dir:).perform
+RubyHToGo::Cli.new(header_file:, include_paths:, dist_dir:, dist_preprocessed_header_file:).perform

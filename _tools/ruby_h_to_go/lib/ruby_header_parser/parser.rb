@@ -3,17 +3,30 @@
 module RubyHeaderParser
   # parse `ruby.h` using `ctags`
   class Parser # rubocop:disable Metrics/ClassLength
-    # @!attribute [r] header_dir
+    # @!attribute [r] header_file
     #   @return [String]
-    attr_reader :header_dir
+    attr_reader :header_file
+
+    # @!attribute [r] include_paths
+    #   @return [Array<String>]
+    attr_reader :include_paths
+
+    # @!attribute [r] dist_preprocessed_header_file
+    #   @return [String]
+    attr_reader :dist_preprocessed_header_file
 
     # @!attribute [r] data
     #   @return [RubyHeaderParser::Data]
     attr_reader :data
 
-    # @param header_dir [String]
-    def initialize(header_dir)
-      @header_dir = header_dir
+    # @param header_file [String] path to ruby.h
+    # @param include_paths [Array<String>]
+    # @param dist_preprocessed_header_file [String]
+    def initialize(dist_preprocessed_header_file:, header_file: "#{RbConfig::CONFIG["rubyhdrdir"]}/ruby.h",
+                   include_paths: [RbConfig::CONFIG["rubyarchhdrdir"], RbConfig::CONFIG["rubyhdrdir"]])
+      @header_file = header_file
+      @include_paths = include_paths
+      @dist_preprocessed_header_file = dist_preprocessed_header_file
       @data = Data.new
     end
 
@@ -39,8 +52,7 @@ module RubyHeaderParser
         next unless data.should_generate_struct?(struct_name)
 
         definitions << StructDefinition.new(
-          name:     struct_name,
-          filepath: parts[1],
+          name: struct_name,
         )
       end
     end
@@ -57,8 +69,7 @@ module RubyHeaderParser
         next unless data.should_generate_type?(type_name)
 
         definitions << TypeDefinition.new(
-          name:     type_name,
-          filepath: parts[1],
+          name: type_name,
         )
       end.uniq(&:name)
     end
@@ -95,7 +106,6 @@ module RubyHeaderParser
         definitions << FunctionDefinition.new(
           definition:,
           name:       function_name,
-          filepath:,
           typeref:    create_typeref(definition:, function_name:, typeref_field:, filepath:, line_num:),
           args:,
         )
@@ -105,7 +115,12 @@ module RubyHeaderParser
     # @param args [String]
     # @return [String]
     def execute_ctags(args = "")
-      `ctags --recurse --languages=C --language-force=C #{args} -f - #{header_dir}`
+      unless File.exist?(dist_preprocessed_header_file)
+        include_args = include_paths.map { |path| "-I #{path}" }.join(" ")
+        system("gcc -E #{include_args} #{header_file} -o #{dist_preprocessed_header_file}", exception: true)
+      end
+
+      `ctags --languages=C --language-force=C #{args} -f - #{dist_preprocessed_header_file}`
     end
 
     # @param file [String]
