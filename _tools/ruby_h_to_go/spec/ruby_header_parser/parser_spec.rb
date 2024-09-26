@@ -24,7 +24,7 @@ RSpec.describe RubyHeaderParser::Parser do
       end
 
       its(:name)       { should eq "rb_define_method" }
-      its(:definition) { should eq "void rb_define_method(VALUE klass, const char *mid, VALUE (*func)(ANYARGS), int arity)" } # rubocop:disable Layout/LineLength
+      its(:definition) { should eq "void rb_define_method(VALUE klass, const char *mid, VALUE (*func)(), int arity)" } # rubocop:disable Layout/LineLength
       its(:typeref)    { should eq typedef(type: "void") }
       its(:args)       { should eq args }
     end
