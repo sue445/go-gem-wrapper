@@ -32,7 +32,7 @@ module RubyHToGo
     # Write definition as go file
     # @param [String] dist_dir
     def write_go_file(dist_dir)
-      go_file_path = File.join(dist_dir, generate_go_file_name(header_dir:, ruby_header_file: filepath))
+      go_file_path = File.join(dist_dir, "function_generated.go")
 
       generate_initial_go_file(go_file_path)
 
@@ -48,16 +48,12 @@ module RubyHToGo
 
       go_function_typeref = typeref.go_function_typeref
 
-      github_url = generate_include_github_url(header_dir:, ruby_header_file: filepath)
-
       go_function_lines = [
         "// #{go_function_name} calls `#{name}` in C",
         "//",
         "// Original definition is following",
         "//",
         "//\t#{definition}",
-        "//",
-        "// ref. #{github_url}",
       ]
 
       go_function_lines << "func #{go_function_name}(#{go_function_args.join(", ")}) #{go_function_typeref} {"

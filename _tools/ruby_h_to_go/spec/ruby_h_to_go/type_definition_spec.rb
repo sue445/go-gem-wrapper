@@ -17,8 +17,6 @@ RSpec.describe RubyHToGo::TypeDefinition do
       let(:go_content) do
         <<~GO
           // VALUE is a type for passing `C.VALUE` in and out of package
-          //
-          // ref. https://github.com/ruby/ruby/blob/master/include/ruby/internal/value.h
           type VALUE C.VALUE
 
         GO
