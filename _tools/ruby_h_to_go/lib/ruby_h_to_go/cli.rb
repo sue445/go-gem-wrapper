@@ -38,10 +38,8 @@ module RubyHToGo
       write_function_definitions_to_go_file
 
       copy_go_files
-
-      # FIXME: Enable after
-      # remove_unused_imports
-      # go_fmt
+      remove_unused_imports
+      go_fmt
     end
 
     private
