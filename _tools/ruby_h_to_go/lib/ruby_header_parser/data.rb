@@ -26,33 +26,27 @@ module RubyHeaderParser
 
     # Whether generate C function to go
     # @param function_name [String]
-    # @param filepath [String]
     # @return [Boolean]
-    def should_generate_function?(function_name:, filepath:)
+    def should_generate_function?(function_name:)
       return false if data["function"]["exclude_name"].any? { |format| format === function_name }
-      return false if data["function"]["exclude_file"].any? { |format| format === filepath }
 
       data["function"]["include_name"].any? { |format| format === function_name }
     end
 
     # Whether generate C struct to go
     # @param struct_name [String]
-    # @param filepath [String]
     # @return [Boolean]
-    def should_generate_struct?(struct_name:, filepath:)
+    def should_generate_struct?(struct_name:)
       return false if data["struct"]["exclude_name"].any? { |format| format === struct_name }
-      return false if data["struct"]["exclude_file"].any? { |format| format === filepath }
 
       data["struct"]["include_name"].any? { |format| format === struct_name }
     end
 
     # Whether generate C type to go
     # @param type_name [String]
-    # @param filepath [String]
     # @return [Boolean]
-    def should_generate_type?(type_name:, filepath:)
+    def should_generate_type?(type_name:)
       return false if data["type"]["exclude_name"].any? { |format| format === type_name }
-      return false if data["type"]["exclude_file"].any? { |format| format === filepath }
 
       data["type"]["include_name"].any? { |format| format === type_name }
     end

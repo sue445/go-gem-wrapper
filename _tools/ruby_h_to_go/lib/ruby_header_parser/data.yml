@@ -51,31 +51,6 @@ function:
     - rb_st_init_table
     - rb_st_init_table_with_size
 
-  exclude_file: &exclude_file
-    # FIXME: Workaround for "could not determine kind of name for C.xxxxxxx"
-    - ruby/atomic.h
-    - ruby/debug.h
-    - ruby/digest.h
-    - ruby/fiber/scheduler.h
-    - ruby/internal/core/rmatch.h
-    - ruby/internal/encoding/coderange.h
-    - ruby/internal/encoding/ctype.h
-    - ruby/internal/encoding/encoding.h
-    - ruby/internal/encoding/pathname.h
-    - ruby/internal/encoding/sprintf.h
-    - ruby/internal/encoding/string.h
-    - ruby/internal/encoding/symbol.h
-    - ruby/internal/encoding/transcode.h
-    - ruby/io/buffer.h
-    - ruby/io.h
-    - ruby/memory_view.h
-    - ruby/onigmo.h
-    - ruby/ractor.h
-    - ruby/random.h
-    - ruby/re.h
-    - ruby/thread.h
-    - ruby/thread_native.h
-
   pointer_hint:
     rb_funcallv:
       3: array
@@ -90,8 +65,6 @@ struct:
   exclude_name:
     - rb_data_type_struct
 
-  exclude_file: *exclude_file
-
 type:
   include_name:
     - !ruby/regexp /^rb_/i
@@ -102,5 +75,3 @@ type:
     - OnigPosition
 
   exclude_name: []
-
-  exclude_file: *exclude_file
