@@ -22,9 +22,7 @@ RSpec.describe RubyHeaderParser::Data do
   end
 
   describe "#should_generate_function?" do
-    subject { data.should_generate_function?(function_name:, filepath:) }
-
-    let(:filepath) { "ruby/internal/method.h" }
+    subject { data.should_generate_function?(function_name:) }
 
     context "rb function (denied)" do
       let(:function_name) { "rb_check_safe_str" }
@@ -46,9 +44,7 @@ RSpec.describe RubyHeaderParser::Data do
   end
 
   describe "#should_generate_struct?" do
-    subject { data.should_generate_struct?(struct_name:, filepath:) }
-
-    let(:filepath) { "ruby/internal/method.h" }
+    subject { data.should_generate_struct?(struct_name:) }
 
     context "rb struct" do
       let(:struct_name) { "rb_random_struct" }
@@ -64,9 +60,7 @@ RSpec.describe RubyHeaderParser::Data do
   end
 
   describe "#should_generate_type?" do
-    subject { data.should_generate_type?(type_name:, filepath:) }
-
-    let(:filepath) { "ruby/internal/method.h" }
+    subject { data.should_generate_type?(type_name:) }
 
     context "rb type" do
       let(:type_name) { "rb_data_type_t" }
