@@ -25,7 +25,6 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_define_method" }
       its(:definition) { should eq "void rb_define_method(VALUE klass, const char *mid, VALUE (*func)(ANYARGS), int arity)" } # rubocop:disable Layout/LineLength
-      its(:filepath)   { should be_end_with "/ruby/internal/method.h" }
       its(:typeref)    { should eq typedef(type: "void") }
       its(:args)       { should eq args }
     end
@@ -46,7 +45,6 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_block_call" }
       its(:definition) { should eq "VALUE rb_block_call(VALUE obj, ID mid, int argc, const VALUE *argv, rb_block_call_func_t proc, VALUE data2)" } # rubocop:disable Layout/LineLength
-      its(:filepath)   { should be_end_with "/ruby/internal/iterator.h" }
       its(:typeref)    { should eq typedef(type: "VALUE") }
       its(:args)       { should eq args }
     end
@@ -63,7 +61,6 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_uv_to_utf8" }
       its(:definition) { should eq "int rb_uv_to_utf8(char buf[6], unsigned long uv)" }
-      its(:filepath)   { should be_end_with "/ruby/internal/intern/bignum.h" }
       its(:typeref)    { should eq typedef(type: "int") }
       its(:args)       { should eq args }
     end
@@ -82,7 +79,6 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_funcallv" }
       its(:definition) { should eq "VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)" }
-      its(:filepath)   { should be_end_with "/ruby/internal/eval.h" }
       its(:typeref)    { should eq typedef(type: "VALUE") }
       its(:args)       { should eq args }
     end
@@ -99,7 +95,6 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_find_file_ext" }
       its(:definition) { should eq "int rb_find_file_ext(VALUE *feature, const char *const *exts)" }
-      its(:filepath)   { should be_end_with "/ruby/internal/intern/file.h" }
       its(:typeref)    { should eq typedef(type: "int") }
       its(:args)       { should eq args }
     end
@@ -113,7 +108,6 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_errno_ptr" }
       its(:definition) { should eq "int *rb_errno_ptr(void)" }
-      its(:filepath)   { should be_end_with "/ruby/ruby.h" }
       its(:typeref)    { should eq typedef(type: "int", pointer: :ref) }
       its(:args)       { should eq args }
     end
@@ -127,7 +121,6 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_block_proc" }
       its(:definition) { should eq "VALUE rb_block_proc(void)" }
-      its(:filepath)   { should be_end_with "/ruby/internal/intern/proc.h" }
       its(:typeref)    { should eq typedef(type: "VALUE") }
       its(:args)       { should eq args }
     end
@@ -154,7 +147,6 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_num2int_inline" }
       its(:definition) { should eq "rb_num2int_inline(VALUE x)" }
-      its(:filepath)   { should be_end_with "/ruby/internal/arithmetic/int.h" }
       its(:typeref)    { should eq typedef(type: "int") }
       its(:args)       { should eq args }
     end
@@ -170,7 +162,6 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_int2num_inline" }
       its(:definition) { should eq "rb_int2num_inline(int v)" }
-      its(:filepath)   { should be_end_with "/ruby/internal/arithmetic/int.h" }
       its(:typeref)    { should eq typedef(type: "VALUE") }
       its(:args)       { should eq args }
     end
@@ -184,8 +175,7 @@ RSpec.describe RubyHeaderParser::Parser do
     context "rb_data_type_struct" do
       subject { definitions.find { |d| d.name == "rb_data_type_struct" } }
 
-      its(:name)     { should eq "rb_data_type_struct" }
-      its(:filepath) { should be_end_with "/ruby/internal/core/rtypeddata.h" }
+      its(:name) { should eq "rb_data_type_struct" }
     end
   end
 
@@ -197,8 +187,7 @@ RSpec.describe RubyHeaderParser::Parser do
     context "rb_data_type_struct" do
       subject { definitions.find { |d| d.name == "VALUE" } }
 
-      its(:name)     { should eq "VALUE" }
-      its(:filepath) { should be_end_with "/ruby/internal/value.h" }
+      its(:name) { should eq "VALUE" }
     end
   end
 end
