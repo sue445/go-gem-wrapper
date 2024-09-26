@@ -22,7 +22,7 @@ module RubyHeaderParser
     # @param header_file [String] path to ruby.h
     # @param include_paths [Array<String>]
     # @param dist_preprocessed_header_file [String]
-    def initialize(dist_preprocessed_header_file:, header_file: "#{RbConfig::CONFIG["rubyhdrdir"]}/ruby.h", 
+    def initialize(dist_preprocessed_header_file:, header_file: "#{RbConfig::CONFIG["rubyhdrdir"]}/ruby.h",
                    include_paths: [RbConfig::CONFIG["rubyarchhdrdir"], RbConfig::CONFIG["rubyhdrdir"]])
       @header_file = header_file
       @include_paths = include_paths
