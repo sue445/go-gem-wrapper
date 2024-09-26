@@ -54,7 +54,7 @@ module RubyHToGo
         RubyHToGo::TypeDefinition.new(definition:)
       end
 
-      type_definitions.each do |definition|
+      type_definitions.sort_by(&:name).each do |definition|
         definition.write_go_file(dist_dir)
       end
     end
@@ -64,7 +64,7 @@ module RubyHToGo
         RubyHToGo::StructDefinition.new(definition:)
       end
 
-      struct_definitions.each do |definition|
+      struct_definitions.sort_by(&:name).each do |definition|
         definition.write_go_file(dist_dir)
       end
     end
@@ -84,7 +84,7 @@ module RubyHToGo
         end
       end
 
-      function_definitions.each do |definition|
+      function_definitions.sort_by(&:name).each do |definition|
         definition.write_go_file(dist_dir)
       end
     end
