@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe RubyHeaderParser::Parser do
-  let(:parser) { RubyHeaderParser::Parser.new(RbConfig::CONFIG["rubyhdrdir"]) }
+  include_context "uses temp dir"
+
+  let(:parser) { RubyHeaderParser::Parser.new(dist_preprocessed_header_file:) }
+  let(:dist_preprocessed_header_file) { File.join(temp_dir, "ruby_preprocessed.h") }
 
   describe "#extract_function_definitions" do
     subject(:definitions) { parser.extract_function_definitions }

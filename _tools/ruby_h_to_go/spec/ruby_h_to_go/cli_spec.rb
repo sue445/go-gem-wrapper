@@ -5,10 +5,14 @@ RSpec.describe RubyHToGo::Cli do
 
   let(:cli) do
     RubyHToGo::Cli.new(
-      header_dir: RbConfig::CONFIG["rubyhdrdir"],
-      dist_dir:   temp_dir,
+      header_file:                   File.join(RbConfig::CONFIG["rubyhdrdir"], "ruby.h"),
+      include_paths:                 [RbConfig::CONFIG["rubyarchhdrdir"], RbConfig::CONFIG["rubyhdrdir"]],
+      dist_dir:                      temp_dir,
+      dist_preprocessed_header_file:
     )
   end
+
+  let(:dist_preprocessed_header_file) { File.join(temp_dir, "ruby_preprocessed.h") }
 
   describe "#perform" do
     subject { cli.perform }

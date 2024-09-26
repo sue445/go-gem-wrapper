@@ -3,19 +3,31 @@
 module RubyHToGo
   # client for ruby_h_to_go
   class Cli
-    # @!attribute [r] header_dir
+    # @!attribute [r] header_file
     #   @return [String]
-    attr_reader :header_dir
+    attr_reader :header_file
+
+    # @!attribute [r] include_paths
+    #   @return [Array<String>]
+    attr_reader :include_paths
 
     # @!attribute [r] dist_dir
     #   @return [String]
     attr_reader :dist_dir
 
-    # @param header_dir [String]
+    # @!attribute [r] dist_preprocessed_header_file
+    #   @return [String]
+    attr_reader :dist_preprocessed_header_file
+
+    # @param header_file [String] path to ruby.h
+    # @param include_paths [Array<String>]
     # @param dist_dir [String]
-    def initialize(header_dir:, dist_dir:)
-      @header_dir = header_dir
+    # @param dist_preprocessed_header_file [String]
+    def initialize(header_file:, include_paths:, dist_dir:, dist_preprocessed_header_file:)
+      @header_file = header_file
+      @include_paths = include_paths
       @dist_dir = dist_dir
+      @dist_preprocessed_header_file = dist_preprocessed_header_file
     end
 
     def perform
@@ -34,12 +46,12 @@ module RubyHToGo
 
     # @return [RubyHeaderParser::Parser]
     def parser
-      @parser ||= RubyHeaderParser::Parser.new(header_dir)
+      @parser ||= RubyHeaderParser::Parser.new(header_file:, include_paths:, dist_preprocessed_header_file:)
     end
 
     def write_type_definitions_to_go_file
       type_definitions = parser.extract_type_definitions.map do |definition|
-        RubyHToGo::TypeDefinition.new(definition:, header_dir:)
+        RubyHToGo::TypeDefinition.new(definition:, header_dir: "")
       end
 
       type_definitions.each do |definition|
@@ -51,7 +63,7 @@ module RubyHToGo
 
     def write_struct_definitions_to_go_file
       struct_definitions = parser.extract_struct_definitions.map do |definition|
-        RubyHToGo::StructDefinition.new(definition:, header_dir:)
+        RubyHToGo::StructDefinition.new(definition:, header_dir: "")
       end
 
       struct_definitions.each do |definition|
@@ -63,11 +75,11 @@ module RubyHToGo
 
     def write_function_definitions_to_go_file
       function_definitions = parser.extract_function_definitions.map do |definition|
-        RubyHToGo::FunctionDefinition.new(definition:, header_dir:)
+        RubyHToGo::FunctionDefinition.new(definition:, header_dir: "")
       end
 
       static_inline_function_definitions = parser.extract_static_inline_function_definitions.map do |definition|
-        RubyHToGo::FunctionDefinition.new(definition:, header_dir:)
+        RubyHToGo::FunctionDefinition.new(definition:, header_dir: "")
       end
 
       static_inline_function_definitions.each do |static_inline_function_definition|
