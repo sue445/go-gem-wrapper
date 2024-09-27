@@ -130,7 +130,7 @@ module RubyHeaderParser
           typeref:    create_typeref(definition:, function_name:, typeref_field:, filepath:, line_num:),
           args:,
         )
-      end
+      end.uniq(&:name)
     end
 
     # @param args [String]

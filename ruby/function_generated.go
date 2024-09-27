@@ -9620,22 +9620,6 @@ return ret
 //
 // Original definition is following
 //
-//	int rb_st_locale_insensitive_strcasecmp(const char *s1, const char *s2)
-func RbStLocaleInsensitiveStrcasecmp(s1 string, s2 string) int {
-charS1, cleanChars1 := string2Char(s1)
-defer cleanChars1()
-
-charS2, cleanChars2 := string2Char(s2)
-defer cleanChars2()
-
-ret := int(C.rb_st_locale_insensitive_strcasecmp(charS1, charS2))
-return ret
-}
-
-// RbStLocaleInsensitiveStrcasecmp calls `rb_st_locale_insensitive_strcasecmp` in C
-//
-// Original definition is following
-//
 //	__attribute__((__pure__)) int rb_st_locale_insensitive_strcasecmp(const char *s1, const char *s2)
 func RbStLocaleInsensitiveStrcasecmp(s1 string, s2 string) int {
 charS1, cleanChars1 := string2Char(s1)
@@ -9653,22 +9637,6 @@ return ret
 // Original definition is following
 //
 //	__attribute__((__pure__)) int rb_st_locale_insensitive_strncasecmp(const char *s1, const char *s2, size_t n)
-func RbStLocaleInsensitiveStrncasecmp(s1 string, s2 string, n SizeT) int {
-charS1, cleanChars1 := string2Char(s1)
-defer cleanChars1()
-
-charS2, cleanChars2 := string2Char(s2)
-defer cleanChars2()
-
-ret := int(C.rb_st_locale_insensitive_strncasecmp(charS1, charS2, C.size_t(n)))
-return ret
-}
-
-// RbStLocaleInsensitiveStrncasecmp calls `rb_st_locale_insensitive_strncasecmp` in C
-//
-// Original definition is following
-//
-//	int rb_st_locale_insensitive_strncasecmp(const char *s1, const char *s2, size_t n)
 func RbStLocaleInsensitiveStrncasecmp(s1 string, s2 string, n SizeT) int {
 charS1, cleanChars1 := string2Char(s1)
 defer cleanChars1()
