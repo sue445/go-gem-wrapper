@@ -75,3 +75,9 @@ type:
     - OnigPosition
 
   exclude_name: []
+
+enum:
+  include_name:
+    - ruby_value_type
+
+  exclude_name: []

@@ -80,4 +80,20 @@ RSpec.describe RubyHeaderParser::Data do
       it { should eq false }
     end
   end
+
+  describe "#should_generate_enum?" do
+    subject { data.should_generate_enum?(enum_name) }
+
+    context "ruby_value_type" do
+      let(:enum_name) { "ruby_value_type" }
+
+      it { should eq true }
+    end
+
+    context "unknown" do
+      let(:enum_name) { "unknown" }
+
+      it { should eq false }
+    end
+  end
 end

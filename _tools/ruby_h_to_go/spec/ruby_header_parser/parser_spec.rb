@@ -214,4 +214,17 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:name) { should eq "VALUE" }
     end
   end
+
+  describe "#extract_enum_definitions" do
+    subject(:definitions) { parser.extract_enum_definitions }
+
+    its(:count) { should be > 0 }
+
+    context "ruby_value_type" do
+      subject { definitions.find { |d| d.name == "ruby_value_type" } }
+
+      its(:name) { should eq "ruby_value_type" }
+      its(:values) { should include "RUBY_T_ARRAY" }
+    end
+  end
 end

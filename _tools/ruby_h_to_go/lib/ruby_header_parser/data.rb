@@ -51,6 +51,15 @@ module RubyHeaderParser
       data["type"]["include_name"].any? { |format| format === type_name }
     end
 
+    # Whether generate C enum to go
+    # @param enum_name [String]
+    # @return [Boolean]
+    def should_generate_enum?(enum_name)
+      return false if data["enum"]["exclude_name"].any? { |format| format === enum_name }
+
+      data["enum"]["include_name"].any? { |format| format === enum_name }
+    end
+
     # rubocop:enable Style/CaseEquality
   end
 end

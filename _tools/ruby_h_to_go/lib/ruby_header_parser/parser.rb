@@ -73,6 +73,28 @@ module RubyHeaderParser
       end.uniq(&:name)
     end
 
+    # @return [Array<RubyHeaderParser::EnumDefinition>]
+    def extract_enum_definitions
+      stdout = execute_ctags("--c-kinds=e --fields=+n")
+
+      name_to_definitions =
+        stdout.each_line.with_object({}) do |line, hash|
+          parts = line.split("\t")
+
+          enum_name = Util.find_field(parts, "enum")
+          next unless enum_name
+
+          value = parts[0]
+
+          next unless data.should_generate_enum?(enum_name)
+
+          hash[enum_name] ||= EnumDefinition.new(name: enum_name)
+          hash[enum_name].values << value
+        end
+
+      name_to_definitions.values
+    end
+
     private
 
     # @param c_kinds [String]
