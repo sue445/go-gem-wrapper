@@ -205,7 +205,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
 
     let(:definition) do
       RubyHeaderParser::FunctionDefinition.new(
-        name:       name,
+        name:,
         definition: "",
         typeref:    typedef(type: "void"),
         args:       [],
