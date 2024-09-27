@@ -38,7 +38,6 @@ module RubyHToGo
 
     # @return [String]
     def generate_go_content
-      go_function_name = snake_to_camel(name)
       go_function_args = args.map(&:go_function_arg)
 
       go_function_typeref = typeref.go_function_typeref
@@ -118,6 +117,13 @@ module RubyHToGo
       go_function_lines << ""
 
       go_function_lines.join("\n")
+    end
+
+    # @return [String]
+    def go_function_name
+      return name if name.match?(/^[A-Z0-9_]+$/)
+
+      snake_to_camel(name)
     end
   end
 end

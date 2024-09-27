@@ -199,4 +199,28 @@ RSpec.describe RubyHToGo::FunctionDefinition do
       it { should eq go_content }
     end
   end
+
+  describe "#go_function_name" do
+    subject { RubyHToGo::FunctionDefinition.new(definition:).go_function_name }
+
+    let(:definition) do
+      RubyHeaderParser::FunctionDefinition.new(
+        name:       name,
+        definition: "",
+        typeref:    typedef(type: "void"),
+        args:       [],
+      )
+    end
+
+    using RSpec::Parameterized::TableSyntax
+
+    where(:name, :expected) do
+      "RB_FIX2INT" | "RB_FIX2INT"
+      "rb_fix2int" | "RbFix2Int"
+    end
+
+    with_them do
+      it { should eq expected }
+    end
+  end
 end
