@@ -154,7 +154,7 @@ module RubyHeaderParser
           pattern.delete_prefix("/^")
         end
 
-      definition.delete_suffix(";")
+      definition.strip.delete_suffix(";")
     end
 
     # @param function_name [String]
