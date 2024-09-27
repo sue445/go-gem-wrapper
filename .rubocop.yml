@@ -30,6 +30,10 @@ Layout/SpaceAroundOperators:
     # Suppress line breaks in spec files (e.g `it { should xxxx }`, `its(:method) { should xxxx }` )
     - "**/*_spec.rb"
 
+Lint/BinaryOperatorWithIdenticalOperands:
+  Exclude:
+    - "**/*_spec.rb" # for rspec-parameterized
+
 Metrics/BlockLength:
   Exclude:
     - "*.gemspec"
