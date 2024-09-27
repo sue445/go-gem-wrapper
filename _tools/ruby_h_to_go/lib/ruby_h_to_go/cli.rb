@@ -36,6 +36,7 @@ module RubyHToGo
       write_type_definitions_to_go_file
       write_struct_definitions_to_go_file
       write_function_definitions_to_go_file
+      write_enum_definitions_to_go_file
 
       copy_go_files
       remove_unused_imports
@@ -85,6 +86,16 @@ module RubyHToGo
       end
 
       function_definitions.sort_by(&:name).each do |definition|
+        definition.write_go_file(dist_dir)
+      end
+    end
+
+    def write_enum_definitions_to_go_file
+      enum_definitions = parser.extract_enum_definitions.map do |definition|
+        RubyHToGo::EnumDefinition.new(definition:)
+      end
+
+      enum_definitions.sort_by(&:name).each do |definition|
         definition.write_go_file(dist_dir)
       end
     end
