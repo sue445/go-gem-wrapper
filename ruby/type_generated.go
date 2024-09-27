@@ -16,6 +16,12 @@ type ID C.ID
 // VALUE is a type for passing `C.VALUE` in and out of package
 type VALUE C.VALUE
 
+// OffT is a type for passing `C.off_t` in and out of package
+type OffT C.off_t
+
+// PidT is a type for passing `C.pid_t` in and out of package
+type PidT C.pid_t
+
 // RbAllocFuncT is a type for passing `C.rb_alloc_func_t` in and out of package
 type RbAllocFuncT C.rb_alloc_func_t
 

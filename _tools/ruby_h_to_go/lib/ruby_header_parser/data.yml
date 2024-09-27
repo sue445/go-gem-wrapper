@@ -73,6 +73,8 @@ type:
     - VALUE
     - regex_t
     - OnigPosition
+    - pid_t
+    - off_t
 
   exclude_name: []
 
