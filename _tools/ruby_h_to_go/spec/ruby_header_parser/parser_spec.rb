@@ -124,6 +124,36 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typedef(type: "VALUE") }
       its(:args)       { should eq args }
     end
+
+    context "rb_big2ll" do
+      subject { definitions.find { |d| d.name == "rb_big2ll" } }
+
+      let(:args) do
+        [
+          argument(type: "VALUE", name: "arg1"),
+        ]
+      end
+
+      its(:name)       { should eq "rb_big2ll" }
+      its(:definition) { should eq "rb_big2ll(VALUE)" }
+      its(:typeref)    { should eq typedef(type: "long long") }
+      its(:args)       { should eq args }
+    end
+
+    context "rb_big2ull" do
+      subject { definitions.find { |d| d.name == "rb_big2ull" } }
+
+      let(:args) do
+        [
+          argument(type: "VALUE", name: "arg1"),
+        ]
+      end
+
+      its(:name)       { should eq "rb_big2ull" }
+      its(:definition) { should eq "rb_big2ull(VALUE)" }
+      its(:typeref)    { should eq typedef(type: "unsigned long long") }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_static_inline_function_definitions" do
