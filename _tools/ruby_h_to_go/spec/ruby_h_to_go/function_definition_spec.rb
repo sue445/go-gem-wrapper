@@ -198,6 +198,66 @@ RSpec.describe RubyHToGo::FunctionDefinition do
 
       it { should eq go_content }
     end
+
+    context "rb_big2ll" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_big2ll",
+          definition: "rb_big2ll(VALUE)",
+          typeref:    typedef(type: "long long"),
+          args:       [
+            argument(type: "VALUE", name: "arg1"),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbBig2Ll calls `rb_big2ll` in C
+          //
+          // Original definition is following
+          //
+          //	rb_big2ll(VALUE)
+          func RbBig2Ll(arg1 VALUE) Longlong {
+          ret := Longlong(C.rb_big2ll(C.VALUE(arg1)))
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
+
+    context "rb_big2ull" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_big2ull",
+          definition: "rb_big2ull(VALUE)",
+          typeref:    typedef(type: "unsigned long long"),
+          args:       [
+            argument(type: "VALUE", name: "arg1"),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbBig2Ull calls `rb_big2ull` in C
+          //
+          // Original definition is following
+          //
+          //	rb_big2ull(VALUE)
+          func RbBig2Ull(arg1 VALUE) Ulonglong {
+          ret := Ulonglong(C.rb_big2ull(C.VALUE(arg1)))
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
   end
 
   describe "#go_function_name" do
