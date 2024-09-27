@@ -81,5 +81,6 @@ type:
 enum:
   include_name:
     - ruby_value_type
+    - rb_io_wait_readwrite
 
   exclude_name: []

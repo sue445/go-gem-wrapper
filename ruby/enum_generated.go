@@ -10,6 +10,15 @@ package ruby
 */
 import "C"
 
+// RbIoWaitReadwrite is a type for passing `C.rb_io_wait_readwrite` in and out of package
+type RbIoWaitReadwrite int
+
+// RbIoWaitReadwrite enumeration
+const (
+	RB_IO_WAIT_READABLE RbIoWaitReadwrite = C.RB_IO_WAIT_READABLE
+	RB_IO_WAIT_WRITABLE RbIoWaitReadwrite = C.RB_IO_WAIT_WRITABLE
+)
+
 // RubyValueType is a type for passing `C.ruby_value_type` in and out of package
 type RubyValueType int
 
