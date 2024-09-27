@@ -108,6 +108,8 @@ module RubyHToGo
         return "C.struct_timeval"
       when "timespec"
         return "C.struct_timespec"
+      when "st_hash_type"
+        return "C.struct_st_hash_type"
       when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/, "RUBY_DATA_FUNC"
         return "toCPointer"
       end

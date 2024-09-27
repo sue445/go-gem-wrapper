@@ -46,11 +46,6 @@ function:
     # FIXME: Workaround for "could not determine kind of name for C.rb_gc_guarded_ptr_val"
     - rb_gc_guarded_ptr_val
 
-    # FIXME: Workaround for "could not determine kind of name for C.st_hash_type"
-    - rb_st_init_existing_table_with_size
-    - rb_st_init_table
-    - rb_st_init_table_with_size
-
   pointer_hint:
     rb_funcallv:
       3: array
