@@ -83,7 +83,7 @@ module RubyHToGo
 
             before_call_function_lines << "var #{c_var_name} #{cast_to_cgo_type(c_arg.type)}"
             after_call_function_lines <<
-              "*#{c_arg.go_name} = #{ruby_c_type_to_go_type(c_arg.type, type: :arg)}(#{c_var_name})"
+              "*#{c_arg.go_name} = #{ruby_c_type_to_go_type(c_arg.type, pos: :arg)}(#{c_var_name})"
 
             casted_go_args << "&#{c_var_name}"
           end
