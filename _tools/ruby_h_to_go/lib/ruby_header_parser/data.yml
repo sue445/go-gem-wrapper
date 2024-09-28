@@ -29,6 +29,15 @@ function:
     # internal functions in ruby.h
     - rb_scan_args_bad_format
 
+    # internal macros
+    - !ruby/regexp /^rb_define_global_function_(m?[0-9]+|notimpl)$/i
+    - !ruby/regexp /^rb_define_method_(m?[0-9]+|notimpl)$/i
+    - !ruby/regexp /^rb_define_method_id_(m?[0-9]+|notimpl)$/i
+    - !ruby/regexp /^rb_define_module_function_(m?[0-9]+|notimpl)$/i
+    - !ruby/regexp /^rb_define_private_method_(m?[0-9]+|notimpl)$/i
+    - !ruby/regexp /^rb_define_protected_method_(m?[0-9]+|notimpl)$/i
+    - !ruby/regexp /^rb_define_singleton_method_(m?[0-9]+|notimpl)$/i
+
     # FIXME: Both `rb_hash` and `rb_Hash` are defined in ruby.h
     #        Converting to Go function names would result in both being `RbHash`
     #        Exclude one of the function names because duplicate function names will result in an error.
@@ -47,12 +56,66 @@ function:
     - rb_gc_guarded_ptr_val
 
   pointer_hint:
+    rb_define_global_function:
+      2: function
+    rb_define_method:
+      3: function
+    rb_define_method_id:
+      3: function
+    rb_define_module_function:
+      3: function
+    rb_define_private_method:
+      3: function
+    rb_define_protected_method:
+      3: function
+    rb_define_singleton_method:
+      3: function
+    rb_ensure:
+      1: function
+      3: function
+    rb_exec_recursive:
+      1: function
+    rb_exec_recursive_outer:
+      1: function
+    rb_exec_recursive_paired:
+      1: function
+    rb_exec_recursive_paired_outer:
+      1: function
     rb_funcallv:
       4: array
     rb_funcallv_public:
       4: array
+    rb_get_values_at:
+      5: function
+    rb_glob:
+      2: function
+    rb_hash_foreach:
+      2: function
+    rb_ivar_foreach:
+      2: function
+    rb_marshal_define_compat:
+      3: function
+      4: function
+    rb_mutex_synchronize:
+      2: function
+    rb_protect:
+      1: function
+    rb_rescue:
+      1: function
+      3: function
     rb_scan_args_set:
       10: ref_array
+    rb_set_end_proc:
+      1: ref_array
+    rb_st_insert2:
+      4: function
+    rb_thread_call_with_gvl:
+      1: function
+    rb_thread_create:
+      1: function
+    rb_vrescue2:
+      1: function
+      3: function
 
 struct:
   include_name:

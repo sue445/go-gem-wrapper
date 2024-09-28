@@ -79,7 +79,7 @@ module RubyHToGo
             casted_go_args << char_var_name.to_s
           else
             if c_arg.type == "void"
-              casted_go_args << "toCFunctionPointer(#{c_arg.go_name})"
+              casted_go_args << c_arg.go_name
             else
               c_var_name = "c#{snake_to_camel(c_arg.go_name)}"
 
@@ -90,6 +90,8 @@ module RubyHToGo
               casted_go_args << "&#{c_var_name}"
             end
           end
+        when :function
+          casted_go_args << "toCFunctionPointer(#{c_arg.go_name})"
         else
           casted_go_args << c_arg.cast_to_cgo
         end

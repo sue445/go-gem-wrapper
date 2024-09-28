@@ -13,7 +13,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           args:       [
             argument(type: "VALUE", name: "klass"),
             argument(type: "char", name: "mid", pointer: :ref),
-            argument(type: "void", name: "arg3", pointer: :ref),
+            argument(type: "void", name: "arg3", pointer: :function),
             argument(type: "int", name: "arity"),
           ],
         )
@@ -116,7 +116,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           definition: "void *rb_thread_call_with_gvl(void *(*func)(void *), void *data1)",
           typeref:    typedef(type: "void", pointer: :ref),
           args:       [
-            argument(type: "void", name: "arg1", pointer: :ref),
+            argument(type: "void", name: "arg1", pointer: :function),
             argument(type: "void", name: "data1", pointer: :ref),
           ],
         )
@@ -130,7 +130,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //
           //	void *rb_thread_call_with_gvl(void *(*func)(void *), void *data1)
           func RbThreadCallWithGvl(arg1 unsafe.Pointer, data1 unsafe.Pointer) unsafe.Pointer {
-          ret := unsafe.Pointer(C.rb_thread_call_with_gvl(toCFunctionPointer(arg1), toCFunctionPointer(data1)))
+          ret := unsafe.Pointer(C.rb_thread_call_with_gvl(toCFunctionPointer(arg1), data1))
           return ret
           }
 
@@ -326,6 +326,36 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //	RSTRING_END(VALUE str)
           func RSTRING_END(str VALUE) string {
           ret := char2String(C.RSTRING_END(C.VALUE(str)))
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
+
+    context "rb_const_list" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_const_list",
+          definition: "VALUE rb_const_list(void*)",
+          typeref:    typedef(type: "VALUE"),
+          args:       [
+            argument(type: "void", name: "arg1", pointer: :ref),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbConstList calls `rb_const_list` in C
+          //
+          // Original definition is following
+          //
+          //	VALUE rb_const_list(void*)
+          func RbConstList(arg1 unsafe.Pointer) VALUE {
+          ret := VALUE(C.rb_const_list(arg1))
           return ret
           }
 

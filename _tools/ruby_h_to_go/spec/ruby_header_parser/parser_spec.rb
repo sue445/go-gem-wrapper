@@ -18,7 +18,7 @@ RSpec.describe RubyHeaderParser::Parser do
         [
           argument(type: "VALUE", name: "klass"),
           argument(type: "char", name: "mid", pointer: :ref),
-          argument(type: "void", name: "arg3", pointer: :ref),
+          argument(type: "void", name: "arg3", pointer: :function),
           argument(type: "int", name: "arity"),
         ]
       end
