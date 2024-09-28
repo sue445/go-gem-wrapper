@@ -154,6 +154,21 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typedef(type: "unsigned long long") }
       its(:args)       { should eq args }
     end
+
+    context "rb_const_list" do
+      subject { definitions.find { |d| d.name == "rb_const_list" } }
+
+      let(:args) do
+        [
+          argument(type: "void", name: "arg1", pointer: :ref),
+        ]
+      end
+
+      its(:name)       { should eq "rb_const_list" }
+      its(:definition) { should eq "VALUE rb_const_list(void*)" }
+      its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_static_inline_function_definitions" do
