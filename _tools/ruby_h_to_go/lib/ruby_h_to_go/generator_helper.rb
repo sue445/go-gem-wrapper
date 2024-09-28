@@ -92,6 +92,8 @@ module RubyHToGo
         return "C.struct_st_hash_type"
       when "ruby_value_type"
         return "C.enum_ruby_value_type"
+      when "rb_io_wait_readwrite"
+        return "C.enum_rb_io_wait_readwrite"
       when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/, "RUBY_DATA_FUNC"
         return "toCPointer"
       end

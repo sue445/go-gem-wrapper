@@ -8708,7 +8708,7 @@ func RbReadwriteSysFail(waiting RbIoWaitReadwrite, msg string) {
 	char, clean := string2Char(msg)
 	defer clean()
 
-	C.rb_readwrite_sys_fail(C.rb_io_wait_readwrite(waiting), char)
+	C.rb_readwrite_sys_fail(C.enum_rb_io_wait_readwrite(waiting), char)
 }
 
 // RbReadwriteSyserrFail calls `rb_readwrite_syserr_fail` in C
@@ -8720,7 +8720,7 @@ func RbReadwriteSyserrFail(waiting RbIoWaitReadwrite, err int, msg string) {
 	char, clean := string2Char(msg)
 	defer clean()
 
-	C.rb_readwrite_syserr_fail(C.rb_io_wait_readwrite(waiting), C.int(err), char)
+	C.rb_readwrite_syserr_fail(C.enum_rb_io_wait_readwrite(waiting), C.int(err), char)
 }
 
 // RbRefinementNew calls `rb_refinement_new` in C
