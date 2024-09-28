@@ -221,6 +221,21 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typedef(type: "int") }
       its(:args)       { should eq args }
     end
+
+    context "RSTRING_END" do
+      subject { definitions.find { |d| d.name == "RSTRING_END" } }
+
+      let(:args) do
+        [
+          argument(type: "VALUE", name: "str"),
+        ]
+      end
+
+      its(:name)       { should eq "RSTRING_END" }
+      its(:definition) { should eq "RSTRING_END(VALUE str)" }
+      its(:typeref)    { should eq typedef(type: "char", pointer: :ref) }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_struct_definitions" do
