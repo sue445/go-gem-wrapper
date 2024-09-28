@@ -30,7 +30,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           char, clean := string2Char(mid)
           defer clean()
 
-          C.rb_define_method(C.VALUE(klass), char, toCPointer(arg3), C.int(arity))
+          C.rb_define_method(C.VALUE(klass), char, toCFunctionPointer(arg3), C.int(arity))
           }
 
         GO
@@ -130,7 +130,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //
           //	void *rb_thread_call_with_gvl(void *(*func)(void *), void *data1)
           func RbThreadCallWithGvl(arg1 unsafe.Pointer, data1 unsafe.Pointer) unsafe.Pointer {
-          ret := unsafe.Pointer(C.rb_thread_call_with_gvl(toCPointer(arg1), toCPointer(data1)))
+          ret := unsafe.Pointer(C.rb_thread_call_with_gvl(toCFunctionPointer(arg1), toCFunctionPointer(data1)))
           return ret
           }
 

@@ -94,8 +94,8 @@ func string2Value(str string) C.VALUE {
 	return rbUtf8StrNew(char, stringLen(str))
 }
 
-// toCPointer convert from `unsafe.Pointer` to C pointer without copy.
-func toCPointer(ptr unsafe.Pointer) *[0]byte {
+// toCFunctionPointer convert from `unsafe.Pointer` to C function pointer without copy.
+func toCFunctionPointer(ptr unsafe.Pointer) *[0]byte {
 	return (*[0]byte)(ptr)
 }
 

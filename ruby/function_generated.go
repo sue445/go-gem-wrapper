@@ -2287,7 +2287,7 @@ func RbConstGetFrom(space VALUE, name ID) VALUE {
 //
 //	VALUE rb_const_list(void*)
 func RbConstList(arg1 unsafe.Pointer) VALUE {
-	ret := VALUE(C.rb_const_list(toCPointer(arg1)))
+	ret := VALUE(C.rb_const_list(toCFunctionPointer(arg1)))
 	return ret
 }
 
@@ -2466,7 +2466,7 @@ func RbDataObjectGet(obj VALUE) unsafe.Pointer {
 //
 //	rb_data_object_make(VALUE klass, RUBY_DATA_FUNC mark_func, RUBY_DATA_FUNC free_func, void **data/;"
 func RbDataObjectMake(klass VALUE, mark_func unsafe.Pointer, free_func unsafe.Pointer, datap unsafe.Pointer, size SizeT) VALUE {
-	ret := VALUE(C.rb_data_object_make(C.VALUE(klass), toCPointer(mark_func), toCPointer(free_func), toCPointer(datap), C.size_t(size)))
+	ret := VALUE(C.rb_data_object_make(C.VALUE(klass), toCFunctionPointer(mark_func), toCFunctionPointer(free_func), toCFunctionPointer(datap), C.size_t(size)))
 	return ret
 }
 
@@ -2476,7 +2476,7 @@ func RbDataObjectMake(klass VALUE, mark_func unsafe.Pointer, free_func unsafe.Po
 //
 //	VALUE rb_data_object_wrap(VALUE klass, void *datap, RUBY_DATA_FUNC dmark, RUBY_DATA_FUNC dfree)
 func RbDataObjectWrap(klass VALUE, datap unsafe.Pointer, dmark unsafe.Pointer, dfree unsafe.Pointer) VALUE {
-	ret := VALUE(C.rb_data_object_wrap(C.VALUE(klass), toCPointer(datap), toCPointer(dmark), toCPointer(dfree)))
+	ret := VALUE(C.rb_data_object_wrap(C.VALUE(klass), toCFunctionPointer(datap), toCFunctionPointer(dmark), toCFunctionPointer(dfree)))
 	return ret
 }
 
@@ -2486,7 +2486,7 @@ func RbDataObjectWrap(klass VALUE, datap unsafe.Pointer, dmark unsafe.Pointer, d
 //
 //	VALUE rb_data_object_zalloc(VALUE klass, size_t size, RUBY_DATA_FUNC dmark, RUBY_DATA_FUNC dfree)
 func RbDataObjectZalloc(klass VALUE, size SizeT, dmark unsafe.Pointer, dfree unsafe.Pointer) VALUE {
-	ret := VALUE(C.rb_data_object_zalloc(C.VALUE(klass), C.size_t(size), toCPointer(dmark), toCPointer(dfree)))
+	ret := VALUE(C.rb_data_object_zalloc(C.VALUE(klass), C.size_t(size), toCFunctionPointer(dmark), toCFunctionPointer(dfree)))
 	return ret
 }
 
@@ -2497,7 +2497,7 @@ func RbDataObjectZalloc(klass VALUE, size SizeT, dmark unsafe.Pointer, dfree uns
 //	rb_data_typed_object_make(VALUE klass, const rb_data_type_t *type, void **datap, size_t size)
 func RbDataTypedObjectMake(klass VALUE, r *RbDataTypeT, datap unsafe.Pointer, size SizeT) VALUE {
 	var cR C.rb_data_type_t
-	ret := VALUE(C.rb_data_typed_object_make(C.VALUE(klass), &cR, toCPointer(datap), C.size_t(size)))
+	ret := VALUE(C.rb_data_typed_object_make(C.VALUE(klass), &cR, toCFunctionPointer(datap), C.size_t(size)))
 	*r = RbDataTypeT(cR)
 	return ret
 }
@@ -2509,7 +2509,7 @@ func RbDataTypedObjectMake(klass VALUE, r *RbDataTypeT, datap unsafe.Pointer, si
 //	VALUE rb_data_typed_object_wrap(VALUE klass, void *datap, const rb_data_type_t *type)
 func RbDataTypedObjectWrap(klass VALUE, datap unsafe.Pointer, r *RbDataTypeT) VALUE {
 	var cR C.rb_data_type_t
-	ret := VALUE(C.rb_data_typed_object_wrap(C.VALUE(klass), toCPointer(datap), &cR))
+	ret := VALUE(C.rb_data_typed_object_wrap(C.VALUE(klass), toCFunctionPointer(datap), &cR))
 	*r = RbDataTypeT(cR)
 	return ret
 }
@@ -2705,7 +2705,7 @@ func RbDefineGlobalFunction(mid string, arg2 unsafe.Pointer, arity int) {
 	char, clean := string2Char(mid)
 	defer clean()
 
-	C.rb_define_global_function(char, toCPointer(arg2), C.int(arity))
+	C.rb_define_global_function(char, toCFunctionPointer(arg2), C.int(arity))
 }
 
 // RbDefineGlobalFunction00 calls `rb_define_global_function_00` in C
@@ -2717,7 +2717,7 @@ func RbDefineGlobalFunction00(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_00(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_00(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunction01 calls `rb_define_global_function_01` in C
@@ -2729,7 +2729,7 @@ func RbDefineGlobalFunction01(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_01(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_01(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunction02 calls `rb_define_global_function_02` in C
@@ -2741,7 +2741,7 @@ func RbDefineGlobalFunction02(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_02(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_02(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunction03 calls `rb_define_global_function_03` in C
@@ -2753,7 +2753,7 @@ func RbDefineGlobalFunction03(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_03(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_03(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunction04 calls `rb_define_global_function_04` in C
@@ -2765,7 +2765,7 @@ func RbDefineGlobalFunction04(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_04(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_04(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunction05 calls `rb_define_global_function_05` in C
@@ -2777,7 +2777,7 @@ func RbDefineGlobalFunction05(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_05(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_05(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunction06 calls `rb_define_global_function_06` in C
@@ -2789,7 +2789,7 @@ func RbDefineGlobalFunction06(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_06(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_06(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunction07 calls `rb_define_global_function_07` in C
@@ -2801,7 +2801,7 @@ func RbDefineGlobalFunction07(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_07(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_07(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunction08 calls `rb_define_global_function_08` in C
@@ -2813,7 +2813,7 @@ func RbDefineGlobalFunction08(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_08(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_08(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunction09 calls `rb_define_global_function_09` in C
@@ -2825,7 +2825,7 @@ func RbDefineGlobalFunction09(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_09(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_09(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunction10 calls `rb_define_global_function_10` in C
@@ -2837,7 +2837,7 @@ func RbDefineGlobalFunction10(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_10(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_10(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunction11 calls `rb_define_global_function_11` in C
@@ -2849,7 +2849,7 @@ func RbDefineGlobalFunction11(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_11(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_11(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunction12 calls `rb_define_global_function_12` in C
@@ -2861,7 +2861,7 @@ func RbDefineGlobalFunction12(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_12(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_12(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunction13 calls `rb_define_global_function_13` in C
@@ -2873,7 +2873,7 @@ func RbDefineGlobalFunction13(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_13(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_13(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunction14 calls `rb_define_global_function_14` in C
@@ -2885,7 +2885,7 @@ func RbDefineGlobalFunction14(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_14(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_14(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunction15 calls `rb_define_global_function_15` in C
@@ -2897,7 +2897,7 @@ func RbDefineGlobalFunction15(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_15(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_15(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunctionM1 calls `rb_define_global_function_m1` in C
@@ -2909,7 +2909,7 @@ func RbDefineGlobalFunctionM1(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_m1(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_m1(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunctionM2 calls `rb_define_global_function_m2` in C
@@ -2921,7 +2921,7 @@ func RbDefineGlobalFunctionM2(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_m2(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_m2(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunctionM3 calls `rb_define_global_function_m3` in C
@@ -2933,7 +2933,7 @@ func RbDefineGlobalFunctionM3(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_m3(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_m3(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineGlobalFunctionNotimpl calls `rb_define_global_function_notimpl` in C
@@ -2945,7 +2945,7 @@ func RbDefineGlobalFunctionNotimpl(arg1 string, arg2 unsafe.Pointer, arg3 int) {
 	char, clean := string2Char(arg1)
 	defer clean()
 
-	C.rb_define_global_function_notimpl(char, toCPointer(arg2), C.int(arg3))
+	C.rb_define_global_function_notimpl(char, toCFunctionPointer(arg2), C.int(arg3))
 }
 
 // RbDefineHookedVariable calls `rb_define_hooked_variable` in C
@@ -2975,7 +2975,7 @@ func RbDefineMethod(klass VALUE, mid string, arg3 unsafe.Pointer, arity int) {
 	char, clean := string2Char(mid)
 	defer clean()
 
-	C.rb_define_method(C.VALUE(klass), char, toCPointer(arg3), C.int(arity))
+	C.rb_define_method(C.VALUE(klass), char, toCFunctionPointer(arg3), C.int(arity))
 }
 
 // RbDefineMethod00 calls `rb_define_method_00` in C
@@ -2987,7 +2987,7 @@ func RbDefineMethod00(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_00(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_00(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethod01 calls `rb_define_method_01` in C
@@ -2999,7 +2999,7 @@ func RbDefineMethod01(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_01(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_01(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethod02 calls `rb_define_method_02` in C
@@ -3011,7 +3011,7 @@ func RbDefineMethod02(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_02(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_02(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethod03 calls `rb_define_method_03` in C
@@ -3023,7 +3023,7 @@ func RbDefineMethod03(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_03(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_03(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethod04 calls `rb_define_method_04` in C
@@ -3035,7 +3035,7 @@ func RbDefineMethod04(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_04(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_04(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethod05 calls `rb_define_method_05` in C
@@ -3047,7 +3047,7 @@ func RbDefineMethod05(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_05(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_05(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethod06 calls `rb_define_method_06` in C
@@ -3059,7 +3059,7 @@ func RbDefineMethod06(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_06(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_06(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethod07 calls `rb_define_method_07` in C
@@ -3071,7 +3071,7 @@ func RbDefineMethod07(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_07(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_07(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethod08 calls `rb_define_method_08` in C
@@ -3083,7 +3083,7 @@ func RbDefineMethod08(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_08(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_08(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethod09 calls `rb_define_method_09` in C
@@ -3095,7 +3095,7 @@ func RbDefineMethod09(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_09(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_09(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethod10 calls `rb_define_method_10` in C
@@ -3107,7 +3107,7 @@ func RbDefineMethod10(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_10(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_10(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethod11 calls `rb_define_method_11` in C
@@ -3119,7 +3119,7 @@ func RbDefineMethod11(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_11(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_11(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethod12 calls `rb_define_method_12` in C
@@ -3131,7 +3131,7 @@ func RbDefineMethod12(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_12(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_12(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethod13 calls `rb_define_method_13` in C
@@ -3143,7 +3143,7 @@ func RbDefineMethod13(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_13(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_13(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethod14 calls `rb_define_method_14` in C
@@ -3155,7 +3155,7 @@ func RbDefineMethod14(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_14(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_14(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethod15 calls `rb_define_method_15` in C
@@ -3167,7 +3167,7 @@ func RbDefineMethod15(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_15(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_15(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId calls `rb_define_method_id` in C
@@ -3176,7 +3176,7 @@ func RbDefineMethod15(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 //
 //	void rb_define_method_id(VALUE klass, ID mid, VALUE (*func)(), int arity)
 func RbDefineMethodId(klass VALUE, mid ID, arg3 unsafe.Pointer, arity int) {
-	C.rb_define_method_id(C.VALUE(klass), C.ID(mid), toCPointer(arg3), C.int(arity))
+	C.rb_define_method_id(C.VALUE(klass), C.ID(mid), toCFunctionPointer(arg3), C.int(arity))
 }
 
 // RbDefineMethodId00 calls `rb_define_method_id_00` in C
@@ -3185,7 +3185,7 @@ func RbDefineMethodId(klass VALUE, mid ID, arg3 unsafe.Pointer, arity int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId00(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_00(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_00(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId01 calls `rb_define_method_id_01` in C
@@ -3194,7 +3194,7 @@ func RbDefineMethodId00(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId01(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_01(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_01(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId02 calls `rb_define_method_id_02` in C
@@ -3203,7 +3203,7 @@ func RbDefineMethodId01(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId02(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_02(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_02(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId03 calls `rb_define_method_id_03` in C
@@ -3212,7 +3212,7 @@ func RbDefineMethodId02(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId03(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_03(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_03(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId04 calls `rb_define_method_id_04` in C
@@ -3221,7 +3221,7 @@ func RbDefineMethodId03(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId04(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_04(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_04(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId05 calls `rb_define_method_id_05` in C
@@ -3230,7 +3230,7 @@ func RbDefineMethodId04(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId05(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_05(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_05(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId06 calls `rb_define_method_id_06` in C
@@ -3239,7 +3239,7 @@ func RbDefineMethodId05(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId06(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_06(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_06(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId07 calls `rb_define_method_id_07` in C
@@ -3248,7 +3248,7 @@ func RbDefineMethodId06(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId07(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_07(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_07(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId08 calls `rb_define_method_id_08` in C
@@ -3257,7 +3257,7 @@ func RbDefineMethodId07(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId08(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_08(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_08(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId09 calls `rb_define_method_id_09` in C
@@ -3266,7 +3266,7 @@ func RbDefineMethodId08(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId09(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_09(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_09(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId10 calls `rb_define_method_id_10` in C
@@ -3275,7 +3275,7 @@ func RbDefineMethodId09(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId10(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_10(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_10(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId11 calls `rb_define_method_id_11` in C
@@ -3284,7 +3284,7 @@ func RbDefineMethodId10(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId11(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_11(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_11(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId12 calls `rb_define_method_id_12` in C
@@ -3293,7 +3293,7 @@ func RbDefineMethodId11(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId12(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_12(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_12(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId13 calls `rb_define_method_id_13` in C
@@ -3302,7 +3302,7 @@ func RbDefineMethodId12(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId13(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_13(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_13(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId14 calls `rb_define_method_id_14` in C
@@ -3311,7 +3311,7 @@ func RbDefineMethodId13(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId14(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_14(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_14(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodId15 calls `rb_define_method_id_15` in C
@@ -3320,7 +3320,7 @@ func RbDefineMethodId14(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodId15(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_15(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_15(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodIdM1 calls `rb_define_method_id_m1` in C
@@ -3329,7 +3329,7 @@ func RbDefineMethodId15(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodIdM1(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_m1(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_m1(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodIdM2 calls `rb_define_method_id_m2` in C
@@ -3338,7 +3338,7 @@ func RbDefineMethodIdM1(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodIdM2(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_m2(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_m2(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodIdM3 calls `rb_define_method_id_m3` in C
@@ -3347,7 +3347,7 @@ func RbDefineMethodIdM2(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodIdM3(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_m3(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_m3(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodIdNotimpl calls `rb_define_method_id_notimpl` in C
@@ -3356,7 +3356,7 @@ func RbDefineMethodIdM3(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
 //
 //	[[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_notimpl(VALUE, ID, VALUE(*)(int, const VALUE *, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m3(VALUE, ID, VALUE(*)(), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m2(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_m1(VALUE, ID, VALUE(*)(int, union { VALUE *x; const VALUE *y; } __attribute__((__transparent_union__)), VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_00(VALUE, ID, VALUE(*)(VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_01(VALUE, ID, VALUE(*)(VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_02(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_03(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_04(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_05(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_06(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_07(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_08(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_09(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_10(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_11(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_12(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_13(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_14(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int); [[maybe_unused]] __attribute__((__nonnull__ ())) __attribute__((__weakref__("rb_define_method_id"))) static void rb_define_method_id_15(VALUE, ID, VALUE(*)(VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE), int)
 func RbDefineMethodIdNotimpl(arg1 VALUE, arg2 ID, arg3 unsafe.Pointer, arg4 int) {
-	C.rb_define_method_id_notimpl(C.VALUE(arg1), C.ID(arg2), toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_id_notimpl(C.VALUE(arg1), C.ID(arg2), toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodM1 calls `rb_define_method_m1` in C
@@ -3368,7 +3368,7 @@ func RbDefineMethodM1(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_m1(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_m1(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodM2 calls `rb_define_method_m2` in C
@@ -3380,7 +3380,7 @@ func RbDefineMethodM2(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_m2(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_m2(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodM3 calls `rb_define_method_m3` in C
@@ -3392,7 +3392,7 @@ func RbDefineMethodM3(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 int) {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_m3(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_m3(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineMethodNotimpl calls `rb_define_method_notimpl` in C
@@ -3404,7 +3404,7 @@ func RbDefineMethodNotimpl(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 in
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_method_notimpl(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_method_notimpl(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModule calls `rb_define_module` in C
@@ -3429,7 +3429,7 @@ func RbDefineModuleFunction(klass VALUE, mid string, arg3 unsafe.Pointer, arity 
 	char, clean := string2Char(mid)
 	defer clean()
 
-	C.rb_define_module_function(C.VALUE(klass), char, toCPointer(arg3), C.int(arity))
+	C.rb_define_module_function(C.VALUE(klass), char, toCFunctionPointer(arg3), C.int(arity))
 }
 
 // RbDefineModuleFunction00 calls `rb_define_module_function_00` in C
@@ -3441,7 +3441,7 @@ func RbDefineModuleFunction00(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_00(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_00(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunction01 calls `rb_define_module_function_01` in C
@@ -3453,7 +3453,7 @@ func RbDefineModuleFunction01(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_01(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_01(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunction02 calls `rb_define_module_function_02` in C
@@ -3465,7 +3465,7 @@ func RbDefineModuleFunction02(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_02(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_02(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunction03 calls `rb_define_module_function_03` in C
@@ -3477,7 +3477,7 @@ func RbDefineModuleFunction03(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_03(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_03(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunction04 calls `rb_define_module_function_04` in C
@@ -3489,7 +3489,7 @@ func RbDefineModuleFunction04(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_04(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_04(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunction05 calls `rb_define_module_function_05` in C
@@ -3501,7 +3501,7 @@ func RbDefineModuleFunction05(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_05(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_05(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunction06 calls `rb_define_module_function_06` in C
@@ -3513,7 +3513,7 @@ func RbDefineModuleFunction06(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_06(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_06(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunction07 calls `rb_define_module_function_07` in C
@@ -3525,7 +3525,7 @@ func RbDefineModuleFunction07(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_07(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_07(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunction08 calls `rb_define_module_function_08` in C
@@ -3537,7 +3537,7 @@ func RbDefineModuleFunction08(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_08(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_08(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunction09 calls `rb_define_module_function_09` in C
@@ -3549,7 +3549,7 @@ func RbDefineModuleFunction09(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_09(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_09(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunction10 calls `rb_define_module_function_10` in C
@@ -3561,7 +3561,7 @@ func RbDefineModuleFunction10(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_10(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_10(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunction11 calls `rb_define_module_function_11` in C
@@ -3573,7 +3573,7 @@ func RbDefineModuleFunction11(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_11(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_11(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunction12 calls `rb_define_module_function_12` in C
@@ -3585,7 +3585,7 @@ func RbDefineModuleFunction12(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_12(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_12(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunction13 calls `rb_define_module_function_13` in C
@@ -3597,7 +3597,7 @@ func RbDefineModuleFunction13(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_13(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_13(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunction14 calls `rb_define_module_function_14` in C
@@ -3609,7 +3609,7 @@ func RbDefineModuleFunction14(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_14(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_14(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunction15 calls `rb_define_module_function_15` in C
@@ -3621,7 +3621,7 @@ func RbDefineModuleFunction15(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_15(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_15(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunctionM1 calls `rb_define_module_function_m1` in C
@@ -3633,7 +3633,7 @@ func RbDefineModuleFunctionM1(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_m1(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_m1(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunctionM2 calls `rb_define_module_function_m2` in C
@@ -3645,7 +3645,7 @@ func RbDefineModuleFunctionM2(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_m2(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_m2(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunctionM3 calls `rb_define_module_function_m3` in C
@@ -3657,7 +3657,7 @@ func RbDefineModuleFunctionM3(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_m3(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_m3(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleFunctionNotimpl calls `rb_define_module_function_notimpl` in C
@@ -3669,7 +3669,7 @@ func RbDefineModuleFunctionNotimpl(arg1 VALUE, arg2 string, arg3 unsafe.Pointer,
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_module_function_notimpl(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_module_function_notimpl(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineModuleId calls `rb_define_module_id` in C
@@ -3714,7 +3714,7 @@ func RbDefinePrivateMethod(klass VALUE, mid string, arg3 unsafe.Pointer, arity i
 	char, clean := string2Char(mid)
 	defer clean()
 
-	C.rb_define_private_method(C.VALUE(klass), char, toCPointer(arg3), C.int(arity))
+	C.rb_define_private_method(C.VALUE(klass), char, toCFunctionPointer(arg3), C.int(arity))
 }
 
 // RbDefinePrivateMethod00 calls `rb_define_private_method_00` in C
@@ -3726,7 +3726,7 @@ func RbDefinePrivateMethod00(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_00(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_00(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethod01 calls `rb_define_private_method_01` in C
@@ -3738,7 +3738,7 @@ func RbDefinePrivateMethod01(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_01(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_01(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethod02 calls `rb_define_private_method_02` in C
@@ -3750,7 +3750,7 @@ func RbDefinePrivateMethod02(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_02(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_02(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethod03 calls `rb_define_private_method_03` in C
@@ -3762,7 +3762,7 @@ func RbDefinePrivateMethod03(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_03(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_03(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethod04 calls `rb_define_private_method_04` in C
@@ -3774,7 +3774,7 @@ func RbDefinePrivateMethod04(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_04(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_04(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethod05 calls `rb_define_private_method_05` in C
@@ -3786,7 +3786,7 @@ func RbDefinePrivateMethod05(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_05(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_05(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethod06 calls `rb_define_private_method_06` in C
@@ -3798,7 +3798,7 @@ func RbDefinePrivateMethod06(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_06(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_06(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethod07 calls `rb_define_private_method_07` in C
@@ -3810,7 +3810,7 @@ func RbDefinePrivateMethod07(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_07(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_07(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethod08 calls `rb_define_private_method_08` in C
@@ -3822,7 +3822,7 @@ func RbDefinePrivateMethod08(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_08(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_08(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethod09 calls `rb_define_private_method_09` in C
@@ -3834,7 +3834,7 @@ func RbDefinePrivateMethod09(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_09(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_09(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethod10 calls `rb_define_private_method_10` in C
@@ -3846,7 +3846,7 @@ func RbDefinePrivateMethod10(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_10(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_10(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethod11 calls `rb_define_private_method_11` in C
@@ -3858,7 +3858,7 @@ func RbDefinePrivateMethod11(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_11(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_11(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethod12 calls `rb_define_private_method_12` in C
@@ -3870,7 +3870,7 @@ func RbDefinePrivateMethod12(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_12(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_12(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethod13 calls `rb_define_private_method_13` in C
@@ -3882,7 +3882,7 @@ func RbDefinePrivateMethod13(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_13(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_13(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethod14 calls `rb_define_private_method_14` in C
@@ -3894,7 +3894,7 @@ func RbDefinePrivateMethod14(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_14(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_14(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethod15 calls `rb_define_private_method_15` in C
@@ -3906,7 +3906,7 @@ func RbDefinePrivateMethod15(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_15(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_15(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethodM1 calls `rb_define_private_method_m1` in C
@@ -3918,7 +3918,7 @@ func RbDefinePrivateMethodM1(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_m1(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_m1(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethodM2 calls `rb_define_private_method_m2` in C
@@ -3930,7 +3930,7 @@ func RbDefinePrivateMethodM2(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_m2(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_m2(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethodM3 calls `rb_define_private_method_m3` in C
@@ -3942,7 +3942,7 @@ func RbDefinePrivateMethodM3(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg4 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_m3(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_m3(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefinePrivateMethodNotimpl calls `rb_define_private_method_notimpl` in C
@@ -3954,7 +3954,7 @@ func RbDefinePrivateMethodNotimpl(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, 
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_private_method_notimpl(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_private_method_notimpl(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod calls `rb_define_protected_method` in C
@@ -3966,7 +3966,7 @@ func RbDefineProtectedMethod(klass VALUE, mid string, arg3 unsafe.Pointer, arity
 	char, clean := string2Char(mid)
 	defer clean()
 
-	C.rb_define_protected_method(C.VALUE(klass), char, toCPointer(arg3), C.int(arity))
+	C.rb_define_protected_method(C.VALUE(klass), char, toCFunctionPointer(arg3), C.int(arity))
 }
 
 // RbDefineProtectedMethod00 calls `rb_define_protected_method_00` in C
@@ -3978,7 +3978,7 @@ func RbDefineProtectedMethod00(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_00(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_00(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod01 calls `rb_define_protected_method_01` in C
@@ -3990,7 +3990,7 @@ func RbDefineProtectedMethod01(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_01(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_01(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod02 calls `rb_define_protected_method_02` in C
@@ -4002,7 +4002,7 @@ func RbDefineProtectedMethod02(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_02(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_02(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod03 calls `rb_define_protected_method_03` in C
@@ -4014,7 +4014,7 @@ func RbDefineProtectedMethod03(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_03(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_03(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod04 calls `rb_define_protected_method_04` in C
@@ -4026,7 +4026,7 @@ func RbDefineProtectedMethod04(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_04(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_04(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod05 calls `rb_define_protected_method_05` in C
@@ -4038,7 +4038,7 @@ func RbDefineProtectedMethod05(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_05(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_05(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod06 calls `rb_define_protected_method_06` in C
@@ -4050,7 +4050,7 @@ func RbDefineProtectedMethod06(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_06(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_06(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod07 calls `rb_define_protected_method_07` in C
@@ -4062,7 +4062,7 @@ func RbDefineProtectedMethod07(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_07(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_07(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod08 calls `rb_define_protected_method_08` in C
@@ -4074,7 +4074,7 @@ func RbDefineProtectedMethod08(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_08(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_08(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod09 calls `rb_define_protected_method_09` in C
@@ -4086,7 +4086,7 @@ func RbDefineProtectedMethod09(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_09(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_09(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod10 calls `rb_define_protected_method_10` in C
@@ -4098,7 +4098,7 @@ func RbDefineProtectedMethod10(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_10(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_10(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod11 calls `rb_define_protected_method_11` in C
@@ -4110,7 +4110,7 @@ func RbDefineProtectedMethod11(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_11(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_11(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod12 calls `rb_define_protected_method_12` in C
@@ -4122,7 +4122,7 @@ func RbDefineProtectedMethod12(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_12(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_12(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod13 calls `rb_define_protected_method_13` in C
@@ -4134,7 +4134,7 @@ func RbDefineProtectedMethod13(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_13(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_13(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod14 calls `rb_define_protected_method_14` in C
@@ -4146,7 +4146,7 @@ func RbDefineProtectedMethod14(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_14(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_14(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethod15 calls `rb_define_protected_method_15` in C
@@ -4158,7 +4158,7 @@ func RbDefineProtectedMethod15(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_15(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_15(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethodM1 calls `rb_define_protected_method_m1` in C
@@ -4170,7 +4170,7 @@ func RbDefineProtectedMethodM1(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_m1(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_m1(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethodM2 calls `rb_define_protected_method_m2` in C
@@ -4182,7 +4182,7 @@ func RbDefineProtectedMethodM2(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_m2(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_m2(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethodM3 calls `rb_define_protected_method_m3` in C
@@ -4194,7 +4194,7 @@ func RbDefineProtectedMethodM3(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_m3(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_m3(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineProtectedMethodNotimpl calls `rb_define_protected_method_notimpl` in C
@@ -4206,7 +4206,7 @@ func RbDefineProtectedMethodNotimpl(arg1 VALUE, arg2 string, arg3 unsafe.Pointer
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_protected_method_notimpl(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_protected_method_notimpl(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineReadonlyVariable calls `rb_define_readonly_variable` in C
@@ -4232,7 +4232,7 @@ func RbDefineSingletonMethod(obj VALUE, mid string, arg3 unsafe.Pointer, arity i
 	char, clean := string2Char(mid)
 	defer clean()
 
-	C.rb_define_singleton_method(C.VALUE(obj), char, toCPointer(arg3), C.int(arity))
+	C.rb_define_singleton_method(C.VALUE(obj), char, toCFunctionPointer(arg3), C.int(arity))
 }
 
 // RbDefineSingletonMethod00 calls `rb_define_singleton_method_00` in C
@@ -4244,7 +4244,7 @@ func RbDefineSingletonMethod00(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_00(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_00(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethod01 calls `rb_define_singleton_method_01` in C
@@ -4256,7 +4256,7 @@ func RbDefineSingletonMethod01(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_01(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_01(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethod02 calls `rb_define_singleton_method_02` in C
@@ -4268,7 +4268,7 @@ func RbDefineSingletonMethod02(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_02(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_02(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethod03 calls `rb_define_singleton_method_03` in C
@@ -4280,7 +4280,7 @@ func RbDefineSingletonMethod03(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_03(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_03(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethod04 calls `rb_define_singleton_method_04` in C
@@ -4292,7 +4292,7 @@ func RbDefineSingletonMethod04(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_04(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_04(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethod05 calls `rb_define_singleton_method_05` in C
@@ -4304,7 +4304,7 @@ func RbDefineSingletonMethod05(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_05(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_05(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethod06 calls `rb_define_singleton_method_06` in C
@@ -4316,7 +4316,7 @@ func RbDefineSingletonMethod06(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_06(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_06(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethod07 calls `rb_define_singleton_method_07` in C
@@ -4328,7 +4328,7 @@ func RbDefineSingletonMethod07(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_07(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_07(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethod08 calls `rb_define_singleton_method_08` in C
@@ -4340,7 +4340,7 @@ func RbDefineSingletonMethod08(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_08(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_08(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethod09 calls `rb_define_singleton_method_09` in C
@@ -4352,7 +4352,7 @@ func RbDefineSingletonMethod09(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_09(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_09(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethod10 calls `rb_define_singleton_method_10` in C
@@ -4364,7 +4364,7 @@ func RbDefineSingletonMethod10(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_10(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_10(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethod11 calls `rb_define_singleton_method_11` in C
@@ -4376,7 +4376,7 @@ func RbDefineSingletonMethod11(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_11(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_11(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethod12 calls `rb_define_singleton_method_12` in C
@@ -4388,7 +4388,7 @@ func RbDefineSingletonMethod12(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_12(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_12(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethod13 calls `rb_define_singleton_method_13` in C
@@ -4400,7 +4400,7 @@ func RbDefineSingletonMethod13(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_13(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_13(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethod14 calls `rb_define_singleton_method_14` in C
@@ -4412,7 +4412,7 @@ func RbDefineSingletonMethod14(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_14(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_14(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethod15 calls `rb_define_singleton_method_15` in C
@@ -4424,7 +4424,7 @@ func RbDefineSingletonMethod15(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_15(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_15(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethodM1 calls `rb_define_singleton_method_m1` in C
@@ -4436,7 +4436,7 @@ func RbDefineSingletonMethodM1(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_m1(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_m1(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethodM2 calls `rb_define_singleton_method_m2` in C
@@ -4448,7 +4448,7 @@ func RbDefineSingletonMethodM2(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_m2(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_m2(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethodM3 calls `rb_define_singleton_method_m3` in C
@@ -4460,7 +4460,7 @@ func RbDefineSingletonMethodM3(arg1 VALUE, arg2 string, arg3 unsafe.Pointer, arg
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_m3(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_m3(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineSingletonMethodNotimpl calls `rb_define_singleton_method_notimpl` in C
@@ -4472,7 +4472,7 @@ func RbDefineSingletonMethodNotimpl(arg1 VALUE, arg2 string, arg3 unsafe.Pointer
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	C.rb_define_singleton_method_notimpl(C.VALUE(arg1), char, toCPointer(arg3), C.int(arg4))
+	C.rb_define_singleton_method_notimpl(C.VALUE(arg1), char, toCFunctionPointer(arg3), C.int(arg4))
 }
 
 // RbDefineVariable calls `rb_define_variable` in C
@@ -4563,7 +4563,7 @@ func RbEach(obj VALUE) VALUE {
 //
 //	VALUE rb_ensure(VALUE (*b_proc)(VALUE), VALUE data1, VALUE (*e_proc)(VALUE), VALUE data2)
 func RbEnsure(arg1 unsafe.Pointer, data1 VALUE, arg3 unsafe.Pointer, data2 VALUE) VALUE {
-	ret := VALUE(C.rb_ensure(toCPointer(arg1), C.VALUE(data1), toCPointer(arg3), C.VALUE(data2)))
+	ret := VALUE(C.rb_ensure(toCFunctionPointer(arg1), C.VALUE(data1), toCFunctionPointer(arg3), C.VALUE(data2)))
 	return ret
 }
 
@@ -4831,7 +4831,7 @@ func RbExcRaise(exc VALUE) {
 //
 //	VALUE rb_exec_recursive(VALUE (*f)(VALUE g, VALUE h, int r), VALUE g, VALUE h)
 func RbExecRecursive(arg1 unsafe.Pointer, g VALUE, h VALUE) VALUE {
-	ret := VALUE(C.rb_exec_recursive(toCPointer(arg1), C.VALUE(g), C.VALUE(h)))
+	ret := VALUE(C.rb_exec_recursive(toCFunctionPointer(arg1), C.VALUE(g), C.VALUE(h)))
 	return ret
 }
 
@@ -4841,7 +4841,7 @@ func RbExecRecursive(arg1 unsafe.Pointer, g VALUE, h VALUE) VALUE {
 //
 //	VALUE rb_exec_recursive_outer(VALUE (*f)(VALUE g, VALUE h, int r), VALUE g, VALUE h)
 func RbExecRecursiveOuter(arg1 unsafe.Pointer, g VALUE, h VALUE) VALUE {
-	ret := VALUE(C.rb_exec_recursive_outer(toCPointer(arg1), C.VALUE(g), C.VALUE(h)))
+	ret := VALUE(C.rb_exec_recursive_outer(toCFunctionPointer(arg1), C.VALUE(g), C.VALUE(h)))
 	return ret
 }
 
@@ -4851,7 +4851,7 @@ func RbExecRecursiveOuter(arg1 unsafe.Pointer, g VALUE, h VALUE) VALUE {
 //
 //	VALUE rb_exec_recursive_paired(VALUE (*f)(VALUE g, VALUE h, int r), VALUE g, VALUE p, VALUE h)
 func RbExecRecursivePaired(arg1 unsafe.Pointer, g VALUE, p VALUE, h VALUE) VALUE {
-	ret := VALUE(C.rb_exec_recursive_paired(toCPointer(arg1), C.VALUE(g), C.VALUE(p), C.VALUE(h)))
+	ret := VALUE(C.rb_exec_recursive_paired(toCFunctionPointer(arg1), C.VALUE(g), C.VALUE(p), C.VALUE(h)))
 	return ret
 }
 
@@ -4861,7 +4861,7 @@ func RbExecRecursivePaired(arg1 unsafe.Pointer, g VALUE, p VALUE, h VALUE) VALUE
 //
 //	VALUE rb_exec_recursive_paired_outer(VALUE (*f)(VALUE g, VALUE h, int r), VALUE g, VALUE p, VALUE h)
 func RbExecRecursivePairedOuter(arg1 unsafe.Pointer, g VALUE, p VALUE, h VALUE) VALUE {
-	ret := VALUE(C.rb_exec_recursive_paired_outer(toCPointer(arg1), C.VALUE(g), C.VALUE(p), C.VALUE(h)))
+	ret := VALUE(C.rb_exec_recursive_paired_outer(toCFunctionPointer(arg1), C.VALUE(g), C.VALUE(p), C.VALUE(h)))
 	return ret
 }
 
@@ -6063,7 +6063,7 @@ func RbGetPathNoChecksafe(arg1 VALUE) VALUE {
 //	VALUE rb_get_values_at(VALUE obj, long olen, int argc, const VALUE *argv, VALUE (*func)(VALUE obj, long oidx))
 func RbGetValuesAt(obj VALUE, olen Long, argc int, argv *VALUE, arg5 unsafe.Pointer) VALUE {
 	var cArgv C.VALUE
-	ret := VALUE(C.rb_get_values_at(C.VALUE(obj), C.long(olen), C.int(argc), &cArgv, toCPointer(arg5)))
+	ret := VALUE(C.rb_get_values_at(C.VALUE(obj), C.long(olen), C.int(argc), &cArgv, toCFunctionPointer(arg5)))
 	*argv = VALUE(cArgv)
 	return ret
 }
@@ -6087,7 +6087,7 @@ func RbGlob(pattern string, arg2 unsafe.Pointer, arg VALUE) {
 	char, clean := string2Char(pattern)
 	defer clean()
 
-	C.rb_glob(char, toCPointer(arg2), C.VALUE(arg))
+	C.rb_glob(char, toCFunctionPointer(arg2), C.VALUE(arg))
 }
 
 // RbGlobalVariable calls `rb_global_variable` in C
@@ -6235,7 +6235,7 @@ func RbHashFetch(hash VALUE, key VALUE) VALUE {
 //
 //	void rb_hash_foreach(VALUE hash, int (*func)(VALUE key, VALUE val, VALUE arg), VALUE arg)
 func RbHashForeach(hash VALUE, arg2 unsafe.Pointer, arg VALUE) {
-	C.rb_hash_foreach(C.VALUE(hash), toCPointer(arg2), C.VALUE(arg))
+	C.rb_hash_foreach(C.VALUE(hash), toCFunctionPointer(arg2), C.VALUE(arg))
 }
 
 // RbHashFreeze calls `rb_hash_freeze` in C
@@ -6458,7 +6458,7 @@ func RbIntPositivePow(x Long, y uint) VALUE {
 //
 //	int rb_integer_pack(VALUE val, void *words, size_t numwords, size_t wordsize, size_t nails, int flags)
 func RbIntegerPack(val VALUE, words unsafe.Pointer, numwords SizeT, wordsize SizeT, nails SizeT, flags int) int {
-	ret := int(C.rb_integer_pack(C.VALUE(val), toCPointer(words), C.size_t(numwords), C.size_t(wordsize), C.size_t(nails), C.int(flags)))
+	ret := int(C.rb_integer_pack(C.VALUE(val), toCFunctionPointer(words), C.size_t(numwords), C.size_t(wordsize), C.size_t(nails), C.int(flags)))
 	return ret
 }
 
@@ -6478,7 +6478,7 @@ func RbIntegerTypeP(obj VALUE) Bool {
 //
 //	VALUE rb_integer_unpack(const void *words, size_t numwords, size_t wordsize, size_t nails, int flags)
 func RbIntegerUnpack(words unsafe.Pointer, numwords SizeT, wordsize SizeT, nails SizeT, flags int) VALUE {
-	ret := VALUE(C.rb_integer_unpack(toCPointer(words), C.size_t(numwords), C.size_t(wordsize), C.size_t(nails), C.int(flags)))
+	ret := VALUE(C.rb_integer_unpack(toCFunctionPointer(words), C.size_t(numwords), C.size_t(wordsize), C.size_t(nails), C.int(flags)))
 	return ret
 }
 
@@ -7023,7 +7023,7 @@ func RbIvarDefined(obj VALUE, name ID) VALUE {
 //
 //	void rb_ivar_foreach(VALUE obj, int (*func)(ID name, VALUE val, st_data_t arg), st_data_t arg)
 func RbIvarForeach(obj VALUE, arg2 unsafe.Pointer, arg StDataT) {
-	C.rb_ivar_foreach(C.VALUE(obj), toCPointer(arg2), C.st_data_t(arg))
+	C.rb_ivar_foreach(C.VALUE(obj), toCFunctionPointer(arg2), C.st_data_t(arg))
 }
 
 // RbIvarGet calls `rb_ivar_get` in C
@@ -7284,7 +7284,7 @@ func RbMarkTblNoPin(tbl *StTable) {
 //
 //	void rb_marshal_define_compat(VALUE newclass, VALUE oldclass, VALUE (*dumper)(VALUE), VALUE (*loader)(VALUE, VALUE))
 func RbMarshalDefineCompat(newclass VALUE, oldclass VALUE, arg3 unsafe.Pointer, arg4 unsafe.Pointer) {
-	C.rb_marshal_define_compat(C.VALUE(newclass), C.VALUE(oldclass), toCPointer(arg3), toCPointer(arg4))
+	C.rb_marshal_define_compat(C.VALUE(newclass), C.VALUE(oldclass), toCFunctionPointer(arg3), toCFunctionPointer(arg4))
 }
 
 // RbMarshalDump calls `rb_marshal_dump` in C
@@ -7333,7 +7333,7 @@ func RbMemClear(buf *VALUE, len Long) {
 //
 //	int rb_memcicmp(const void *s1,const void *s2, long n)
 func RbMemcicmp(s1 unsafe.Pointer, s2 unsafe.Pointer, n Long) int {
-	ret := int(C.rb_memcicmp(toCPointer(s1), toCPointer(s2), C.long(n)))
+	ret := int(C.rb_memcicmp(toCFunctionPointer(s1), toCFunctionPointer(s2), C.long(n)))
 	return ret
 }
 
@@ -7352,7 +7352,7 @@ func RbMemerror() {
 //
 //	st_index_t rb_memhash(const void *ptr, long len)
 func RbMemhash(ptr unsafe.Pointer, len Long) StIndexT {
-	ret := StIndexT(C.rb_memhash(toCPointer(ptr), C.long(len)))
+	ret := StIndexT(C.rb_memhash(toCFunctionPointer(ptr), C.long(len)))
 	return ret
 }
 
@@ -7462,7 +7462,7 @@ func RbModClassVariables(argc int, argv *VALUE, recv VALUE) VALUE {
 //
 //	void *rb_mod_const_at(VALUE, void*)
 func RbModConstAt(arg1 VALUE, arg2 unsafe.Pointer) unsafe.Pointer {
-	ret := unsafe.Pointer(C.rb_mod_const_at(C.VALUE(arg1), toCPointer(arg2)))
+	ret := unsafe.Pointer(C.rb_mod_const_at(C.VALUE(arg1), toCFunctionPointer(arg2)))
 	return ret
 }
 
@@ -7472,7 +7472,7 @@ func RbModConstAt(arg1 VALUE, arg2 unsafe.Pointer) unsafe.Pointer {
 //
 //	void *rb_mod_const_of(VALUE, void*)
 func RbModConstOf(arg1 VALUE, arg2 unsafe.Pointer) unsafe.Pointer {
-	ret := unsafe.Pointer(C.rb_mod_const_of(C.VALUE(arg1), toCPointer(arg2)))
+	ret := unsafe.Pointer(C.rb_mod_const_of(C.VALUE(arg1), toCFunctionPointer(arg2)))
 	return ret
 }
 
@@ -7701,7 +7701,7 @@ func RbMutexSleep(self VALUE, timeout VALUE) VALUE {
 //
 //	VALUE rb_mutex_synchronize(VALUE mutex, VALUE (*func)(VALUE arg), VALUE arg)
 func RbMutexSynchronize(mutex VALUE, arg2 unsafe.Pointer, arg VALUE) VALUE {
-	ret := VALUE(C.rb_mutex_synchronize(C.VALUE(mutex), toCPointer(arg2), C.VALUE(arg)))
+	ret := VALUE(C.rb_mutex_synchronize(C.VALUE(mutex), toCFunctionPointer(arg2), C.VALUE(arg)))
 	return ret
 }
 
@@ -8519,7 +8519,7 @@ func RbProcessStatusWait(pid PidT, flags int) VALUE {
 //	VALUE rb_protect(VALUE (*func)(VALUE args), VALUE args, int *state)
 func RbProtect(arg1 unsafe.Pointer, args VALUE, state *int) VALUE {
 	var cState C.int
-	ret := VALUE(C.rb_protect(toCPointer(arg1), C.VALUE(args), &cState))
+	ret := VALUE(C.rb_protect(toCFunctionPointer(arg1), C.VALUE(args), &cState))
 	*state = int(cState)
 	return ret
 }
@@ -8906,7 +8906,7 @@ func RbRequireString(feature VALUE) VALUE {
 //
 //	VALUE rb_rescue(VALUE (*b_proc)(VALUE), VALUE data1, VALUE (*r_proc)(VALUE, VALUE), VALUE data2)
 func RbRescue(arg1 unsafe.Pointer, data1 VALUE, arg3 unsafe.Pointer, data2 VALUE) VALUE {
-	ret := VALUE(C.rb_rescue(toCPointer(arg1), C.VALUE(data1), toCPointer(arg3), C.VALUE(data2)))
+	ret := VALUE(C.rb_rescue(toCFunctionPointer(arg1), C.VALUE(data1), toCFunctionPointer(arg3), C.VALUE(data2)))
 	return ret
 }
 
@@ -9167,7 +9167,7 @@ func RbSetClassPathString(klass VALUE, space VALUE, name VALUE) {
 //
 //	void rb_set_end_proc(void (*func)(VALUE arg), VALUE arg)
 func RbSetEndProc(arg1 unsafe.Pointer, arg VALUE) {
-	C.rb_set_end_proc(toCPointer(arg1), C.VALUE(arg))
+	C.rb_set_end_proc(toCFunctionPointer(arg1), C.VALUE(arg))
 }
 
 // RbSetErrinfo calls `rb_set_errinfo` in C
@@ -9430,7 +9430,7 @@ func RbStGetKey(arg1 *StTable, arg2 StDataT, arg3 *StDataT) int {
 //
 //	__attribute__((__pure__)) st_index_t rb_st_hash(const void *ptr, size_t len, st_index_t h)
 func RbStHash(ptr unsafe.Pointer, len SizeT, h StIndexT) StIndexT {
-	ret := StIndexT(C.rb_st_hash(toCPointer(ptr), C.size_t(len), C.st_index_t(h)))
+	ret := StIndexT(C.rb_st_hash(toCFunctionPointer(ptr), C.size_t(len), C.st_index_t(h)))
 	return ret
 }
 
@@ -9591,7 +9591,7 @@ func RbStInsert(arg1 *StTable, arg2 StDataT, arg3 StDataT) int {
 //	int rb_st_insert2(st_table *, st_data_t, st_data_t, st_data_t (*)(st_data_t))
 func RbStInsert2(arg1 *StTable, arg2 StDataT, arg3 StDataT, arg4 unsafe.Pointer) int {
 	var cArg1 C.st_table
-	ret := int(C.rb_st_insert2(&cArg1, C.st_data_t(arg2), C.st_data_t(arg3), toCPointer(arg4)))
+	ret := int(C.rb_st_insert2(&cArg1, C.st_data_t(arg2), C.st_data_t(arg3), toCFunctionPointer(arg4)))
 	*arg1 = StTable(cArg1)
 	return ret
 }
@@ -10769,7 +10769,7 @@ func RbThreadCheckInts() {
 //
 //	VALUE rb_thread_create(VALUE (*f)(void *g), void *g)
 func RbThreadCreate(arg1 unsafe.Pointer, g unsafe.Pointer) VALUE {
-	ret := VALUE(C.rb_thread_create(toCPointer(arg1), toCPointer(g)))
+	ret := VALUE(C.rb_thread_create(toCFunctionPointer(arg1), toCFunctionPointer(g)))
 	return ret
 }
 
@@ -11397,7 +11397,7 @@ func RbUvToUtf8(buf []Char, uv uint) int {
 //
 //	VALUE rb_vrescue2(VALUE (*b_proc)(VALUE), VALUE data1, VALUE (*r_proc)(VALUE, VALUE), VALUE data2, va_list ap)
 func RbVrescue2(arg1 unsafe.Pointer, data1 VALUE, arg3 unsafe.Pointer, data2 VALUE, ap VaList) VALUE {
-	ret := VALUE(C.rb_vrescue2(toCPointer(arg1), C.VALUE(data1), toCPointer(arg3), C.VALUE(data2), C.va_list(ap)))
+	ret := VALUE(C.rb_vrescue2(toCFunctionPointer(arg1), C.VALUE(data1), toCFunctionPointer(arg3), C.VALUE(data2), C.va_list(ap)))
 	return ret
 }
 

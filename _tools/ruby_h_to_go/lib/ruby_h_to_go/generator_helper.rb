@@ -95,7 +95,7 @@ module RubyHToGo
       when "rb_io_wait_readwrite"
         return "C.enum_rb_io_wait_readwrite"
       when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/, "RUBY_DATA_FUNC"
-        return "toCPointer"
+        return "toCFunctionPointer"
       end
 
       "C.#{typename}"
