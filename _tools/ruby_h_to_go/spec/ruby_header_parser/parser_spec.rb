@@ -195,6 +195,32 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typedef(type: "VALUE") }
       its(:args)       { should eq args }
     end
+
+    context "rb_scan_args_set" do
+      subject { definitions.find { |d| d.name == "rb_scan_args_set" } }
+
+      let(:args) do
+        [
+          argument(type: "int", name: "kw_flag"),
+          argument(type: "int", name: "argc"),
+          argument(type: "VALUE", name: "argv", pointer: :ref),
+          argument(type: "int", name: "n_lead"),
+          argument(type: "int", name: "n_opt"),
+          argument(type: "int", name: "n_trail"),
+          argument(type: "_Bool", name: "f_var"),
+          argument(type: "_Bool", name: "f_hash"),
+          argument(type: "_Bool", name: "f_block"),
+          argument(type: "VALUE", name: "vars", pointer: :ref_array),
+          argument(type: "char", name: "fmt", pointer: :ref),
+          argument(type: "int", name: "varc"),
+        ]
+      end
+
+      its(:name)       { should eq "rb_scan_args_set" }
+      its(:definition) { should eq "rb_scan_args_set(int kw_flag, int argc, const VALUE *argv," } # TODO: Fix this after
+      its(:typeref)    { should eq typedef(type: "int") }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_struct_definitions" do

@@ -51,6 +51,8 @@ function:
       3: array
     rb_funcallv_public:
       3: array
+    rb_scan_args_set:
+      9: ref_array
 
 struct:
   include_name:
