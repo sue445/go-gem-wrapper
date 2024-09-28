@@ -48,11 +48,11 @@ function:
 
   pointer_hint:
     rb_funcallv:
-      3: array
+      4: array
     rb_funcallv_public:
-      3: array
+      4: array
     rb_scan_args_set:
-      9: ref_array
+      10: ref_array
 
 struct:
   include_name:

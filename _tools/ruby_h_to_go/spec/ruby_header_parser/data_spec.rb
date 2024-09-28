@@ -4,18 +4,18 @@ RSpec.describe RubyHeaderParser::Data do
   let(:data) { RubyHeaderParser::Data.new }
 
   describe "#function_arg_pointer_hint" do
-    subject { data.function_arg_pointer_hint(function_name:, index:) }
+    subject { data.function_arg_pointer_hint(function_name:, pos:) }
 
     context "found in data.yml" do
       let(:function_name) { "rb_funcallv" }
-      let(:index) { 3 }
+      let(:pos) { 4 }
 
       it { should eq :array }
     end
 
     context "not found in data.yml" do
       let(:function_name) { "rb_funcallv" }
-      let(:index) { 4 }
+      let(:pos) { 5 }
 
       it { should eq :ref }
     end
