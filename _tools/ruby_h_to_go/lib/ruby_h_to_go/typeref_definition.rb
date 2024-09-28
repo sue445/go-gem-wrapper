@@ -18,7 +18,7 @@ module RubyHToGo
     def go_function_typeref
       return "" if type == "void" && !pointer?
 
-      ruby_c_type_to_go_type(type, pos: :return, pointer:)
+      ruby_c_type_to_go_type(type, pos: :typeref, pointer:)
     end
   end
 end

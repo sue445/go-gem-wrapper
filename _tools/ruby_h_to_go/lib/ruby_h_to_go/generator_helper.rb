@@ -38,7 +38,7 @@ module RubyHToGo
 
     # Convert C type to Go type. (used in wrapper function args and return type etc)
     # @param typename [String]
-    # @param pos [Symbol,nil] :arg, :return
+    # @param pos [Symbol,nil] :arg, :typeref
     # @param pointer [Symbol,nil] Whether pointer hint
     # @return [String]
     def ruby_c_type_to_go_type(typename, pos: nil, pointer: nil)
@@ -61,7 +61,7 @@ module RubyHToGo
         # e.g. VALUE
         return typename
       when "void"
-        return "unsafe.Pointer" if pointer == :ref && type == :return
+        return "unsafe.Pointer" if pointer == :ref && type == :typeref
       end
 
       snake_to_camel(typename)
@@ -105,7 +105,7 @@ module RubyHToGo
 
     # Convert pointer C type to Go type. (used in wrapper function args and return type etc)
     # @param typename [String]
-    # @param pos [Symbol,nil] :arg, :return
+    # @param pos [Symbol,nil] :arg, :typeref
     # @param pointer [Symbol,nil] Whether pointer hint
     # @return [String]
     def ruby_pointer_c_type_to_go_type(typename, pos:, pointer:)
@@ -113,7 +113,7 @@ module RubyHToGo
       when "char", "const char"
         if pointer == :ref
           case pos
-          when :arg, :return
+          when :arg, :typeref
             return "string"
           else
             return "char2String"
