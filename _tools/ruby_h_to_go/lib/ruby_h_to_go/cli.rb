@@ -110,8 +110,8 @@ module RubyHToGo
       return if src_dir == dist_dir
 
       %w[
+        c_struct.go
         c_types.go
-        types.go
         wrapper.go
       ].each do |file|
         FileUtils.cp(File.join(src_dir, file), dist_dir)
