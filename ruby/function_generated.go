@@ -393,7 +393,7 @@ func RB_UNDEF_P(obj VALUE) Bool {
 //
 //	RSTRING_END(VALUE str)
 func RSTRING_END(str VALUE) string {
-	ret := string(C.RSTRING_END(C.VALUE(str)))
+	ret := char2String(C.RSTRING_END(C.VALUE(str)))
 	return ret
 }
 
@@ -423,7 +423,7 @@ func RSTRING_LENINT(str VALUE) int {
 //
 //	RSTRING_PTR(VALUE str)
 func RSTRING_PTR(str VALUE) string {
-	ret := string(C.RSTRING_PTR(C.VALUE(str)))
+	ret := char2String(C.RSTRING_PTR(C.VALUE(str)))
 	return ret
 }
 
@@ -1783,7 +1783,7 @@ func RbCheckTypeddata(obj VALUE, data_type *RbDataTypeT) unsafe.Pointer {
 //
 //	const char *rb_class2name(VALUE klass)
 func RbClass2Name(klass VALUE) string {
-	ret := string(C.rb_class2name(C.VALUE(klass)))
+	ret := char2String(C.rb_class2name(C.VALUE(klass)))
 	return ret
 }
 
@@ -6359,7 +6359,7 @@ func RbHashUpdateBy(hash1 VALUE, hash2 VALUE, fun *RbHashUpdateFunc) VALUE {
 //
 //	const char *rb_id2name(ID id)
 func RbId2Name(id ID) string {
-	ret := string(C.rb_id2name(C.ID(id)))
+	ret := char2String(C.rb_id2name(C.ID(id)))
 	return ret
 }
 
@@ -8040,7 +8040,7 @@ func RbObjClass(obj VALUE) VALUE {
 //
 //	const char *rb_obj_classname(VALUE obj)
 func RbObjClassname(obj VALUE) string {
-	ret := string(C.rb_obj_classname(C.VALUE(obj)))
+	ret := char2String(C.rb_obj_classname(C.VALUE(obj)))
 	return ret
 }
 
@@ -9214,7 +9214,7 @@ func RbSingletonClassClone(obj VALUE) VALUE {
 //
 //	const char *rb_sourcefile(void)
 func RbSourcefile() string {
-	ret := string(C.rb_sourcefile())
+	ret := char2String(C.rb_sourcefile())
 	return ret
 }
 
@@ -10346,7 +10346,7 @@ func RbStrSublen(str VALUE, pos Long) Long {
 //	char *rb_str_subpos(VALUE str, long beg, long *len)
 func RbStrSubpos(str VALUE, beg Long, len *Long) string {
 	var cLen C.long
-	ret := string(C.rb_str_subpos(C.VALUE(str), C.long(beg), &cLen))
+	ret := char2String(C.rb_str_subpos(C.VALUE(str), C.long(beg), &cLen))
 	*len = Long(cLen)
 	return ret
 }
@@ -10492,7 +10492,7 @@ func RbStringValue(ptr *VALUE) VALUE {
 //	char *rb_string_value_cstr(volatile VALUE *ptr)
 func RbStringValueCstr(ptr *VALUE) string {
 	var cPtr C.VALUE
-	ret := string(C.rb_string_value_cstr(&cPtr))
+	ret := char2String(C.rb_string_value_cstr(&cPtr))
 	*ptr = VALUE(cPtr)
 	return ret
 }
@@ -10504,7 +10504,7 @@ func RbStringValueCstr(ptr *VALUE) string {
 //	char *rb_string_value_ptr(volatile VALUE *ptr)
 func RbStringValuePtr(ptr *VALUE) string {
 	var cPtr C.VALUE
-	ret := string(C.rb_string_value_ptr(&cPtr))
+	ret := char2String(C.rb_string_value_ptr(&cPtr))
 	*ptr = VALUE(cPtr)
 	return ret
 }

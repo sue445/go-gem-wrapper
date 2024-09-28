@@ -304,6 +304,36 @@ RSpec.describe RubyHToGo::FunctionDefinition do
 
       it { should eq go_content }
     end
+
+    context "RSTRING_END" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "RSTRING_END",
+          definition: "RSTRING_END(VALUE str)",
+          typeref:    typedef(type: "char", pointer: :ref),
+          args:       [
+            argument(type: "VALUE", name: "str"),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RSTRING_END calls `RSTRING_END` in C
+          //
+          // Original definition is following
+          //
+          //	RSTRING_END(VALUE str)
+          func RSTRING_END(str VALUE) string {
+          ret := char2String(C.RSTRING_END(C.VALUE(str)))
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
   end
 
   describe "#go_function_name" do

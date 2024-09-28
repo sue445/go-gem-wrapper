@@ -20,5 +20,15 @@ module RubyHToGo
 
       ruby_c_type_to_go_type(type, pos: :typeref, pointer:)
     end
+
+    # @return [String]
+    def cast_func_for_function_return
+      return "" if type == "void" && !pointer?
+
+      cast_func = ruby_c_type_to_go_type(type, pos: :return, pointer:)
+      return "(#{cast_func})" if cast_func.start_with?("*")
+
+      cast_func
+    end
   end
 end
