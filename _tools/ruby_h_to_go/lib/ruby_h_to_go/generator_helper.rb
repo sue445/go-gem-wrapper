@@ -42,32 +42,7 @@ module RubyHToGo
     # @param pointer [Symbol,nil] Whether pointer hint
     # @return [String]
     def ruby_c_type_to_go_type(typename, type: nil, pointer: nil)
-      if pointer
-        case typename
-        when "char", "const char"
-          if pointer == :ref
-            case type
-            when :arg, :return
-              return "string"
-            else
-              return "char2String"
-            end
-          end
-        when "void"
-          return "unsafe.Pointer"
-        end
-
-        go_type_name = ruby_c_type_to_go_type(typename, type:, pointer: nil)
-
-        case pointer
-        when :array
-          return "[]#{go_type_name}"
-        when :ref_array
-          return "[]*#{go_type_name}"
-        end
-
-        return "*#{go_type_name}"
-      end
+      return ruby_pointer_c_type_to_go_type(typename, type:, pointer:) if pointer
 
       case typename
       when "unsigned int", "unsigned long"
@@ -120,6 +95,40 @@ module RubyHToGo
       end
 
       "C.#{typename}"
+    end
+
+    private
+
+    # Convert pointer C type to Go type. (used in wrapper function args and return type etc)
+    # @param typename [String]
+    # @param type [Symbol,nil] :arg, :return
+    # @param pointer [Symbol,nil] Whether pointer hint
+    # @return [String]
+    def ruby_pointer_c_type_to_go_type(typename, type:, pointer:)
+      case typename
+      when "char", "const char"
+        if pointer == :ref
+          case type
+          when :arg, :return
+            return "string"
+          else
+            return "char2String"
+          end
+        end
+      when "void"
+        return "unsafe.Pointer"
+      end
+
+      go_type_name = ruby_c_type_to_go_type(typename, type:, pointer: nil)
+
+      case pointer
+      when :array
+        return "[]#{go_type_name}"
+      when :ref_array
+        return "[]*#{go_type_name}"
+      end
+
+      "*#{go_type_name}"
     end
   end
 end
