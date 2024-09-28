@@ -403,7 +403,7 @@ func RB_TEST(obj VALUE) Bool {
 //
 //	RB_TYPE_P(VALUE obj, enum ruby_value_type t)
 func RB_TYPE_P(obj VALUE, t RubyValueType) Bool {
-	ret := Bool(C.RB_TYPE_P(C.VALUE(obj), C.ruby_value_type(t)))
+	ret := Bool(C.RB_TYPE_P(C.VALUE(obj), C.enum_ruby_value_type(t)))
 	return ret
 }
 
