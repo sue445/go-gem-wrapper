@@ -59,7 +59,12 @@ module RubyHToGo
 
         go_type_name = ruby_c_type_to_go_type(typename, type:, pointer: nil)
 
-        return "[]#{go_type_name}" if pointer == :array
+        case pointer
+        when :array
+          return "[]#{go_type_name}"
+        when :ref_array
+          return "[]*#{go_type_name}"
+        end
 
         return "*#{go_type_name}"
       end

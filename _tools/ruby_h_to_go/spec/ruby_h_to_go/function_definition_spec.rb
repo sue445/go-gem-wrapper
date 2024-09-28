@@ -258,6 +258,52 @@ RSpec.describe RubyHToGo::FunctionDefinition do
 
       it { should eq go_content }
     end
+
+    context "rb_scan_args_set" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_scan_args_set",
+          definition: "rb_scan_args_set(int kw_flag, int argc, const VALUE *argv,",
+          typeref:    typedef(type: "int"),
+          args:       [
+            argument(type: "int", name: "kw_flag"),
+            argument(type: "int", name: "argc"),
+            argument(type: "VALUE", name: "argv", pointer: :ref),
+            argument(type: "int", name: "n_lead"),
+            argument(type: "int", name: "n_opt"),
+            argument(type: "int", name: "n_trail"),
+            argument(type: "_Bool", name: "f_var"),
+            argument(type: "_Bool", name: "f_hash"),
+            argument(type: "_Bool", name: "f_block"),
+            argument(type: "VALUE", name: "vars", pointer: :ref_array),
+            argument(type: "char", name: "fmt", pointer: :ref),
+            argument(type: "int", name: "varc"),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbScanArgsSet calls `rb_scan_args_set` in C
+          //
+          // Original definition is following
+          //
+          //	rb_scan_args_set(int kw_flag, int argc, const VALUE *argv,
+          func RbScanArgsSet(kw_flag int, argc int, argv *VALUE, n_lead int, n_opt int, n_trail int, f_var Bool, f_hash Bool, f_block Bool, vars []*VALUE, fmt string, varc int) int {
+          char, clean := string2Char(fmt)
+          defer clean()
+
+          var cArgv C.VALUE
+          ret := int(C.rb_scan_args_set(C.int(kw_flag), C.int(argc), &cArgv, C.int(n_lead), C.int(n_opt), C.int(n_trail), C._Bool(f_var), C._Bool(f_hash), C._Bool(f_block), toCArray[*VALUE, *C.VALUE](vars), char, C.int(varc)))
+          *argv = VALUE(cArgv)
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
   end
 
   describe "#go_function_name" do
