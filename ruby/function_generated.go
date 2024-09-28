@@ -317,36 +317,6 @@ func RB_OBJ_PROMOTED_RAW(obj VALUE) Bool {
 	return ret
 }
 
-// RB_OBJ_TAINTABLE calls `RB_OBJ_TAINTABLE` in C
-//
-// Original definition is following
-//
-//	RB_OBJ_TAINTABLE(VALUE obj)
-func RB_OBJ_TAINTABLE(obj VALUE) Bool {
-	ret := Bool(C.RB_OBJ_TAINTABLE(C.VALUE(obj)))
-	return ret
-}
-
-// RB_OBJ_TAINTED calls `RB_OBJ_TAINTED` in C
-//
-// Original definition is following
-//
-//	RB_OBJ_TAINTED(VALUE obj)
-func RB_OBJ_TAINTED(obj VALUE) Bool {
-	ret := Bool(C.RB_OBJ_TAINTED(C.VALUE(obj)))
-	return ret
-}
-
-// RB_OBJ_TAINTED_RAW calls `RB_OBJ_TAINTED_RAW` in C
-//
-// Original definition is following
-//
-//	RB_OBJ_TAINTED_RAW(VALUE obj)
-func RB_OBJ_TAINTED_RAW(obj VALUE) VALUE {
-	ret := VALUE(C.RB_OBJ_TAINTED_RAW(C.VALUE(obj)))
-	return ret
-}
-
 // RB_SPECIAL_CONST_P calls `RB_SPECIAL_CONST_P` in C
 //
 // Original definition is following

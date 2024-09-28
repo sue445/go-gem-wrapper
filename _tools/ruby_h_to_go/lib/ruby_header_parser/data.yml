@@ -5,26 +5,26 @@ function:
 
   exclude_name:
     # deprecated functions
-    - rb_check_safe_str
-    - rb_clear_constant_cache
-    - rb_clone_setup
-    - rb_complex_polar
-    - rb_data_object_alloc
-    - rb_data_object_get_warning
-    - rb_data_object_wrap_warning
-    - rb_data_typed_object_alloc
-    - rb_dup_setup
-    - rb_gc_force_recycle
-    - rb_iterate
-    - RB_OBJ_INFECT
-    - RB_OBJ_INFECT_RAW
-    - RB_OBJ_TAINT
-    - RB_OBJ_TAINT_RAW
-    - rb_obj_taintable
-    - rb_obj_tainted
-    - rb_obj_tainted_raw
-    - rb_scan_args_length_mismatch
-    - rb_varargs_bad_length
+    - !ruby/regexp /^rb_check_safe_str$/i
+    - !ruby/regexp /^rb_clear_constant_cache$/i
+    - !ruby/regexp /^rb_clone_setup$/i
+    - !ruby/regexp /^rb_complex_polar$/i
+    - !ruby/regexp /^rb_data_object_alloc$/i
+    - !ruby/regexp /^rb_data_object_get_warning$/i
+    - !ruby/regexp /^rb_data_object_wrap_warning$/i
+    - !ruby/regexp /^rb_data_typed_object_alloc$/i
+    - !ruby/regexp /^rb_dup_setup$/i
+    - !ruby/regexp /^rb_gc_force_recycle$/i
+    - !ruby/regexp /^rb_iterate$/i
+    - !ruby/regexp /^rb_obj_infect$/i
+    - !ruby/regexp /^rb_obj_infect_raw$/i
+    - !ruby/regexp /^rb_obj_taint$/i
+    - !ruby/regexp /^rb_obj_taint_raw$/i
+    - !ruby/regexp /^rb_obj_taintable$/i
+    - !ruby/regexp /^rb_obj_tainted$/i
+    - !ruby/regexp /^rb_obj_tainted_raw$/i
+    - !ruby/regexp /^rb_scan_args_length_mismatch$/i
+    - !ruby/regexp /^rb_varargs_bad_length$/i
 
     # internal functions in ruby.h
     - rb_scan_args_bad_format
