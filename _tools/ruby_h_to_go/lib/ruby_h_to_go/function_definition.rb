@@ -63,7 +63,9 @@ module RubyHToGo
       args.each do |c_arg|
         case c_arg.pointer
         when :ref
-          if c_arg.type == "char"
+          case c_arg.type
+          when "char"
+            # c_arg is string
             if char_var_count >= 2
               char_var_name = "char#{snake_to_camel(c_arg.go_name)}"
               clean_var_name = "cleanChar#{c_arg.go_name}"
@@ -77,18 +79,17 @@ module RubyHToGo
             go_function_lines << ""
 
             casted_go_args << char_var_name.to_s
+          when "void"
+            # c_arg is pointer
+            casted_go_args << c_arg.go_name
           else
-            if c_arg.type == "void"
-              casted_go_args << c_arg.go_name
-            else
-              c_var_name = "c#{snake_to_camel(c_arg.go_name)}"
+            c_var_name = "c#{snake_to_camel(c_arg.go_name)}"
 
-              before_call_function_lines << "var #{c_var_name} #{cast_to_cgo_type(c_arg.type)}"
-              after_call_function_lines <<
-                "*#{c_arg.go_name} = #{ruby_c_type_to_go_type(c_arg.type, pos: :arg)}(#{c_var_name})"
+            before_call_function_lines << "var #{c_var_name} #{cast_to_cgo_type(c_arg.type)}"
+            after_call_function_lines <<
+              "*#{c_arg.go_name} = #{ruby_c_type_to_go_type(c_arg.type, pos: :arg)}(#{c_var_name})"
 
-              casted_go_args << "&#{c_var_name}"
-            end
+            casted_go_args << "&#{c_var_name}"
           end
         when :function
           casted_go_args << "toCFunctionPointer(#{c_arg.go_name})"
