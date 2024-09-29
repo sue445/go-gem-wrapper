@@ -59,6 +59,9 @@ type FdSet C.fd_set
 // ModeT is a type for passing `C.mode_t` in and out of package
 type ModeT C.mode_t
 
+// Void is a type for passing `C.void` in and out of package
+type Void C.void
+
 // Bool is a type for passing `C.bool` in and out of package
 type Bool C.bool
 
