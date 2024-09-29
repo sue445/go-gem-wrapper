@@ -7547,7 +7547,7 @@ func RbSetClassPathString(klass VALUE, space VALUE, name VALUE) {
 //
 //	void rb_set_end_proc(void (*func)(VALUE arg), VALUE arg)
 func RbSetEndProc(arg1 unsafe.Pointer, arg VALUE) {
-	C.rb_set_end_proc(toCArray[*Void, *C.void](arg1), C.VALUE(arg))
+	C.rb_set_end_proc(toCFunctionPointer(arg1), C.VALUE(arg))
 }
 
 // RbSetErrinfo calls `rb_set_errinfo` in C

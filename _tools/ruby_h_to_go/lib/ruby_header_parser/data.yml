@@ -106,7 +106,7 @@ function:
     rb_scan_args_set:
       10: ref_array
     rb_set_end_proc:
-      1: ref_array
+      1: function
     rb_st_insert2:
       4: function
     rb_thread_call_with_gvl:
