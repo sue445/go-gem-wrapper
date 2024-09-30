@@ -2465,7 +2465,7 @@ func RbDataObjectGet(obj VALUE) unsafe.Pointer {
 // Original definition is following
 //
 //	rb_data_object_make(VALUE klass, RUBY_DATA_FUNC mark_func, RUBY_DATA_FUNC free_func, void **data/;"
-func RbDataObjectMake(klass VALUE, mark_func unsafe.Pointer, free_func unsafe.Pointer, datap unsafe.Pointer, size SizeT) VALUE {
+func RbDataObjectMake(klass VALUE, mark_func unsafe.Pointer, free_func unsafe.Pointer, datap *unsafe.Pointer, size SizeT) VALUE {
 	ret := VALUE(C.rb_data_object_make(C.VALUE(klass), toCFunctionPointer(mark_func), toCFunctionPointer(free_func), datap, C.size_t(size)))
 	return ret
 }
