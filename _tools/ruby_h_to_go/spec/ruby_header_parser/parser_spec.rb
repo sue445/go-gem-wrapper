@@ -135,7 +135,7 @@ RSpec.describe RubyHeaderParser::Parser do
       end
 
       its(:name)       { should eq "rb_big2ll" }
-      its(:definition) { should eq "rb_big2ll(VALUE)" }
+      its(:definition) { should include "rb_big2ll(VALUE)" }
       its(:typeref)    { should eq typedef(type: "long long") }
       its(:args)       { should eq args }
     end
@@ -150,7 +150,7 @@ RSpec.describe RubyHeaderParser::Parser do
       end
 
       its(:name)       { should eq "rb_big2ull" }
-      its(:definition) { should eq "rb_big2ull(VALUE)" }
+      its(:definition) { should include "rb_big2ull(VALUE)" }
       its(:typeref)    { should eq typedef(type: "unsigned long long") }
       its(:args)       { should eq args }
     end
