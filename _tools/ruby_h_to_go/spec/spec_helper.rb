@@ -105,6 +105,8 @@ RSpec.configure do |config|
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
 
+  config.filter_run_when_matching :focus
+
   config.include TestHelper
 
   config.define_derived_metadata do |meta|
