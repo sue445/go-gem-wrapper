@@ -2854,9 +2854,7 @@ func RbDefineVariable(name string, v *VALUE) {
 	char, clean := string2Char(name)
 	defer clean()
 
-	var cV C.VALUE
-	C.rb_define_variable(char, &cV)
-	*v = VALUE(cV)
+	C.rb_define_variable(char, (*C.VALUE)(v))
 }
 
 // RbDefineVirtualVariable calls `rb_define_virtual_variable` in C

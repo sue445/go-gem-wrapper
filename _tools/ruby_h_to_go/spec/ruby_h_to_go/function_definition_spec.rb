@@ -469,6 +469,39 @@ RSpec.describe RubyHToGo::FunctionDefinition do
 
       it { should eq go_content }
     end
+
+    context "rb_define_variable" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_define_variable",
+          definition: "void rb_define_variable(const char *name, VALUE *var)",
+          typeref:    typedef(type: "void"),
+          args:       [
+            argument(type: "char", name: "name", pointer: :ref),
+            argument(type: "VALUE", name: "var", pointer: :in_ref),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbDefineVariable calls `rb_define_variable` in C
+          //
+          // Original definition is following
+          //
+          //	void rb_define_variable(const char *name, VALUE *var)
+          func RbDefineVariable(name string, v *VALUE)  {
+          char, clean := string2Char(name)
+          defer clean()
+
+          C.rb_define_variable(char, (*C.VALUE)(v))
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
   end
 
   describe "#go_function_name" do

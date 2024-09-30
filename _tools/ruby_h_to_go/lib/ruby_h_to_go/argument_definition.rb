@@ -49,6 +49,8 @@ module RubyHToGo
         return go_name if type == "void" && length == 2
 
         return "(#{"*" * length}#{cast_to_cgo_type(type)})(unsafe.Pointer(#{go_name}))"
+      when :in_ref
+        return "(*#{cast_to_cgo_type(type)})(#{go_name})"
       end
 
       "#{cast_to_cgo_type(type)}(#{go_name})"
