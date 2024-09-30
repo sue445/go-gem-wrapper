@@ -1,5 +1,9 @@
 # Benchmark
-## tarai
+## Ruby's [Ractor](https://docs.ruby-lang.org/en/master/ractor_md.html) vs Go's [goroutine](https://go.dev/tour/concurrency/1)
+Benchmark with [tak function](https://en.wikipedia.org/wiki/Tak_(function)) [^tak]
+
+[^tak]: https://www.ruby-lang.org/en/news/2020/12/25/ruby-3-0-0-released/
+
 ```bash
 $ ruby tarai.rb
 ruby 3.3.5 (2024-09-03 revision ef084cc8f4) [arm64-darwin23]
