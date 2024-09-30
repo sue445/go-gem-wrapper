@@ -66,7 +66,7 @@ func rb_example_tests_rb_ivar_set(self C.VALUE, value C.VALUE) {
 
 //export rb_example_tests_rb_yield
 func rb_example_tests_rb_yield(_ C.VALUE, arg C.VALUE) C.VALUE {
-	if ruby.RbBlockGivenP() != 0 {
+	if ruby.RbBlockGivenP() == 0 {
 		ruby.RbRaise(ruby.VALUE(C.rb_eArgError), "Block not given")
 	}
 
@@ -76,7 +76,7 @@ func rb_example_tests_rb_yield(_ C.VALUE, arg C.VALUE) C.VALUE {
 
 //export rb_example_tests_rb_block_proc
 func rb_example_tests_rb_block_proc(_ C.VALUE, arg C.VALUE) C.VALUE {
-	if ruby.RbBlockGivenP() != 0 {
+	if ruby.RbBlockGivenP() == 0 {
 		ruby.RbRaise(ruby.VALUE(C.rb_eArgError), "Block not given")
 	}
 
@@ -192,7 +192,7 @@ func rb_example_tests_rb_eval_string(_ C.VALUE, str C.VALUE) C.VALUE {
 func rb_example_tests_rb_eval_string_protect(_ C.VALUE, str C.VALUE) C.VALUE {
 	goStr := ruby.Value2String(ruby.VALUE(str))
 
-	var state ruby.Int
+	var state int
 	ret := ruby.RbEvalStringProtect(goStr, &state)
 
 	slice := []ruby.VALUE{ret, ruby.INT2NUM(state)}
@@ -205,7 +205,7 @@ func rb_example_tests_rb_eval_string_protect(_ C.VALUE, str C.VALUE) C.VALUE {
 func rb_example_tests_rb_eval_string_wrap(_ C.VALUE, str C.VALUE) C.VALUE {
 	goStr := ruby.Value2String(ruby.VALUE(str))
 
-	var state ruby.Int
+	var state int
 	ret := ruby.RbEvalStringWrap(goStr, &state)
 
 	slice := []ruby.VALUE{ret, ruby.INT2NUM(state)}
@@ -224,7 +224,7 @@ func rb_example_tests_rb_ary_new(_ C.VALUE) C.VALUE {
 //export rb_example_tests_rb_ary_new_capa
 func rb_example_tests_rb_ary_new_capa(_ C.VALUE, capa C.VALUE) C.VALUE {
 	longCapa := ruby.NUM2LONG(ruby.VALUE(capa))
-	ret := ruby.RbAryNewCapa(int64(longCapa))
+	ret := ruby.RbAryNewCapa(ruby.Long(longCapa))
 
 	return C.VALUE(ret)
 }
