@@ -11,8 +11,19 @@ Convert Ruby C function definition in `ruby.h` to Go source and dump to `dist/`.
   * `go install golang.org/x/tools/cmd/goimports@latest`
 
 ## Usage
+Output binding to [/ruby/](/ruby/) using Ruby available in current context **(recommended)**
+
 ```bash
-./exe/ruby_h_to_go -H path/to/ruby/header/dir
+bundle exec rake ruby_h_to_go
 ```
 
-* `-H` : path to ruby header dir. (default: `RbConfig::CONFIG["rubyhdrdir"]`)
+Customize Ruby version to be used, output directory.
+
+```bash
+./exe/ruby_h_to_go
+```
+
+* `-H`, `--header-file` : ruby header file. (default: `"#{RbConfig::CONFIG["rubyhdrdir"]}/ruby.h"`)
+* `-I`, `--include-path` : include paths (default: `[RbConfig::CONFIG["rubyarchhdrdir"], RbConfig::CONFIG["rubyhdrdir"]]`)
+* `--dist-dir` : dist dir for auto-generated Go code (default: [../../ruby/](../../ruby/))
+* `-t`, `--temp-file` : temporary dist preprocessed ruby header file (default: `"#{Dir.tmpdir}/ruby_preprocessed.h"`)
