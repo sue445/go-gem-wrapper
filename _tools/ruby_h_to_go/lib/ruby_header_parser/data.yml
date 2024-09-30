@@ -56,6 +56,8 @@ function:
     - rb_gc_guarded_ptr_val
 
   pointer_hint:
+    rb_data_typed_object_make:
+      3: sref
     rb_define_global_function:
       2: function
     rb_define_method:

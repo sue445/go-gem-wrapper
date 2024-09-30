@@ -267,6 +267,24 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typedef(type: "char", pointer: :ref) }
       its(:args)       { should eq args }
     end
+
+    context "rb_data_typed_object_make" do
+      subject { definitions.find { |d| d.name == "rb_data_typed_object_make" } }
+
+      let(:args) do
+        [
+          argument(type: "VALUE", name: "klass"),
+          argument(type: "rb_data_type_t", name: "type", pointer: :ref),
+          argument(type: "void", name: "datap", pointer: :sref, length: 2),
+          argument(type: "size_t", name: "size"),
+        ]
+      end
+
+      its(:name)       { should eq "rb_data_typed_object_make" }
+      its(:definition) { should eq "rb_data_typed_object_make(VALUE klass, const rb_data_type_t *type, void **datap, size_t size)" }
+      its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_struct_definitions" do
