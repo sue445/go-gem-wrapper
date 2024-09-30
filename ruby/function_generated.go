@@ -3591,14 +3591,11 @@ func RbFdZero(f *RbFdsetT) {
 // Original definition is following
 //
 //	int rb_feature_provided(const char *feature, const char **loading)
-func RbFeatureProvided(feature string, loading string) int {
-	charFeature, cleanCharfeature := string2Char(feature)
-	defer cleanCharfeature()
+func RbFeatureProvided(feature string, loading **Char) int {
+	char, clean := string2Char(feature)
+	defer clean()
 
-	charLoading, cleanCharloading := string2Char(loading)
-	defer cleanCharloading()
-
-	ret := int(C.rb_feature_provided(charFeature, charLoading))
+	ret := int(C.rb_feature_provided(char, (**C.char)(unsafe.Pointer(loading))))
 	return ret
 }
 

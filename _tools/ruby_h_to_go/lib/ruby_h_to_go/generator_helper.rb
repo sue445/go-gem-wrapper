@@ -40,9 +40,10 @@ module RubyHToGo
     # @param typename [String]
     # @param pos [Symbol,nil] :arg, :typeref, :return
     # @param pointer [Symbol,nil] Whether pointer hint
+    # @param pointer_length [Integer]
     # @return [String]
-    def ruby_c_type_to_go_type(typename, pos: nil, pointer: nil)
-      return ruby_pointer_c_type_to_go_type(typename, pos:, pointer:) if pointer
+    def ruby_c_type_to_go_type(typename, pos: nil, pointer: nil, pointer_length: 0)
+      return ruby_pointer_c_type_to_go_type(typename, pos:, pointer:, pointer_length:) if pointer
 
       case typename
       when "unsigned int", "unsigned long"
@@ -107,8 +108,14 @@ module RubyHToGo
     # @param typename [String]
     # @param pos [Symbol,nil] :arg, :typeref, :return
     # @param pointer [Symbol,nil] Whether pointer hint
+    # @param pointer_length [Integer]
     # @return [String]
-    def ruby_pointer_c_type_to_go_type(typename, pos:, pointer:)
+    def ruby_pointer_c_type_to_go_type(typename, pos:, pointer:, pointer_length:)
+      if pointer == :sref
+        go_type_name = ruby_c_type_to_go_type(typename, pos:, pointer: nil)
+        return "#{"*" * pointer_length}#{go_type_name}"
+      end
+
       case typename
       when "char", "const char"
         if pointer == :ref

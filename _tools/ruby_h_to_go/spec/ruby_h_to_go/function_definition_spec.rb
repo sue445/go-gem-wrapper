@@ -364,6 +364,40 @@ RSpec.describe RubyHToGo::FunctionDefinition do
 
       it { should eq go_content }
     end
+
+    context "rb_feature_provided" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_feature_provided",
+          definition: "int rb_feature_provided(const char *feature, const char **loading)",
+          typeref:    typedef(type: "int"),
+          args:       [
+            argument(type: "char", name: "feature", pointer: :ref),
+            argument(type: "char", name: "loading", pointer: :sref, length: 2),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbFeatureProvided calls `rb_feature_provided` in C
+          //
+          // Original definition is following
+          //
+          //	int rb_feature_provided(const char *feature, const char **loading)
+          func RbFeatureProvided(feature string, loading **Char) int {
+          char, clean := string2Char(feature)
+          defer clean()
+
+          ret := int(C.rb_feature_provided(char, (**C.char)(unsafe.Pointer(loading))))
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
   end
 
   describe "#go_function_name" do
