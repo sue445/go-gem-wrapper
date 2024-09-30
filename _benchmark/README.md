@@ -8,12 +8,12 @@ Warming up --------------------------------------
    parallel (Ractor)     1.000 i/100ms
 parallel (goroutine)     1.000 i/100ms
 Calculating -------------------------------------
-          sequential      0.017 (± 0.0%) i/s    (57.45 s/i) -      1.000 in  57.451544s
-   parallel (Ractor)      0.052 (± 0.0%) i/s    (19.28 s/i) -      1.000 in  19.281159s
-parallel (goroutine)      1.384 (± 0.0%) i/s  (722.59 ms/i) -      7.000 in   5.062048s
+          sequential      0.017 (± 0.0%) i/s    (57.66 s/i) -      1.000 in  57.660028s
+   parallel (Ractor)      0.050 (± 0.0%) i/s    (20.04 s/i) -      1.000 in  20.038214s
+parallel (goroutine)      1.327 (± 0.0%) i/s  (753.61 ms/i) -      7.000 in   5.275383s
 
 Comparison:
-parallel (goroutine):        1.4 i/s
-   parallel (Ractor):        0.1 i/s - 26.68x  slower
-          sequential:        0.0 i/s - 79.51x  slower
+parallel (goroutine):        1.3 i/s
+   parallel (Ractor):        0.0 i/s - 26.59x  slower
+          sequential:        0.0 i/s - 76.51x  slower
 ```
