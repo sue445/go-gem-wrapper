@@ -185,6 +185,22 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typedef(type: "int") }
       its(:args)       { should eq args }
     end
+
+    context "rb_define_variable" do
+      subject { definitions.find { |d| d.name == "rb_define_variable" } }
+
+      let(:args) do
+        [
+          argument(type: "char", name: "name", pointer: :ref),
+          argument(type: "VALUE", name: "var", pointer: :in_ref),
+        ]
+      end
+
+      its(:name)       { should eq "rb_define_variable" }
+      its(:definition) { should eq "void rb_define_variable(const char *name, VALUE *var)" }
+      its(:typeref)    { should eq typedef(type: "void") }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_static_inline_function_definitions" do

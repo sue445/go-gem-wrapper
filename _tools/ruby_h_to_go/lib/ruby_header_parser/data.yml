@@ -86,6 +86,8 @@ function:
       3: function
     rb_define_singleton_method:
       3: function
+    rb_define_variable:
+      2: in_ref
     rb_ensure:
       1: function
       3: function
