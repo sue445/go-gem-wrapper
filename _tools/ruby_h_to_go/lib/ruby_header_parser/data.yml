@@ -55,6 +55,18 @@ function:
     # FIXME: Workaround for "could not determine kind of name for C.rb_gc_guarded_ptr_val"
     - rb_gc_guarded_ptr_val
 
+    # FIXME: Workaround for "cannot use _cgo2 (variable of type _Ctype_va_list) as *_Ctype_struct___va_list_tag value in argument to _Cfunc_rb_str_vcatf" on GitHub Actions (Ubuntu 22.04)
+    - rb_str_vcatf
+
+    # FIXME: Workaround for "cannot use _cgo4 (variable of type _Ctype_va_list) as *_Ctype_struct___va_list_tag value in argument to _Cfunc_rb_vrescue2" on GitHub Actions (Ubuntu 22.04)
+    - rb_vrescue2
+
+    # FIXME: Workaround for "cannot use _cgo1 (variable of type _Ctype_va_list) as *_Ctype_struct___va_list_tag value in argument to _Cfunc_rb_vsprintf" on GitHub Actions (Ubuntu 22.04)
+    - rb_vsprintf
+
+    # FIXME: Workaround for "undefined reference to `rb_class_descendants'" on GitHub Actions (Ubuntu 22.04)
+    - rb_class_descendants
+
   pointer_hint:
     rb_data_object_make:
       4: sref

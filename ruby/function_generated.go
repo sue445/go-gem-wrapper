@@ -1797,16 +1797,6 @@ func RbClassAttachedObject(klass VALUE) VALUE {
 	return ret
 }
 
-// RbClassDescendants calls `rb_class_descendants` in C
-//
-// Original definition is following
-//
-//	VALUE rb_class_descendants(VALUE klass)
-func RbClassDescendants(klass VALUE) VALUE {
-	ret := VALUE(C.rb_class_descendants(C.VALUE(klass)))
-	return ret
-}
-
 // RbClassGetSuperclass calls `rb_class_get_superclass` in C
 //
 // Original definition is following
@@ -8837,19 +8827,6 @@ func RbStrUpdate(dst VALUE, beg Long, len Long, src VALUE) {
 	C.rb_str_update(C.VALUE(dst), C.long(beg), C.long(len), C.VALUE(src))
 }
 
-// RbStrVcatf calls `rb_str_vcatf` in C
-//
-// Original definition is following
-//
-//	VALUE rb_str_vcatf(VALUE dst, const char *fmt, va_list ap)
-func RbStrVcatf(dst VALUE, fmt string, ap VaList) VALUE {
-	char, clean := string2Char(fmt)
-	defer clean()
-
-	ret := VALUE(C.rb_str_vcatf(C.VALUE(dst), char, C.va_list(ap)))
-	return ret
-}
-
 // RbStringValue calls `rb_string_value` in C
 //
 // Original definition is following
@@ -9765,29 +9742,6 @@ func RbUtf8StrNewStatic(ptr string, len Long) VALUE {
 //	int rb_uv_to_utf8(char buf[6], unsigned long uv)
 func RbUvToUtf8(buf []Char, uv uint) int {
 	ret := int(C.rb_uv_to_utf8(toCArray[Char, C.char](buf), C.ulong(uv)))
-	return ret
-}
-
-// RbVrescue2 calls `rb_vrescue2` in C
-//
-// Original definition is following
-//
-//	VALUE rb_vrescue2(VALUE (*b_proc)(VALUE), VALUE data1, VALUE (*r_proc)(VALUE, VALUE), VALUE data2, va_list ap)
-func RbVrescue2(arg1 unsafe.Pointer, data1 VALUE, arg3 unsafe.Pointer, data2 VALUE, ap VaList) VALUE {
-	ret := VALUE(C.rb_vrescue2(toCFunctionPointer(arg1), C.VALUE(data1), toCFunctionPointer(arg3), C.VALUE(data2), C.va_list(ap)))
-	return ret
-}
-
-// RbVsprintf calls `rb_vsprintf` in C
-//
-// Original definition is following
-//
-//	VALUE rb_vsprintf(const char *fmt, va_list ap)
-func RbVsprintf(fmt string, ap VaList) VALUE {
-	char, clean := string2Char(fmt)
-	defer clean()
-
-	ret := VALUE(C.rb_vsprintf(char, C.va_list(ap)))
 	return ret
 }
 
