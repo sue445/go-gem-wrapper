@@ -169,6 +169,22 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typedef(type: "VALUE") }
       its(:args)       { should eq args }
     end
+
+    context "rb_feature_provided" do
+      subject { definitions.find { |d| d.name == "rb_feature_provided" } }
+
+      let(:args) do
+        [
+          argument(type: "char", name: "feature", pointer: :ref),
+          argument(type: "char", name: "loading", pointer: :sref, length: 2),
+        ]
+      end
+
+      its(:name)       { should eq "rb_feature_provided" }
+      its(:definition) { should eq "int rb_feature_provided(const char *feature, const char **loading)" }
+      its(:typeref)    { should eq typedef(type: "int") }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_static_inline_function_definitions" do

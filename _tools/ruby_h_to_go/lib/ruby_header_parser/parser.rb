@@ -223,16 +223,24 @@ module RubyHeaderParser
             parts << "arg#{arg_pos}"
           end
 
-          type = Util.sanitize_type(parts[0...-1].join(" "))
+          type = ""
+          original_type = Util.sanitize_type(parts[0...-1].join(" "))
           name = parts[-1]
 
-          if type.match?(/\*+$/)
-            type = type.gsub(/\*+$/, "").strip
+          if original_type.match?(/\*+$/)
+            type = original_type.gsub(/\*+$/, "").strip
             pointer = data.function_arg_pointer_hint(function_name:, pos: arg_pos)
-          elsif /^void\s*\s/.match?(type) || /\(.*\)/.match?(type)
+          elsif /^void\s*\s/.match?(original_type) || /\(.*\)/.match?(original_type)
             # function pointer (e.g. void *(*func)(void *)) is treated as `void*`
             type = "void"
             pointer = data.function_arg_pointer_hint(function_name:, pos: arg_pos)
+          else
+            type = original_type
+          end
+
+          if pointer == :sref
+            original_type =~ /(\*+)$/
+            length = ::Regexp.last_match(1).length
           end
 
           ArgumentDefinition.new(

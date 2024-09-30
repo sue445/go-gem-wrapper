@@ -81,6 +81,8 @@ function:
       1: function
     rb_exec_recursive_paired_outer:
       1: function
+    rb_feature_provided:
+      2: sref
     rb_funcallv:
       4: array
     rb_funcallv_public:
