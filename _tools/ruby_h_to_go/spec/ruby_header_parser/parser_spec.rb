@@ -89,7 +89,7 @@ RSpec.describe RubyHeaderParser::Parser do
       let(:args) do
         [
           argument(type: "VALUE", name: "feature", pointer: :ref),
-          argument(type: "char", name: "exts", pointer: :ref),
+          argument(type: "char", name: "exts", pointer: :str_array),
         ]
       end
 

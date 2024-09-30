@@ -83,6 +83,8 @@ function:
       1: function
     rb_feature_provided:
       2: sref
+    rb_find_file_ext:
+      2: str_array
     rb_funcallv:
       4: array
     rb_funcallv_public:
