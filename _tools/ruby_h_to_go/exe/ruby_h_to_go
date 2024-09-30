@@ -1,11 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Convert Ruby C function definition to Go source and dump to dist/
-#
-# Usage:
-#   ./ruby_h_to_go -H path/to/ruby/header/dir
-
 require "optparse"
 require "fileutils"
 require "tmpdir"
@@ -36,12 +31,12 @@ opt.on("-I", "--include-path path1,path2", Array, "include paths (default: #{DEF
   include_paths = v
 end
 
-opt.on("-D", "--dist-dir DIST_DIR", "dist dir for auto-generated Go code (default: #{DEFAULT_DIST_DIR})") do |v|
+opt.on("-t", "--dist-dir DIST_DIR", "dist dir for auto-generated Go code (default: #{DEFAULT_DIST_DIR})") do |v|
   dist_dir = v
 end
 
-opt.on("-p", "--dist-dir DIST_DIR",
-       "dist preprocessed ruby header file (default: #{DEFAULT_DIST_PREPROCESSED_HEADER_FILE})") do |v|
+opt.on("-t", "--temp-file TEMP_FILE",
+       "temporary dist preprocessed ruby header file (default: #{DEFAULT_DIST_PREPROCESSED_HEADER_FILE})") do |v|
   dist_preprocessed_header_file = v
 end
 
