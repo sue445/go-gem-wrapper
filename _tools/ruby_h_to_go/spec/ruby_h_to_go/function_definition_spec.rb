@@ -434,6 +434,41 @@ RSpec.describe RubyHToGo::FunctionDefinition do
 
       it { should eq go_content }
     end
+
+    context "rb_data_typed_object_make" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_data_typed_object_make",
+          definition: "rb_data_typed_object_make(VALUE klass, const rb_data_type_t *type, void **datap, size_t size)",
+          typeref:    typedef(type: "VALUE"),
+          args:       [
+            argument(type: "VALUE", name: "klass"),
+            argument(type: "rb_data_type_t", name: "type", pointer: :ref),
+            argument(type: "void", name: "datap", pointer: :sref, length: 2),
+            argument(type: "size_t", name: "size"),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbDataTypedObjectMake calls `rb_data_typed_object_make` in C
+          //
+          // Original definition is following
+          //
+          //	rb_data_typed_object_make(VALUE klass, const rb_data_type_t *type, void **datap, size_t size)
+          func RbDataTypedObjectMake(klass VALUE, r *RbDataTypeT, datap *unsafe.Pointer, size SizeT) VALUE {
+          var cR C.rb_data_type_t
+          ret := VALUE(C.rb_data_typed_object_make(C.VALUE(klass), &cR, datap, C.size_t(size)))
+          *r = RbDataTypeT(cR)
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
   end
 
   describe "#go_function_name" do

@@ -113,6 +113,8 @@ module RubyHToGo
     def ruby_pointer_c_type_to_go_type(typename, pos:, pointer:, pointer_length:)
       case pointer
       when :sref
+        return "*unsafe.Pointer" if typename == "void" && pointer_length == 2
+
         go_type_name = ruby_c_type_to_go_type(typename, pos:, pointer: nil)
         return "#{"*" * pointer_length}#{go_type_name}"
       when :str_array

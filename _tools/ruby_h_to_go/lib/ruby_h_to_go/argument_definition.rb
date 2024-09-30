@@ -46,6 +46,8 @@ module RubyHToGo
       when :ref_array
         return "toCArray[*#{ruby_c_type_to_go_type(type)}, *#{cast_to_cgo_type(type)}](#{go_name})"
       when :sref
+        return go_name if type == "void" && length == 2
+
         return "(#{"*" * length}#{cast_to_cgo_type(type)})(unsafe.Pointer(#{go_name}))"
       end
 

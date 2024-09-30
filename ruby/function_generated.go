@@ -2495,7 +2495,7 @@ func RbDataObjectZalloc(klass VALUE, size SizeT, dmark unsafe.Pointer, dfree uns
 // Original definition is following
 //
 //	rb_data_typed_object_make(VALUE klass, const rb_data_type_t *type, void **datap, size_t size)
-func RbDataTypedObjectMake(klass VALUE, r *RbDataTypeT, datap unsafe.Pointer, size SizeT) VALUE {
+func RbDataTypedObjectMake(klass VALUE, r *RbDataTypeT, datap *unsafe.Pointer, size SizeT) VALUE {
 	var cR C.rb_data_type_t
 	ret := VALUE(C.rb_data_typed_object_make(C.VALUE(klass), &cR, datap, C.size_t(size)))
 	*r = RbDataTypeT(cR)
