@@ -57,6 +57,48 @@ func char2String(char *C.char) string {
 	return unsafe.String((*byte)(unsafe.Pointer(char)), C.strlen(char))
 }
 
+// Strings2Chars convert from Go strings to **[Char]
+//
+// 2nd return value is a function to free pointer.
+// To prevent memory leaks, this function MUST always be called with `defer` when calling this function.
+//
+// Example
+//
+//	chars, clean := ruby.Strings2Chars([]string{"ABCD"})
+//	defer clean()
+func Strings2Chars(strs []string) (**Char, func()) {
+	chars, clean := strings2Chars(strs)
+	return (**Char)(unsafe.Pointer(chars)), clean
+}
+
+// strings2Chars convert from Go strings to `**C.char`. (for internal use within package)
+//
+// 2nd return value is a function to free pointer.
+// To prevent memory leaks, this function MUST always be called with `defer` when calling this function.
+//
+// Example
+//
+//	chars, clean := strings2Chars([]string{"ABCD"})
+//	defer clean()
+func strings2Chars(strs []string) (**C.char, func()) {
+	chars := make([]*C.char, len(strs))
+	var cleanChars []func()
+
+	for i, str := range strs {
+		char, clean := string2Char(str)
+		chars[i] = char
+		cleanChars = append(cleanChars, clean)
+	}
+
+	clean := func() {
+		for _, cleanChar := range cleanChars {
+			cleanChar()
+		}
+	}
+
+	return (**C.char)(unsafe.Pointer(&chars[0])), clean
+}
+
 // Value2String convert from [VALUE] to Go string
 func Value2String(str VALUE) string {
 	return value2String(C.VALUE(str))
@@ -94,8 +136,8 @@ func string2Value(str string) C.VALUE {
 	return rbUtf8StrNew(char, stringLen(str))
 }
 
-// toCPointer convert from `unsafe.Pointer` to C pointer without copy.
-func toCPointer(ptr unsafe.Pointer) *[0]byte {
+// toCFunctionPointer convert from `unsafe.Pointer` to C function pointer without copy.
+func toCFunctionPointer(ptr unsafe.Pointer) *[0]byte {
 	return (*[0]byte)(ptr)
 }
 
@@ -139,7 +181,7 @@ func int2Bool(i C.int) bool {
 
 // Slice2rbAry convert from Go slice to rb_ary
 func Slice2rbAry(slice []VALUE) VALUE {
-	rbAry := RbAryNewCapa(int64(len(slice)))
+	rbAry := RbAryNewCapa(Long(len(slice)))
 
 	for _, v := range slice {
 		RbAryPush(rbAry, v)

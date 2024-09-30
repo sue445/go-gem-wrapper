@@ -8,7 +8,7 @@ module RubyHeaderParser
     # @return [String,nil]
     def self.find_field(array, field_name)
       array.each do |element|
-        return element.delete_prefix("#{field_name}:") if element.start_with?("#{field_name}:")
+        return element.delete_prefix("#{field_name}:").strip if element.start_with?("#{field_name}:")
       end
 
       nil

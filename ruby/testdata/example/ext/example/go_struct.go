@@ -29,8 +29,8 @@ func go_struct_alloc(klass C.VALUE) C.VALUE {
 //export rb_example_go_struct_set
 func rb_example_go_struct_set(self C.VALUE, x C.VALUE, y C.VALUE) {
 	data := (*GoStruct)(ruby.GetGoStruct(ruby.VALUE(self)))
-	data.x = int(ruby.NUM2INT(ruby.VALUE(x)))
-	data.y = int(ruby.NUM2INT(ruby.VALUE(y)))
+	data.x = ruby.NUM2INT(ruby.VALUE(x))
+	data.y = ruby.NUM2INT(ruby.VALUE(y))
 }
 
 //export rb_example_go_struct_get
@@ -38,8 +38,8 @@ func rb_example_go_struct_get(self C.VALUE) C.VALUE {
 	data := (*GoStruct)(ruby.GetGoStruct(ruby.VALUE(self)))
 
 	ret := []ruby.VALUE{
-		ruby.INT2NUM(ruby.Int(data.x)),
-		ruby.INT2NUM(ruby.Int(data.y)),
+		ruby.INT2NUM(data.x),
+		ruby.INT2NUM(data.y),
 	}
 
 	return C.VALUE(ruby.Slice2rbAry(ret))

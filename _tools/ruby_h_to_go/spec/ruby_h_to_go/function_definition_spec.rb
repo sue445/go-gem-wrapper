@@ -13,7 +13,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           args:       [
             argument(type: "VALUE", name: "klass"),
             argument(type: "char", name: "mid", pointer: :ref),
-            argument(type: "void", name: "arg3", pointer: :ref),
+            argument(type: "void", name: "arg3", pointer: :function),
             argument(type: "int", name: "arity"),
           ],
         )
@@ -30,7 +30,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           char, clean := string2Char(mid)
           defer clean()
 
-          C.rb_define_method(C.VALUE(klass), char, toCPointer(arg3), C.int(arity))
+          C.rb_define_method(C.VALUE(klass), char, toCFunctionPointer(arg3), C.int(arity))
           }
 
         GO
@@ -116,7 +116,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           definition: "void *rb_thread_call_with_gvl(void *(*func)(void *), void *data1)",
           typeref:    typedef(type: "void", pointer: :ref),
           args:       [
-            argument(type: "void", name: "arg1", pointer: :ref),
+            argument(type: "void", name: "arg1", pointer: :function),
             argument(type: "void", name: "data1", pointer: :ref),
           ],
         )
@@ -130,7 +130,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //
           //	void *rb_thread_call_with_gvl(void *(*func)(void *), void *data1)
           func RbThreadCallWithGvl(arg1 unsafe.Pointer, data1 unsafe.Pointer) unsafe.Pointer {
-          ret := unsafe.Pointer(C.rb_thread_call_with_gvl(toCPointer(arg1), toCPointer(data1)))
+          ret := unsafe.Pointer(C.rb_thread_call_with_gvl(toCFunctionPointer(arg1), data1))
           return ret
           }
 
@@ -188,9 +188,313 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           // Original definition is following
           //
           //	int *rb_errno_ptr(void)
-          func RbErrnoPtr() *int {
-          ret := (*int)(C.rb_errno_ptr())
+          func RbErrnoPtr() *Int {
+          ret := (*Int)(C.rb_errno_ptr())
           return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
+
+    context "rb_big2ll" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_big2ll",
+          definition: "rb_big2ll(VALUE)",
+          typeref:    typedef(type: "long long"),
+          args:       [
+            argument(type: "VALUE", name: "arg1"),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbBig2Ll calls `rb_big2ll` in C
+          //
+          // Original definition is following
+          //
+          //	rb_big2ll(VALUE)
+          func RbBig2Ll(arg1 VALUE) Longlong {
+          ret := Longlong(C.rb_big2ll(C.VALUE(arg1)))
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
+
+    context "rb_big2ull" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_big2ull",
+          definition: "rb_big2ull(VALUE)",
+          typeref:    typedef(type: "unsigned long long"),
+          args:       [
+            argument(type: "VALUE", name: "arg1"),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbBig2Ull calls `rb_big2ull` in C
+          //
+          // Original definition is following
+          //
+          //	rb_big2ull(VALUE)
+          func RbBig2Ull(arg1 VALUE) Ulonglong {
+          ret := Ulonglong(C.rb_big2ull(C.VALUE(arg1)))
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
+
+    context "rb_scan_args_set" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_scan_args_set",
+          definition: "rb_scan_args_set(int kw_flag, int argc, const VALUE *argv,",
+          typeref:    typedef(type: "int"),
+          args:       [
+            argument(type: "int", name: "kw_flag"),
+            argument(type: "int", name: "argc"),
+            argument(type: "VALUE", name: "argv", pointer: :ref),
+            argument(type: "int", name: "n_lead"),
+            argument(type: "int", name: "n_opt"),
+            argument(type: "int", name: "n_trail"),
+            argument(type: "_Bool", name: "f_var"),
+            argument(type: "_Bool", name: "f_hash"),
+            argument(type: "_Bool", name: "f_block"),
+            argument(type: "VALUE", name: "vars", pointer: :ref_array),
+            argument(type: "char", name: "fmt", pointer: :ref),
+            argument(type: "int", name: "varc"),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbScanArgsSet calls `rb_scan_args_set` in C
+          //
+          // Original definition is following
+          //
+          //	rb_scan_args_set(int kw_flag, int argc, const VALUE *argv,
+          func RbScanArgsSet(kw_flag int, argc int, argv *VALUE, n_lead int, n_opt int, n_trail int, f_var Bool, f_hash Bool, f_block Bool, vars []*VALUE, fmt string, varc int) int {
+          char, clean := string2Char(fmt)
+          defer clean()
+
+          var cArgv C.VALUE
+          ret := int(C.rb_scan_args_set(C.int(kw_flag), C.int(argc), &cArgv, C.int(n_lead), C.int(n_opt), C.int(n_trail), C._Bool(f_var), C._Bool(f_hash), C._Bool(f_block), toCArray[*VALUE, *C.VALUE](vars), char, C.int(varc)))
+          *argv = VALUE(cArgv)
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
+
+    context "RSTRING_END" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "RSTRING_END",
+          definition: "RSTRING_END(VALUE str)",
+          typeref:    typedef(type: "char", pointer: :ref),
+          args:       [
+            argument(type: "VALUE", name: "str"),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RSTRING_END calls `RSTRING_END` in C
+          //
+          // Original definition is following
+          //
+          //	RSTRING_END(VALUE str)
+          func RSTRING_END(str VALUE) string {
+          ret := char2String(C.RSTRING_END(C.VALUE(str)))
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
+
+    context "rb_const_list" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_const_list",
+          definition: "VALUE rb_const_list(void*)",
+          typeref:    typedef(type: "VALUE"),
+          args:       [
+            argument(type: "void", name: "arg1", pointer: :ref),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbConstList calls `rb_const_list` in C
+          //
+          // Original definition is following
+          //
+          //	VALUE rb_const_list(void*)
+          func RbConstList(arg1 unsafe.Pointer) VALUE {
+          ret := VALUE(C.rb_const_list(arg1))
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
+
+    context "rb_feature_provided" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_feature_provided",
+          definition: "int rb_feature_provided(const char *feature, const char **loading)",
+          typeref:    typedef(type: "int"),
+          args:       [
+            argument(type: "char", name: "feature", pointer: :ref),
+            argument(type: "char", name: "loading", pointer: :sref, length: 2),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbFeatureProvided calls `rb_feature_provided` in C
+          //
+          // Original definition is following
+          //
+          //	int rb_feature_provided(const char *feature, const char **loading)
+          func RbFeatureProvided(feature string, loading **Char) int {
+          char, clean := string2Char(feature)
+          defer clean()
+
+          ret := int(C.rb_feature_provided(char, (**C.char)(unsafe.Pointer(loading))))
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
+
+    context "rb_find_file_ext" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_find_file_ext",
+          definition: "int rb_find_file_ext(VALUE *feature, const char *const *exts)",
+          typeref:    typedef(type: "int"),
+          args:       [
+            argument(type: "VALUE", name: "feature", pointer: :ref),
+            argument(type: "char", name: "exts", pointer: :str_array),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbFindFileExt calls `rb_find_file_ext` in C
+          //
+          // Original definition is following
+          //
+          //	int rb_find_file_ext(VALUE *feature, const char *const *exts)
+          func RbFindFileExt(feature *VALUE, exts []string) int {
+          chars, cleanChars := strings2Chars(exts)
+          defer cleanChars()
+
+          var cFeature C.VALUE
+          ret := int(C.rb_find_file_ext(&cFeature, chars))
+          *feature = VALUE(cFeature)
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
+
+    context "rb_data_typed_object_make" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_data_typed_object_make",
+          definition: "rb_data_typed_object_make(VALUE klass, const rb_data_type_t *type, void **datap, size_t size)",
+          typeref:    typedef(type: "VALUE"),
+          args:       [
+            argument(type: "VALUE", name: "klass"),
+            argument(type: "rb_data_type_t", name: "type", pointer: :ref),
+            argument(type: "void", name: "datap", pointer: :sref, length: 2),
+            argument(type: "size_t", name: "size"),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbDataTypedObjectMake calls `rb_data_typed_object_make` in C
+          //
+          // Original definition is following
+          //
+          //	rb_data_typed_object_make(VALUE klass, const rb_data_type_t *type, void **datap, size_t size)
+          func RbDataTypedObjectMake(klass VALUE, r *RbDataTypeT, datap *unsafe.Pointer, size SizeT) VALUE {
+          var cR C.rb_data_type_t
+          ret := VALUE(C.rb_data_typed_object_make(C.VALUE(klass), &cR, datap, C.size_t(size)))
+          *r = RbDataTypeT(cR)
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
+
+    context "rb_define_variable" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_define_variable",
+          definition: "void rb_define_variable(const char *name, VALUE *var)",
+          typeref:    typedef(type: "void"),
+          args:       [
+            argument(type: "char", name: "name", pointer: :ref),
+            argument(type: "VALUE", name: "var", pointer: :in_ref),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbDefineVariable calls `rb_define_variable` in C
+          //
+          // Original definition is following
+          //
+          //	void rb_define_variable(const char *name, VALUE *var)
+          func RbDefineVariable(name string, v *VALUE)  {
+          char, clean := string2Char(name)
+          defer clean()
+
+          C.rb_define_variable(char, (*C.VALUE)(v))
           }
 
         GO

@@ -48,7 +48,6 @@ module RubyHeaderParser
         parts = line.split("\t")
 
         struct_name = parts[0]
-
         next unless data.should_generate_struct?(struct_name)
 
         definitions << StructDefinition.new(
@@ -72,6 +71,28 @@ module RubyHeaderParser
           name: type_name,
         )
       end.uniq(&:name)
+    end
+
+    # @return [Array<RubyHeaderParser::EnumDefinition>]
+    def extract_enum_definitions
+      stdout = execute_ctags("--c-kinds=e --fields=+n")
+
+      name_to_definitions =
+        stdout.each_line.with_object({}) do |line, hash|
+          parts = line.split("\t")
+
+          enum_name = Util.find_field(parts, "enum")
+          next unless enum_name
+
+          value = parts[0]
+
+          next unless data.should_generate_enum?(enum_name)
+
+          hash[enum_name] ||= EnumDefinition.new(name: enum_name)
+          hash[enum_name].values << value
+        end
+
+      name_to_definitions.values
     end
 
     private
@@ -109,7 +130,7 @@ module RubyHeaderParser
           typeref:    create_typeref(definition:, function_name:, typeref_field:, filepath:, line_num:),
           args:,
         )
-      end
+      end.uniq(&:name)
     end
 
     # @param args [String]
@@ -154,7 +175,7 @@ module RubyHeaderParser
           pattern.delete_prefix("/^")
         end
 
-      definition.delete_suffix(";")
+      definition.strip.delete_suffix(";")
     end
 
     # @param function_name [String]
@@ -191,8 +212,8 @@ module RubyHeaderParser
           pointer = nil
           length = 0
 
-          if parts[-1] =~ /\[([0-9]+)\]$/
-            parts[-1].gsub!(/\[([0-9]+)\]$/, "")
+          if parts[-1] =~ /\[([0-9]+)?\]$/
+            parts[-1].gsub!(/\[([0-9]+)?\]$/, "")
             length = ::Regexp.last_match(1).to_i
             pointer = :array
           end
@@ -202,16 +223,24 @@ module RubyHeaderParser
             parts << "arg#{arg_pos}"
           end
 
-          type = Util.sanitize_type(parts[0...-1].join(" "))
+          type = ""
+          original_type = Util.sanitize_type(parts[0...-1].join(" "))
           name = parts[-1]
 
-          if type.match?(/\*+$/)
-            type = type.gsub(/\*+$/, "").strip
-            pointer ||= data.function_arg_pointer_hint(function_name:, index: arg_pos - 1)
-          elsif /^void\s*\s/.match?(type) || /\(.*\)/.match?(type)
+          if original_type.match?(/\*+$/)
+            type = original_type.gsub(/\*+$/, "").strip
+            pointer = data.function_arg_pointer_hint(function_name:, pos: arg_pos)
+          elsif /^void\s*\s/.match?(original_type) || /\(.*\)/.match?(original_type)
             # function pointer (e.g. void *(*func)(void *)) is treated as `void*`
             type = "void"
-            pointer = :ref
+            pointer = data.function_arg_pointer_hint(function_name:, pos: arg_pos)
+          else
+            type = original_type
+          end
+
+          if pointer == :sref
+            original_type =~ /(\*+)$/
+            length = ::Regexp.last_match(1).length
           end
 
           ArgumentDefinition.new(

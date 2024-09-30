@@ -4,6 +4,7 @@ require "yaml"
 
 require_relative "ruby_header_parser/argument_definition"
 require_relative "ruby_header_parser/data"
+require_relative "ruby_header_parser/enum_definition"
 require_relative "ruby_header_parser/function_definition"
 require_relative "ruby_header_parser/parser"
 require_relative "ruby_header_parser/struct_definition"

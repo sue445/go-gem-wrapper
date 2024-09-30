@@ -24,8 +24,7 @@ DEFAULT_INCLUDE_PATHS = [
   RbConfig::CONFIG["rubyhdrdir"],
 ].freeze
 
-DEFAULT_DIST_DIR = File.expand_path("../dist", __dir__)
-
+DEFAULT_DIST_DIR = File.expand_path("../../../ruby", __dir__)
 DEFAULT_DIST_PREPROCESSED_HEADER_FILE = File.join(Dir.tmpdir, "ruby_preprocessed.h")
 
 opt = OptionParser.new

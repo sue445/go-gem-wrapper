@@ -38,31 +38,12 @@ module RubyHToGo
 
     # Convert C type to Go type. (used in wrapper function args and return type etc)
     # @param typename [String]
-    # @param type [Symbol,nil] :arg, :return
+    # @param pos [Symbol,nil] :arg, :typeref, :return
     # @param pointer [Symbol,nil] Whether pointer hint
+    # @param pointer_length [Integer]
     # @return [String]
-    def ruby_c_type_to_go_type(typename, type: nil, pointer: nil)
-      if pointer
-        case typename
-        when "char", "const char"
-          if pointer == :ref
-            case type
-            when :arg, :return
-              return "string"
-            else
-              return "char2String"
-            end
-          end
-        when "void"
-          return "unsafe.Pointer"
-        end
-
-        go_type_name = ruby_c_type_to_go_type(typename, type:, pointer: nil)
-
-        return "[]#{go_type_name}" if pointer == :array
-
-        return "*#{go_type_name}"
-      end
+    def ruby_c_type_to_go_type(typename, pos: nil, pointer: nil, pointer_length: 0)
+      return ruby_pointer_c_type_to_go_type(typename, pos:, pointer:, pointer_length:) if pointer
 
       case typename
       when "unsigned int", "unsigned long"
@@ -71,17 +52,17 @@ module RubyHToGo
         return "Ushort"
       when "unsigned char"
         return "Uchar"
-      when "LONG_LONG"
+      when "long long"
         return "Longlong"
-      when "unsigned LONG_LONG"
+      when "unsigned long long"
         return "Ulonglong"
-      when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/, "RUBY_DATA_FUNC"
+      when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/, "RUBY_DATA_FUNC", "rb_alloc_func_t"
         return "unsafe.Pointer"
       when /^[A-Z]+$/, "int"
         # e.g. VALUE
         return typename
       when "void"
-        return "unsafe.Pointer" if pointer == :ref && type == :return
+        return "unsafe.Pointer" if pointer == :ref && type == :typeref
       end
 
       snake_to_camel(typename)
@@ -100,15 +81,75 @@ module RubyHToGo
         return "C.uchar"
       when "unsigned short"
         return "C.ushort"
-      when "LONG_LONG"
-        return "C.Longlong"
-      when "unsigned LONG_LONG"
-        return "C.Ulonglong"
+      when "long long"
+        return "C.longlong"
+      when "unsigned long long"
+        return "C.ulonglong"
+      when "timeval"
+        return "C.struct_timeval"
+      when "timespec"
+        return "C.struct_timespec"
+      when "st_hash_type"
+        return "C.struct_st_hash_type"
+      when "ruby_value_type"
+        return "C.enum_ruby_value_type"
+      when "rb_io_wait_readwrite"
+        return "C.enum_rb_io_wait_readwrite"
       when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/, "RUBY_DATA_FUNC"
-        return "toCPointer"
+        return "toCFunctionPointer"
       end
 
       "C.#{typename}"
+    end
+
+    private
+
+    # Convert pointer C type to Go type. (used in wrapper function args and return type etc)
+    # @param typename [String]
+    # @param pos [Symbol,nil] :arg, :typeref, :return
+    # @param pointer [Symbol,nil] Whether pointer hint
+    # @param pointer_length [Integer]
+    # @return [String]
+    def ruby_pointer_c_type_to_go_type(typename, pos:, pointer:, pointer_length:)
+      case pointer
+      when :sref
+        return "*unsafe.Pointer" if typename == "void" && pointer_length == 2
+
+        go_type_name = ruby_c_type_to_go_type(typename, pos:, pointer: nil)
+        return "#{"*" * pointer_length}#{go_type_name}"
+      when :str_array
+        return "[]string"
+      end
+
+      case typename
+      when "char", "const char"
+        if pointer == :ref
+          case pos
+          when :arg, :typeref
+            return "string"
+          else
+            return "char2String"
+          end
+        end
+      when "void"
+        return "unsafe.Pointer"
+      end
+
+      go_type_name =
+        if typename == "int" && %i[return typeref].include?(pos)
+          "Int"
+        else
+          ruby_c_type_to_go_type(typename, pos:, pointer: nil)
+        end
+
+      case pointer
+      when :array
+        return "[]#{go_type_name}"
+      when :ref_array
+        return "[]*#{go_type_name}"
+      end
+
+      "*#{go_type_name}"
     end
   end
 end

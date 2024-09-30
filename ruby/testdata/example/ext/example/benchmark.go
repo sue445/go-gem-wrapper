@@ -16,12 +16,12 @@ import (
 //export rb_example_benchmark_tarai
 func rb_example_benchmark_tarai(_ C.VALUE, x C.VALUE, y C.VALUE, z C.VALUE) C.VALUE {
 	ret := tarai(
-		int(ruby.NUM2INT(ruby.VALUE(x))),
-		int(ruby.NUM2INT(ruby.VALUE(y))),
-		int(ruby.NUM2INT(ruby.VALUE(z))),
+		ruby.NUM2INT(ruby.VALUE(x)),
+		ruby.NUM2INT(ruby.VALUE(y)),
+		ruby.NUM2INT(ruby.VALUE(z)),
 	)
 
-	return C.VALUE(ruby.INT2NUM(ruby.Int(ret)))
+	return C.VALUE(ruby.INT2NUM(ret))
 }
 
 func tarai(x int, y int, z int) int {
@@ -35,10 +35,10 @@ func tarai(x int, y int, z int) int {
 //export rb_example_benchmark_tarai_goroutine
 func rb_example_benchmark_tarai_goroutine(_ C.VALUE, x C.VALUE, y C.VALUE, z C.VALUE, times C.VALUE) C.VALUE {
 	ret := tarai_goroutine(
-		int(ruby.NUM2INT(ruby.VALUE(x))),
-		int(ruby.NUM2INT(ruby.VALUE(y))),
-		int(ruby.NUM2INT(ruby.VALUE(z))),
-		int(ruby.NUM2INT(ruby.VALUE(times))),
+		ruby.NUM2INT(ruby.VALUE(x)),
+		ruby.NUM2INT(ruby.VALUE(y)),
+		ruby.NUM2INT(ruby.VALUE(z)),
+		ruby.NUM2INT(ruby.VALUE(times)),
 	)
 
 	var values []ruby.VALUE

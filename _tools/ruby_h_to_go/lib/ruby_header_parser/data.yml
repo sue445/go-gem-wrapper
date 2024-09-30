@@ -5,45 +5,147 @@ function:
 
   exclude_name:
     # deprecated functions
-    - rb_check_safe_str
-    - rb_clear_constant_cache
-    - rb_clone_setup
-    - rb_complex_polar
-    - rb_data_object_alloc
-    - rb_data_object_get_warning
-    - rb_data_object_wrap_warning
-    - rb_data_typed_object_alloc
-    - rb_dup_setup
-    - rb_gc_force_recycle
-    - rb_iterate
-    - rb_obj_infect
-    - rb_obj_infect_raw
-    - rb_obj_taint
-    - rb_obj_taint_raw
-    - rb_obj_taintable
-    - rb_obj_tainted
-    - rb_obj_tainted_raw
-    - rb_scan_args_length_mismatch
-    - rb_varargs_bad_length
+    - !ruby/regexp /^rb_check_safe_str$/i
+    - !ruby/regexp /^rb_clear_constant_cache$/i
+    - !ruby/regexp /^rb_clone_setup$/i
+    - !ruby/regexp /^rb_complex_polar$/i
+    - !ruby/regexp /^rb_data_object_alloc$/i
+    - !ruby/regexp /^rb_data_object_get_warning$/i
+    - !ruby/regexp /^rb_data_object_wrap_warning$/i
+    - !ruby/regexp /^rb_data_typed_object_alloc$/i
+    - !ruby/regexp /^rb_dup_setup$/i
+    - !ruby/regexp /^rb_gc_force_recycle$/i
+    - !ruby/regexp /^rb_iterate$/i
+    - !ruby/regexp /^rb_obj_infect$/i
+    - !ruby/regexp /^rb_obj_infect_raw$/i
+    - !ruby/regexp /^rb_obj_taint$/i
+    - !ruby/regexp /^rb_obj_taint_raw$/i
+    - !ruby/regexp /^rb_obj_taintable$/i
+    - !ruby/regexp /^rb_obj_tainted$/i
+    - !ruby/regexp /^rb_obj_tainted_raw$/i
+    - !ruby/regexp /^rb_scan_args_length_mismatch$/i
+    - !ruby/regexp /^rb_varargs_bad_length$/i
 
     # internal functions in ruby.h
     - rb_scan_args_bad_format
+
+    # internal macros
+    - !ruby/regexp /^rb_define_global_function_(m?[0-9]+|notimpl)$/i
+    - !ruby/regexp /^rb_define_method_(m?[0-9]+|notimpl)$/i
+    - !ruby/regexp /^rb_define_method_id_(m?[0-9]+|notimpl)$/i
+    - !ruby/regexp /^rb_define_module_function_(m?[0-9]+|notimpl)$/i
+    - !ruby/regexp /^rb_define_private_method_(m?[0-9]+|notimpl)$/i
+    - !ruby/regexp /^rb_define_protected_method_(m?[0-9]+|notimpl)$/i
+    - !ruby/regexp /^rb_define_singleton_method_(m?[0-9]+|notimpl)$/i
 
     # FIXME: Both `rb_hash` and `rb_Hash` are defined in ruby.h
     #        Converting to Go function names would result in both being `RbHash`
     #        Exclude one of the function names because duplicate function names will result in an error.
     - rb_Hash
 
+    # Available only in certain platform
+    - !ruby/regexp /^rb_w32_/i
+
+    # FIXME: Workaround for "could not determine kind of name for C.rb_gc_unprotect_logging"
+    - rb_gc_unprotect_logging
+
+    # FIXME: Workaround for "could not determine kind of name for C.rb_iterate_deprecated"
+    - rb_iterate_deprecated
+
+    # FIXME: Workaround for "could not determine kind of name for C.rb_gc_guarded_ptr_val"
+    - rb_gc_guarded_ptr_val
+
+    # FIXME: Workaround for "cannot use _cgo2 (variable of type _Ctype_va_list) as *_Ctype_struct___va_list_tag value in argument to _Cfunc_rb_str_vcatf" on GitHub Actions (Ubuntu 22.04)
+    - rb_str_vcatf
+
+    # FIXME: Workaround for "cannot use _cgo4 (variable of type _Ctype_va_list) as *_Ctype_struct___va_list_tag value in argument to _Cfunc_rb_vrescue2" on GitHub Actions (Ubuntu 22.04)
+    - rb_vrescue2
+
+    # FIXME: Workaround for "cannot use _cgo1 (variable of type _Ctype_va_list) as *_Ctype_struct___va_list_tag value in argument to _Cfunc_rb_vsprintf" on GitHub Actions (Ubuntu 22.04)
+    - rb_vsprintf
+
+    # FIXME: Workaround for "undefined reference to `rb_class_descendants'" on GitHub Actions (Ubuntu 22.04)
+    - rb_class_descendants
+
   pointer_hint:
+    rb_data_object_make:
+      4: sref
+    rb_data_typed_object_make:
+      3: sref
+    rb_define_global_function:
+      2: function
+    rb_define_method:
+      3: function
+    rb_define_method_id:
+      3: function
+    rb_define_module_function:
+      3: function
+    rb_define_private_method:
+      3: function
+    rb_define_protected_method:
+      3: function
+    rb_define_singleton_method:
+      3: function
+    rb_define_variable:
+      2: in_ref
+    rb_ensure:
+      1: function
+      3: function
+    rb_exec_recursive:
+      1: function
+    rb_exec_recursive_outer:
+      1: function
+    rb_exec_recursive_paired:
+      1: function
+    rb_exec_recursive_paired_outer:
+      1: function
+    rb_feature_provided:
+      2: sref
+    rb_find_file_ext:
+      2: str_array
     rb_funcallv:
-      3: array
+      4: array
     rb_funcallv_public:
-      3: array
+      4: array
+    rb_get_values_at:
+      5: function
+    rb_glob:
+      2: function
+    rb_hash_foreach:
+      2: function
+    rb_ivar_foreach:
+      2: function
+    rb_marshal_define_compat:
+      3: function
+      4: function
+    rb_mutex_synchronize:
+      2: function
+    rb_protect:
+      1: function
+    rb_rescue:
+      1: function
+      3: function
+    rb_scan_args_set:
+      10: ref_array
+    rb_set_end_proc:
+      1: function
+    rb_st_insert2:
+      4: function
+    rb_thread_call_with_gvl:
+      1: function
+    rb_thread_create:
+      1: function
+    rb_vrescue2:
+      1: function
+      3: function
 
 struct:
   include_name:
     - !ruby/regexp /^rb_/i
     - re_registers
+
+  exclude_name:
+    - rb_data_type_struct
 
 type:
   include_name:
@@ -53,5 +155,14 @@ type:
     - VALUE
     - regex_t
     - OnigPosition
+    - pid_t
+    - off_t
+
+  exclude_name: []
+
+enum:
+  include_name:
+    - ruby_value_type
+    - rb_io_wait_readwrite
 
   exclude_name: []

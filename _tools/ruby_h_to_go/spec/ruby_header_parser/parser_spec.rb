@@ -18,7 +18,7 @@ RSpec.describe RubyHeaderParser::Parser do
         [
           argument(type: "VALUE", name: "klass"),
           argument(type: "char", name: "mid", pointer: :ref),
-          argument(type: "void", name: "arg3", pointer: :ref),
+          argument(type: "void", name: "arg3", pointer: :function),
           argument(type: "int", name: "arity"),
         ]
       end
@@ -89,7 +89,7 @@ RSpec.describe RubyHeaderParser::Parser do
       let(:args) do
         [
           argument(type: "VALUE", name: "feature", pointer: :ref),
-          argument(type: "char", name: "exts", pointer: :ref),
+          argument(type: "char", name: "exts", pointer: :str_array),
         ]
       end
 
@@ -122,6 +122,83 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:name)       { should eq "rb_block_proc" }
       its(:definition) { should eq "VALUE rb_block_proc(void)" }
       its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:args)       { should eq args }
+    end
+
+    context "rb_big2ll" do
+      subject { definitions.find { |d| d.name == "rb_big2ll" } }
+
+      let(:args) do
+        [
+          argument(type: "VALUE", name: "arg1"),
+        ]
+      end
+
+      its(:name)       { should eq "rb_big2ll" }
+      its(:definition) { should include "rb_big2ll(VALUE)" }
+      its(:typeref)    { should eq typedef(type: "long long") }
+      its(:args)       { should eq args }
+    end
+
+    context "rb_big2ull" do
+      subject { definitions.find { |d| d.name == "rb_big2ull" } }
+
+      let(:args) do
+        [
+          argument(type: "VALUE", name: "arg1"),
+        ]
+      end
+
+      its(:name)       { should eq "rb_big2ull" }
+      its(:definition) { should include "rb_big2ull(VALUE)" }
+      its(:typeref)    { should eq typedef(type: "unsigned long long") }
+      its(:args)       { should eq args }
+    end
+
+    context "rb_const_list" do
+      subject { definitions.find { |d| d.name == "rb_const_list" } }
+
+      let(:args) do
+        [
+          argument(type: "void", name: "arg1", pointer: :ref),
+        ]
+      end
+
+      its(:name)       { should eq "rb_const_list" }
+      its(:definition) { should eq "VALUE rb_const_list(void*)" }
+      its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:args)       { should eq args }
+    end
+
+    context "rb_feature_provided" do
+      subject { definitions.find { |d| d.name == "rb_feature_provided" } }
+
+      let(:args) do
+        [
+          argument(type: "char", name: "feature", pointer: :ref),
+          argument(type: "char", name: "loading", pointer: :sref, length: 2),
+        ]
+      end
+
+      its(:name)       { should eq "rb_feature_provided" }
+      its(:definition) { should eq "int rb_feature_provided(const char *feature, const char **loading)" }
+      its(:typeref)    { should eq typedef(type: "int") }
+      its(:args)       { should eq args }
+    end
+
+    context "rb_define_variable" do
+      subject { definitions.find { |d| d.name == "rb_define_variable" } }
+
+      let(:args) do
+        [
+          argument(type: "char", name: "name", pointer: :ref),
+          argument(type: "VALUE", name: "var", pointer: :in_ref),
+        ]
+      end
+
+      its(:name)       { should eq "rb_define_variable" }
+      its(:definition) { should eq "void rb_define_variable(const char *name, VALUE *var)" }
+      its(:typeref)    { should eq typedef(type: "void") }
       its(:args)       { should eq args }
     end
   end
@@ -165,18 +242,71 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typedef(type: "VALUE") }
       its(:args)       { should eq args }
     end
+
+    context "rb_scan_args_set" do
+      subject { definitions.find { |d| d.name == "rb_scan_args_set" } }
+
+      let(:args) do
+        [
+          argument(type: "int", name: "kw_flag"),
+          argument(type: "int", name: "argc"),
+          argument(type: "VALUE", name: "argv", pointer: :ref),
+          argument(type: "int", name: "n_lead"),
+          argument(type: "int", name: "n_opt"),
+          argument(type: "int", name: "n_trail"),
+          argument(type: "_Bool", name: "f_var"),
+          argument(type: "_Bool", name: "f_hash"),
+          argument(type: "_Bool", name: "f_block"),
+          argument(type: "VALUE", name: "vars", pointer: :ref_array),
+          argument(type: "char", name: "fmt", pointer: :ref),
+          argument(type: "int", name: "varc"),
+        ]
+      end
+
+      its(:name)       { should eq "rb_scan_args_set" }
+      its(:definition) { should eq "rb_scan_args_set(int kw_flag, int argc, const VALUE *argv," } # TODO: Fix this after
+      its(:typeref)    { should eq typedef(type: "int") }
+      its(:args)       { should eq args }
+    end
+
+    context "RSTRING_END" do
+      subject { definitions.find { |d| d.name == "RSTRING_END" } }
+
+      let(:args) do
+        [
+          argument(type: "VALUE", name: "str"),
+        ]
+      end
+
+      its(:name)       { should eq "RSTRING_END" }
+      its(:definition) { should eq "RSTRING_END(VALUE str)" }
+      its(:typeref)    { should eq typedef(type: "char", pointer: :ref) }
+      its(:args)       { should eq args }
+    end
+
+    context "rb_data_typed_object_make" do
+      subject { definitions.find { |d| d.name == "rb_data_typed_object_make" } }
+
+      let(:args) do
+        [
+          argument(type: "VALUE", name: "klass"),
+          argument(type: "rb_data_type_t", name: "type", pointer: :ref),
+          argument(type: "void", name: "datap", pointer: :sref, length: 2),
+          argument(type: "size_t", name: "size"),
+        ]
+      end
+
+      its(:name)       { should eq "rb_data_typed_object_make" }
+      its(:definition) { should eq "rb_data_typed_object_make(VALUE klass, const rb_data_type_t *type, void **datap, size_t size)" }
+      its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_struct_definitions" do
     subject(:definitions) { parser.extract_struct_definitions }
 
-    its(:count) { should be > 0 }
-
-    context "rb_data_type_struct" do
-      subject { definitions.find { |d| d.name == "rb_data_type_struct" } }
-
-      its(:name) { should eq "rb_data_type_struct" }
-    end
+    its(:count) { should eq 0 }
   end
 
   describe "#extract_type_definitions" do
@@ -188,6 +318,19 @@ RSpec.describe RubyHeaderParser::Parser do
       subject { definitions.find { |d| d.name == "VALUE" } }
 
       its(:name) { should eq "VALUE" }
+    end
+  end
+
+  describe "#extract_enum_definitions" do
+    subject(:definitions) { parser.extract_enum_definitions }
+
+    its(:count) { should be > 0 }
+
+    context "ruby_value_type" do
+      subject { definitions.find { |d| d.name == "ruby_value_type" } }
+
+      its(:name) { should eq "ruby_value_type" }
+      its(:values) { should include "RUBY_T_ARRAY" }
     end
   end
 end

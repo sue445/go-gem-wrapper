@@ -36,12 +36,11 @@ module RubyHToGo
       write_type_definitions_to_go_file
       write_struct_definitions_to_go_file
       write_function_definitions_to_go_file
+      write_enum_definitions_to_go_file
 
       copy_go_files
-
-      # FIXME: Enable after
-      # remove_unused_imports
-      # go_fmt
+      remove_unused_imports
+      go_fmt
     end
 
     private
@@ -56,7 +55,7 @@ module RubyHToGo
         RubyHToGo::TypeDefinition.new(definition:)
       end
 
-      type_definitions.each do |definition|
+      type_definitions.sort_by(&:name).each do |definition|
         definition.write_go_file(dist_dir)
       end
     end
@@ -66,7 +65,7 @@ module RubyHToGo
         RubyHToGo::StructDefinition.new(definition:)
       end
 
-      struct_definitions.each do |definition|
+      struct_definitions.sort_by(&:name).each do |definition|
         definition.write_go_file(dist_dir)
       end
     end
@@ -86,14 +85,24 @@ module RubyHToGo
         end
       end
 
-      function_definitions.each do |definition|
+      function_definitions.sort_by(&:name).each do |definition|
+        definition.write_go_file(dist_dir)
+      end
+    end
+
+    def write_enum_definitions_to_go_file
+      enum_definitions = parser.extract_enum_definitions.map do |definition|
+        RubyHToGo::EnumDefinition.new(definition:)
+      end
+
+      enum_definitions.sort_by(&:name).each do |definition|
         definition.write_go_file(dist_dir)
       end
     end
 
     # Clean all generated files in dist/
     def clean_generated_files
-      FileUtils.rm_f(Dir.glob(File.join(dist_dir, "*.go")))
+      FileUtils.rm_f(Dir.glob(File.join(dist_dir, "*_generated.go")))
     end
 
     def copy_go_files
@@ -101,8 +110,8 @@ module RubyHToGo
       return if src_dir == dist_dir
 
       %w[
+        c_struct.go
         c_types.go
-        types.go
         wrapper.go
       ].each do |file|
         FileUtils.cp(File.join(src_dir, file), dist_dir)
