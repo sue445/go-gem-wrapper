@@ -123,7 +123,12 @@ module RubyHToGo
         return "unsafe.Pointer"
       end
 
-      go_type_name = ruby_c_type_to_go_type(typename, pos:, pointer: nil)
+      go_type_name =
+        if typename == "int" && %i[return typeref].include?(pos)
+          "Int"
+        else
+          ruby_c_type_to_go_type(typename, pos:, pointer: nil)
+        end
 
       case pointer
       when :array

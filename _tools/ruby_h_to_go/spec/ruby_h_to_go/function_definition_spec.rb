@@ -188,8 +188,8 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           // Original definition is following
           //
           //	int *rb_errno_ptr(void)
-          func RbErrnoPtr() *int {
-          ret := (*int)(C.rb_errno_ptr())
+          func RbErrnoPtr() *Int {
+          ret := (*Int)(C.rb_errno_ptr())
           return ret
           }
 

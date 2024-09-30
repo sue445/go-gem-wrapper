@@ -3054,8 +3054,8 @@ func RbErrno() int {
 // Original definition is following
 //
 //	int *rb_errno_ptr(void)
-func RbErrnoPtr() *int {
-	ret := (*int)(C.rb_errno_ptr())
+func RbErrnoPtr() *Int {
+	ret := (*Int)(C.rb_errno_ptr())
 	return ret
 }
 
@@ -6705,8 +6705,8 @@ func RbObjWritten(a VALUE, oldv VALUE, b VALUE, filename string, line int) VALUE
 // Original definition is following
 //
 //	rb_orig_errno_ptr(void)
-func RbOrigErrnoPtr() *int {
-	ret := (*int)(C.rb_orig_errno_ptr())
+func RbOrigErrnoPtr() *Int {
+	ret := (*Int)(C.rb_orig_errno_ptr())
 	return ret
 }
 
