@@ -56,7 +56,7 @@ module RubyHToGo
         return "Longlong"
       when "unsigned long long"
         return "Ulonglong"
-      when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/, "RUBY_DATA_FUNC"
+      when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/, "RUBY_DATA_FUNC", "rb_alloc_func_t"
         return "unsafe.Pointer"
       when /^[A-Z]+$/, "int"
         # e.g. VALUE

@@ -2588,7 +2588,7 @@ func RbDefineAlias(klass VALUE, dst string, src string) {
 // Original definition is following
 //
 //	void rb_define_alloc_func(VALUE klass, rb_alloc_func_t func)
-func RbDefineAllocFunc(klass VALUE, fun RbAllocFuncT) {
+func RbDefineAllocFunc(klass VALUE, fun unsafe.Pointer) {
 	C.rb_define_alloc_func(C.VALUE(klass), C.rb_alloc_func_t(fun))
 }
 
@@ -4384,8 +4384,8 @@ func RbGenrandUlongLimited(i uint) uint {
 // Original definition is following
 //
 //	rb_alloc_func_t rb_get_alloc_func(VALUE klass)
-func RbGetAllocFunc(klass VALUE) RbAllocFuncT {
-	ret := RbAllocFuncT(C.rb_get_alloc_func(C.VALUE(klass)))
+func RbGetAllocFunc(klass VALUE) unsafe.Pointer {
+	ret := unsafe.Pointer(C.rb_get_alloc_func(C.VALUE(klass)))
 	return ret
 }
 
