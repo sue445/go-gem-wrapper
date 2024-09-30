@@ -398,6 +398,42 @@ RSpec.describe RubyHToGo::FunctionDefinition do
 
       it { should eq go_content }
     end
+
+    context "rb_find_file_ext" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "rb_find_file_ext",
+          definition: "int rb_find_file_ext(VALUE *feature, const char *const *exts)",
+          typeref:    typedef(type: "int"),
+          args:       [
+            argument(type: "VALUE", name: "feature", pointer: :ref),
+            argument(type: "char", name: "exts", pointer: :str_array),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RbFindFileExt calls `rb_find_file_ext` in C
+          //
+          // Original definition is following
+          //
+          //	int rb_find_file_ext(VALUE *feature, const char *const *exts)
+          func RbFindFileExt(feature *VALUE, exts []string) int {
+          chars, cleanChars := strings2Chars(exts)
+          defer cleanChars()
+
+          var cFeature C.VALUE
+          ret := int(C.rb_find_file_ext(&cFeature, chars))
+          *feature = VALUE(cFeature)
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
   end
 
   describe "#go_function_name" do

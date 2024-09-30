@@ -56,6 +56,7 @@ module RubyHToGo
 
       casted_go_args = []
       char_var_count = args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :ref }
+      chars_var_count = args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :str_array }
 
       before_call_function_lines = []
       after_call_function_lines = []
@@ -67,18 +68,18 @@ module RubyHToGo
           when "char"
             # c_arg is string
             if char_var_count >= 2
-              char_var_name = "char#{snake_to_camel(c_arg.go_name)}"
+              chars_var_name = "char#{snake_to_camel(c_arg.go_name)}"
               clean_var_name = "cleanChar#{c_arg.go_name}"
             else
-              char_var_name = "char"
+              chars_var_name = "char"
               clean_var_name = "clean"
             end
 
-            go_function_lines << "#{char_var_name}, #{clean_var_name} := string2Char(#{c_arg.go_name})"
+            go_function_lines << "#{chars_var_name}, #{clean_var_name} := string2Char(#{c_arg.go_name})"
             go_function_lines << "defer #{clean_var_name}()"
             go_function_lines << ""
 
-            casted_go_args << char_var_name.to_s
+            casted_go_args << chars_var_name.to_s
           when "void"
             # c_arg is pointer
             casted_go_args << c_arg.go_name
@@ -93,6 +94,20 @@ module RubyHToGo
           end
         when :function
           casted_go_args << "toCFunctionPointer(#{c_arg.go_name})"
+        when :str_array
+          if chars_var_count >= 2
+            chars_var_name = "chars#{snake_to_camel(c_arg.go_name)}"
+            clean_var_name = "cleanChars#{c_arg.go_name}"
+          else
+            chars_var_name = "chars"
+            clean_var_name = "cleanChars"
+          end
+
+          go_function_lines << "#{chars_var_name}, #{clean_var_name} := strings2Chars(#{c_arg.go_name})"
+          go_function_lines << "defer #{clean_var_name}()"
+          go_function_lines << ""
+
+          casted_go_args << chars_var_name
         else
           casted_go_args << c_arg.cast_to_cgo
         end

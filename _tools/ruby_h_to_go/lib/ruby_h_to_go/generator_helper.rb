@@ -111,9 +111,12 @@ module RubyHToGo
     # @param pointer_length [Integer]
     # @return [String]
     def ruby_pointer_c_type_to_go_type(typename, pos:, pointer:, pointer_length:)
-      if pointer == :sref
+      case pointer
+      when :sref
         go_type_name = ruby_c_type_to_go_type(typename, pos:, pointer: nil)
         return "#{"*" * pointer_length}#{go_type_name}"
+      when :str_array
+        return "[]string"
       end
 
       case typename

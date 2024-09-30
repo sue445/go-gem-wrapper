@@ -3867,12 +3867,12 @@ func RbFindFile(path VALUE) VALUE {
 // Original definition is following
 //
 //	int rb_find_file_ext(VALUE *feature, const char *const *exts)
-func RbFindFileExt(feature *VALUE, exts string) int {
-	char, clean := string2Char(exts)
-	defer clean()
+func RbFindFileExt(feature *VALUE, exts []string) int {
+	chars, cleanChars := strings2Chars(exts)
+	defer cleanChars()
 
 	var cFeature C.VALUE
-	ret := int(C.rb_find_file_ext(&cFeature, char))
+	ret := int(C.rb_find_file_ext(&cFeature, chars))
 	*feature = VALUE(cFeature)
 	return ret
 }
