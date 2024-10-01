@@ -25,7 +25,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_define_method" }
       its(:definition) { should eq "void rb_define_method(VALUE klass, const char *mid, VALUE (*func)(), int arity)" }
-      its(:typeref)    { should eq typedef(type: "void") }
+      its(:typeref)    { should eq typeref(type: "void") }
       its(:args)       { should eq args }
     end
 
@@ -45,7 +45,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_block_call" }
       its(:definition) { should eq "VALUE rb_block_call(VALUE obj, ID mid, int argc, const VALUE *argv, rb_block_call_func_t proc, VALUE data2)" } # rubocop:disable Layout/LineLength
-      its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:typeref)    { should eq typeref(type: "VALUE") }
       its(:args)       { should eq args }
     end
 
@@ -61,7 +61,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_uv_to_utf8" }
       its(:definition) { should eq "int rb_uv_to_utf8(char buf[6], unsigned long uv)" }
-      its(:typeref)    { should eq typedef(type: "int") }
+      its(:typeref)    { should eq typeref(type: "int") }
       its(:args)       { should eq args }
     end
 
@@ -79,7 +79,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_funcallv" }
       its(:definition) { should eq "VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)" }
-      its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:typeref)    { should eq typeref(type: "VALUE") }
       its(:args)       { should eq args }
     end
 
@@ -95,7 +95,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_find_file_ext" }
       its(:definition) { should eq "int rb_find_file_ext(VALUE *feature, const char *const *exts)" }
-      its(:typeref)    { should eq typedef(type: "int") }
+      its(:typeref)    { should eq typeref(type: "int") }
       its(:args)       { should eq args }
     end
 
@@ -108,7 +108,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_errno_ptr" }
       its(:definition) { should eq "int *rb_errno_ptr(void)" }
-      its(:typeref)    { should eq typedef(type: "int", pointer: :ref) }
+      its(:typeref)    { should eq typeref(type: "int", pointer: :ref) }
       its(:args)       { should eq args }
     end
 
@@ -121,7 +121,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_block_proc" }
       its(:definition) { should eq "VALUE rb_block_proc(void)" }
-      its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:typeref)    { should eq typeref(type: "VALUE") }
       its(:args)       { should eq args }
     end
 
@@ -136,7 +136,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_big2ll" }
       its(:definition) { should include "rb_big2ll(VALUE)" }
-      its(:typeref)    { should eq typedef(type: "long long") }
+      its(:typeref)    { should eq typeref(type: "long long") }
       its(:args)       { should eq args }
     end
 
@@ -151,7 +151,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_big2ull" }
       its(:definition) { should include "rb_big2ull(VALUE)" }
-      its(:typeref)    { should eq typedef(type: "unsigned long long") }
+      its(:typeref)    { should eq typeref(type: "unsigned long long") }
       its(:args)       { should eq args }
     end
 
@@ -166,7 +166,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_const_list" }
       its(:definition) { should eq "VALUE rb_const_list(void*)" }
-      its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:typeref)    { should eq typeref(type: "VALUE") }
       its(:args)       { should eq args }
     end
 
@@ -182,7 +182,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_feature_provided" }
       its(:definition) { should eq "int rb_feature_provided(const char *feature, const char **loading)" }
-      its(:typeref)    { should eq typedef(type: "int") }
+      its(:typeref)    { should eq typeref(type: "int") }
       its(:args)       { should eq args }
     end
 
@@ -198,7 +198,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_define_variable" }
       its(:definition) { should eq "void rb_define_variable(const char *name, VALUE *var)" }
-      its(:typeref)    { should eq typedef(type: "void") }
+      its(:typeref)    { should eq typeref(type: "void") }
       its(:args)       { should eq args }
     end
   end
@@ -224,7 +224,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_num2int_inline" }
       its(:definition) { should eq "rb_num2int_inline(VALUE x)" }
-      its(:typeref)    { should eq typedef(type: "int") }
+      its(:typeref)    { should eq typeref(type: "int") }
       its(:args)       { should eq args }
     end
 
@@ -239,7 +239,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_int2num_inline" }
       its(:definition) { should eq "rb_int2num_inline(int v)" }
-      its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:typeref)    { should eq typeref(type: "VALUE") }
       its(:args)       { should eq args }
     end
 
@@ -265,7 +265,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_scan_args_set" }
       its(:definition) { should eq "rb_scan_args_set(int kw_flag, int argc, const VALUE *argv," } # TODO: Fix this after
-      its(:typeref)    { should eq typedef(type: "int") }
+      its(:typeref)    { should eq typeref(type: "int") }
       its(:args)       { should eq args }
     end
 
@@ -280,7 +280,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "RSTRING_END" }
       its(:definition) { should eq "RSTRING_END(VALUE str)" }
-      its(:typeref)    { should eq typedef(type: "char", pointer: :ref) }
+      its(:typeref)    { should eq typeref(type: "char", pointer: :ref) }
       its(:args)       { should eq args }
     end
 
@@ -298,7 +298,7 @@ RSpec.describe RubyHeaderParser::Parser do
 
       its(:name)       { should eq "rb_data_typed_object_make" }
       its(:definition) { should eq "rb_data_typed_object_make(VALUE klass, const rb_data_type_t *type, void **datap, size_t size)" }
-      its(:typeref)    { should eq typedef(type: "VALUE") }
+      its(:typeref)    { should eq typeref(type: "VALUE") }
       its(:args)       { should eq args }
     end
   end

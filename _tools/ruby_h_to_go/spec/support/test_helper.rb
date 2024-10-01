@@ -5,7 +5,7 @@ module TestHelper # rubocop:disable Style/Documentation
     RubyHeaderParser::ArgumentDefinition.new(type:, name:, pointer:, length:)
   end
 
-  def typedef(type:, pointer: nil)
+  def typeref(type:, pointer: nil)
     RubyHeaderParser::TyperefDefinition.new(type:, pointer:)
   end
 end
