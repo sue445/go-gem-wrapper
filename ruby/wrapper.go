@@ -106,7 +106,7 @@ func Value2String(str VALUE) string {
 
 // value2String convert from `C.VALUE` to Go string. (for internal use within package)
 func value2String(str C.VALUE) string {
-	return C.GoStringN(rstringPtr(str), rstringLenint(str))
+	return C.GoStringN((*C.char)(RSTRING_PTR(VALUE(str))), C.int(RSTRING_LENINT(VALUE(str))))
 }
 
 // StringLen returns string length as [Long]
