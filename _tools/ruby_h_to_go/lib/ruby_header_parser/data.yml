@@ -68,6 +68,8 @@ function:
     - rb_class_descendants
 
   pointer_hint:
+    RSTRING_PTR:
+      self: raw
     rb_data_object_make:
       4: sref
     rb_data_typed_object_make:
