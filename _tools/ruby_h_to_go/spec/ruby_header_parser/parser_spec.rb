@@ -301,6 +301,21 @@ RSpec.describe RubyHeaderParser::Parser do
       its(:typeref)    { should eq typeref(type: "VALUE") }
       its(:args)       { should eq args }
     end
+
+    context "RSTRING_PTR" do
+      subject { definitions.find { |d| d.name == "RSTRING_PTR" } }
+
+      let(:args) do
+        [
+          argument(type: "VALUE", name: "str"),
+        ]
+      end
+
+      its(:name)       { should eq "RSTRING_PTR" }
+      its(:definition) { should eq "RSTRING_PTR(VALUE str)" }
+      its(:typeref)    { should eq typeref(type: "char", pointer: :raw) }
+      its(:args)       { should eq args }
+    end
   end
 
   describe "#extract_struct_definitions" do

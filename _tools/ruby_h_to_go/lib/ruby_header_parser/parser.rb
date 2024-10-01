@@ -265,7 +265,7 @@ module RubyHeaderParser
       typeref_pointer = nil
       if typeref_type.match?(/\*+$/)
         typeref_type = typeref_type.gsub(/\*+$/, "").strip
-        typeref_pointer = :ref
+        typeref_pointer = data.function_self_pointer_hint(function_name)
       end
 
       TyperefDefinition.new(type: typeref_type, pointer: typeref_pointer)
