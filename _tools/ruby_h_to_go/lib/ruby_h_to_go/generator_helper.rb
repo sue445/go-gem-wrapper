@@ -39,7 +39,7 @@ module RubyHToGo
     # Convert C type to Go type. (used in wrapper function args and return type etc)
     # @param typename [String]
     # @param pos [Symbol,nil] :arg, :typeref, :return
-    # @param pointer [Symbol,nil] Whether pointer hint
+    # @param pointer [Symbol,nil] pointer hint (:ref, :array, :ref_array, :function, :sref, :str_array, :in_ref, :raw)
     # @param pointer_length [Integer]
     # @return [String]
     def ruby_c_type_to_go_type(typename, pos: nil, pointer: nil, pointer_length: 0)
@@ -107,7 +107,7 @@ module RubyHToGo
     # Convert pointer C type to Go type. (used in wrapper function args and return type etc)
     # @param typename [String]
     # @param pos [Symbol,nil] :arg, :typeref, :return
-    # @param pointer [Symbol,nil] Whether pointer hint
+    # @param pointer [Symbol,nil] pointer hint (:ref, :array, :ref_array, :function, :sref, :str_array, :in_ref, :raw)
     # @param pointer_length [Integer]
     # @return [String]
     def ruby_pointer_c_type_to_go_type(typename, pos:, pointer:, pointer_length:)
