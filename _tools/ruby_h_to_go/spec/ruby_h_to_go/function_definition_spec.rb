@@ -9,7 +9,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_define_method",
           definition: "void rb_define_method(VALUE klass, const char *mid, VALUE (*func)(ANYARGS), int arity)",
-          typeref:    typedef(type: "void"),
+          typeref:    typeref(type: "void"),
           args:       [
             argument(type: "VALUE", name: "klass"),
             argument(type: "char", name: "mid", pointer: :ref),
@@ -44,7 +44,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_block_call",
           definition: "VALUE rb_block_call(VALUE obj, ID mid, int argc, const VALUE *argv, rb_block_call_func_t proc, VALUE data2)", # rubocop:disable Layout/LineLength
-          typeref:    typedef(type: "VALUE"),
+          typeref:    typeref(type: "VALUE"),
           args:       [
             argument(type: "VALUE", name: "obj"),
             argument(type: "ID", name: "mid"),
@@ -81,7 +81,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_funcallv",
           definition: "VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)",
-          typeref:    typedef(type: "VALUE"),
+          typeref:    typeref(type: "VALUE"),
           args:       [
             argument(type: "VALUE", name: "recv"),
             argument(type: "ID", name: "mid"),
@@ -114,7 +114,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_thread_call_with_gvl",
           definition: "void *rb_thread_call_with_gvl(void *(*func)(void *), void *data1)",
-          typeref:    typedef(type: "void", pointer: :ref),
+          typeref:    typeref(type: "void", pointer: :ref),
           args:       [
             argument(type: "void", name: "arg1", pointer: :function),
             argument(type: "void", name: "data1", pointer: :ref),
@@ -145,7 +145,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_uv_to_utf8",
           definition: "int rb_uv_to_utf8(char buf[6], unsigned long uv)",
-          typeref:    typedef(type: "int"),
+          typeref:    typeref(type: "int"),
           args:       [
             argument(type: "char", name: "buf", pointer: :array, length: 6),
             argument(type: "unsigned long", name: "uv"),
@@ -176,7 +176,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_errno_ptr",
           definition: "int *rb_errno_ptr(void)",
-          typeref:    typedef(type: "int", pointer: :ref),
+          typeref:    typeref(type: "int", pointer: :ref),
           args:       [],
         )
       end
@@ -204,7 +204,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_big2ll",
           definition: "rb_big2ll(VALUE)",
-          typeref:    typedef(type: "long long"),
+          typeref:    typeref(type: "long long"),
           args:       [
             argument(type: "VALUE", name: "arg1"),
           ],
@@ -234,7 +234,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_big2ull",
           definition: "rb_big2ull(VALUE)",
-          typeref:    typedef(type: "unsigned long long"),
+          typeref:    typeref(type: "unsigned long long"),
           args:       [
             argument(type: "VALUE", name: "arg1"),
           ],
@@ -264,7 +264,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_scan_args_set",
           definition: "rb_scan_args_set(int kw_flag, int argc, const VALUE *argv,",
-          typeref:    typedef(type: "int"),
+          typeref:    typeref(type: "int"),
           args:       [
             argument(type: "int", name: "kw_flag"),
             argument(type: "int", name: "argc"),
@@ -310,7 +310,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "RSTRING_END",
           definition: "RSTRING_END(VALUE str)",
-          typeref:    typedef(type: "char", pointer: :ref),
+          typeref:    typeref(type: "char", pointer: :ref),
           args:       [
             argument(type: "VALUE", name: "str"),
           ],
@@ -340,7 +340,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_const_list",
           definition: "VALUE rb_const_list(void*)",
-          typeref:    typedef(type: "VALUE"),
+          typeref:    typeref(type: "VALUE"),
           args:       [
             argument(type: "void", name: "arg1", pointer: :ref),
           ],
@@ -370,7 +370,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_feature_provided",
           definition: "int rb_feature_provided(const char *feature, const char **loading)",
-          typeref:    typedef(type: "int"),
+          typeref:    typeref(type: "int"),
           args:       [
             argument(type: "char", name: "feature", pointer: :ref),
             argument(type: "char", name: "loading", pointer: :sref, length: 2),
@@ -404,7 +404,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_find_file_ext",
           definition: "int rb_find_file_ext(VALUE *feature, const char *const *exts)",
-          typeref:    typedef(type: "int"),
+          typeref:    typeref(type: "int"),
           args:       [
             argument(type: "VALUE", name: "feature", pointer: :ref),
             argument(type: "char", name: "exts", pointer: :str_array),
@@ -440,7 +440,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_data_typed_object_make",
           definition: "rb_data_typed_object_make(VALUE klass, const rb_data_type_t *type, void **datap, size_t size)",
-          typeref:    typedef(type: "VALUE"),
+          typeref:    typeref(type: "VALUE"),
           args:       [
             argument(type: "VALUE", name: "klass"),
             argument(type: "rb_data_type_t", name: "type", pointer: :ref),
@@ -475,7 +475,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
         RubyHeaderParser::FunctionDefinition.new(
           name:       "rb_define_variable",
           definition: "void rb_define_variable(const char *name, VALUE *var)",
-          typeref:    typedef(type: "void"),
+          typeref:    typeref(type: "void"),
           args:       [
             argument(type: "char", name: "name", pointer: :ref),
             argument(type: "VALUE", name: "var", pointer: :in_ref),
@@ -511,7 +511,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
       RubyHeaderParser::FunctionDefinition.new(
         name:,
         definition: "",
-        typeref:    typedef(type: "void"),
+        typeref:    typeref(type: "void"),
         args:       [],
       )
     end
