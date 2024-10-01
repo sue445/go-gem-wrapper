@@ -21,6 +21,22 @@ RSpec.describe RubyHeaderParser::Data do
     end
   end
 
+  describe "#function_self_pointer_hint" do
+    subject { data.function_self_pointer_hint(function_name) }
+
+    context "found in data.yml" do
+      let(:function_name) { "RSTRING_PTR" }
+
+      it { should eq :raw }
+    end
+
+    context "not found in data.yml" do
+      let(:function_name) { "rb_class2name" }
+
+      it { should eq :ref }
+    end
+  end
+
   describe "#should_generate_function?" do
     subject { data.should_generate_function?(function_name) }
 

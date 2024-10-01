@@ -422,8 +422,8 @@ func RSTRING_LENINT(str VALUE) int {
 // Original definition is following
 //
 //	RSTRING_PTR(VALUE str)
-func RSTRING_PTR(str VALUE) string {
-	ret := char2String(C.RSTRING_PTR(C.VALUE(str)))
+func RSTRING_PTR(str VALUE) *Char {
+	ret := (*Char)(C.RSTRING_PTR(C.VALUE(str)))
 	return ret
 }
 

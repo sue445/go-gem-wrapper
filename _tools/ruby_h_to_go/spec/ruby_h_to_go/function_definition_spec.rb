@@ -502,6 +502,36 @@ RSpec.describe RubyHToGo::FunctionDefinition do
 
       it { should eq go_content }
     end
+
+    context "RSTRING_PTR" do
+      let(:definition) do
+        RubyHeaderParser::FunctionDefinition.new(
+          name:       "RSTRING_PTR",
+          definition: "RSTRING_PTR(VALUE str)",
+          typeref:    typeref(type: "char", pointer: :raw),
+          args:       [
+            argument(type: "VALUE", name: "str"),
+          ],
+        )
+      end
+
+      let(:go_content) do
+        <<~GO
+          // RSTRING_PTR calls `RSTRING_PTR` in C
+          //
+          // Original definition is following
+          //
+          //	RSTRING_PTR(VALUE str)
+          func RSTRING_PTR(str VALUE) *Char {
+          ret := (*Char)(C.RSTRING_PTR(C.VALUE(str)))
+          return ret
+          }
+
+        GO
+      end
+
+      it { should eq go_content }
+    end
   end
 
   describe "#go_function_name" do
