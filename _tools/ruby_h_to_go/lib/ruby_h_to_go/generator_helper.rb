@@ -36,6 +36,17 @@ module RubyHToGo
       GO
     end
 
+    C_TYPE_TO_GO_TYPE = {
+      "RUBY_DATA_FUNC"     => "unsafe.Pointer",
+      "long long"          => "Longlong",
+      "rb_alloc_func_t"    => "unsafe.Pointer",
+      "unsigned char"      => "Uchar",
+      "unsigned int"       => "uint",
+      "unsigned long"      => "uint",
+      "unsigned long long" => "Ulonglong",
+      "unsigned short"     => "Ushort",
+    }.freeze
+
     # Convert C type to Go type. (used in wrapper function args and return type etc)
     # @param typename [String]
     # @param pos [Symbol,nil] :arg, :typeref, :return
@@ -45,19 +56,9 @@ module RubyHToGo
     def ruby_c_type_to_go_type(typename, pos: nil, pointer: nil, pointer_length: 0)
       return ruby_pointer_c_type_to_go_type(typename, pos:, pointer:, pointer_length:) if pointer
 
+      return C_TYPE_TO_GO_TYPE[typename] if C_TYPE_TO_GO_TYPE[typename]
+
       case typename
-      when "unsigned int", "unsigned long"
-        return "uint"
-      when "unsigned short"
-        return "Ushort"
-      when "unsigned char"
-        return "Uchar"
-      when "long long"
-        return "Longlong"
-      when "unsigned long long"
-        return "Ulonglong"
-      when "RUBY_DATA_FUNC", "rb_alloc_func_t"
-        return "unsafe.Pointer"
       when /^[A-Z]+$/, "int"
         # e.g. VALUE
         return typename
@@ -68,36 +69,26 @@ module RubyHToGo
       snake_to_camel(typename)
     end
 
+    C_TYPE_TO_CGO_TYPE = {
+      "RUBY_DATA_FUNC"       => "toCFunctionPointer",
+      "long long"            => "C.longlong",
+      "rb_io_wait_readwrite" => "C.enum_rb_io_wait_readwrite",
+      "ruby_value_type"      => "C.enum_ruby_value_type",
+      "unsigned char"        => "C.uchar",
+      "unsigned int"         => "C.uint",
+      "unsigned long"        => "C.ulong",
+      "unsigned long long"   => "C.ulonglong",
+      "unsigned short"       => "C.ushort",
+      "st_hash_type"         => "C.struct_st_hash_type",
+      "timespec"             => "C.struct_timespec",
+      "timeval"              => "C.struct_timeval",
+    }.freeze
+
     # Cast C type to cgo type. (Used in wrapper function)
     # @param typename [String]
     # @return [String]
     def cast_to_cgo_type(typename)
-      case typename
-      when "unsigned long"
-        return "C.ulong"
-      when "unsigned int"
-        return "C.uint"
-      when "unsigned char"
-        return "C.uchar"
-      when "unsigned short"
-        return "C.ushort"
-      when "long long"
-        return "C.longlong"
-      when "unsigned long long"
-        return "C.ulonglong"
-      when "timeval"
-        return "C.struct_timeval"
-      when "timespec"
-        return "C.struct_timespec"
-      when "st_hash_type"
-        return "C.struct_st_hash_type"
-      when "ruby_value_type"
-        return "C.enum_ruby_value_type"
-      when "rb_io_wait_readwrite"
-        return "C.enum_rb_io_wait_readwrite"
-      when "RUBY_DATA_FUNC"
-        return "toCFunctionPointer"
-      end
+      return C_TYPE_TO_CGO_TYPE[typename] if C_TYPE_TO_CGO_TYPE[typename]
 
       "C.#{typename}"
     end
@@ -111,30 +102,6 @@ module RubyHToGo
     # @param pointer_length [Integer]
     # @return [String]
     def ruby_pointer_c_type_to_go_type(typename, pos:, pointer:, pointer_length:)
-      case pointer
-      when :sref
-        return "*unsafe.Pointer" if typename == "void" && pointer_length == 2
-
-        go_type_name = ruby_c_type_to_go_type(typename, pos:, pointer: nil)
-        return "#{"*" * pointer_length}#{go_type_name}"
-      when :str_array
-        return "[]string"
-      end
-
-      case typename
-      when "char", "const char"
-        if pointer == :ref
-          case pos
-          when :arg, :typeref
-            return "string"
-          else
-            return "char2String"
-          end
-        end
-      when "void"
-        return "unsafe.Pointer"
-      end
-
       go_type_name =
         if typename == "int" && %i[return typeref].include?(pos)
           "Int"
@@ -143,11 +110,32 @@ module RubyHToGo
         end
 
       case pointer
+      when :sref
+        return "*unsafe.Pointer" if typename == "void" && pointer_length == 2
+
+        return "#{"*" * pointer_length}#{go_type_name}"
+
+      when :str_array
+        return "[]string"
+
       when :array
         return "[]#{go_type_name}"
+
       when :ref_array
         return "[]*#{go_type_name}"
+
+      when :ref
+        if typename == "char"
+          case pos
+          when :arg, :typeref
+            return "string"
+          else
+            return "char2String"
+          end
+        end
       end
+
+      return "unsafe.Pointer" if typename == "void"
 
       "*#{go_type_name}"
     end
