@@ -68,36 +68,26 @@ module RubyHToGo
       snake_to_camel(typename)
     end
 
+    C_TYPE_TO_CGO_TYPE = {
+      "RUBY_DATA_FUNC"       => "toCFunctionPointer",
+      "long long"            => "C.longlong",
+      "rb_io_wait_readwrite" => "C.enum_rb_io_wait_readwrite",
+      "ruby_value_type"      => "C.enum_ruby_value_type",
+      "unsigned char"        => "C.uchar",
+      "unsigned int"         => "C.uint",
+      "unsigned long"        => "C.ulong",
+      "unsigned long long"   => "C.ulonglong",
+      "unsigned short"       => "C.ushort",
+      "st_hash_type"         => "C.struct_st_hash_type",
+      "timespec"             => "C.struct_timespec",
+      "timeval"              => "C.struct_timeval",
+    }.freeze
+
     # Cast C type to cgo type. (Used in wrapper function)
     # @param typename [String]
     # @return [String]
     def cast_to_cgo_type(typename)
-      case typename
-      when "unsigned long"
-        return "C.ulong"
-      when "unsigned int"
-        return "C.uint"
-      when "unsigned char"
-        return "C.uchar"
-      when "unsigned short"
-        return "C.ushort"
-      when "long long"
-        return "C.longlong"
-      when "unsigned long long"
-        return "C.ulonglong"
-      when "timeval"
-        return "C.struct_timeval"
-      when "timespec"
-        return "C.struct_timespec"
-      when "st_hash_type"
-        return "C.struct_st_hash_type"
-      when "ruby_value_type"
-        return "C.enum_ruby_value_type"
-      when "rb_io_wait_readwrite"
-        return "C.enum_rb_io_wait_readwrite"
-      when "RUBY_DATA_FUNC"
-        return "toCFunctionPointer"
-      end
+      return C_TYPE_TO_CGO_TYPE[typename] if C_TYPE_TO_CGO_TYPE[typename]
 
       "C.#{typename}"
     end
