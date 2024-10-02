@@ -111,30 +111,6 @@ module RubyHToGo
     # @param pointer_length [Integer]
     # @return [String]
     def ruby_pointer_c_type_to_go_type(typename, pos:, pointer:, pointer_length:)
-      case pointer
-      when :sref
-        return "*unsafe.Pointer" if typename == "void" && pointer_length == 2
-
-        go_type_name = ruby_c_type_to_go_type(typename, pos:, pointer: nil)
-        return "#{"*" * pointer_length}#{go_type_name}"
-      when :str_array
-        return "[]string"
-      end
-
-      case typename
-      when "char", "const char"
-        if pointer == :ref
-          case pos
-          when :arg, :typeref
-            return "string"
-          else
-            return "char2String"
-          end
-        end
-      when "void"
-        return "unsafe.Pointer"
-      end
-
       go_type_name =
         if typename == "int" && %i[return typeref].include?(pos)
           "Int"
@@ -143,11 +119,32 @@ module RubyHToGo
         end
 
       case pointer
+      when :sref
+        return "*unsafe.Pointer" if typename == "void" && pointer_length == 2
+
+        return "#{"*" * pointer_length}#{go_type_name}"
+
+      when :str_array
+        return "[]string"
+
       when :array
         return "[]#{go_type_name}"
+
       when :ref_array
         return "[]*#{go_type_name}"
+
+      when :ref
+        if typename == "char"
+          case pos
+          when :arg, :typeref
+            return "string"
+          else
+            return "char2String"
+          end
+        end
       end
+
+      return "unsafe.Pointer" if typename == "void"
 
       "*#{go_type_name}"
     end
