@@ -36,6 +36,17 @@ module RubyHToGo
       GO
     end
 
+    C_TYPE_TO_GO_TYPE = {
+      "RUBY_DATA_FUNC"     => "unsafe.Pointer",
+      "long long"          => "Longlong",
+      "rb_alloc_func_t"    => "unsafe.Pointer",
+      "unsigned char"      => "Uchar",
+      "unsigned int"       => "uint",
+      "unsigned long"      => "uint",
+      "unsigned long long" => "Ulonglong",
+      "unsigned short"     => "Ushort",
+    }.freeze
+
     # Convert C type to Go type. (used in wrapper function args and return type etc)
     # @param typename [String]
     # @param pos [Symbol,nil] :arg, :typeref, :return
@@ -45,19 +56,9 @@ module RubyHToGo
     def ruby_c_type_to_go_type(typename, pos: nil, pointer: nil, pointer_length: 0)
       return ruby_pointer_c_type_to_go_type(typename, pos:, pointer:, pointer_length:) if pointer
 
+      return C_TYPE_TO_GO_TYPE[typename] if C_TYPE_TO_GO_TYPE[typename]
+
       case typename
-      when "unsigned int", "unsigned long"
-        return "uint"
-      when "unsigned short"
-        return "Ushort"
-      when "unsigned char"
-        return "Uchar"
-      when "long long"
-        return "Longlong"
-      when "unsigned long long"
-        return "Ulonglong"
-      when "RUBY_DATA_FUNC", "rb_alloc_func_t"
-        return "unsafe.Pointer"
       when /^[A-Z]+$/, "int"
         # e.g. VALUE
         return typename
