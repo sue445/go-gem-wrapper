@@ -16,7 +16,7 @@ raise "#{gemspec_file} isn't gemspec" unless File.extname(gemspec_file) == ".gem
 raise "#{gemspec_file} isn't found" unless File.exist?(gemspec_file)
 
 # Patch to make a gem into a Go gem right after `bundle gem`
-class GemPatcher
+class GemPatcher # rubocop:disable Metrics/ClassLength
   attr_reader :gemspec_file
 
   # @param gemspec_file [String]
