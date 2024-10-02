@@ -20,7 +20,7 @@ module RubyHToGo
       "var"   => "v",
       "func"  => "fun",
       "range" => "r",
-      "type"  => "r",
+      "type"  => "t",
 
       # Can't use "_" as a value
       "_"     => "arg",

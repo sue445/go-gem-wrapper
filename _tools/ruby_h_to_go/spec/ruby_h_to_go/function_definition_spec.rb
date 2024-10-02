@@ -457,10 +457,10 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           // Original definition is following
           //
           //	rb_data_typed_object_make(VALUE klass, const rb_data_type_t *type, void **datap, size_t size)
-          func RbDataTypedObjectMake(klass VALUE, r *RbDataTypeT, datap *unsafe.Pointer, size SizeT) VALUE {
-          var cR C.rb_data_type_t
-          ret := VALUE(C.rb_data_typed_object_make(C.VALUE(klass), &cR, datap, C.size_t(size)))
-          *r = RbDataTypeT(cR)
+          func RbDataTypedObjectMake(klass VALUE, t *RbDataTypeT, datap *unsafe.Pointer, size SizeT) VALUE {
+          var cT C.rb_data_type_t
+          ret := VALUE(C.rb_data_typed_object_make(C.VALUE(klass), &cT, datap, C.size_t(size)))
+          *t = RbDataTypeT(cT)
           return ret
           }
 

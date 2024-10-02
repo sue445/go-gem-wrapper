@@ -1608,14 +1608,14 @@ func RbCheckArrayType(obj VALUE) VALUE {
 // Original definition is following
 //
 //	VALUE rb_check_convert_type(VALUE val, int type, const char *name, const char *mid)
-func RbCheckConvertType(val VALUE, r int, name string, mid string) VALUE {
+func RbCheckConvertType(val VALUE, t int, name string, mid string) VALUE {
 	charName, cleanCharname := string2Char(name)
 	defer cleanCharname()
 
 	charMid, cleanCharmid := string2Char(mid)
 	defer cleanCharmid()
 
-	ret := VALUE(C.rb_check_convert_type(C.VALUE(val), C.int(r), charName, charMid))
+	ret := VALUE(C.rb_check_convert_type(C.VALUE(val), C.int(t), charName, charMid))
 	return ret
 }
 
@@ -2305,14 +2305,14 @@ func RbConstSet(space VALUE, name ID, val VALUE) {
 // Original definition is following
 //
 //	VALUE rb_convert_type(VALUE val, int type, const char *name, const char *mid)
-func RbConvertType(val VALUE, r int, name string, mid string) VALUE {
+func RbConvertType(val VALUE, t int, name string, mid string) VALUE {
 	charName, cleanCharname := string2Char(name)
 	defer cleanCharname()
 
 	charMid, cleanCharmid := string2Char(mid)
 	defer cleanCharmid()
 
-	ret := VALUE(C.rb_convert_type(C.VALUE(val), C.int(r), charName, charMid))
+	ret := VALUE(C.rb_convert_type(C.VALUE(val), C.int(t), charName, charMid))
 	return ret
 }
 
@@ -2485,10 +2485,10 @@ func RbDataObjectZalloc(klass VALUE, size SizeT, dmark unsafe.Pointer, dfree uns
 // Original definition is following
 //
 //	rb_data_typed_object_make(VALUE klass, const rb_data_type_t *type, void **datap, size_t size)
-func RbDataTypedObjectMake(klass VALUE, r *RbDataTypeT, datap *unsafe.Pointer, size SizeT) VALUE {
-	var cR C.rb_data_type_t
-	ret := VALUE(C.rb_data_typed_object_make(C.VALUE(klass), &cR, datap, C.size_t(size)))
-	*r = RbDataTypeT(cR)
+func RbDataTypedObjectMake(klass VALUE, t *RbDataTypeT, datap *unsafe.Pointer, size SizeT) VALUE {
+	var cT C.rb_data_type_t
+	ret := VALUE(C.rb_data_typed_object_make(C.VALUE(klass), &cT, datap, C.size_t(size)))
+	*t = RbDataTypeT(cT)
 	return ret
 }
 
@@ -2497,10 +2497,10 @@ func RbDataTypedObjectMake(klass VALUE, r *RbDataTypeT, datap *unsafe.Pointer, s
 // Original definition is following
 //
 //	VALUE rb_data_typed_object_wrap(VALUE klass, void *datap, const rb_data_type_t *type)
-func RbDataTypedObjectWrap(klass VALUE, datap unsafe.Pointer, r *RbDataTypeT) VALUE {
-	var cR C.rb_data_type_t
-	ret := VALUE(C.rb_data_typed_object_wrap(C.VALUE(klass), datap, &cR))
-	*r = RbDataTypeT(cR)
+func RbDataTypedObjectWrap(klass VALUE, datap unsafe.Pointer, t *RbDataTypeT) VALUE {
+	var cT C.rb_data_type_t
+	ret := VALUE(C.rb_data_typed_object_wrap(C.VALUE(klass), datap, &cT))
+	*t = RbDataTypeT(cT)
 	return ret
 }
 
@@ -2509,10 +2509,10 @@ func RbDataTypedObjectWrap(klass VALUE, datap unsafe.Pointer, r *RbDataTypeT) VA
 // Original definition is following
 //
 //	VALUE rb_data_typed_object_zalloc(VALUE klass, size_t size, const rb_data_type_t *type)
-func RbDataTypedObjectZalloc(klass VALUE, size SizeT, r *RbDataTypeT) VALUE {
-	var cR C.rb_data_type_t
-	ret := VALUE(C.rb_data_typed_object_zalloc(C.VALUE(klass), C.size_t(size), &cR))
-	*r = RbDataTypeT(cR)
+func RbDataTypedObjectZalloc(klass VALUE, size SizeT, t *RbDataTypeT) VALUE {
+	var cT C.rb_data_type_t
+	ret := VALUE(C.rb_data_typed_object_zalloc(C.VALUE(klass), C.size_t(size), &cT))
+	*t = RbDataTypeT(cT)
 	return ret
 }
 
@@ -4936,14 +4936,14 @@ func RbInterrupt() {
 // Original definition is following
 //
 //	void rb_invalid_str(const char *str, const char *type)
-func RbInvalidStr(str string, r string) {
+func RbInvalidStr(str string, t string) {
 	charStr, cleanCharstr := string2Char(str)
 	defer cleanCharstr()
 
-	charR, cleanCharr := string2Char(r)
-	defer cleanCharr()
+	charT, cleanChart := string2Char(t)
+	defer cleanChart()
 
-	C.rb_invalid_str(charStr, charR)
+	C.rb_invalid_str(charStr, charT)
 }
 
 // RbIoAddstr calls `rb_io_addstr` in C
@@ -6627,8 +6627,8 @@ func RbObjReveal(obj VALUE, klass VALUE) VALUE {
 // Original definition is following
 //
 //	VALUE rb_obj_setup(VALUE obj, VALUE klass, VALUE type)
-func RbObjSetup(obj VALUE, klass VALUE, r VALUE) VALUE {
-	ret := VALUE(C.rb_obj_setup(C.VALUE(obj), C.VALUE(klass), C.VALUE(r)))
+func RbObjSetup(obj VALUE, klass VALUE, t VALUE) VALUE {
+	ret := VALUE(C.rb_obj_setup(C.VALUE(obj), C.VALUE(klass), C.VALUE(t)))
 	return ret
 }
 
@@ -7844,12 +7844,12 @@ func RbStHashUint32(h StIndexT, i Uint32T) StIndexT {
 // Original definition is following
 //
 //	st_table *rb_st_init_existing_table_with_size(st_table *tab, const struct st_hash_type *type, st_index_t size)
-func RbStInitExistingTableWithSize(tab *StTable, r *StHashType, size StIndexT) *StTable {
+func RbStInitExistingTableWithSize(tab *StTable, t *StHashType, size StIndexT) *StTable {
 	var cTab C.st_table
-	var cR C.struct_st_hash_type
-	ret := (*StTable)(C.rb_st_init_existing_table_with_size(&cTab, &cR, C.st_index_t(size)))
+	var cT C.struct_st_hash_type
+	ret := (*StTable)(C.rb_st_init_existing_table_with_size(&cTab, &cT, C.st_index_t(size)))
 	*tab = StTable(cTab)
-	*r = StHashType(cR)
+	*t = StHashType(cT)
 	return ret
 }
 
