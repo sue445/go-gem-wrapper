@@ -297,7 +297,7 @@ RSpec.describe RubyHeaderParser::Parser do
       end
 
       its(:name)       { should eq "rb_data_typed_object_make" }
-      its(:definition) { should eq "rb_data_typed_object_make(VALUE klass, const rb_data_type_t *type, void **datap, size_t size)" }
+      its(:definition) { should eq "rb_data_typed_object_make(VALUE klass, const rb_data_type_t *type, void **datap, size_t size)" } # rubocop:disable Layout/LineLength
       its(:typeref)    { should eq typeref(type: "VALUE") }
       its(:args)       { should eq args }
     end
