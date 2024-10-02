@@ -56,7 +56,7 @@ module RubyHToGo
         return "Longlong"
       when "unsigned long long"
         return "Ulonglong"
-      when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/, "RUBY_DATA_FUNC", "rb_alloc_func_t"
+      when "RUBY_DATA_FUNC", "rb_alloc_func_t"
         return "unsafe.Pointer"
       when /^[A-Z]+$/, "int"
         # e.g. VALUE
@@ -95,7 +95,7 @@ module RubyHToGo
         return "C.enum_ruby_value_type"
       when "rb_io_wait_readwrite"
         return "C.enum_rb_io_wait_readwrite"
-      when /^VALUE\s*\(\*func\)\s*\(ANYARGS\)$/, "RUBY_DATA_FUNC"
+      when "RUBY_DATA_FUNC"
         return "toCFunctionPointer"
       end
 
