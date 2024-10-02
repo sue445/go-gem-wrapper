@@ -6,13 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Lint/RedundantCopDisableDirective:
-  Exclude:
-    - '_tools/ruby_h_to_go/spec/ruby_h_to_go/function_definition_spec.rb'
-    - '_tools/ruby_h_to_go/spec/ruby_header_parser/util_spec.rb'
-
 # Offense count: 8
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
 Metrics/AbcSize:
