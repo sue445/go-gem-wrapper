@@ -68,22 +68,7 @@ module RubyHToGo
       when :ref
         case type
         when "char"
-          # self is string
-          if char_var_count >= 2
-            chars_var_name = "char#{snake_to_camel(go_name)}"
-            clean_var_name = "cleanChar#{go_name}"
-          else
-            chars_var_name = "char"
-            clean_var_name = "clean"
-          end
-
-          before_call_function_lines = [
-            "#{chars_var_name}, #{clean_var_name} := string2Char(#{go_name})",
-            "defer #{clean_var_name}()",
-            "",
-          ]
-
-          return chars_var_name, before_call_function_lines, []
+          return generate_go_arguments_for_char_pointer(char_var_count)
 
         when "void"
           # c_arg is pointer
@@ -102,25 +87,62 @@ module RubyHToGo
         return "toCFunctionPointer(#{go_name})", [], []
 
       when :str_array
-        if chars_var_count >= 2
-          chars_var_name = "chars#{snake_to_camel(go_name)}"
-          clean_var_name = "cleanChars#{go_name}"
-        else
-          chars_var_name = "chars"
-          clean_var_name = "cleanChars"
-        end
-
-        before_call_function_lines = [
-          "#{chars_var_name}, #{clean_var_name} := strings2Chars(#{go_name})",
-          "defer #{clean_var_name}()",
-          "",
-        ]
-
-        return chars_var_name, before_call_function_lines, []
+        return generate_go_arguments_for_str_array(chars_var_count)
 
       else
         return cast_to_cgo, [], []
       end
+    end
+
+    private
+
+    # @param char_var_count [Integer]
+    #
+    # @return [Array<String, Array<String>, Array<String>>]
+    #   - casted_go_arg [String]
+    #   - before_call_function_lines [Array<String>]
+    #   - after_call_function_lines [Array<String>]
+    def generate_go_arguments_for_char_pointer(char_var_count)
+      # self is string
+      if char_var_count >= 2
+        chars_var_name = "char#{snake_to_camel(go_name)}"
+        clean_var_name = "cleanChar#{go_name}"
+      else
+        chars_var_name = "char"
+        clean_var_name = "clean"
+      end
+
+      before_call_function_lines = [
+        "#{chars_var_name}, #{clean_var_name} := string2Char(#{go_name})",
+        "defer #{clean_var_name}()",
+        "",
+      ]
+
+      [chars_var_name, before_call_function_lines, []]
+    end
+
+    # @param chars_var_count [Integer]
+    #
+    # @return [Array<String, Array<String>, Array<String>>]
+    #   - casted_go_arg [String]
+    #   - before_call_function_lines [Array<String>]
+    #   - after_call_function_lines [Array<String>]
+    def generate_go_arguments_for_str_array(chars_var_count)
+      if chars_var_count >= 2
+        chars_var_name = "chars#{snake_to_camel(go_name)}"
+        clean_var_name = "cleanChars#{go_name}"
+      else
+        chars_var_name = "chars"
+        clean_var_name = "cleanChars"
+      end
+
+      before_call_function_lines = [
+        "#{chars_var_name}, #{clean_var_name} := strings2Chars(#{go_name})",
+        "defer #{clean_var_name}()",
+        "",
+      ]
+
+      [chars_var_name, before_call_function_lines, []]
     end
   end
 end
