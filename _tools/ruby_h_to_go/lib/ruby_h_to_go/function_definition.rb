@@ -52,8 +52,6 @@ module RubyHToGo
 
       go_function_lines << "func #{go_function_name}(#{go_function_args.join(", ")}) #{go_function_typeref} {"
 
-      call_c_method = "C.#{name}("
-
       casted_go_args = []
       char_var_count = args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :ref }
       chars_var_count = args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :str_array }
@@ -69,8 +67,7 @@ module RubyHToGo
         after_call_function_lines.push(*after_lines)
       end
 
-      call_c_method << casted_go_args.join(", ")
-      call_c_method << ")"
+      call_c_method = "C.#{name}(#{casted_go_args.join(", ")})"
 
       go_function_lines.push(*before_call_function_lines)
       cast_func = typeref.cast_func_for_function_return
