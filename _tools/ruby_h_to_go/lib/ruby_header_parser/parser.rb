@@ -190,67 +190,10 @@ module RubyHeaderParser
       args = Util.split_signature(signature)
 
       arg_pos = 0
-      args.map do |str|
+      args.map do |arg|
         arg_pos += 1
-        parts = str.split
-
-        if parts.count < 2
-          ArgumentDefinition.new(
-            type:    parts[0],
-            name:    "arg#{arg_pos}",
-            pointer: nil,
-          )
-        else
-          loop do
-            pointer_index = parts.index("*")
-            break unless pointer_index
-
-            parts[pointer_index - 1] << "*"
-            parts.delete_at(pointer_index)
-          end
-
-          pointer = nil
-          length = 0
-
-          if parts[-1] =~ /\[([0-9]+)?\]$/
-            parts[-1].gsub!(/\[([0-9]+)?\]$/, "")
-            length = ::Regexp.last_match(1).to_i
-            pointer = :array
-          end
-
-          unless parts[-1] =~ /^[0-9a-zA-Z_]+$/
-            # last elements isn't dummy argument
-            parts << "arg#{arg_pos}"
-          end
-
-          type = ""
-          original_type = Util.sanitize_type(parts[0...-1].join(" "))
-          name = parts[-1]
-
-          if original_type.match?(/\*+$/)
-            type = original_type.gsub(/\*+$/, "").strip
-            pointer = data.function_arg_pointer_hint(function_name:, pos: arg_pos)
-          elsif /^void\s*\s/.match?(original_type) || /\(.*\)/.match?(original_type)
-            # function pointer (e.g. void *(*func)(void *)) is treated as `void*`
-            type = "void"
-            pointer = data.function_arg_pointer_hint(function_name:, pos: arg_pos)
-          else
-            type = original_type
-          end
-
-          if pointer == :sref
-            original_type =~ /(\*+)$/
-            length = ::Regexp.last_match(1).length
-          end
-
-          ArgumentDefinition.new(
-            type:,
-            name:,
-            pointer:,
-            length:,
-          )
-        end
-      end.compact
+        generate_argument_definition(function_name:, arg:, arg_pos:)
+      end
     end
 
     # @param definition [String]
@@ -303,6 +246,71 @@ module RubyHeaderParser
 
       lines = File.open(filepath, "rb") { |f| f.readlines(chomp: true) }
       lines[line_num - 1]
+    end
+
+    # @param function_name [String]
+    # @param arg [String]
+    # @param arg_pos [Integer]
+    #
+    # @return [ArgumentDefinition]
+    def generate_argument_definition(function_name:, arg:, arg_pos:)
+      parts = arg.split
+
+      if parts.count < 2
+        return ArgumentDefinition.new(
+          type:    parts[0],
+          name:    "arg#{arg_pos}",
+          pointer: nil,
+        )
+      end
+
+      loop do
+        pointer_index = parts.index("*")
+        break unless pointer_index
+
+        parts[pointer_index - 1] << "*"
+        parts.delete_at(pointer_index)
+      end
+
+      pointer = nil
+      length = 0
+
+      if parts[-1] =~ /\[([0-9]+)?\]$/
+        parts[-1].gsub!(/\[([0-9]+)?\]$/, "")
+        length = ::Regexp.last_match(1).to_i
+        pointer = :array
+      end
+
+      unless parts[-1] =~ /^[0-9a-zA-Z_]+$/
+        # last elements isn't dummy argument
+        parts << "arg#{arg_pos}"
+      end
+
+      original_type = Util.sanitize_type(parts[0...-1].join(" "))
+      name = parts[-1]
+
+      if original_type.match?(/\*+$/)
+        type = original_type.gsub(/\*+$/, "").strip
+        pointer = data.function_arg_pointer_hint(function_name:, pos: arg_pos)
+      elsif /^void\s*\s/.match?(original_type) || /\(.*\)/.match?(original_type)
+        # function pointer (e.g. void *(*func)(void *)) is treated as `void*`
+        type = "void"
+        pointer = data.function_arg_pointer_hint(function_name:, pos: arg_pos)
+      else
+        type = original_type
+      end
+
+      if pointer == :sref
+        original_type =~ /(\*+)$/
+        length = ::Regexp.last_match(1).length
+      end
+
+      ArgumentDefinition.new(
+        type:,
+        name:,
+        pointer:,
+        length:,
+      )
     end
   end
 end
