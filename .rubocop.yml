@@ -39,15 +39,15 @@ Metrics/BlockLength:
     - "*.gemspec"
     - "**/*_spec.rb"
 
+Metrics/ClassLength:
+  Exclude:
+    - "**/*_test.rb"
+
 Metrics/CyclomaticComplexity:
   Max: 13
 
 Metrics/PerceivedComplexity:
   Max: 11
-
-Metrics/ClassLength:
-  Exclude:
-    - "**/*_test.rb"
 
 Style/Documentation:
   Exclude:
