@@ -20,8 +20,7 @@ import (
 //
 //	RB_BUILTIN_TYPE(VALUE obj)
 func RB_BUILTIN_TYPE(obj VALUE) RubyValueType {
-	ret := RubyValueType(C.RB_BUILTIN_TYPE(C.VALUE(obj)))
-	return ret
+	return RubyValueType(C.RB_BUILTIN_TYPE(C.VALUE(obj)))
 }
 
 // RB_CHR2FIX calls `RB_CHR2FIX` in C
@@ -30,8 +29,7 @@ func RB_BUILTIN_TYPE(obj VALUE) RubyValueType {
 //
 //	RB_CHR2FIX(unsigned char c)
 func RB_CHR2FIX(c Uchar) VALUE {
-	ret := VALUE(C.RB_CHR2FIX(C.uchar(c)))
-	return ret
+	return VALUE(C.RB_CHR2FIX(C.uchar(c)))
 }
 
 // RB_DYNAMIC_SYM_P calls `RB_DYNAMIC_SYM_P` in C
@@ -40,8 +38,7 @@ func RB_CHR2FIX(c Uchar) VALUE {
 //
 //	RB_DYNAMIC_SYM_P(VALUE obj)
 func RB_DYNAMIC_SYM_P(obj VALUE) Bool {
-	ret := Bool(C.RB_DYNAMIC_SYM_P(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_DYNAMIC_SYM_P(C.VALUE(obj)))
 }
 
 // RB_FIX2INT calls `RB_FIX2INT` in C
@@ -50,8 +47,7 @@ func RB_DYNAMIC_SYM_P(obj VALUE) Bool {
 //
 //	RB_FIX2INT(VALUE x)
 func RB_FIX2INT(x VALUE) int {
-	ret := int(C.RB_FIX2INT(C.VALUE(x)))
-	return ret
+	return int(C.RB_FIX2INT(C.VALUE(x)))
 }
 
 // RB_FIX2UINT calls `RB_FIX2UINT` in C
@@ -60,8 +56,7 @@ func RB_FIX2INT(x VALUE) int {
 //
 //	RB_FIX2UINT(VALUE x)
 func RB_FIX2UINT(x VALUE) uint {
-	ret := uint(C.RB_FIX2UINT(C.VALUE(x)))
-	return ret
+	return uint(C.RB_FIX2UINT(C.VALUE(x)))
 }
 
 // RB_FIXNUM_P calls `RB_FIXNUM_P` in C
@@ -70,8 +65,7 @@ func RB_FIX2UINT(x VALUE) uint {
 //
 //	RB_FIXNUM_P(VALUE obj)
 func RB_FIXNUM_P(obj VALUE) Bool {
-	ret := Bool(C.RB_FIXNUM_P(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_FIXNUM_P(C.VALUE(obj)))
 }
 
 // RB_FLOAT_TYPE_P calls `RB_FLOAT_TYPE_P` in C
@@ -80,8 +74,7 @@ func RB_FIXNUM_P(obj VALUE) Bool {
 //
 //	RB_FLOAT_TYPE_P(VALUE obj)
 func RB_FLOAT_TYPE_P(obj VALUE) Bool {
-	ret := Bool(C.RB_FLOAT_TYPE_P(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_FLOAT_TYPE_P(C.VALUE(obj)))
 }
 
 // RB_FLONUM_P calls `RB_FLONUM_P` in C
@@ -90,8 +83,7 @@ func RB_FLOAT_TYPE_P(obj VALUE) Bool {
 //
 //	RB_FLONUM_P(VALUE obj)
 func RB_FLONUM_P(obj VALUE) Bool {
-	ret := Bool(C.RB_FLONUM_P(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_FLONUM_P(C.VALUE(obj)))
 }
 
 // RB_FL_ABLE calls `RB_FL_ABLE` in C
@@ -100,8 +92,7 @@ func RB_FLONUM_P(obj VALUE) Bool {
 //
 //	RB_FL_ABLE(VALUE obj)
 func RB_FL_ABLE(obj VALUE) Bool {
-	ret := Bool(C.RB_FL_ABLE(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_FL_ABLE(C.VALUE(obj)))
 }
 
 // RB_FL_ALL calls `RB_FL_ALL` in C
@@ -110,8 +101,7 @@ func RB_FL_ABLE(obj VALUE) Bool {
 //
 //	RB_FL_ALL(VALUE obj, VALUE flags)
 func RB_FL_ALL(obj VALUE, flags VALUE) Bool {
-	ret := Bool(C.RB_FL_ALL(C.VALUE(obj), C.VALUE(flags)))
-	return ret
+	return Bool(C.RB_FL_ALL(C.VALUE(obj), C.VALUE(flags)))
 }
 
 // RB_FL_ALL_RAW calls `RB_FL_ALL_RAW` in C
@@ -120,8 +110,7 @@ func RB_FL_ALL(obj VALUE, flags VALUE) Bool {
 //
 //	RB_FL_ALL_RAW(VALUE obj, VALUE flags)
 func RB_FL_ALL_RAW(obj VALUE, flags VALUE) Bool {
-	ret := Bool(C.RB_FL_ALL_RAW(C.VALUE(obj), C.VALUE(flags)))
-	return ret
+	return Bool(C.RB_FL_ALL_RAW(C.VALUE(obj), C.VALUE(flags)))
 }
 
 // RB_FL_ANY calls `RB_FL_ANY` in C
@@ -130,8 +119,7 @@ func RB_FL_ALL_RAW(obj VALUE, flags VALUE) Bool {
 //
 //	RB_FL_ANY(VALUE obj, VALUE flags)
 func RB_FL_ANY(obj VALUE, flags VALUE) Bool {
-	ret := Bool(C.RB_FL_ANY(C.VALUE(obj), C.VALUE(flags)))
-	return ret
+	return Bool(C.RB_FL_ANY(C.VALUE(obj), C.VALUE(flags)))
 }
 
 // RB_FL_ANY_RAW calls `RB_FL_ANY_RAW` in C
@@ -140,8 +128,7 @@ func RB_FL_ANY(obj VALUE, flags VALUE) Bool {
 //
 //	RB_FL_ANY_RAW(VALUE obj, VALUE flags)
 func RB_FL_ANY_RAW(obj VALUE, flags VALUE) Bool {
-	ret := Bool(C.RB_FL_ANY_RAW(C.VALUE(obj), C.VALUE(flags)))
-	return ret
+	return Bool(C.RB_FL_ANY_RAW(C.VALUE(obj), C.VALUE(flags)))
 }
 
 // RB_FL_REVERSE calls `RB_FL_REVERSE` in C
@@ -186,8 +173,7 @@ func RB_FL_SET_RAW(obj VALUE, flags VALUE) {
 //
 //	RB_FL_TEST(VALUE obj, VALUE flags)
 func RB_FL_TEST(obj VALUE, flags VALUE) VALUE {
-	ret := VALUE(C.RB_FL_TEST(C.VALUE(obj), C.VALUE(flags)))
-	return ret
+	return VALUE(C.RB_FL_TEST(C.VALUE(obj), C.VALUE(flags)))
 }
 
 // RB_FL_TEST_RAW calls `RB_FL_TEST_RAW` in C
@@ -196,8 +182,7 @@ func RB_FL_TEST(obj VALUE, flags VALUE) VALUE {
 //
 //	RB_FL_TEST_RAW(VALUE obj, VALUE flags)
 func RB_FL_TEST_RAW(obj VALUE, flags VALUE) VALUE {
-	ret := VALUE(C.RB_FL_TEST_RAW(C.VALUE(obj), C.VALUE(flags)))
-	return ret
+	return VALUE(C.RB_FL_TEST_RAW(C.VALUE(obj), C.VALUE(flags)))
 }
 
 // RB_FL_UNSET calls `RB_FL_UNSET` in C
@@ -224,8 +209,7 @@ func RB_FL_UNSET_RAW(obj VALUE, flags VALUE) {
 //
 //	RB_IMMEDIATE_P(VALUE obj)
 func RB_IMMEDIATE_P(obj VALUE) Bool {
-	ret := Bool(C.RB_IMMEDIATE_P(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_IMMEDIATE_P(C.VALUE(obj)))
 }
 
 // RB_INT2FIX calls `RB_INT2FIX` in C
@@ -234,8 +218,7 @@ func RB_IMMEDIATE_P(obj VALUE) Bool {
 //
 //	RB_INT2FIX(long i)
 func RB_INT2FIX(i Long) VALUE {
-	ret := VALUE(C.RB_INT2FIX(C.long(i)))
-	return ret
+	return VALUE(C.RB_INT2FIX(C.long(i)))
 }
 
 // RB_NIL_OR_UNDEF_P calls `RB_NIL_OR_UNDEF_P` in C
@@ -244,8 +227,7 @@ func RB_INT2FIX(i Long) VALUE {
 //
 //	RB_NIL_OR_UNDEF_P(VALUE obj)
 func RB_NIL_OR_UNDEF_P(obj VALUE) Bool {
-	ret := Bool(C.RB_NIL_OR_UNDEF_P(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_NIL_OR_UNDEF_P(C.VALUE(obj)))
 }
 
 // RB_NIL_P calls `RB_NIL_P` in C
@@ -254,8 +236,7 @@ func RB_NIL_OR_UNDEF_P(obj VALUE) Bool {
 //
 //	RB_NIL_P(VALUE obj)
 func RB_NIL_P(obj VALUE) Bool {
-	ret := Bool(C.RB_NIL_P(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_NIL_P(C.VALUE(obj)))
 }
 
 // RB_NUM2UINT calls `RB_NUM2UINT` in C
@@ -264,8 +245,7 @@ func RB_NIL_P(obj VALUE) Bool {
 //
 //	RB_NUM2UINT(VALUE x)
 func RB_NUM2UINT(x VALUE) uint {
-	ret := uint(C.RB_NUM2UINT(C.VALUE(x)))
-	return ret
+	return uint(C.RB_NUM2UINT(C.VALUE(x)))
 }
 
 // RB_OBJ_FREEZE_RAW calls `RB_OBJ_FREEZE_RAW` in C
@@ -283,8 +263,7 @@ func RB_OBJ_FREEZE_RAW(obj VALUE) {
 //
 //	RB_OBJ_FROZEN(VALUE obj)
 func RB_OBJ_FROZEN(obj VALUE) Bool {
-	ret := Bool(C.RB_OBJ_FROZEN(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_OBJ_FROZEN(C.VALUE(obj)))
 }
 
 // RB_OBJ_FROZEN_RAW calls `RB_OBJ_FROZEN_RAW` in C
@@ -293,8 +272,7 @@ func RB_OBJ_FROZEN(obj VALUE) Bool {
 //
 //	RB_OBJ_FROZEN_RAW(VALUE obj)
 func RB_OBJ_FROZEN_RAW(obj VALUE) VALUE {
-	ret := VALUE(C.RB_OBJ_FROZEN_RAW(C.VALUE(obj)))
-	return ret
+	return VALUE(C.RB_OBJ_FROZEN_RAW(C.VALUE(obj)))
 }
 
 // RB_OBJ_PROMOTED calls `RB_OBJ_PROMOTED` in C
@@ -303,8 +281,7 @@ func RB_OBJ_FROZEN_RAW(obj VALUE) VALUE {
 //
 //	RB_OBJ_PROMOTED(VALUE obj)
 func RB_OBJ_PROMOTED(obj VALUE) Bool {
-	ret := Bool(C.RB_OBJ_PROMOTED(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_OBJ_PROMOTED(C.VALUE(obj)))
 }
 
 // RB_OBJ_PROMOTED_RAW calls `RB_OBJ_PROMOTED_RAW` in C
@@ -313,8 +290,7 @@ func RB_OBJ_PROMOTED(obj VALUE) Bool {
 //
 //	RB_OBJ_PROMOTED_RAW(VALUE obj)
 func RB_OBJ_PROMOTED_RAW(obj VALUE) Bool {
-	ret := Bool(C.RB_OBJ_PROMOTED_RAW(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_OBJ_PROMOTED_RAW(C.VALUE(obj)))
 }
 
 // RB_SPECIAL_CONST_P calls `RB_SPECIAL_CONST_P` in C
@@ -323,8 +299,7 @@ func RB_OBJ_PROMOTED_RAW(obj VALUE) Bool {
 //
 //	RB_SPECIAL_CONST_P(VALUE obj)
 func RB_SPECIAL_CONST_P(obj VALUE) Bool {
-	ret := Bool(C.RB_SPECIAL_CONST_P(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_SPECIAL_CONST_P(C.VALUE(obj)))
 }
 
 // RB_ST2FIX calls `RB_ST2FIX` in C
@@ -333,8 +308,7 @@ func RB_SPECIAL_CONST_P(obj VALUE) Bool {
 //
 //	RB_ST2FIX(st_data_t i)
 func RB_ST2FIX(i StDataT) VALUE {
-	ret := VALUE(C.RB_ST2FIX(C.st_data_t(i)))
-	return ret
+	return VALUE(C.RB_ST2FIX(C.st_data_t(i)))
 }
 
 // RB_STATIC_SYM_P calls `RB_STATIC_SYM_P` in C
@@ -343,8 +317,7 @@ func RB_ST2FIX(i StDataT) VALUE {
 //
 //	RB_STATIC_SYM_P(VALUE obj)
 func RB_STATIC_SYM_P(obj VALUE) Bool {
-	ret := Bool(C.RB_STATIC_SYM_P(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_STATIC_SYM_P(C.VALUE(obj)))
 }
 
 // RB_SYMBOL_P calls `RB_SYMBOL_P` in C
@@ -353,8 +326,7 @@ func RB_STATIC_SYM_P(obj VALUE) Bool {
 //
 //	RB_SYMBOL_P(VALUE obj)
 func RB_SYMBOL_P(obj VALUE) Bool {
-	ret := Bool(C.RB_SYMBOL_P(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_SYMBOL_P(C.VALUE(obj)))
 }
 
 // RB_TEST calls `RB_TEST` in C
@@ -363,8 +335,7 @@ func RB_SYMBOL_P(obj VALUE) Bool {
 //
 //	RB_TEST(VALUE obj)
 func RB_TEST(obj VALUE) Bool {
-	ret := Bool(C.RB_TEST(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_TEST(C.VALUE(obj)))
 }
 
 // RB_TYPE_P calls `RB_TYPE_P` in C
@@ -373,8 +344,7 @@ func RB_TEST(obj VALUE) Bool {
 //
 //	RB_TYPE_P(VALUE obj, enum ruby_value_type t)
 func RB_TYPE_P(obj VALUE, t RubyValueType) Bool {
-	ret := Bool(C.RB_TYPE_P(C.VALUE(obj), C.enum_ruby_value_type(t)))
-	return ret
+	return Bool(C.RB_TYPE_P(C.VALUE(obj), C.enum_ruby_value_type(t)))
 }
 
 // RB_UNDEF_P calls `RB_UNDEF_P` in C
@@ -383,8 +353,7 @@ func RB_TYPE_P(obj VALUE, t RubyValueType) Bool {
 //
 //	RB_UNDEF_P(VALUE obj)
 func RB_UNDEF_P(obj VALUE) Bool {
-	ret := Bool(C.RB_UNDEF_P(C.VALUE(obj)))
-	return ret
+	return Bool(C.RB_UNDEF_P(C.VALUE(obj)))
 }
 
 // RSTRING_END calls `RSTRING_END` in C
@@ -393,8 +362,7 @@ func RB_UNDEF_P(obj VALUE) Bool {
 //
 //	RSTRING_END(VALUE str)
 func RSTRING_END(str VALUE) string {
-	ret := char2String(C.RSTRING_END(C.VALUE(str)))
-	return ret
+	return char2String(C.RSTRING_END(C.VALUE(str)))
 }
 
 // RSTRING_LEN calls `RSTRING_LEN` in C
@@ -403,8 +371,7 @@ func RSTRING_END(str VALUE) string {
 //
 //	RSTRING_LEN(VALUE str)
 func RSTRING_LEN(str VALUE) Long {
-	ret := Long(C.RSTRING_LEN(C.VALUE(str)))
-	return ret
+	return Long(C.RSTRING_LEN(C.VALUE(str)))
 }
 
 // RSTRING_LENINT calls `RSTRING_LENINT` in C
@@ -413,8 +380,7 @@ func RSTRING_LEN(str VALUE) Long {
 //
 //	RSTRING_LENINT(VALUE str)
 func RSTRING_LENINT(str VALUE) int {
-	ret := int(C.RSTRING_LENINT(C.VALUE(str)))
-	return ret
+	return int(C.RSTRING_LENINT(C.VALUE(str)))
 }
 
 // RSTRING_PTR calls `RSTRING_PTR` in C
@@ -423,8 +389,7 @@ func RSTRING_LENINT(str VALUE) int {
 //
 //	RSTRING_PTR(VALUE str)
 func RSTRING_PTR(str VALUE) *Char {
-	ret := (*Char)(C.RSTRING_PTR(C.VALUE(str)))
-	return ret
+	return (*Char)(C.RSTRING_PTR(C.VALUE(str)))
 }
 
 // RbArray calls `rb_Array` in C
@@ -433,8 +398,7 @@ func RSTRING_PTR(str VALUE) *Char {
 //
 //	VALUE rb_Array(VALUE val)
 func RbArray(val VALUE) VALUE {
-	ret := VALUE(C.rb_Array(C.VALUE(val)))
-	return ret
+	return VALUE(C.rb_Array(C.VALUE(val)))
 }
 
 // RbComplex calls `rb_Complex` in C
@@ -443,8 +407,7 @@ func RbArray(val VALUE) VALUE {
 //
 //	VALUE rb_Complex(VALUE real, VALUE imag)
 func RbComplex(real VALUE, imag VALUE) VALUE {
-	ret := VALUE(C.rb_Complex(C.VALUE(real), C.VALUE(imag)))
-	return ret
+	return VALUE(C.rb_Complex(C.VALUE(real), C.VALUE(imag)))
 }
 
 // RbFloat calls `rb_Float` in C
@@ -453,8 +416,7 @@ func RbComplex(real VALUE, imag VALUE) VALUE {
 //
 //	VALUE rb_Float(VALUE val)
 func RbFloat(val VALUE) VALUE {
-	ret := VALUE(C.rb_Float(C.VALUE(val)))
-	return ret
+	return VALUE(C.rb_Float(C.VALUE(val)))
 }
 
 // RbInteger calls `rb_Integer` in C
@@ -463,8 +425,7 @@ func RbFloat(val VALUE) VALUE {
 //
 //	VALUE rb_Integer(VALUE val)
 func RbInteger(val VALUE) VALUE {
-	ret := VALUE(C.rb_Integer(C.VALUE(val)))
-	return ret
+	return VALUE(C.rb_Integer(C.VALUE(val)))
 }
 
 // RbRational calls `rb_Rational` in C
@@ -473,8 +434,7 @@ func RbInteger(val VALUE) VALUE {
 //
 //	VALUE rb_Rational(VALUE num, VALUE den)
 func RbRational(num VALUE, den VALUE) VALUE {
-	ret := VALUE(C.rb_Rational(C.VALUE(num), C.VALUE(den)))
-	return ret
+	return VALUE(C.rb_Rational(C.VALUE(num), C.VALUE(den)))
 }
 
 // RbString calls `rb_String` in C
@@ -483,8 +443,7 @@ func RbRational(num VALUE, den VALUE) VALUE {
 //
 //	VALUE rb_String(VALUE val)
 func RbString(val VALUE) VALUE {
-	ret := VALUE(C.rb_String(C.VALUE(val)))
-	return ret
+	return VALUE(C.rb_String(C.VALUE(val)))
 }
 
 // RbAbsintNumwords calls `rb_absint_numwords` in C
@@ -505,8 +464,7 @@ func RbAbsintNumwords(val VALUE, word_numbits SizeT, nlz_bits_ret *SizeT) SizeT 
 //
 //	int rb_absint_singlebit_p(VALUE val)
 func RbAbsintSinglebitP(val VALUE) int {
-	ret := int(C.rb_absint_singlebit_p(C.VALUE(val)))
-	return ret
+	return int(C.rb_absint_singlebit_p(C.VALUE(val)))
 }
 
 // RbAbsintSize calls `rb_absint_size` in C
@@ -590,8 +548,7 @@ func RbAllocTmpBufferWithCount(store *VALUE, len SizeT, count SizeT) unsafe.Poin
 //
 //	VALUE rb_any_to_s(VALUE obj)
 func RbAnyToS(obj VALUE) VALUE {
-	ret := VALUE(C.rb_any_to_s(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_any_to_s(C.VALUE(obj)))
 }
 
 // RbApply calls `rb_apply` in C
@@ -600,8 +557,7 @@ func RbAnyToS(obj VALUE) VALUE {
 //
 //	VALUE rb_apply(VALUE recv, ID mid, VALUE args)
 func RbApply(recv VALUE, mid ID, args VALUE) VALUE {
-	ret := VALUE(C.rb_apply(C.VALUE(recv), C.ID(mid), C.VALUE(args)))
-	return ret
+	return VALUE(C.rb_apply(C.VALUE(recv), C.ID(mid), C.VALUE(args)))
 }
 
 // RbArithmeticSequenceBegLenStep calls `rb_arithmetic_sequence_beg_len_step` in C
@@ -638,8 +594,7 @@ func RbArithmeticSequenceExtract(as VALUE, buf *RbArithmeticSequenceComponentsT)
 //
 //	rb_array_const_ptr(VALUE a)
 func RbArrayConstPtr(a VALUE) *VALUE {
-	ret := (*VALUE)(C.rb_array_const_ptr(C.VALUE(a)))
-	return ret
+	return (*VALUE)(C.rb_array_const_ptr(C.VALUE(a)))
 }
 
 // RbArrayLen calls `rb_array_len` in C
@@ -648,8 +603,7 @@ func RbArrayConstPtr(a VALUE) *VALUE {
 //
 //	rb_array_len(VALUE a)
 func RbArrayLen(a VALUE) Long {
-	ret := Long(C.rb_array_len(C.VALUE(a)))
-	return ret
+	return Long(C.rb_array_len(C.VALUE(a)))
 }
 
 // RbAryAref calls `rb_ary_aref` in C
@@ -670,8 +624,7 @@ func RbAryAref(argc int, argv *VALUE, ary VALUE) VALUE {
 //
 //	VALUE rb_ary_assoc(VALUE alist, VALUE key)
 func RbAryAssoc(alist VALUE, key VALUE) VALUE {
-	ret := VALUE(C.rb_ary_assoc(C.VALUE(alist), C.VALUE(key)))
-	return ret
+	return VALUE(C.rb_ary_assoc(C.VALUE(alist), C.VALUE(key)))
 }
 
 // RbAryCat calls `rb_ary_cat` in C
@@ -692,8 +645,7 @@ func RbAryCat(ary VALUE, train *VALUE, len Long) VALUE {
 //
 //	VALUE rb_ary_clear(VALUE ary)
 func RbAryClear(ary VALUE) VALUE {
-	ret := VALUE(C.rb_ary_clear(C.VALUE(ary)))
-	return ret
+	return VALUE(C.rb_ary_clear(C.VALUE(ary)))
 }
 
 // RbAryCmp calls `rb_ary_cmp` in C
@@ -702,8 +654,7 @@ func RbAryClear(ary VALUE) VALUE {
 //
 //	VALUE rb_ary_cmp(VALUE lhs, VALUE rhs)
 func RbAryCmp(lhs VALUE, rhs VALUE) VALUE {
-	ret := VALUE(C.rb_ary_cmp(C.VALUE(lhs), C.VALUE(rhs)))
-	return ret
+	return VALUE(C.rb_ary_cmp(C.VALUE(lhs), C.VALUE(rhs)))
 }
 
 // RbAryConcat calls `rb_ary_concat` in C
@@ -712,8 +663,7 @@ func RbAryCmp(lhs VALUE, rhs VALUE) VALUE {
 //
 //	VALUE rb_ary_concat(VALUE lhs, VALUE rhs)
 func RbAryConcat(lhs VALUE, rhs VALUE) VALUE {
-	ret := VALUE(C.rb_ary_concat(C.VALUE(lhs), C.VALUE(rhs)))
-	return ret
+	return VALUE(C.rb_ary_concat(C.VALUE(lhs), C.VALUE(rhs)))
 }
 
 // RbAryDelete calls `rb_ary_delete` in C
@@ -722,8 +672,7 @@ func RbAryConcat(lhs VALUE, rhs VALUE) VALUE {
 //
 //	VALUE rb_ary_delete(VALUE ary, VALUE elem)
 func RbAryDelete(ary VALUE, elem VALUE) VALUE {
-	ret := VALUE(C.rb_ary_delete(C.VALUE(ary), C.VALUE(elem)))
-	return ret
+	return VALUE(C.rb_ary_delete(C.VALUE(ary), C.VALUE(elem)))
 }
 
 // RbAryDeleteAt calls `rb_ary_delete_at` in C
@@ -732,8 +681,7 @@ func RbAryDelete(ary VALUE, elem VALUE) VALUE {
 //
 //	VALUE rb_ary_delete_at(VALUE ary, long pos)
 func RbAryDeleteAt(ary VALUE, pos Long) VALUE {
-	ret := VALUE(C.rb_ary_delete_at(C.VALUE(ary), C.long(pos)))
-	return ret
+	return VALUE(C.rb_ary_delete_at(C.VALUE(ary), C.long(pos)))
 }
 
 // RbAryDup calls `rb_ary_dup` in C
@@ -742,8 +690,7 @@ func RbAryDeleteAt(ary VALUE, pos Long) VALUE {
 //
 //	VALUE rb_ary_dup(VALUE ary)
 func RbAryDup(ary VALUE) VALUE {
-	ret := VALUE(C.rb_ary_dup(C.VALUE(ary)))
-	return ret
+	return VALUE(C.rb_ary_dup(C.VALUE(ary)))
 }
 
 // RbAryEach calls `rb_ary_each` in C
@@ -752,8 +699,7 @@ func RbAryDup(ary VALUE) VALUE {
 //
 //	VALUE rb_ary_each(VALUE ary)
 func RbAryEach(ary VALUE) VALUE {
-	ret := VALUE(C.rb_ary_each(C.VALUE(ary)))
-	return ret
+	return VALUE(C.rb_ary_each(C.VALUE(ary)))
 }
 
 // RbAryEntry calls `rb_ary_entry` in C
@@ -762,8 +708,7 @@ func RbAryEach(ary VALUE) VALUE {
 //
 //	VALUE rb_ary_entry(VALUE ary, long off)
 func RbAryEntry(ary VALUE, off Long) VALUE {
-	ret := VALUE(C.rb_ary_entry(C.VALUE(ary), C.long(off)))
-	return ret
+	return VALUE(C.rb_ary_entry(C.VALUE(ary), C.long(off)))
 }
 
 // RbAryFree calls `rb_ary_free` in C
@@ -781,8 +726,7 @@ func RbAryFree(ary VALUE) {
 //
 //	VALUE rb_ary_freeze(VALUE obj)
 func RbAryFreeze(obj VALUE) VALUE {
-	ret := VALUE(C.rb_ary_freeze(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_ary_freeze(C.VALUE(obj)))
 }
 
 // RbAryHiddenNew calls `rb_ary_hidden_new` in C
@@ -791,8 +735,7 @@ func RbAryFreeze(obj VALUE) VALUE {
 //
 //	VALUE rb_ary_hidden_new(long capa)
 func RbAryHiddenNew(capa Long) VALUE {
-	ret := VALUE(C.rb_ary_hidden_new(C.long(capa)))
-	return ret
+	return VALUE(C.rb_ary_hidden_new(C.long(capa)))
 }
 
 // RbAryIncludes calls `rb_ary_includes` in C
@@ -801,8 +744,7 @@ func RbAryHiddenNew(capa Long) VALUE {
 //
 //	VALUE rb_ary_includes(VALUE ary, VALUE elem)
 func RbAryIncludes(ary VALUE, elem VALUE) VALUE {
-	ret := VALUE(C.rb_ary_includes(C.VALUE(ary), C.VALUE(elem)))
-	return ret
+	return VALUE(C.rb_ary_includes(C.VALUE(ary), C.VALUE(elem)))
 }
 
 // RbAryJoin calls `rb_ary_join` in C
@@ -811,8 +753,7 @@ func RbAryIncludes(ary VALUE, elem VALUE) VALUE {
 //
 //	VALUE rb_ary_join(VALUE ary, VALUE sep)
 func RbAryJoin(ary VALUE, sep VALUE) VALUE {
-	ret := VALUE(C.rb_ary_join(C.VALUE(ary), C.VALUE(sep)))
-	return ret
+	return VALUE(C.rb_ary_join(C.VALUE(ary), C.VALUE(sep)))
 }
 
 // RbAryModify calls `rb_ary_modify` in C
@@ -830,8 +771,7 @@ func RbAryModify(ary VALUE) {
 //
 //	VALUE rb_ary_new(void)
 func RbAryNew() VALUE {
-	ret := VALUE(C.rb_ary_new())
-	return ret
+	return VALUE(C.rb_ary_new())
 }
 
 // RbAryNewCapa calls `rb_ary_new_capa` in C
@@ -840,8 +780,7 @@ func RbAryNew() VALUE {
 //
 //	VALUE rb_ary_new_capa(long capa)
 func RbAryNewCapa(capa Long) VALUE {
-	ret := VALUE(C.rb_ary_new_capa(C.long(capa)))
-	return ret
+	return VALUE(C.rb_ary_new_capa(C.long(capa)))
 }
 
 // RbAryNewFromValues calls `rb_ary_new_from_values` in C
@@ -862,8 +801,7 @@ func RbAryNewFromValues(n Long, elts *VALUE) VALUE {
 //
 //	VALUE rb_ary_plus(VALUE lhs, VALUE rhs)
 func RbAryPlus(lhs VALUE, rhs VALUE) VALUE {
-	ret := VALUE(C.rb_ary_plus(C.VALUE(lhs), C.VALUE(rhs)))
-	return ret
+	return VALUE(C.rb_ary_plus(C.VALUE(lhs), C.VALUE(rhs)))
 }
 
 // RbAryPop calls `rb_ary_pop` in C
@@ -872,8 +810,7 @@ func RbAryPlus(lhs VALUE, rhs VALUE) VALUE {
 //
 //	VALUE rb_ary_pop(VALUE ary)
 func RbAryPop(ary VALUE) VALUE {
-	ret := VALUE(C.rb_ary_pop(C.VALUE(ary)))
-	return ret
+	return VALUE(C.rb_ary_pop(C.VALUE(ary)))
 }
 
 // RbAryPtrUseEnd calls `rb_ary_ptr_use_end` in C
@@ -891,8 +828,7 @@ func RbAryPtrUseEnd(a VALUE) {
 //
 //	VALUE *rb_ary_ptr_use_start(VALUE ary)
 func RbAryPtrUseStart(ary VALUE) *VALUE {
-	ret := (*VALUE)(C.rb_ary_ptr_use_start(C.VALUE(ary)))
-	return ret
+	return (*VALUE)(C.rb_ary_ptr_use_start(C.VALUE(ary)))
 }
 
 // RbAryPush calls `rb_ary_push` in C
@@ -901,8 +837,7 @@ func RbAryPtrUseStart(ary VALUE) *VALUE {
 //
 //	VALUE rb_ary_push(VALUE ary, VALUE elem)
 func RbAryPush(ary VALUE, elem VALUE) VALUE {
-	ret := VALUE(C.rb_ary_push(C.VALUE(ary), C.VALUE(elem)))
-	return ret
+	return VALUE(C.rb_ary_push(C.VALUE(ary), C.VALUE(elem)))
 }
 
 // RbAryRassoc calls `rb_ary_rassoc` in C
@@ -911,8 +846,7 @@ func RbAryPush(ary VALUE, elem VALUE) VALUE {
 //
 //	VALUE rb_ary_rassoc(VALUE alist, VALUE key)
 func RbAryRassoc(alist VALUE, key VALUE) VALUE {
-	ret := VALUE(C.rb_ary_rassoc(C.VALUE(alist), C.VALUE(key)))
-	return ret
+	return VALUE(C.rb_ary_rassoc(C.VALUE(alist), C.VALUE(key)))
 }
 
 // RbAryReplace calls `rb_ary_replace` in C
@@ -921,8 +855,7 @@ func RbAryRassoc(alist VALUE, key VALUE) VALUE {
 //
 //	VALUE rb_ary_replace(VALUE copy, VALUE orig)
 func RbAryReplace(copy VALUE, orig VALUE) VALUE {
-	ret := VALUE(C.rb_ary_replace(C.VALUE(copy), C.VALUE(orig)))
-	return ret
+	return VALUE(C.rb_ary_replace(C.VALUE(copy), C.VALUE(orig)))
 }
 
 // RbAryResize calls `rb_ary_resize` in C
@@ -931,8 +864,7 @@ func RbAryReplace(copy VALUE, orig VALUE) VALUE {
 //
 //	VALUE rb_ary_resize(VALUE ary, long len)
 func RbAryResize(ary VALUE, len Long) VALUE {
-	ret := VALUE(C.rb_ary_resize(C.VALUE(ary), C.long(len)))
-	return ret
+	return VALUE(C.rb_ary_resize(C.VALUE(ary), C.long(len)))
 }
 
 // RbAryResurrect calls `rb_ary_resurrect` in C
@@ -941,8 +873,7 @@ func RbAryResize(ary VALUE, len Long) VALUE {
 //
 //	VALUE rb_ary_resurrect(VALUE ary)
 func RbAryResurrect(ary VALUE) VALUE {
-	ret := VALUE(C.rb_ary_resurrect(C.VALUE(ary)))
-	return ret
+	return VALUE(C.rb_ary_resurrect(C.VALUE(ary)))
 }
 
 // RbAryReverse calls `rb_ary_reverse` in C
@@ -951,8 +882,7 @@ func RbAryResurrect(ary VALUE) VALUE {
 //
 //	VALUE rb_ary_reverse(VALUE ary)
 func RbAryReverse(ary VALUE) VALUE {
-	ret := VALUE(C.rb_ary_reverse(C.VALUE(ary)))
-	return ret
+	return VALUE(C.rb_ary_reverse(C.VALUE(ary)))
 }
 
 // RbAryRotate calls `rb_ary_rotate` in C
@@ -961,8 +891,7 @@ func RbAryReverse(ary VALUE) VALUE {
 //
 //	VALUE rb_ary_rotate(VALUE ary, long rot)
 func RbAryRotate(ary VALUE, rot Long) VALUE {
-	ret := VALUE(C.rb_ary_rotate(C.VALUE(ary), C.long(rot)))
-	return ret
+	return VALUE(C.rb_ary_rotate(C.VALUE(ary), C.long(rot)))
 }
 
 // RbArySharedWithP calls `rb_ary_shared_with_p` in C
@@ -971,8 +900,7 @@ func RbAryRotate(ary VALUE, rot Long) VALUE {
 //
 //	VALUE rb_ary_shared_with_p(VALUE lhs, VALUE rhs)
 func RbArySharedWithP(lhs VALUE, rhs VALUE) VALUE {
-	ret := VALUE(C.rb_ary_shared_with_p(C.VALUE(lhs), C.VALUE(rhs)))
-	return ret
+	return VALUE(C.rb_ary_shared_with_p(C.VALUE(lhs), C.VALUE(rhs)))
 }
 
 // RbAryShift calls `rb_ary_shift` in C
@@ -981,8 +909,7 @@ func RbArySharedWithP(lhs VALUE, rhs VALUE) VALUE {
 //
 //	VALUE rb_ary_shift(VALUE ary)
 func RbAryShift(ary VALUE) VALUE {
-	ret := VALUE(C.rb_ary_shift(C.VALUE(ary)))
-	return ret
+	return VALUE(C.rb_ary_shift(C.VALUE(ary)))
 }
 
 // RbArySort calls `rb_ary_sort` in C
@@ -991,8 +918,7 @@ func RbAryShift(ary VALUE) VALUE {
 //
 //	VALUE rb_ary_sort(VALUE ary)
 func RbArySort(ary VALUE) VALUE {
-	ret := VALUE(C.rb_ary_sort(C.VALUE(ary)))
-	return ret
+	return VALUE(C.rb_ary_sort(C.VALUE(ary)))
 }
 
 // RbArySortBang calls `rb_ary_sort_bang` in C
@@ -1001,8 +927,7 @@ func RbArySort(ary VALUE) VALUE {
 //
 //	VALUE rb_ary_sort_bang(VALUE ary)
 func RbArySortBang(ary VALUE) VALUE {
-	ret := VALUE(C.rb_ary_sort_bang(C.VALUE(ary)))
-	return ret
+	return VALUE(C.rb_ary_sort_bang(C.VALUE(ary)))
 }
 
 // RbAryStore calls `rb_ary_store` in C
@@ -1020,8 +945,7 @@ func RbAryStore(ary VALUE, key Long, val VALUE) {
 //
 //	VALUE rb_ary_subseq(VALUE ary, long beg, long len)
 func RbArySubseq(ary VALUE, beg Long, len Long) VALUE {
-	ret := VALUE(C.rb_ary_subseq(C.VALUE(ary), C.long(beg), C.long(len)))
-	return ret
+	return VALUE(C.rb_ary_subseq(C.VALUE(ary), C.long(beg), C.long(len)))
 }
 
 // RbAryToAry calls `rb_ary_to_ary` in C
@@ -1030,8 +954,7 @@ func RbArySubseq(ary VALUE, beg Long, len Long) VALUE {
 //
 //	VALUE rb_ary_to_ary(VALUE obj)
 func RbAryToAry(obj VALUE) VALUE {
-	ret := VALUE(C.rb_ary_to_ary(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_ary_to_ary(C.VALUE(obj)))
 }
 
 // RbAryToS calls `rb_ary_to_s` in C
@@ -1040,8 +963,7 @@ func RbAryToAry(obj VALUE) VALUE {
 //
 //	VALUE rb_ary_to_s(VALUE ary)
 func RbAryToS(ary VALUE) VALUE {
-	ret := VALUE(C.rb_ary_to_s(C.VALUE(ary)))
-	return ret
+	return VALUE(C.rb_ary_to_s(C.VALUE(ary)))
 }
 
 // RbAryUnshift calls `rb_ary_unshift` in C
@@ -1050,8 +972,7 @@ func RbAryToS(ary VALUE) VALUE {
 //
 //	VALUE rb_ary_unshift(VALUE ary, VALUE elem)
 func RbAryUnshift(ary VALUE, elem VALUE) VALUE {
-	ret := VALUE(C.rb_ary_unshift(C.VALUE(ary), C.VALUE(elem)))
-	return ret
+	return VALUE(C.rb_ary_unshift(C.VALUE(ary), C.VALUE(elem)))
 }
 
 // RbAssertFailure calls `rb_assert_failure` in C
@@ -1078,8 +999,7 @@ func RbAssertFailure(file string, line int, name string, expr string) {
 //
 //	VALUE rb_assoc_new(VALUE car, VALUE cdr)
 func RbAssocNew(car VALUE, cdr VALUE) VALUE {
-	ret := VALUE(C.rb_assoc_new(C.VALUE(car), C.VALUE(cdr)))
-	return ret
+	return VALUE(C.rb_assoc_new(C.VALUE(car), C.VALUE(cdr)))
 }
 
 // RbAttr calls `rb_attr` in C
@@ -1097,8 +1017,7 @@ func RbAttr(klass VALUE, name ID, need_reader int, need_writer int, honour_visib
 //
 //	VALUE rb_attr_get(VALUE obj, ID name)
 func RbAttrGet(obj VALUE, name ID) VALUE {
-	ret := VALUE(C.rb_attr_get(C.VALUE(obj), C.ID(name)))
-	return ret
+	return VALUE(C.rb_attr_get(C.VALUE(obj), C.ID(name)))
 }
 
 // RbAutoloadLoad calls `rb_autoload_load` in C
@@ -1107,8 +1026,7 @@ func RbAttrGet(obj VALUE, name ID) VALUE {
 //
 //	VALUE rb_autoload_load(VALUE space, ID name)
 func RbAutoloadLoad(space VALUE, name ID) VALUE {
-	ret := VALUE(C.rb_autoload_load(C.VALUE(space), C.ID(name)))
-	return ret
+	return VALUE(C.rb_autoload_load(C.VALUE(space), C.ID(name)))
 }
 
 // RbAutoloadP calls `rb_autoload_p` in C
@@ -1117,8 +1035,7 @@ func RbAutoloadLoad(space VALUE, name ID) VALUE {
 //
 //	VALUE rb_autoload_p(VALUE space, ID name)
 func RbAutoloadP(space VALUE, name ID) VALUE {
-	ret := VALUE(C.rb_autoload_p(C.VALUE(space), C.ID(name)))
-	return ret
+	return VALUE(C.rb_autoload_p(C.VALUE(space), C.ID(name)))
 }
 
 // RbBackrefGet calls `rb_backref_get` in C
@@ -1127,8 +1044,7 @@ func RbAutoloadP(space VALUE, name ID) VALUE {
 //
 //	VALUE rb_backref_get(void)
 func RbBackrefGet() VALUE {
-	ret := VALUE(C.rb_backref_get())
-	return ret
+	return VALUE(C.rb_backref_get())
 }
 
 // RbBackrefSet calls `rb_backref_set` in C
@@ -1155,8 +1071,7 @@ func RbBacktrace() {
 //
 //	double rb_big2dbl(VALUE x)
 func RbBig2Dbl(x VALUE) Double {
-	ret := Double(C.rb_big2dbl(C.VALUE(x)))
-	return ret
+	return Double(C.rb_big2dbl(C.VALUE(x)))
 }
 
 // RbBig2Ll calls `rb_big2ll` in C
@@ -1165,8 +1080,7 @@ func RbBig2Dbl(x VALUE) Double {
 //
 //	rb_big2ll(VALUE)
 func RbBig2Ll(arg1 VALUE) Longlong {
-	ret := Longlong(C.rb_big2ll(C.VALUE(arg1)))
-	return ret
+	return Longlong(C.rb_big2ll(C.VALUE(arg1)))
 }
 
 // RbBig2Long calls `rb_big2long` in C
@@ -1175,8 +1089,7 @@ func RbBig2Ll(arg1 VALUE) Longlong {
 //
 //	long rb_big2long(VALUE x)
 func RbBig2Long(x VALUE) Long {
-	ret := Long(C.rb_big2long(C.VALUE(x)))
-	return ret
+	return Long(C.rb_big2long(C.VALUE(x)))
 }
 
 // RbBig2Str calls `rb_big2str` in C
@@ -1185,8 +1098,7 @@ func RbBig2Long(x VALUE) Long {
 //
 //	VALUE rb_big2str(VALUE x, int base)
 func RbBig2Str(x VALUE, base int) VALUE {
-	ret := VALUE(C.rb_big2str(C.VALUE(x), C.int(base)))
-	return ret
+	return VALUE(C.rb_big2str(C.VALUE(x), C.int(base)))
 }
 
 // RbBig2Ull calls `rb_big2ull` in C
@@ -1195,8 +1107,7 @@ func RbBig2Str(x VALUE, base int) VALUE {
 //
 //	rb_big2ull(VALUE)
 func RbBig2Ull(arg1 VALUE) Ulonglong {
-	ret := Ulonglong(C.rb_big2ull(C.VALUE(arg1)))
-	return ret
+	return Ulonglong(C.rb_big2ull(C.VALUE(arg1)))
 }
 
 // RbBig2Ulong calls `rb_big2ulong` in C
@@ -1205,8 +1116,7 @@ func RbBig2Ull(arg1 VALUE) Ulonglong {
 //
 //	unsigned long rb_big2ulong(VALUE x)
 func RbBig2Ulong(x VALUE) uint {
-	ret := uint(C.rb_big2ulong(C.VALUE(x)))
-	return ret
+	return uint(C.rb_big2ulong(C.VALUE(x)))
 }
 
 // RbBig2Comp calls `rb_big_2comp` in C
@@ -1224,8 +1134,7 @@ func RbBig2Comp(num VALUE) {
 //
 //	VALUE rb_big_and(VALUE x, VALUE y)
 func RbBigAnd(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_big_and(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_big_and(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbBigClone calls `rb_big_clone` in C
@@ -1234,8 +1143,7 @@ func RbBigAnd(x VALUE, y VALUE) VALUE {
 //
 //	VALUE rb_big_clone(VALUE num)
 func RbBigClone(num VALUE) VALUE {
-	ret := VALUE(C.rb_big_clone(C.VALUE(num)))
-	return ret
+	return VALUE(C.rb_big_clone(C.VALUE(num)))
 }
 
 // RbBigCmp calls `rb_big_cmp` in C
@@ -1244,8 +1152,7 @@ func RbBigClone(num VALUE) VALUE {
 //
 //	VALUE rb_big_cmp(VALUE lhs, VALUE rhs)
 func RbBigCmp(lhs VALUE, rhs VALUE) VALUE {
-	ret := VALUE(C.rb_big_cmp(C.VALUE(lhs), C.VALUE(rhs)))
-	return ret
+	return VALUE(C.rb_big_cmp(C.VALUE(lhs), C.VALUE(rhs)))
 }
 
 // RbBigDiv calls `rb_big_div` in C
@@ -1254,8 +1161,7 @@ func RbBigCmp(lhs VALUE, rhs VALUE) VALUE {
 //
 //	VALUE rb_big_div(VALUE x, VALUE y)
 func RbBigDiv(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_big_div(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_big_div(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbBigDivmod calls `rb_big_divmod` in C
@@ -1264,8 +1170,7 @@ func RbBigDiv(x VALUE, y VALUE) VALUE {
 //
 //	VALUE rb_big_divmod(VALUE x, VALUE y)
 func RbBigDivmod(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_big_divmod(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_big_divmod(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbBigEq calls `rb_big_eq` in C
@@ -1274,8 +1179,7 @@ func RbBigDivmod(x VALUE, y VALUE) VALUE {
 //
 //	VALUE rb_big_eq(VALUE lhs, VALUE rhs)
 func RbBigEq(lhs VALUE, rhs VALUE) VALUE {
-	ret := VALUE(C.rb_big_eq(C.VALUE(lhs), C.VALUE(rhs)))
-	return ret
+	return VALUE(C.rb_big_eq(C.VALUE(lhs), C.VALUE(rhs)))
 }
 
 // RbBigEql calls `rb_big_eql` in C
@@ -1284,8 +1188,7 @@ func RbBigEq(lhs VALUE, rhs VALUE) VALUE {
 //
 //	VALUE rb_big_eql(VALUE lhs, VALUE rhs)
 func RbBigEql(lhs VALUE, rhs VALUE) VALUE {
-	ret := VALUE(C.rb_big_eql(C.VALUE(lhs), C.VALUE(rhs)))
-	return ret
+	return VALUE(C.rb_big_eql(C.VALUE(lhs), C.VALUE(rhs)))
 }
 
 // RbBigIdiv calls `rb_big_idiv` in C
@@ -1294,8 +1197,7 @@ func RbBigEql(lhs VALUE, rhs VALUE) VALUE {
 //
 //	VALUE rb_big_idiv(VALUE x, VALUE y)
 func RbBigIdiv(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_big_idiv(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_big_idiv(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbBigLshift calls `rb_big_lshift` in C
@@ -1304,8 +1206,7 @@ func RbBigIdiv(x VALUE, y VALUE) VALUE {
 //
 //	VALUE rb_big_lshift(VALUE x, VALUE y)
 func RbBigLshift(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_big_lshift(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_big_lshift(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbBigMinus calls `rb_big_minus` in C
@@ -1314,8 +1215,7 @@ func RbBigLshift(x VALUE, y VALUE) VALUE {
 //
 //	VALUE rb_big_minus(VALUE x, VALUE y)
 func RbBigMinus(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_big_minus(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_big_minus(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbBigModulo calls `rb_big_modulo` in C
@@ -1324,8 +1224,7 @@ func RbBigMinus(x VALUE, y VALUE) VALUE {
 //
 //	VALUE rb_big_modulo(VALUE x, VALUE y)
 func RbBigModulo(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_big_modulo(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_big_modulo(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbBigMul calls `rb_big_mul` in C
@@ -1334,8 +1233,7 @@ func RbBigModulo(x VALUE, y VALUE) VALUE {
 //
 //	VALUE rb_big_mul(VALUE x, VALUE y)
 func RbBigMul(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_big_mul(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_big_mul(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbBigNew calls `rb_big_new` in C
@@ -1344,8 +1242,7 @@ func RbBigMul(x VALUE, y VALUE) VALUE {
 //
 //	VALUE rb_big_new(size_t len, int sign)
 func RbBigNew(len SizeT, sign int) VALUE {
-	ret := VALUE(C.rb_big_new(C.size_t(len), C.int(sign)))
-	return ret
+	return VALUE(C.rb_big_new(C.size_t(len), C.int(sign)))
 }
 
 // RbBigNorm calls `rb_big_norm` in C
@@ -1354,8 +1251,7 @@ func RbBigNew(len SizeT, sign int) VALUE {
 //
 //	VALUE rb_big_norm(VALUE x)
 func RbBigNorm(x VALUE) VALUE {
-	ret := VALUE(C.rb_big_norm(C.VALUE(x)))
-	return ret
+	return VALUE(C.rb_big_norm(C.VALUE(x)))
 }
 
 // RbBigOr calls `rb_big_or` in C
@@ -1364,8 +1260,7 @@ func RbBigNorm(x VALUE) VALUE {
 //
 //	VALUE rb_big_or(VALUE x, VALUE y)
 func RbBigOr(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_big_or(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_big_or(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbBigPack calls `rb_big_pack` in C
@@ -1385,8 +1280,7 @@ func RbBigPack(val VALUE, buf *uint, num_longs Long) {
 //
 //	VALUE rb_big_plus(VALUE x, VALUE y)
 func RbBigPlus(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_big_plus(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_big_plus(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbBigPow calls `rb_big_pow` in C
@@ -1395,8 +1289,7 @@ func RbBigPlus(x VALUE, y VALUE) VALUE {
 //
 //	VALUE rb_big_pow(VALUE x, VALUE y)
 func RbBigPow(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_big_pow(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_big_pow(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbBigResize calls `rb_big_resize` in C
@@ -1414,8 +1307,7 @@ func RbBigResize(big VALUE, len SizeT) {
 //
 //	VALUE rb_big_rshift(VALUE x, VALUE y)
 func RbBigRshift(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_big_rshift(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_big_rshift(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbBigSign calls `rb_big_sign` in C
@@ -1424,8 +1316,7 @@ func RbBigRshift(x VALUE, y VALUE) VALUE {
 //
 //	int rb_big_sign(VALUE num)
 func RbBigSign(num VALUE) int {
-	ret := int(C.rb_big_sign(C.VALUE(num)))
-	return ret
+	return int(C.rb_big_sign(C.VALUE(num)))
 }
 
 // RbBigUnpack calls `rb_big_unpack` in C
@@ -1446,8 +1337,7 @@ func RbBigUnpack(buf *uint, num_longs Long) VALUE {
 //
 //	VALUE rb_big_xor(VALUE x, VALUE y)
 func RbBigXor(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_big_xor(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_big_xor(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbBigzeroP calls `rb_bigzero_p` in C
@@ -1456,8 +1346,7 @@ func RbBigXor(x VALUE, y VALUE) VALUE {
 //
 //	int rb_bigzero_p(VALUE x)
 func RbBigzeroP(x VALUE) int {
-	ret := int(C.rb_bigzero_p(C.VALUE(x)))
-	return ret
+	return int(C.rb_bigzero_p(C.VALUE(x)))
 }
 
 // RbBindingNew calls `rb_binding_new` in C
@@ -1466,8 +1355,7 @@ func RbBigzeroP(x VALUE) int {
 //
 //	VALUE rb_binding_new(void)
 func RbBindingNew() VALUE {
-	ret := VALUE(C.rb_binding_new())
-	return ret
+	return VALUE(C.rb_binding_new())
 }
 
 // RbBlockCall calls `rb_block_call` in C
@@ -1500,8 +1388,7 @@ func RbBlockCallKw(obj VALUE, mid ID, argc int, argv *VALUE, proc RbBlockCallFun
 //
 //	int rb_block_given_p(void)
 func RbBlockGivenP() int {
-	ret := int(C.rb_block_given_p())
-	return ret
+	return int(C.rb_block_given_p())
 }
 
 // RbBlockLambda calls `rb_block_lambda` in C
@@ -1510,8 +1397,7 @@ func RbBlockGivenP() int {
 //
 //	VALUE rb_block_lambda(void)
 func RbBlockLambda() VALUE {
-	ret := VALUE(C.rb_block_lambda())
-	return ret
+	return VALUE(C.rb_block_lambda())
 }
 
 // RbBlockProc calls `rb_block_proc` in C
@@ -1520,8 +1406,7 @@ func RbBlockLambda() VALUE {
 //
 //	VALUE rb_block_proc(void)
 func RbBlockProc() VALUE {
-	ret := VALUE(C.rb_block_proc())
-	return ret
+	return VALUE(C.rb_block_proc())
 }
 
 // RbBugErrno calls `rb_bug_errno` in C
@@ -1569,8 +1454,7 @@ func RbCatch(tag string, fun RbBlockCallFuncT, data VALUE) VALUE {
 	char, clean := string2Char(tag)
 	defer clean()
 
-	ret := VALUE(C.rb_catch(char, C.rb_block_call_func_t(fun), C.VALUE(data)))
-	return ret
+	return VALUE(C.rb_catch(char, C.rb_block_call_func_t(fun), C.VALUE(data)))
 }
 
 // RbCatchObj calls `rb_catch_obj` in C
@@ -1579,8 +1463,7 @@ func RbCatch(tag string, fun RbBlockCallFuncT, data VALUE) VALUE {
 //
 //	VALUE rb_catch_obj(VALUE tag, rb_block_call_func_t func, VALUE data)
 func RbCatchObj(tag VALUE, fun RbBlockCallFuncT, data VALUE) VALUE {
-	ret := VALUE(C.rb_catch_obj(C.VALUE(tag), C.rb_block_call_func_t(fun), C.VALUE(data)))
-	return ret
+	return VALUE(C.rb_catch_obj(C.VALUE(tag), C.rb_block_call_func_t(fun), C.VALUE(data)))
 }
 
 // RbCheckArity calls `rb_check_arity` in C
@@ -1589,8 +1472,7 @@ func RbCatchObj(tag VALUE, fun RbBlockCallFuncT, data VALUE) VALUE {
 //
 //	rb_check_arity(int argc, int min, int max)
 func RbCheckArity(argc int, min int, max int) int {
-	ret := int(C.rb_check_arity(C.int(argc), C.int(min), C.int(max)))
-	return ret
+	return int(C.rb_check_arity(C.int(argc), C.int(min), C.int(max)))
 }
 
 // RbCheckArrayType calls `rb_check_array_type` in C
@@ -1599,8 +1481,7 @@ func RbCheckArity(argc int, min int, max int) int {
 //
 //	VALUE rb_check_array_type(VALUE obj)
 func RbCheckArrayType(obj VALUE) VALUE {
-	ret := VALUE(C.rb_check_array_type(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_check_array_type(C.VALUE(obj)))
 }
 
 // RbCheckConvertType calls `rb_check_convert_type` in C
@@ -1615,8 +1496,7 @@ func RbCheckConvertType(val VALUE, t int, name string, mid string) VALUE {
 	charMid, cleanCharmid := string2Char(mid)
 	defer cleanCharmid()
 
-	ret := VALUE(C.rb_check_convert_type(C.VALUE(val), C.int(t), charName, charMid))
-	return ret
+	return VALUE(C.rb_check_convert_type(C.VALUE(val), C.int(t), charName, charMid))
 }
 
 // RbCheckCopyable calls `rb_check_copyable` in C
@@ -1676,8 +1556,7 @@ func RbCheckFuncallKw(recv VALUE, mid ID, argc int, argv *VALUE, kw_splat int) V
 //
 //	VALUE rb_check_hash_type(VALUE obj)
 func RbCheckHashType(obj VALUE) VALUE {
-	ret := VALUE(C.rb_check_hash_type(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_check_hash_type(C.VALUE(obj)))
 }
 
 // RbCheckId calls `rb_check_id` in C
@@ -1707,8 +1586,7 @@ func RbCheckInheritable(super VALUE) {
 //
 //	VALUE rb_check_string_type(VALUE obj)
 func RbCheckStringType(obj VALUE) VALUE {
-	ret := VALUE(C.rb_check_string_type(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_check_string_type(C.VALUE(obj)))
 }
 
 // RbCheckSymbol calls `rb_check_symbol` in C
@@ -1729,8 +1607,7 @@ func RbCheckSymbol(namep *VALUE) VALUE {
 //
 //	VALUE rb_check_to_float(VALUE val)
 func RbCheckToFloat(val VALUE) VALUE {
-	ret := VALUE(C.rb_check_to_float(C.VALUE(val)))
-	return ret
+	return VALUE(C.rb_check_to_float(C.VALUE(val)))
 }
 
 // RbCheckToInt calls `rb_check_to_int` in C
@@ -1739,8 +1616,7 @@ func RbCheckToFloat(val VALUE) VALUE {
 //
 //	VALUE rb_check_to_int(VALUE val)
 func RbCheckToInt(val VALUE) VALUE {
-	ret := VALUE(C.rb_check_to_int(C.VALUE(val)))
-	return ret
+	return VALUE(C.rb_check_to_int(C.VALUE(val)))
 }
 
 // RbCheckToInteger calls `rb_check_to_integer` in C
@@ -1752,8 +1628,7 @@ func RbCheckToInteger(val VALUE, mid string) VALUE {
 	char, clean := string2Char(mid)
 	defer clean()
 
-	ret := VALUE(C.rb_check_to_integer(C.VALUE(val), char))
-	return ret
+	return VALUE(C.rb_check_to_integer(C.VALUE(val), char))
 }
 
 // RbCheckType calls `rb_check_type` in C
@@ -1783,8 +1658,7 @@ func RbCheckTypeddata(obj VALUE, data_type *RbDataTypeT) unsafe.Pointer {
 //
 //	const char *rb_class2name(VALUE klass)
 func RbClass2Name(klass VALUE) string {
-	ret := char2String(C.rb_class2name(C.VALUE(klass)))
-	return ret
+	return char2String(C.rb_class2name(C.VALUE(klass)))
 }
 
 // RbClassAttachedObject calls `rb_class_attached_object` in C
@@ -1793,8 +1667,7 @@ func RbClass2Name(klass VALUE) string {
 //
 //	VALUE rb_class_attached_object(VALUE klass)
 func RbClassAttachedObject(klass VALUE) VALUE {
-	ret := VALUE(C.rb_class_attached_object(C.VALUE(klass)))
-	return ret
+	return VALUE(C.rb_class_attached_object(C.VALUE(klass)))
 }
 
 // RbClassGetSuperclass calls `rb_class_get_superclass` in C
@@ -1803,8 +1676,7 @@ func RbClassAttachedObject(klass VALUE) VALUE {
 //
 //	VALUE rb_class_get_superclass(VALUE klass)
 func RbClassGetSuperclass(klass VALUE) VALUE {
-	ret := VALUE(C.rb_class_get_superclass(C.VALUE(klass)))
-	return ret
+	return VALUE(C.rb_class_get_superclass(C.VALUE(klass)))
 }
 
 // RbClassInheritedP calls `rb_class_inherited_p` in C
@@ -1813,8 +1685,7 @@ func RbClassGetSuperclass(klass VALUE) VALUE {
 //
 //	VALUE rb_class_inherited_p(VALUE scion, VALUE ascendant)
 func RbClassInheritedP(scion VALUE, ascendant VALUE) VALUE {
-	ret := VALUE(C.rb_class_inherited_p(C.VALUE(scion), C.VALUE(ascendant)))
-	return ret
+	return VALUE(C.rb_class_inherited_p(C.VALUE(scion), C.VALUE(ascendant)))
 }
 
 // RbClassInstanceMethods calls `rb_class_instance_methods` in C
@@ -1835,8 +1706,7 @@ func RbClassInstanceMethods(argc int, argv *VALUE, mod VALUE) VALUE {
 //
 //	VALUE rb_class_name(VALUE obj)
 func RbClassName(obj VALUE) VALUE {
-	ret := VALUE(C.rb_class_name(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_class_name(C.VALUE(obj)))
 }
 
 // RbClassNew calls `rb_class_new` in C
@@ -1845,8 +1715,7 @@ func RbClassName(obj VALUE) VALUE {
 //
 //	VALUE rb_class_new(VALUE super)
 func RbClassNew(super VALUE) VALUE {
-	ret := VALUE(C.rb_class_new(C.VALUE(super)))
-	return ret
+	return VALUE(C.rb_class_new(C.VALUE(super)))
 }
 
 // RbClassNewInstance calls `rb_class_new_instance` in C
@@ -1891,8 +1760,7 @@ func RbClassNewInstancePassKw(argc int, argv *VALUE, klass VALUE) VALUE {
 //
 //	rb_class_of(VALUE obj)
 func RbClassOf(obj VALUE) VALUE {
-	ret := VALUE(C.rb_class_of(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_class_of(C.VALUE(obj)))
 }
 
 // RbClassPath calls `rb_class_path` in C
@@ -1901,8 +1769,7 @@ func RbClassOf(obj VALUE) VALUE {
 //
 //	VALUE rb_class_path(VALUE mod)
 func RbClassPath(mod VALUE) VALUE {
-	ret := VALUE(C.rb_class_path(C.VALUE(mod)))
-	return ret
+	return VALUE(C.rb_class_path(C.VALUE(mod)))
 }
 
 // RbClassPathCached calls `rb_class_path_cached` in C
@@ -1911,8 +1778,7 @@ func RbClassPath(mod VALUE) VALUE {
 //
 //	VALUE rb_class_path_cached(VALUE mod)
 func RbClassPathCached(mod VALUE) VALUE {
-	ret := VALUE(C.rb_class_path_cached(C.VALUE(mod)))
-	return ret
+	return VALUE(C.rb_class_path_cached(C.VALUE(mod)))
 }
 
 // RbClassPrivateInstanceMethods calls `rb_class_private_instance_methods` in C
@@ -1957,8 +1823,7 @@ func RbClassPublicInstanceMethods(argc int, argv *VALUE, mod VALUE) VALUE {
 //
 //	VALUE rb_class_real(VALUE klass)
 func RbClassReal(klass VALUE) VALUE {
-	ret := VALUE(C.rb_class_real(C.VALUE(klass)))
-	return ret
+	return VALUE(C.rb_class_real(C.VALUE(klass)))
 }
 
 // RbClassSubclasses calls `rb_class_subclasses` in C
@@ -1967,8 +1832,7 @@ func RbClassReal(klass VALUE) VALUE {
 //
 //	VALUE rb_class_subclasses(VALUE klass)
 func RbClassSubclasses(klass VALUE) VALUE {
-	ret := VALUE(C.rb_class_subclasses(C.VALUE(klass)))
-	return ret
+	return VALUE(C.rb_class_subclasses(C.VALUE(klass)))
 }
 
 // RbClassSuperclass calls `rb_class_superclass` in C
@@ -1977,8 +1841,7 @@ func RbClassSubclasses(klass VALUE) VALUE {
 //
 //	VALUE rb_class_superclass(VALUE klass)
 func RbClassSuperclass(klass VALUE) VALUE {
-	ret := VALUE(C.rb_class_superclass(C.VALUE(klass)))
-	return ret
+	return VALUE(C.rb_class_superclass(C.VALUE(klass)))
 }
 
 // RbClearConstantCacheForId calls `rb_clear_constant_cache_for_id` in C
@@ -1996,8 +1859,7 @@ func RbClearConstantCacheForId(id ID) {
 //
 //	int rb_cloexec_dup(int oldfd)
 func RbCloexecDup(oldfd int) int {
-	ret := int(C.rb_cloexec_dup(C.int(oldfd)))
-	return ret
+	return int(C.rb_cloexec_dup(C.int(oldfd)))
 }
 
 // RbCloexecDup2 calls `rb_cloexec_dup2` in C
@@ -2006,8 +1868,7 @@ func RbCloexecDup(oldfd int) int {
 //
 //	int rb_cloexec_dup2(int oldfd, int newfd)
 func RbCloexecDup2(oldfd int, newfd int) int {
-	ret := int(C.rb_cloexec_dup2(C.int(oldfd), C.int(newfd)))
-	return ret
+	return int(C.rb_cloexec_dup2(C.int(oldfd), C.int(newfd)))
 }
 
 // RbCloexecFcntlDupfd calls `rb_cloexec_fcntl_dupfd` in C
@@ -2016,8 +1877,7 @@ func RbCloexecDup2(oldfd int, newfd int) int {
 //
 //	int rb_cloexec_fcntl_dupfd(int fd, int minfd)
 func RbCloexecFcntlDupfd(fd int, minfd int) int {
-	ret := int(C.rb_cloexec_fcntl_dupfd(C.int(fd), C.int(minfd)))
-	return ret
+	return int(C.rb_cloexec_fcntl_dupfd(C.int(fd), C.int(minfd)))
 }
 
 // RbCloexecOpen calls `rb_cloexec_open` in C
@@ -2029,8 +1889,7 @@ func RbCloexecOpen(pathname string, flags int, mode ModeT) int {
 	char, clean := string2Char(pathname)
 	defer clean()
 
-	ret := int(C.rb_cloexec_open(char, C.int(flags), C.mode_t(mode)))
-	return ret
+	return int(C.rb_cloexec_open(char, C.int(flags), C.mode_t(mode)))
 }
 
 // RbCloexecPipe calls `rb_cloexec_pipe` in C
@@ -2039,8 +1898,7 @@ func RbCloexecOpen(pathname string, flags int, mode ModeT) int {
 //
 //	int rb_cloexec_pipe(int fildes[2])
 func RbCloexecPipe(fildes []int) int {
-	ret := int(C.rb_cloexec_pipe(toCArray[int, C.int](fildes)))
-	return ret
+	return int(C.rb_cloexec_pipe(toCArray[int, C.int](fildes)))
 }
 
 // RbCloseBeforeExec calls `rb_close_before_exec` in C
@@ -2067,8 +1925,7 @@ func RbCmperr(a VALUE, b VALUE) {
 //
 //	int rb_cmpint(VALUE val, VALUE a, VALUE b)
 func RbCmpint(val VALUE, a VALUE, b VALUE) int {
-	ret := int(C.rb_cmpint(C.VALUE(val), C.VALUE(a), C.VALUE(b)))
-	return ret
+	return int(C.rb_cmpint(C.VALUE(val), C.VALUE(a), C.VALUE(b)))
 }
 
 // RbComplexAbs calls `rb_complex_abs` in C
@@ -2077,8 +1934,7 @@ func RbCmpint(val VALUE, a VALUE, b VALUE) int {
 //
 //	VALUE rb_complex_abs(VALUE z)
 func RbComplexAbs(z VALUE) VALUE {
-	ret := VALUE(C.rb_complex_abs(C.VALUE(z)))
-	return ret
+	return VALUE(C.rb_complex_abs(C.VALUE(z)))
 }
 
 // RbComplexArg calls `rb_complex_arg` in C
@@ -2087,8 +1943,7 @@ func RbComplexAbs(z VALUE) VALUE {
 //
 //	VALUE rb_complex_arg(VALUE z)
 func RbComplexArg(z VALUE) VALUE {
-	ret := VALUE(C.rb_complex_arg(C.VALUE(z)))
-	return ret
+	return VALUE(C.rb_complex_arg(C.VALUE(z)))
 }
 
 // RbComplexConjugate calls `rb_complex_conjugate` in C
@@ -2097,8 +1952,7 @@ func RbComplexArg(z VALUE) VALUE {
 //
 //	VALUE rb_complex_conjugate(VALUE z)
 func RbComplexConjugate(z VALUE) VALUE {
-	ret := VALUE(C.rb_complex_conjugate(C.VALUE(z)))
-	return ret
+	return VALUE(C.rb_complex_conjugate(C.VALUE(z)))
 }
 
 // RbComplexDiv calls `rb_complex_div` in C
@@ -2107,8 +1961,7 @@ func RbComplexConjugate(z VALUE) VALUE {
 //
 //	VALUE rb_complex_div(VALUE x, VALUE y)
 func RbComplexDiv(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_complex_div(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_complex_div(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbComplexImag calls `rb_complex_imag` in C
@@ -2117,8 +1970,7 @@ func RbComplexDiv(x VALUE, y VALUE) VALUE {
 //
 //	VALUE rb_complex_imag(VALUE z)
 func RbComplexImag(z VALUE) VALUE {
-	ret := VALUE(C.rb_complex_imag(C.VALUE(z)))
-	return ret
+	return VALUE(C.rb_complex_imag(C.VALUE(z)))
 }
 
 // RbComplexMinus calls `rb_complex_minus` in C
@@ -2127,8 +1979,7 @@ func RbComplexImag(z VALUE) VALUE {
 //
 //	VALUE rb_complex_minus(VALUE x, VALUE y)
 func RbComplexMinus(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_complex_minus(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_complex_minus(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbComplexMul calls `rb_complex_mul` in C
@@ -2137,8 +1988,7 @@ func RbComplexMinus(x VALUE, y VALUE) VALUE {
 //
 //	VALUE rb_complex_mul(VALUE x, VALUE y)
 func RbComplexMul(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_complex_mul(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_complex_mul(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbComplexNew calls `rb_complex_new` in C
@@ -2147,8 +1997,7 @@ func RbComplexMul(x VALUE, y VALUE) VALUE {
 //
 //	VALUE rb_complex_new(VALUE real, VALUE imag)
 func RbComplexNew(real VALUE, imag VALUE) VALUE {
-	ret := VALUE(C.rb_complex_new(C.VALUE(real), C.VALUE(imag)))
-	return ret
+	return VALUE(C.rb_complex_new(C.VALUE(real), C.VALUE(imag)))
 }
 
 // RbComplexNewPolar calls `rb_complex_new_polar` in C
@@ -2157,8 +2006,7 @@ func RbComplexNew(real VALUE, imag VALUE) VALUE {
 //
 //	VALUE rb_complex_new_polar(VALUE abs, VALUE arg)
 func RbComplexNewPolar(abs VALUE, arg VALUE) VALUE {
-	ret := VALUE(C.rb_complex_new_polar(C.VALUE(abs), C.VALUE(arg)))
-	return ret
+	return VALUE(C.rb_complex_new_polar(C.VALUE(abs), C.VALUE(arg)))
 }
 
 // RbComplexPlus calls `rb_complex_plus` in C
@@ -2167,8 +2015,7 @@ func RbComplexNewPolar(abs VALUE, arg VALUE) VALUE {
 //
 //	VALUE rb_complex_plus(VALUE x, VALUE y)
 func RbComplexPlus(x VALUE, y VALUE) VALUE {
-	ret := VALUE(C.rb_complex_plus(C.VALUE(x), C.VALUE(y)))
-	return ret
+	return VALUE(C.rb_complex_plus(C.VALUE(x), C.VALUE(y)))
 }
 
 // RbComplexPow calls `rb_complex_pow` in C
@@ -2177,8 +2024,7 @@ func RbComplexPlus(x VALUE, y VALUE) VALUE {
 //
 //	VALUE rb_complex_pow(VALUE base, VALUE exp)
 func RbComplexPow(base VALUE, exp VALUE) VALUE {
-	ret := VALUE(C.rb_complex_pow(C.VALUE(base), C.VALUE(exp)))
-	return ret
+	return VALUE(C.rb_complex_pow(C.VALUE(base), C.VALUE(exp)))
 }
 
 // RbComplexRaw calls `rb_complex_raw` in C
@@ -2187,8 +2033,7 @@ func RbComplexPow(base VALUE, exp VALUE) VALUE {
 //
 //	VALUE rb_complex_raw(VALUE real, VALUE imag)
 func RbComplexRaw(real VALUE, imag VALUE) VALUE {
-	ret := VALUE(C.rb_complex_raw(C.VALUE(real), C.VALUE(imag)))
-	return ret
+	return VALUE(C.rb_complex_raw(C.VALUE(real), C.VALUE(imag)))
 }
 
 // RbComplexReal calls `rb_complex_real` in C
@@ -2197,8 +2042,7 @@ func RbComplexRaw(real VALUE, imag VALUE) VALUE {
 //
 //	VALUE rb_complex_real(VALUE z)
 func RbComplexReal(z VALUE) VALUE {
-	ret := VALUE(C.rb_complex_real(C.VALUE(z)))
-	return ret
+	return VALUE(C.rb_complex_real(C.VALUE(z)))
 }
 
 // RbComplexUminus calls `rb_complex_uminus` in C
@@ -2207,8 +2051,7 @@ func RbComplexReal(z VALUE) VALUE {
 //
 //	VALUE rb_complex_uminus(VALUE z)
 func RbComplexUminus(z VALUE) VALUE {
-	ret := VALUE(C.rb_complex_uminus(C.VALUE(z)))
-	return ret
+	return VALUE(C.rb_complex_uminus(C.VALUE(z)))
 }
 
 // RbConstDefined calls `rb_const_defined` in C
@@ -2217,8 +2060,7 @@ func RbComplexUminus(z VALUE) VALUE {
 //
 //	int rb_const_defined(VALUE space, ID name)
 func RbConstDefined(space VALUE, name ID) int {
-	ret := int(C.rb_const_defined(C.VALUE(space), C.ID(name)))
-	return ret
+	return int(C.rb_const_defined(C.VALUE(space), C.ID(name)))
 }
 
 // RbConstDefinedAt calls `rb_const_defined_at` in C
@@ -2227,8 +2069,7 @@ func RbConstDefined(space VALUE, name ID) int {
 //
 //	int rb_const_defined_at(VALUE space, ID name)
 func RbConstDefinedAt(space VALUE, name ID) int {
-	ret := int(C.rb_const_defined_at(C.VALUE(space), C.ID(name)))
-	return ret
+	return int(C.rb_const_defined_at(C.VALUE(space), C.ID(name)))
 }
 
 // RbConstDefinedFrom calls `rb_const_defined_from` in C
@@ -2237,8 +2078,7 @@ func RbConstDefinedAt(space VALUE, name ID) int {
 //
 //	int rb_const_defined_from(VALUE space, ID name)
 func RbConstDefinedFrom(space VALUE, name ID) int {
-	ret := int(C.rb_const_defined_from(C.VALUE(space), C.ID(name)))
-	return ret
+	return int(C.rb_const_defined_from(C.VALUE(space), C.ID(name)))
 }
 
 // RbConstGet calls `rb_const_get` in C
@@ -2247,8 +2087,7 @@ func RbConstDefinedFrom(space VALUE, name ID) int {
 //
 //	VALUE rb_const_get(VALUE space, ID name)
 func RbConstGet(space VALUE, name ID) VALUE {
-	ret := VALUE(C.rb_const_get(C.VALUE(space), C.ID(name)))
-	return ret
+	return VALUE(C.rb_const_get(C.VALUE(space), C.ID(name)))
 }
 
 // RbConstGetAt calls `rb_const_get_at` in C
@@ -2257,8 +2096,7 @@ func RbConstGet(space VALUE, name ID) VALUE {
 //
 //	VALUE rb_const_get_at(VALUE space, ID name)
 func RbConstGetAt(space VALUE, name ID) VALUE {
-	ret := VALUE(C.rb_const_get_at(C.VALUE(space), C.ID(name)))
-	return ret
+	return VALUE(C.rb_const_get_at(C.VALUE(space), C.ID(name)))
 }
 
 // RbConstGetFrom calls `rb_const_get_from` in C
@@ -2267,8 +2105,7 @@ func RbConstGetAt(space VALUE, name ID) VALUE {
 //
 //	VALUE rb_const_get_from(VALUE space, ID name)
 func RbConstGetFrom(space VALUE, name ID) VALUE {
-	ret := VALUE(C.rb_const_get_from(C.VALUE(space), C.ID(name)))
-	return ret
+	return VALUE(C.rb_const_get_from(C.VALUE(space), C.ID(name)))
 }
 
 // RbConstList calls `rb_const_list` in C
@@ -2277,8 +2114,7 @@ func RbConstGetFrom(space VALUE, name ID) VALUE {
 //
 //	VALUE rb_const_list(void*)
 func RbConstList(arg1 unsafe.Pointer) VALUE {
-	ret := VALUE(C.rb_const_list(arg1))
-	return ret
+	return VALUE(C.rb_const_list(arg1))
 }
 
 // RbConstRemove calls `rb_const_remove` in C
@@ -2287,8 +2123,7 @@ func RbConstList(arg1 unsafe.Pointer) VALUE {
 //
 //	VALUE rb_const_remove(VALUE space, ID name)
 func RbConstRemove(space VALUE, name ID) VALUE {
-	ret := VALUE(C.rb_const_remove(C.VALUE(space), C.ID(name)))
-	return ret
+	return VALUE(C.rb_const_remove(C.VALUE(space), C.ID(name)))
 }
 
 // RbConstSet calls `rb_const_set` in C
@@ -2312,8 +2147,7 @@ func RbConvertType(val VALUE, t int, name string, mid string) VALUE {
 	charMid, cleanCharmid := string2Char(mid)
 	defer cleanCharmid()
 
-	ret := VALUE(C.rb_convert_type(C.VALUE(val), C.int(t), charName, charMid))
-	return ret
+	return VALUE(C.rb_convert_type(C.VALUE(val), C.int(t), charName, charMid))
 }
 
 // RbCopyGenericIvar calls `rb_copy_generic_ivar` in C
@@ -2334,8 +2168,7 @@ func RbCstr2Inum(str string, base int) VALUE {
 	char, clean := string2Char(str)
 	defer clean()
 
-	ret := VALUE(C.rb_cstr2inum(char, C.int(base)))
-	return ret
+	return VALUE(C.rb_cstr2inum(char, C.int(base)))
 }
 
 // RbCstrToDbl calls `rb_cstr_to_dbl` in C
@@ -2347,8 +2180,7 @@ func RbCstrToDbl(str string, mode int) Double {
 	char, clean := string2Char(str)
 	defer clean()
 
-	ret := Double(C.rb_cstr_to_dbl(char, C.int(mode)))
-	return ret
+	return Double(C.rb_cstr_to_dbl(char, C.int(mode)))
 }
 
 // RbCstrToInum calls `rb_cstr_to_inum` in C
@@ -2360,8 +2192,7 @@ func RbCstrToInum(str string, base int, badcheck int) VALUE {
 	char, clean := string2Char(str)
 	defer clean()
 
-	ret := VALUE(C.rb_cstr_to_inum(char, C.int(base), C.int(badcheck)))
-	return ret
+	return VALUE(C.rb_cstr_to_inum(char, C.int(base), C.int(badcheck)))
 }
 
 // RbCurrentReceiver calls `rb_current_receiver` in C
@@ -2370,8 +2201,7 @@ func RbCstrToInum(str string, base int, badcheck int) VALUE {
 //
 //	VALUE rb_current_receiver(void)
 func RbCurrentReceiver() VALUE {
-	ret := VALUE(C.rb_current_receiver())
-	return ret
+	return VALUE(C.rb_current_receiver())
 }
 
 // RbCvGet calls `rb_cv_get` in C
@@ -2383,8 +2213,7 @@ func RbCvGet(klass VALUE, name string) VALUE {
 	char, clean := string2Char(name)
 	defer clean()
 
-	ret := VALUE(C.rb_cv_get(C.VALUE(klass), char))
-	return ret
+	return VALUE(C.rb_cv_get(C.VALUE(klass), char))
 }
 
 // RbCvSet calls `rb_cv_set` in C
@@ -2405,8 +2234,7 @@ func RbCvSet(klass VALUE, name string, val VALUE) {
 //
 //	VALUE rb_cvar_defined(VALUE klass, ID name)
 func RbCvarDefined(klass VALUE, name ID) VALUE {
-	ret := VALUE(C.rb_cvar_defined(C.VALUE(klass), C.ID(name)))
-	return ret
+	return VALUE(C.rb_cvar_defined(C.VALUE(klass), C.ID(name)))
 }
 
 // RbCvarFind calls `rb_cvar_find` in C
@@ -2427,8 +2255,7 @@ func RbCvarFind(klass VALUE, name ID, front *VALUE) VALUE {
 //
 //	VALUE rb_cvar_get(VALUE klass, ID name)
 func RbCvarGet(klass VALUE, name ID) VALUE {
-	ret := VALUE(C.rb_cvar_get(C.VALUE(klass), C.ID(name)))
-	return ret
+	return VALUE(C.rb_cvar_get(C.VALUE(klass), C.ID(name)))
 }
 
 // RbCvarSet calls `rb_cvar_set` in C
@@ -2446,8 +2273,7 @@ func RbCvarSet(klass VALUE, name ID, val VALUE) {
 //
 //	rb_data_object_get(VALUE obj)
 func RbDataObjectGet(obj VALUE) unsafe.Pointer {
-	ret := unsafe.Pointer(C.rb_data_object_get(C.VALUE(obj)))
-	return ret
+	return unsafe.Pointer(C.rb_data_object_get(C.VALUE(obj)))
 }
 
 // RbDataObjectMake calls `rb_data_object_make` in C
@@ -2456,8 +2282,7 @@ func RbDataObjectGet(obj VALUE) unsafe.Pointer {
 //
 //	rb_data_object_make(VALUE klass, RUBY_DATA_FUNC mark_func, RUBY_DATA_FUNC free_func, void **data/;"
 func RbDataObjectMake(klass VALUE, mark_func unsafe.Pointer, free_func unsafe.Pointer, datap *unsafe.Pointer, size SizeT) VALUE {
-	ret := VALUE(C.rb_data_object_make(C.VALUE(klass), toCFunctionPointer(mark_func), toCFunctionPointer(free_func), datap, C.size_t(size)))
-	return ret
+	return VALUE(C.rb_data_object_make(C.VALUE(klass), toCFunctionPointer(mark_func), toCFunctionPointer(free_func), datap, C.size_t(size)))
 }
 
 // RbDataObjectWrap calls `rb_data_object_wrap` in C
@@ -2466,8 +2291,7 @@ func RbDataObjectMake(klass VALUE, mark_func unsafe.Pointer, free_func unsafe.Po
 //
 //	VALUE rb_data_object_wrap(VALUE klass, void *datap, RUBY_DATA_FUNC dmark, RUBY_DATA_FUNC dfree)
 func RbDataObjectWrap(klass VALUE, datap unsafe.Pointer, dmark unsafe.Pointer, dfree unsafe.Pointer) VALUE {
-	ret := VALUE(C.rb_data_object_wrap(C.VALUE(klass), datap, toCFunctionPointer(dmark), toCFunctionPointer(dfree)))
-	return ret
+	return VALUE(C.rb_data_object_wrap(C.VALUE(klass), datap, toCFunctionPointer(dmark), toCFunctionPointer(dfree)))
 }
 
 // RbDataObjectZalloc calls `rb_data_object_zalloc` in C
@@ -2476,8 +2300,7 @@ func RbDataObjectWrap(klass VALUE, datap unsafe.Pointer, dmark unsafe.Pointer, d
 //
 //	VALUE rb_data_object_zalloc(VALUE klass, size_t size, RUBY_DATA_FUNC dmark, RUBY_DATA_FUNC dfree)
 func RbDataObjectZalloc(klass VALUE, size SizeT, dmark unsafe.Pointer, dfree unsafe.Pointer) VALUE {
-	ret := VALUE(C.rb_data_object_zalloc(C.VALUE(klass), C.size_t(size), toCFunctionPointer(dmark), toCFunctionPointer(dfree)))
-	return ret
+	return VALUE(C.rb_data_object_zalloc(C.VALUE(klass), C.size_t(size), toCFunctionPointer(dmark), toCFunctionPointer(dfree)))
 }
 
 // RbDataTypedObjectMake calls `rb_data_typed_object_make` in C
@@ -2522,8 +2345,7 @@ func RbDataTypedObjectZalloc(klass VALUE, size SizeT, t *RbDataTypeT) VALUE {
 //
 //	VALUE rb_dbl2big(double d)
 func RbDbl2Big(d Double) VALUE {
-	ret := VALUE(C.rb_dbl2big(C.double(d)))
-	return ret
+	return VALUE(C.rb_dbl2big(C.double(d)))
 }
 
 // RbDblCmp calls `rb_dbl_cmp` in C
@@ -2532,8 +2354,7 @@ func RbDbl2Big(d Double) VALUE {
 //
 //	VALUE rb_dbl_cmp(double lhs, double rhs)
 func RbDblCmp(lhs Double, rhs Double) VALUE {
-	ret := VALUE(C.rb_dbl_cmp(C.double(lhs), C.double(rhs)))
-	return ret
+	return VALUE(C.rb_dbl_cmp(C.double(lhs), C.double(rhs)))
 }
 
 // RbDblComplexNew calls `rb_dbl_complex_new` in C
@@ -2542,8 +2363,7 @@ func RbDblCmp(lhs Double, rhs Double) VALUE {
 //
 //	VALUE rb_dbl_complex_new(double real, double imag)
 func RbDblComplexNew(real Double, imag Double) VALUE {
-	ret := VALUE(C.rb_dbl_complex_new(C.double(real), C.double(imag)))
-	return ret
+	return VALUE(C.rb_dbl_complex_new(C.double(real), C.double(imag)))
 }
 
 // RbDebugRstringNullPtr calls `rb_debug_rstring_null_ptr` in C
@@ -2603,8 +2423,7 @@ func RbDefineClass(name string, super VALUE) VALUE {
 	char, clean := string2Char(name)
 	defer clean()
 
-	ret := VALUE(C.rb_define_class(char, C.VALUE(super)))
-	return ret
+	return VALUE(C.rb_define_class(char, C.VALUE(super)))
 }
 
 // RbDefineClassId calls `rb_define_class_id` in C
@@ -2613,8 +2432,7 @@ func RbDefineClass(name string, super VALUE) VALUE {
 //
 //	VALUE rb_define_class_id(ID id, VALUE super)
 func RbDefineClassId(id ID, super VALUE) VALUE {
-	ret := VALUE(C.rb_define_class_id(C.ID(id), C.VALUE(super)))
-	return ret
+	return VALUE(C.rb_define_class_id(C.ID(id), C.VALUE(super)))
 }
 
 // RbDefineClassIdUnder calls `rb_define_class_id_under` in C
@@ -2623,8 +2441,7 @@ func RbDefineClassId(id ID, super VALUE) VALUE {
 //
 //	VALUE rb_define_class_id_under(VALUE outer, ID id, VALUE super)
 func RbDefineClassIdUnder(outer VALUE, id ID, super VALUE) VALUE {
-	ret := VALUE(C.rb_define_class_id_under(C.VALUE(outer), C.ID(id), C.VALUE(super)))
-	return ret
+	return VALUE(C.rb_define_class_id_under(C.VALUE(outer), C.ID(id), C.VALUE(super)))
 }
 
 // RbDefineClassUnder calls `rb_define_class_under` in C
@@ -2636,8 +2453,7 @@ func RbDefineClassUnder(outer VALUE, name string, super VALUE) VALUE {
 	char, clean := string2Char(name)
 	defer clean()
 
-	ret := VALUE(C.rb_define_class_under(C.VALUE(outer), char, C.VALUE(super)))
-	return ret
+	return VALUE(C.rb_define_class_under(C.VALUE(outer), char, C.VALUE(super)))
 }
 
 // RbDefineClassVariable calls `rb_define_class_variable` in C
@@ -2670,8 +2486,7 @@ func RbDefineConst(klass VALUE, name string, val VALUE) {
 //
 //	VALUE rb_define_finalizer(VALUE obj, VALUE block)
 func RbDefineFinalizer(obj VALUE, block VALUE) VALUE {
-	ret := VALUE(C.rb_define_finalizer(C.VALUE(obj), C.VALUE(block)))
-	return ret
+	return VALUE(C.rb_define_finalizer(C.VALUE(obj), C.VALUE(block)))
 }
 
 // RbDefineGlobalConst calls `rb_define_global_const` in C
@@ -2746,8 +2561,7 @@ func RbDefineModule(name string) VALUE {
 	char, clean := string2Char(name)
 	defer clean()
 
-	ret := VALUE(C.rb_define_module(char))
-	return ret
+	return VALUE(C.rb_define_module(char))
 }
 
 // RbDefineModuleFunction calls `rb_define_module_function` in C
@@ -2768,8 +2582,7 @@ func RbDefineModuleFunction(klass VALUE, mid string, arg3 unsafe.Pointer, arity 
 //
 //	VALUE rb_define_module_id(ID id)
 func RbDefineModuleId(id ID) VALUE {
-	ret := VALUE(C.rb_define_module_id(C.ID(id)))
-	return ret
+	return VALUE(C.rb_define_module_id(C.ID(id)))
 }
 
 // RbDefineModuleIdUnder calls `rb_define_module_id_under` in C
@@ -2778,8 +2591,7 @@ func RbDefineModuleId(id ID) VALUE {
 //
 //	VALUE rb_define_module_id_under(VALUE outer, ID id)
 func RbDefineModuleIdUnder(outer VALUE, id ID) VALUE {
-	ret := VALUE(C.rb_define_module_id_under(C.VALUE(outer), C.ID(id)))
-	return ret
+	return VALUE(C.rb_define_module_id_under(C.VALUE(outer), C.ID(id)))
 }
 
 // RbDefineModuleUnder calls `rb_define_module_under` in C
@@ -2791,8 +2603,7 @@ func RbDefineModuleUnder(outer VALUE, name string) VALUE {
 	char, clean := string2Char(name)
 	defer clean()
 
-	ret := VALUE(C.rb_define_module_under(C.VALUE(outer), char))
-	return ret
+	return VALUE(C.rb_define_module_under(C.VALUE(outer), char))
 }
 
 // RbDefinePrivateMethod calls `rb_define_private_method` in C
@@ -2891,8 +2702,7 @@ func RbDeprecateConstant(mod VALUE, name string) {
 //
 //	VALUE rb_detach_process(pid_t pid)
 func RbDetachProcess(pid PidT) VALUE {
-	ret := VALUE(C.rb_detach_process(C.pid_t(pid)))
-	return ret
+	return VALUE(C.rb_detach_process(C.pid_t(pid)))
 }
 
 // RbDirGetwd calls `rb_dir_getwd` in C
@@ -2901,8 +2711,7 @@ func RbDetachProcess(pid PidT) VALUE {
 //
 //	VALUE rb_dir_getwd(void)
 func RbDirGetwd() VALUE {
-	ret := VALUE(C.rb_dir_getwd())
-	return ret
+	return VALUE(C.rb_dir_getwd())
 }
 
 // RbDuringGc calls `rb_during_gc` in C
@@ -2911,8 +2720,7 @@ func RbDirGetwd() VALUE {
 //
 //	int rb_during_gc(void)
 func RbDuringGc() int {
-	ret := int(C.rb_during_gc())
-	return ret
+	return int(C.rb_during_gc())
 }
 
 // RbEach calls `rb_each` in C
@@ -2921,8 +2729,7 @@ func RbDuringGc() int {
 //
 //	VALUE rb_each(VALUE obj)
 func RbEach(obj VALUE) VALUE {
-	ret := VALUE(C.rb_each(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_each(C.VALUE(obj)))
 }
 
 // RbEnsure calls `rb_ensure` in C
@@ -2931,8 +2738,7 @@ func RbEach(obj VALUE) VALUE {
 //
 //	VALUE rb_ensure(VALUE (*b_proc)(VALUE), VALUE data1, VALUE (*e_proc)(VALUE), VALUE data2)
 func RbEnsure(arg1 unsafe.Pointer, data1 VALUE, arg3 unsafe.Pointer, data2 VALUE) VALUE {
-	ret := VALUE(C.rb_ensure(toCFunctionPointer(arg1), C.VALUE(data1), toCFunctionPointer(arg3), C.VALUE(data2)))
-	return ret
+	return VALUE(C.rb_ensure(toCFunctionPointer(arg1), C.VALUE(data1), toCFunctionPointer(arg3), C.VALUE(data2)))
 }
 
 // RbEnumValuesPack calls `rb_enum_values_pack` in C
@@ -2993,8 +2799,7 @@ func RbEnumeratorizeWithSizeKw(recv VALUE, meth VALUE, argc int, argv *VALUE, fu
 //
 //	VALUE rb_env_clear(void)
 func RbEnvClear() VALUE {
-	ret := VALUE(C.rb_env_clear())
-	return ret
+	return VALUE(C.rb_env_clear())
 }
 
 // RbEql calls `rb_eql` in C
@@ -3003,8 +2808,7 @@ func RbEnvClear() VALUE {
 //
 //	int rb_eql(VALUE lhs, VALUE rhs)
 func RbEql(lhs VALUE, rhs VALUE) int {
-	ret := int(C.rb_eql(C.VALUE(lhs), C.VALUE(rhs)))
-	return ret
+	return int(C.rb_eql(C.VALUE(lhs), C.VALUE(rhs)))
 }
 
 // RbEqual calls `rb_equal` in C
@@ -3013,8 +2817,7 @@ func RbEql(lhs VALUE, rhs VALUE) int {
 //
 //	VALUE rb_equal(VALUE lhs, VALUE rhs)
 func RbEqual(lhs VALUE, rhs VALUE) VALUE {
-	ret := VALUE(C.rb_equal(C.VALUE(lhs), C.VALUE(rhs)))
-	return ret
+	return VALUE(C.rb_equal(C.VALUE(lhs), C.VALUE(rhs)))
 }
 
 // RbErrinfo calls `rb_errinfo` in C
@@ -3023,8 +2826,7 @@ func RbEqual(lhs VALUE, rhs VALUE) VALUE {
 //
 //	VALUE rb_errinfo(void)
 func RbErrinfo() VALUE {
-	ret := VALUE(C.rb_errinfo())
-	return ret
+	return VALUE(C.rb_errinfo())
 }
 
 // RbErrno calls `rb_errno` in C
@@ -3033,8 +2835,7 @@ func RbErrinfo() VALUE {
 //
 //	int rb_errno(void)
 func RbErrno() int {
-	ret := int(C.rb_errno())
-	return ret
+	return int(C.rb_errno())
 }
 
 // RbErrnoPtr calls `rb_errno_ptr` in C
@@ -3043,8 +2844,7 @@ func RbErrno() int {
 //
 //	int *rb_errno_ptr(void)
 func RbErrnoPtr() *Int {
-	ret := (*Int)(C.rb_errno_ptr())
-	return ret
+	return (*Int)(C.rb_errno_ptr())
 }
 
 // RbErrnoSet calls `rb_errno_set` in C
@@ -3092,8 +2892,7 @@ func RbErrorFrozenObject(what VALUE) {
 //
 //	VALUE rb_eval_cmd_kw(VALUE cmd, VALUE arg, int kw_splat)
 func RbEvalCmdKw(cmd VALUE, arg VALUE, kw_splat int) VALUE {
-	ret := VALUE(C.rb_eval_cmd_kw(C.VALUE(cmd), C.VALUE(arg), C.int(kw_splat)))
-	return ret
+	return VALUE(C.rb_eval_cmd_kw(C.VALUE(cmd), C.VALUE(arg), C.int(kw_splat)))
 }
 
 // RbEvalString calls `rb_eval_string` in C
@@ -3105,8 +2904,7 @@ func RbEvalString(str string) VALUE {
 	char, clean := string2Char(str)
 	defer clean()
 
-	ret := VALUE(C.rb_eval_string(char))
-	return ret
+	return VALUE(C.rb_eval_string(char))
 }
 
 // RbEvalStringProtect calls `rb_eval_string_protect` in C
@@ -3157,8 +2955,7 @@ func RbExcNew(etype VALUE, ptr string, len Long) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_exc_new(C.VALUE(etype), char, C.long(len)))
-	return ret
+	return VALUE(C.rb_exc_new(C.VALUE(etype), char, C.long(len)))
 }
 
 // RbExcNewCstr calls `rb_exc_new_cstr` in C
@@ -3170,8 +2967,7 @@ func RbExcNewCstr(etype VALUE, str string) VALUE {
 	char, clean := string2Char(str)
 	defer clean()
 
-	ret := VALUE(C.rb_exc_new_cstr(C.VALUE(etype), char))
-	return ret
+	return VALUE(C.rb_exc_new_cstr(C.VALUE(etype), char))
 }
 
 // RbExcNewStr calls `rb_exc_new_str` in C
@@ -3180,8 +2976,7 @@ func RbExcNewCstr(etype VALUE, str string) VALUE {
 //
 //	VALUE rb_exc_new_str(VALUE etype, VALUE str)
 func RbExcNewStr(etype VALUE, str VALUE) VALUE {
-	ret := VALUE(C.rb_exc_new_str(C.VALUE(etype), C.VALUE(str)))
-	return ret
+	return VALUE(C.rb_exc_new_str(C.VALUE(etype), C.VALUE(str)))
 }
 
 // RbExcRaise calls `rb_exc_raise` in C
@@ -3199,8 +2994,7 @@ func RbExcRaise(exc VALUE) {
 //
 //	VALUE rb_exec_recursive(VALUE (*f)(VALUE g, VALUE h, int r), VALUE g, VALUE h)
 func RbExecRecursive(arg1 unsafe.Pointer, g VALUE, h VALUE) VALUE {
-	ret := VALUE(C.rb_exec_recursive(toCFunctionPointer(arg1), C.VALUE(g), C.VALUE(h)))
-	return ret
+	return VALUE(C.rb_exec_recursive(toCFunctionPointer(arg1), C.VALUE(g), C.VALUE(h)))
 }
 
 // RbExecRecursiveOuter calls `rb_exec_recursive_outer` in C
@@ -3209,8 +3003,7 @@ func RbExecRecursive(arg1 unsafe.Pointer, g VALUE, h VALUE) VALUE {
 //
 //	VALUE rb_exec_recursive_outer(VALUE (*f)(VALUE g, VALUE h, int r), VALUE g, VALUE h)
 func RbExecRecursiveOuter(arg1 unsafe.Pointer, g VALUE, h VALUE) VALUE {
-	ret := VALUE(C.rb_exec_recursive_outer(toCFunctionPointer(arg1), C.VALUE(g), C.VALUE(h)))
-	return ret
+	return VALUE(C.rb_exec_recursive_outer(toCFunctionPointer(arg1), C.VALUE(g), C.VALUE(h)))
 }
 
 // RbExecRecursivePaired calls `rb_exec_recursive_paired` in C
@@ -3219,8 +3012,7 @@ func RbExecRecursiveOuter(arg1 unsafe.Pointer, g VALUE, h VALUE) VALUE {
 //
 //	VALUE rb_exec_recursive_paired(VALUE (*f)(VALUE g, VALUE h, int r), VALUE g, VALUE p, VALUE h)
 func RbExecRecursivePaired(arg1 unsafe.Pointer, g VALUE, p VALUE, h VALUE) VALUE {
-	ret := VALUE(C.rb_exec_recursive_paired(toCFunctionPointer(arg1), C.VALUE(g), C.VALUE(p), C.VALUE(h)))
-	return ret
+	return VALUE(C.rb_exec_recursive_paired(toCFunctionPointer(arg1), C.VALUE(g), C.VALUE(p), C.VALUE(h)))
 }
 
 // RbExecRecursivePairedOuter calls `rb_exec_recursive_paired_outer` in C
@@ -3229,8 +3021,7 @@ func RbExecRecursivePaired(arg1 unsafe.Pointer, g VALUE, p VALUE, h VALUE) VALUE
 //
 //	VALUE rb_exec_recursive_paired_outer(VALUE (*f)(VALUE g, VALUE h, int r), VALUE g, VALUE p, VALUE h)
 func RbExecRecursivePairedOuter(arg1 unsafe.Pointer, g VALUE, p VALUE, h VALUE) VALUE {
-	ret := VALUE(C.rb_exec_recursive_paired_outer(toCFunctionPointer(arg1), C.VALUE(g), C.VALUE(p), C.VALUE(h)))
-	return ret
+	return VALUE(C.rb_exec_recursive_paired_outer(toCFunctionPointer(arg1), C.VALUE(g), C.VALUE(p), C.VALUE(h)))
 }
 
 // RbExit calls `rb_exit` in C
@@ -3263,8 +3054,7 @@ func RbExtResolveSymbol(feature string, symbol string) unsafe.Pointer {
 	charSymbol, cleanCharsymbol := string2Char(symbol)
 	defer cleanCharsymbol()
 
-	ret := unsafe.Pointer(C.rb_ext_resolve_symbol(charFeature, charSymbol))
-	return ret
+	return unsafe.Pointer(C.rb_ext_resolve_symbol(charFeature, charSymbol))
 }
 
 // RbExtendObject calls `rb_extend_object` in C
@@ -3285,8 +3075,7 @@ func RbExternalStrNew(ptr string, len Long) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_external_str_new(char, C.long(len)))
-	return ret
+	return VALUE(C.rb_external_str_new(char, C.long(len)))
 }
 
 // RbExternalStrNewCstr calls `rb_external_str_new_cstr` in C
@@ -3298,8 +3087,7 @@ func RbExternalStrNewCstr(ptr string) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_external_str_new_cstr(char))
-	return ret
+	return VALUE(C.rb_external_str_new_cstr(char))
 }
 
 // RbExtractKeywords calls `rb_extract_keywords` in C
@@ -3356,8 +3144,7 @@ func RbFExit(argc int, argv *VALUE) VALUE {
 //
 //	VALUE rb_f_global_variables(void)
 func RbFGlobalVariables() VALUE {
-	ret := VALUE(C.rb_f_global_variables())
-	return ret
+	return VALUE(C.rb_f_global_variables())
 }
 
 // RbFKill calls `rb_f_kill` in C
@@ -3390,8 +3177,7 @@ func RbFNotimplement(argc int, argv *VALUE, obj VALUE, marker VALUE) VALUE {
 //
 //	VALUE rb_f_require(VALUE self, VALUE feature)
 func RbFRequire(self VALUE, feature VALUE) VALUE {
-	ret := VALUE(C.rb_f_require(C.VALUE(self), C.VALUE(feature)))
-	return ret
+	return VALUE(C.rb_f_require(C.VALUE(self), C.VALUE(feature)))
 }
 
 // RbFSprintf calls `rb_f_sprintf` in C
@@ -3583,8 +3369,7 @@ func RbFeatureProvided(feature string, loading **Char) int {
 	char, clean := string2Char(feature)
 	defer clean()
 
-	ret := int(C.rb_feature_provided(char, (**C.char)(unsafe.Pointer(loading))))
-	return ret
+	return int(C.rb_feature_provided(char, (**C.char)(unsafe.Pointer(loading))))
 }
 
 // RbFiberAliveP calls `rb_fiber_alive_p` in C
@@ -3593,8 +3378,7 @@ func RbFeatureProvided(feature string, loading **Char) int {
 //
 //	VALUE rb_fiber_alive_p(VALUE fiber)
 func RbFiberAliveP(fiber VALUE) VALUE {
-	ret := VALUE(C.rb_fiber_alive_p(C.VALUE(fiber)))
-	return ret
+	return VALUE(C.rb_fiber_alive_p(C.VALUE(fiber)))
 }
 
 // RbFiberCurrent calls `rb_fiber_current` in C
@@ -3603,8 +3387,7 @@ func RbFiberAliveP(fiber VALUE) VALUE {
 //
 //	VALUE rb_fiber_current(void)
 func RbFiberCurrent() VALUE {
-	ret := VALUE(C.rb_fiber_current())
-	return ret
+	return VALUE(C.rb_fiber_current())
 }
 
 // RbFiberNew calls `rb_fiber_new` in C
@@ -3613,8 +3396,7 @@ func RbFiberCurrent() VALUE {
 //
 //	VALUE rb_fiber_new(rb_block_call_func_t func, VALUE callback_obj)
 func RbFiberNew(fun RbBlockCallFuncT, callback_obj VALUE) VALUE {
-	ret := VALUE(C.rb_fiber_new(C.rb_block_call_func_t(fun), C.VALUE(callback_obj)))
-	return ret
+	return VALUE(C.rb_fiber_new(C.rb_block_call_func_t(fun), C.VALUE(callback_obj)))
 }
 
 // RbFiberNewStorage calls `rb_fiber_new_storage` in C
@@ -3623,8 +3405,7 @@ func RbFiberNew(fun RbBlockCallFuncT, callback_obj VALUE) VALUE {
 //
 //	VALUE rb_fiber_new_storage(rb_block_call_func_t func, VALUE callback_obj, VALUE storage)
 func RbFiberNewStorage(fun RbBlockCallFuncT, callback_obj VALUE, storage VALUE) VALUE {
-	ret := VALUE(C.rb_fiber_new_storage(C.rb_block_call_func_t(fun), C.VALUE(callback_obj), C.VALUE(storage)))
-	return ret
+	return VALUE(C.rb_fiber_new_storage(C.rb_block_call_func_t(fun), C.VALUE(callback_obj), C.VALUE(storage)))
 }
 
 // RbFiberRaise calls `rb_fiber_raise` in C
@@ -3717,8 +3498,7 @@ func RbFiberYieldKw(argc int, argv *VALUE, kw_splat int) VALUE {
 //
 //	VALUE rb_file_absolute_path(VALUE fname, VALUE dname)
 func RbFileAbsolutePath(fname VALUE, dname VALUE) VALUE {
-	ret := VALUE(C.rb_file_absolute_path(C.VALUE(fname), C.VALUE(dname)))
-	return ret
+	return VALUE(C.rb_file_absolute_path(C.VALUE(fname), C.VALUE(dname)))
 }
 
 // RbFileDirectoryP calls `rb_file_directory_p` in C
@@ -3727,8 +3507,7 @@ func RbFileAbsolutePath(fname VALUE, dname VALUE) VALUE {
 //
 //	VALUE rb_file_directory_p(VALUE _, VALUE path)
 func RbFileDirectoryP(arg VALUE, path VALUE) VALUE {
-	ret := VALUE(C.rb_file_directory_p(C.VALUE(arg), C.VALUE(path)))
-	return ret
+	return VALUE(C.rb_file_directory_p(C.VALUE(arg), C.VALUE(path)))
 }
 
 // RbFileDirname calls `rb_file_dirname` in C
@@ -3737,8 +3516,7 @@ func RbFileDirectoryP(arg VALUE, path VALUE) VALUE {
 //
 //	VALUE rb_file_dirname(VALUE fname)
 func RbFileDirname(fname VALUE) VALUE {
-	ret := VALUE(C.rb_file_dirname(C.VALUE(fname)))
-	return ret
+	return VALUE(C.rb_file_dirname(C.VALUE(fname)))
 }
 
 // RbFileExpandPath calls `rb_file_expand_path` in C
@@ -3747,8 +3525,7 @@ func RbFileDirname(fname VALUE) VALUE {
 //
 //	VALUE rb_file_expand_path(VALUE fname, VALUE dname)
 func RbFileExpandPath(fname VALUE, dname VALUE) VALUE {
-	ret := VALUE(C.rb_file_expand_path(C.VALUE(fname), C.VALUE(dname)))
-	return ret
+	return VALUE(C.rb_file_expand_path(C.VALUE(fname), C.VALUE(dname)))
 }
 
 // RbFileOpen calls `rb_file_open` in C
@@ -3763,8 +3540,7 @@ func RbFileOpen(fname string, fmode string) VALUE {
 	charFmode, cleanCharfmode := string2Char(fmode)
 	defer cleanCharfmode()
 
-	ret := VALUE(C.rb_file_open(charFname, charFmode))
-	return ret
+	return VALUE(C.rb_file_open(charFname, charFmode))
 }
 
 // RbFileOpenStr calls `rb_file_open_str` in C
@@ -3776,8 +3552,7 @@ func RbFileOpenStr(fname VALUE, fmode string) VALUE {
 	char, clean := string2Char(fmode)
 	defer clean()
 
-	ret := VALUE(C.rb_file_open_str(C.VALUE(fname), char))
-	return ret
+	return VALUE(C.rb_file_open_str(C.VALUE(fname), char))
 }
 
 // RbFileSAbsolutePath calls `rb_file_s_absolute_path` in C
@@ -3810,8 +3585,7 @@ func RbFileSExpandPath(argc int, argv *VALUE) VALUE {
 //
 //	off_t rb_file_size(VALUE file)
 func RbFileSize(file VALUE) OffT {
-	ret := OffT(C.rb_file_size(C.VALUE(file)))
-	return ret
+	return OffT(C.rb_file_size(C.VALUE(file)))
 }
 
 // RbFilesystemStrNew calls `rb_filesystem_str_new` in C
@@ -3823,8 +3597,7 @@ func RbFilesystemStrNew(ptr string, len Long) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_filesystem_str_new(char, C.long(len)))
-	return ret
+	return VALUE(C.rb_filesystem_str_new(char, C.long(len)))
 }
 
 // RbFilesystemStrNewCstr calls `rb_filesystem_str_new_cstr` in C
@@ -3836,8 +3609,7 @@ func RbFilesystemStrNewCstr(ptr string) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_filesystem_str_new_cstr(char))
-	return ret
+	return VALUE(C.rb_filesystem_str_new_cstr(char))
 }
 
 // RbFindFile calls `rb_find_file` in C
@@ -3846,8 +3618,7 @@ func RbFilesystemStrNewCstr(ptr string) VALUE {
 //
 //	VALUE rb_find_file(VALUE path)
 func RbFindFile(path VALUE) VALUE {
-	ret := VALUE(C.rb_find_file(C.VALUE(path)))
-	return ret
+	return VALUE(C.rb_find_file(C.VALUE(path)))
 }
 
 // RbFindFileExt calls `rb_find_file_ext` in C
@@ -3871,8 +3642,7 @@ func RbFindFileExt(feature *VALUE, exts []string) int {
 //
 //	long rb_fix2int(VALUE num)
 func RbFix2Int(num VALUE) Long {
-	ret := Long(C.rb_fix2int(C.VALUE(num)))
-	return ret
+	return Long(C.rb_fix2int(C.VALUE(num)))
 }
 
 // RbFix2Long calls `rb_fix2long` in C
@@ -3881,8 +3651,7 @@ func RbFix2Int(num VALUE) Long {
 //
 //	rb_fix2long(VALUE x)
 func RbFix2Long(x VALUE) Long {
-	ret := Long(C.rb_fix2long(C.VALUE(x)))
-	return ret
+	return Long(C.rb_fix2long(C.VALUE(x)))
 }
 
 // RbFix2Short calls `rb_fix2short` in C
@@ -3891,8 +3660,7 @@ func RbFix2Long(x VALUE) Long {
 //
 //	short rb_fix2short(VALUE num)
 func RbFix2Short(num VALUE) Short {
-	ret := Short(C.rb_fix2short(C.VALUE(num)))
-	return ret
+	return Short(C.rb_fix2short(C.VALUE(num)))
 }
 
 // RbFix2Str calls `rb_fix2str` in C
@@ -3901,8 +3669,7 @@ func RbFix2Short(num VALUE) Short {
 //
 //	VALUE rb_fix2str(VALUE val, int base)
 func RbFix2Str(val VALUE, base int) VALUE {
-	ret := VALUE(C.rb_fix2str(C.VALUE(val), C.int(base)))
-	return ret
+	return VALUE(C.rb_fix2str(C.VALUE(val), C.int(base)))
 }
 
 // RbFix2Uint calls `rb_fix2uint` in C
@@ -3911,8 +3678,7 @@ func RbFix2Str(val VALUE, base int) VALUE {
 //
 //	unsigned long rb_fix2uint(VALUE num)
 func RbFix2Uint(num VALUE) uint {
-	ret := uint(C.rb_fix2uint(C.VALUE(num)))
-	return ret
+	return uint(C.rb_fix2uint(C.VALUE(num)))
 }
 
 // RbFix2Ulong calls `rb_fix2ulong` in C
@@ -3921,8 +3687,7 @@ func RbFix2Uint(num VALUE) uint {
 //
 //	rb_fix2ulong(VALUE x)
 func RbFix2Ulong(x VALUE) uint {
-	ret := uint(C.rb_fix2ulong(C.VALUE(x)))
-	return ret
+	return uint(C.rb_fix2ulong(C.VALUE(x)))
 }
 
 // RbFix2Ushort calls `rb_fix2ushort` in C
@@ -3931,8 +3696,7 @@ func RbFix2Ulong(x VALUE) uint {
 //
 //	unsigned short rb_fix2ushort(VALUE num)
 func RbFix2Ushort(num VALUE) Ushort {
-	ret := Ushort(C.rb_fix2ushort(C.VALUE(num)))
-	return ret
+	return Ushort(C.rb_fix2ushort(C.VALUE(num)))
 }
 
 // RbFloatNew calls `rb_float_new` in C
@@ -3941,8 +3705,7 @@ func RbFix2Ushort(num VALUE) Ushort {
 //
 //	VALUE rb_float_new(double d)
 func RbFloatNew(d Double) VALUE {
-	ret := VALUE(C.rb_float_new(C.double(d)))
-	return ret
+	return VALUE(C.rb_float_new(C.double(d)))
 }
 
 // RbFloatNewInHeap calls `rb_float_new_in_heap` in C
@@ -3951,8 +3714,7 @@ func RbFloatNew(d Double) VALUE {
 //
 //	VALUE rb_float_new_in_heap(double d)
 func RbFloatNewInHeap(d Double) VALUE {
-	ret := VALUE(C.rb_float_new_in_heap(C.double(d)))
-	return ret
+	return VALUE(C.rb_float_new_in_heap(C.double(d)))
 }
 
 // RbFloatValue calls `rb_float_value` in C
@@ -3961,8 +3723,7 @@ func RbFloatNewInHeap(d Double) VALUE {
 //
 //	double rb_float_value(VALUE num)
 func RbFloatValue(num VALUE) Double {
-	ret := Double(C.rb_float_value(C.VALUE(num)))
-	return ret
+	return Double(C.rb_float_value(C.VALUE(num)))
 }
 
 // RbFltRationalize calls `rb_flt_rationalize` in C
@@ -3971,8 +3732,7 @@ func RbFloatValue(num VALUE) Double {
 //
 //	VALUE rb_flt_rationalize(VALUE flt)
 func RbFltRationalize(flt VALUE) VALUE {
-	ret := VALUE(C.rb_flt_rationalize(C.VALUE(flt)))
-	return ret
+	return VALUE(C.rb_flt_rationalize(C.VALUE(flt)))
 }
 
 // RbFltRationalizeWithPrec calls `rb_flt_rationalize_with_prec` in C
@@ -3981,8 +3741,7 @@ func RbFltRationalize(flt VALUE) VALUE {
 //
 //	VALUE rb_flt_rationalize_with_prec(VALUE flt, VALUE prec)
 func RbFltRationalizeWithPrec(flt VALUE, prec VALUE) VALUE {
-	ret := VALUE(C.rb_flt_rationalize_with_prec(C.VALUE(flt), C.VALUE(prec)))
-	return ret
+	return VALUE(C.rb_flt_rationalize_with_prec(C.VALUE(flt), C.VALUE(prec)))
 }
 
 // RbFrameCallee calls `rb_frame_callee` in C
@@ -3991,8 +3750,7 @@ func RbFltRationalizeWithPrec(flt VALUE, prec VALUE) VALUE {
 //
 //	ID rb_frame_callee(void)
 func RbFrameCallee() ID {
-	ret := ID(C.rb_frame_callee())
-	return ret
+	return ID(C.rb_frame_callee())
 }
 
 // RbFrameMethodIdAndClass calls `rb_frame_method_id_and_class` in C
@@ -4015,8 +3773,7 @@ func RbFrameMethodIdAndClass(idp *ID, klassp *VALUE) int {
 //
 //	ID rb_frame_this_func(void)
 func RbFrameThisFunc() ID {
-	ret := ID(C.rb_frame_this_func())
-	return ret
+	return ID(C.rb_frame_this_func())
 }
 
 // RbFreeGenericIvar calls `rb_free_generic_ivar` in C
@@ -4102,8 +3859,7 @@ func RbFuncallWithBlockKw(recv VALUE, mid ID, argc int, argv *VALUE, procval VAL
 //
 //	VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)
 func RbFuncallv(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
-	ret := VALUE(C.rb_funcallv(C.VALUE(recv), C.ID(mid), C.int(argc), toCArray[VALUE, C.VALUE](argv)))
-	return ret
+	return VALUE(C.rb_funcallv(C.VALUE(recv), C.ID(mid), C.int(argc), toCArray[VALUE, C.VALUE](argv)))
 }
 
 // RbFuncallvKw calls `rb_funcallv_kw` in C
@@ -4124,8 +3880,7 @@ func RbFuncallvKw(recv VALUE, mid ID, argc int, argv *VALUE, kw_splat int) VALUE
 //
 //	VALUE rb_funcallv_public(VALUE recv, ID mid, int argc, const VALUE *argv)
 func RbFuncallvPublic(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
-	ret := VALUE(C.rb_funcallv_public(C.VALUE(recv), C.ID(mid), C.int(argc), toCArray[VALUE, C.VALUE](argv)))
-	return ret
+	return VALUE(C.rb_funcallv_public(C.VALUE(recv), C.ID(mid), C.int(argc), toCArray[VALUE, C.VALUE](argv)))
 }
 
 // RbFuncallvPublicKw calls `rb_funcallv_public_kw` in C
@@ -4173,8 +3928,7 @@ func RbGcCopyFinalizer(dst VALUE, src VALUE) {
 //
 //	size_t rb_gc_count(void)
 func RbGcCount() SizeT {
-	ret := SizeT(C.rb_gc_count())
-	return ret
+	return SizeT(C.rb_gc_count())
 }
 
 // RbGcDisable calls `rb_gc_disable` in C
@@ -4183,8 +3937,7 @@ func RbGcCount() SizeT {
 //
 //	VALUE rb_gc_disable(void)
 func RbGcDisable() VALUE {
-	ret := VALUE(C.rb_gc_disable())
-	return ret
+	return VALUE(C.rb_gc_disable())
 }
 
 // RbGcEnable calls `rb_gc_enable` in C
@@ -4193,8 +3946,7 @@ func RbGcDisable() VALUE {
 //
 //	VALUE rb_gc_enable(void)
 func RbGcEnable() VALUE {
-	ret := VALUE(C.rb_gc_enable())
-	return ret
+	return VALUE(C.rb_gc_enable())
 }
 
 // RbGcLatestGcInfo calls `rb_gc_latest_gc_info` in C
@@ -4203,8 +3955,7 @@ func RbGcEnable() VALUE {
 //
 //	VALUE rb_gc_latest_gc_info(VALUE key_or_buf)
 func RbGcLatestGcInfo(key_or_buf VALUE) VALUE {
-	ret := VALUE(C.rb_gc_latest_gc_info(C.VALUE(key_or_buf)))
-	return ret
+	return VALUE(C.rb_gc_latest_gc_info(C.VALUE(key_or_buf)))
 }
 
 // RbGcLocation calls `rb_gc_location` in C
@@ -4213,8 +3964,7 @@ func RbGcLatestGcInfo(key_or_buf VALUE) VALUE {
 //
 //	VALUE rb_gc_location(VALUE obj)
 func RbGcLocation(obj VALUE) VALUE {
-	ret := VALUE(C.rb_gc_location(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_gc_location(C.VALUE(obj)))
 }
 
 // RbGcMark calls `rb_gc_mark` in C
@@ -4283,8 +4033,7 @@ func RbGcRegisterMarkObject(object VALUE) {
 //
 //	VALUE rb_gc_start(void)
 func RbGcStart() VALUE {
-	ret := VALUE(C.rb_gc_start())
-	return ret
+	return VALUE(C.rb_gc_start())
 }
 
 // RbGcStat calls `rb_gc_stat` in C
@@ -4293,8 +4042,7 @@ func RbGcStart() VALUE {
 //
 //	size_t rb_gc_stat(VALUE key_or_buf)
 func RbGcStat(key_or_buf VALUE) SizeT {
-	ret := SizeT(C.rb_gc_stat(C.VALUE(key_or_buf)))
-	return ret
+	return SizeT(C.rb_gc_stat(C.VALUE(key_or_buf)))
 }
 
 // RbGcUnregisterAddress calls `rb_gc_unregister_address` in C
@@ -4343,8 +4091,7 @@ func RbGcWritebarrierUnprotect(obj VALUE) {
 //
 //	unsigned int rb_genrand_int32(void)
 func RbGenrandInt32() uint {
-	ret := uint(C.rb_genrand_int32())
-	return ret
+	return uint(C.rb_genrand_int32())
 }
 
 // RbGenrandReal calls `rb_genrand_real` in C
@@ -4353,8 +4100,7 @@ func RbGenrandInt32() uint {
 //
 //	double rb_genrand_real(void)
 func RbGenrandReal() Double {
-	ret := Double(C.rb_genrand_real())
-	return ret
+	return Double(C.rb_genrand_real())
 }
 
 // RbGenrandUlongLimited calls `rb_genrand_ulong_limited` in C
@@ -4363,8 +4109,7 @@ func RbGenrandReal() Double {
 //
 //	unsigned long rb_genrand_ulong_limited(unsigned long i)
 func RbGenrandUlongLimited(i uint) uint {
-	ret := uint(C.rb_genrand_ulong_limited(C.ulong(i)))
-	return ret
+	return uint(C.rb_genrand_ulong_limited(C.ulong(i)))
 }
 
 // RbGetAllocFunc calls `rb_get_alloc_func` in C
@@ -4373,8 +4118,7 @@ func RbGenrandUlongLimited(i uint) uint {
 //
 //	rb_alloc_func_t rb_get_alloc_func(VALUE klass)
 func RbGetAllocFunc(klass VALUE) unsafe.Pointer {
-	ret := unsafe.Pointer(C.rb_get_alloc_func(C.VALUE(klass)))
-	return ret
+	return unsafe.Pointer(C.rb_get_alloc_func(C.VALUE(klass)))
 }
 
 // RbGetArgv calls `rb_get_argv` in C
@@ -4383,8 +4127,7 @@ func RbGetAllocFunc(klass VALUE) unsafe.Pointer {
 //
 //	VALUE rb_get_argv(void)
 func RbGetArgv() VALUE {
-	ret := VALUE(C.rb_get_argv())
-	return ret
+	return VALUE(C.rb_get_argv())
 }
 
 // RbGetKwargs calls `rb_get_kwargs` in C
@@ -4407,8 +4150,7 @@ func RbGetKwargs(keyword_hash VALUE, table *ID, required int, optional int, valu
 //
 //	VALUE rb_get_path(VALUE obj)
 func RbGetPath(obj VALUE) VALUE {
-	ret := VALUE(C.rb_get_path(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_get_path(C.VALUE(obj)))
 }
 
 // RbGetPathNoChecksafe calls `rb_get_path_no_checksafe` in C
@@ -4417,8 +4159,7 @@ func RbGetPath(obj VALUE) VALUE {
 //
 //	VALUE rb_get_path_no_checksafe(VALUE)
 func RbGetPathNoChecksafe(arg1 VALUE) VALUE {
-	ret := VALUE(C.rb_get_path_no_checksafe(C.VALUE(arg1)))
-	return ret
+	return VALUE(C.rb_get_path_no_checksafe(C.VALUE(arg1)))
 }
 
 // RbGetValuesAt calls `rb_get_values_at` in C
@@ -4439,8 +4180,7 @@ func RbGetValuesAt(obj VALUE, olen Long, argc int, argv *VALUE, arg5 unsafe.Poin
 //
 //	VALUE rb_gets(void)
 func RbGets() VALUE {
-	ret := VALUE(C.rb_gets())
-	return ret
+	return VALUE(C.rb_gets())
 }
 
 // RbGlob calls `rb_glob` in C
@@ -4475,8 +4215,7 @@ func RbGvGet(name string) VALUE {
 	char, clean := string2Char(name)
 	defer clean()
 
-	ret := VALUE(C.rb_gv_get(char))
-	return ret
+	return VALUE(C.rb_gv_get(char))
 }
 
 // RbGvSet calls `rb_gv_set` in C
@@ -4488,8 +4227,7 @@ func RbGvSet(name string, val VALUE) VALUE {
 	char, clean := string2Char(name)
 	defer clean()
 
-	ret := VALUE(C.rb_gv_set(char, C.VALUE(val)))
-	return ret
+	return VALUE(C.rb_gv_set(char, C.VALUE(val)))
 }
 
 // RbHash calls `rb_hash` in C
@@ -4498,8 +4236,7 @@ func RbGvSet(name string, val VALUE) VALUE {
 //
 //	VALUE rb_hash(VALUE obj)
 func RbHash(obj VALUE) VALUE {
-	ret := VALUE(C.rb_hash(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_hash(C.VALUE(obj)))
 }
 
 // RbHashAref calls `rb_hash_aref` in C
@@ -4508,8 +4245,7 @@ func RbHash(obj VALUE) VALUE {
 //
 //	VALUE rb_hash_aref(VALUE hash, VALUE key)
 func RbHashAref(hash VALUE, key VALUE) VALUE {
-	ret := VALUE(C.rb_hash_aref(C.VALUE(hash), C.VALUE(key)))
-	return ret
+	return VALUE(C.rb_hash_aref(C.VALUE(hash), C.VALUE(key)))
 }
 
 // RbHashAset calls `rb_hash_aset` in C
@@ -4518,8 +4254,7 @@ func RbHashAref(hash VALUE, key VALUE) VALUE {
 //
 //	VALUE rb_hash_aset(VALUE hash, VALUE key, VALUE val)
 func RbHashAset(hash VALUE, key VALUE, val VALUE) VALUE {
-	ret := VALUE(C.rb_hash_aset(C.VALUE(hash), C.VALUE(key), C.VALUE(val)))
-	return ret
+	return VALUE(C.rb_hash_aset(C.VALUE(hash), C.VALUE(key), C.VALUE(val)))
 }
 
 // RbHashBulkInsert calls `rb_hash_bulk_insert` in C
@@ -4550,8 +4285,7 @@ func RbHashBulkInsertIntoStTable(arg1 Long, arg2 *VALUE, arg3 VALUE) {
 //
 //	VALUE rb_hash_clear(VALUE hash)
 func RbHashClear(hash VALUE) VALUE {
-	ret := VALUE(C.rb_hash_clear(C.VALUE(hash)))
-	return ret
+	return VALUE(C.rb_hash_clear(C.VALUE(hash)))
 }
 
 // RbHashDelete calls `rb_hash_delete` in C
@@ -4560,8 +4294,7 @@ func RbHashClear(hash VALUE) VALUE {
 //
 //	VALUE rb_hash_delete(VALUE hash, VALUE key)
 func RbHashDelete(hash VALUE, key VALUE) VALUE {
-	ret := VALUE(C.rb_hash_delete(C.VALUE(hash), C.VALUE(key)))
-	return ret
+	return VALUE(C.rb_hash_delete(C.VALUE(hash), C.VALUE(key)))
 }
 
 // RbHashDeleteIf calls `rb_hash_delete_if` in C
@@ -4570,8 +4303,7 @@ func RbHashDelete(hash VALUE, key VALUE) VALUE {
 //
 //	VALUE rb_hash_delete_if(VALUE hash)
 func RbHashDeleteIf(hash VALUE) VALUE {
-	ret := VALUE(C.rb_hash_delete_if(C.VALUE(hash)))
-	return ret
+	return VALUE(C.rb_hash_delete_if(C.VALUE(hash)))
 }
 
 // RbHashDup calls `rb_hash_dup` in C
@@ -4580,8 +4312,7 @@ func RbHashDeleteIf(hash VALUE) VALUE {
 //
 //	VALUE rb_hash_dup(VALUE hash)
 func RbHashDup(hash VALUE) VALUE {
-	ret := VALUE(C.rb_hash_dup(C.VALUE(hash)))
-	return ret
+	return VALUE(C.rb_hash_dup(C.VALUE(hash)))
 }
 
 // RbHashFetch calls `rb_hash_fetch` in C
@@ -4590,8 +4321,7 @@ func RbHashDup(hash VALUE) VALUE {
 //
 //	VALUE rb_hash_fetch(VALUE hash, VALUE key)
 func RbHashFetch(hash VALUE, key VALUE) VALUE {
-	ret := VALUE(C.rb_hash_fetch(C.VALUE(hash), C.VALUE(key)))
-	return ret
+	return VALUE(C.rb_hash_fetch(C.VALUE(hash), C.VALUE(key)))
 }
 
 // RbHashForeach calls `rb_hash_foreach` in C
@@ -4609,8 +4339,7 @@ func RbHashForeach(hash VALUE, arg2 unsafe.Pointer, arg VALUE) {
 //
 //	VALUE rb_hash_freeze(VALUE obj)
 func RbHashFreeze(obj VALUE) VALUE {
-	ret := VALUE(C.rb_hash_freeze(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_hash_freeze(C.VALUE(obj)))
 }
 
 // RbHashLookup calls `rb_hash_lookup` in C
@@ -4619,8 +4348,7 @@ func RbHashFreeze(obj VALUE) VALUE {
 //
 //	VALUE rb_hash_lookup(VALUE hash, VALUE key)
 func RbHashLookup(hash VALUE, key VALUE) VALUE {
-	ret := VALUE(C.rb_hash_lookup(C.VALUE(hash), C.VALUE(key)))
-	return ret
+	return VALUE(C.rb_hash_lookup(C.VALUE(hash), C.VALUE(key)))
 }
 
 // RbHashLookup2 calls `rb_hash_lookup2` in C
@@ -4629,8 +4357,7 @@ func RbHashLookup(hash VALUE, key VALUE) VALUE {
 //
 //	VALUE rb_hash_lookup2(VALUE hash, VALUE key, VALUE def)
 func RbHashLookup2(hash VALUE, key VALUE, def VALUE) VALUE {
-	ret := VALUE(C.rb_hash_lookup2(C.VALUE(hash), C.VALUE(key), C.VALUE(def)))
-	return ret
+	return VALUE(C.rb_hash_lookup2(C.VALUE(hash), C.VALUE(key), C.VALUE(def)))
 }
 
 // RbHashNew calls `rb_hash_new` in C
@@ -4639,8 +4366,7 @@ func RbHashLookup2(hash VALUE, key VALUE, def VALUE) VALUE {
 //
 //	VALUE rb_hash_new(void)
 func RbHashNew() VALUE {
-	ret := VALUE(C.rb_hash_new())
-	return ret
+	return VALUE(C.rb_hash_new())
 }
 
 // RbHashNewCapa calls `rb_hash_new_capa` in C
@@ -4649,8 +4375,7 @@ func RbHashNew() VALUE {
 //
 //	VALUE rb_hash_new_capa(long capa)
 func RbHashNewCapa(capa Long) VALUE {
-	ret := VALUE(C.rb_hash_new_capa(C.long(capa)))
-	return ret
+	return VALUE(C.rb_hash_new_capa(C.long(capa)))
 }
 
 // RbHashSetIfnone calls `rb_hash_set_ifnone` in C
@@ -4659,8 +4384,7 @@ func RbHashNewCapa(capa Long) VALUE {
 //
 //	VALUE rb_hash_set_ifnone(VALUE hash, VALUE ifnone)
 func RbHashSetIfnone(hash VALUE, ifnone VALUE) VALUE {
-	ret := VALUE(C.rb_hash_set_ifnone(C.VALUE(hash), C.VALUE(ifnone)))
-	return ret
+	return VALUE(C.rb_hash_set_ifnone(C.VALUE(hash), C.VALUE(ifnone)))
 }
 
 // RbHashSize calls `rb_hash_size` in C
@@ -4669,8 +4393,7 @@ func RbHashSetIfnone(hash VALUE, ifnone VALUE) VALUE {
 //
 //	VALUE rb_hash_size(VALUE hash)
 func RbHashSize(hash VALUE) VALUE {
-	ret := VALUE(C.rb_hash_size(C.VALUE(hash)))
-	return ret
+	return VALUE(C.rb_hash_size(C.VALUE(hash)))
 }
 
 // RbHashSizeNum calls `rb_hash_size_num` in C
@@ -4679,8 +4402,7 @@ func RbHashSize(hash VALUE) VALUE {
 //
 //	size_t rb_hash_size_num(VALUE hash)
 func RbHashSizeNum(hash VALUE) SizeT {
-	ret := SizeT(C.rb_hash_size_num(C.VALUE(hash)))
-	return ret
+	return SizeT(C.rb_hash_size_num(C.VALUE(hash)))
 }
 
 // RbHashStart calls `rb_hash_start` in C
@@ -4689,8 +4411,7 @@ func RbHashSizeNum(hash VALUE) SizeT {
 //
 //	st_index_t rb_hash_start(st_index_t i)
 func RbHashStart(i StIndexT) StIndexT {
-	ret := StIndexT(C.rb_hash_start(C.st_index_t(i)))
-	return ret
+	return StIndexT(C.rb_hash_start(C.st_index_t(i)))
 }
 
 // RbHashTbl calls `rb_hash_tbl` in C
@@ -4702,8 +4423,7 @@ func RbHashTbl(hash VALUE, file string, line int) *StTable {
 	char, clean := string2Char(file)
 	defer clean()
 
-	ret := (*StTable)(C.rb_hash_tbl(C.VALUE(hash), char, C.int(line)))
-	return ret
+	return (*StTable)(C.rb_hash_tbl(C.VALUE(hash), char, C.int(line)))
 }
 
 // RbHashUpdateBy calls `rb_hash_update_by` in C
@@ -4724,8 +4444,7 @@ func RbHashUpdateBy(hash1 VALUE, hash2 VALUE, fun *RbHashUpdateFunc) VALUE {
 //
 //	const char *rb_id2name(ID id)
 func RbId2Name(id ID) string {
-	ret := char2String(C.rb_id2name(C.ID(id)))
-	return ret
+	return char2String(C.rb_id2name(C.ID(id)))
 }
 
 // RbId2Str calls `rb_id2str` in C
@@ -4734,8 +4453,7 @@ func RbId2Name(id ID) string {
 //
 //	VALUE rb_id2str(ID id)
 func RbId2Str(id ID) VALUE {
-	ret := VALUE(C.rb_id2str(C.ID(id)))
-	return ret
+	return VALUE(C.rb_id2str(C.ID(id)))
 }
 
 // RbId2Sym calls `rb_id2sym` in C
@@ -4744,8 +4462,7 @@ func RbId2Str(id ID) VALUE {
 //
 //	VALUE rb_id2sym(ID id)
 func RbId2Sym(id ID) VALUE {
-	ret := VALUE(C.rb_id2sym(C.ID(id)))
-	return ret
+	return VALUE(C.rb_id2sym(C.ID(id)))
 }
 
 // RbIdAttrset calls `rb_id_attrset` in C
@@ -4754,8 +4471,7 @@ func RbId2Sym(id ID) VALUE {
 //
 //	ID rb_id_attrset(ID id)
 func RbIdAttrset(id ID) ID {
-	ret := ID(C.rb_id_attrset(C.ID(id)))
-	return ret
+	return ID(C.rb_id_attrset(C.ID(id)))
 }
 
 // RbIncludeModule calls `rb_include_module` in C
@@ -4773,8 +4489,7 @@ func RbIncludeModule(klass VALUE, module VALUE) {
 //
 //	VALUE rb_inspect(VALUE obj)
 func RbInspect(obj VALUE) VALUE {
-	ret := VALUE(C.rb_inspect(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_inspect(C.VALUE(obj)))
 }
 
 // RbInt2Big calls `rb_int2big` in C
@@ -4783,8 +4498,7 @@ func RbInspect(obj VALUE) VALUE {
 //
 //	VALUE rb_int2big(intptr_t i)
 func RbInt2Big(i IntptrT) VALUE {
-	ret := VALUE(C.rb_int2big(C.intptr_t(i)))
-	return ret
+	return VALUE(C.rb_int2big(C.intptr_t(i)))
 }
 
 // RbInt2Inum calls `rb_int2inum` in C
@@ -4793,8 +4507,7 @@ func RbInt2Big(i IntptrT) VALUE {
 //
 //	VALUE rb_int2inum(intptr_t i)
 func RbInt2Inum(i IntptrT) VALUE {
-	ret := VALUE(C.rb_int2inum(C.intptr_t(i)))
-	return ret
+	return VALUE(C.rb_int2inum(C.intptr_t(i)))
 }
 
 // RbInt2NumInline calls `rb_int2num_inline` in C
@@ -4803,8 +4516,7 @@ func RbInt2Inum(i IntptrT) VALUE {
 //
 //	rb_int2num_inline(int v)
 func RbInt2NumInline(v int) VALUE {
-	ret := VALUE(C.rb_int2num_inline(C.int(v)))
-	return ret
+	return VALUE(C.rb_int2num_inline(C.int(v)))
 }
 
 // RbIntPositivePow calls `rb_int_positive_pow` in C
@@ -4813,8 +4525,7 @@ func RbInt2NumInline(v int) VALUE {
 //
 //	extern VALUE rb_int_positive_pow(long x, unsigned long y)
 func RbIntPositivePow(x Long, y uint) VALUE {
-	ret := VALUE(C.rb_int_positive_pow(C.long(x), C.ulong(y)))
-	return ret
+	return VALUE(C.rb_int_positive_pow(C.long(x), C.ulong(y)))
 }
 
 // RbIntegerPack calls `rb_integer_pack` in C
@@ -4823,8 +4534,7 @@ func RbIntPositivePow(x Long, y uint) VALUE {
 //
 //	int rb_integer_pack(VALUE val, void *words, size_t numwords, size_t wordsize, size_t nails, int flags)
 func RbIntegerPack(val VALUE, words unsafe.Pointer, numwords SizeT, wordsize SizeT, nails SizeT, flags int) int {
-	ret := int(C.rb_integer_pack(C.VALUE(val), words, C.size_t(numwords), C.size_t(wordsize), C.size_t(nails), C.int(flags)))
-	return ret
+	return int(C.rb_integer_pack(C.VALUE(val), words, C.size_t(numwords), C.size_t(wordsize), C.size_t(nails), C.int(flags)))
 }
 
 // RbIntegerTypeP calls `rb_integer_type_p` in C
@@ -4833,8 +4543,7 @@ func RbIntegerPack(val VALUE, words unsafe.Pointer, numwords SizeT, wordsize Siz
 //
 //	rb_integer_type_p(VALUE obj)
 func RbIntegerTypeP(obj VALUE) Bool {
-	ret := Bool(C.rb_integer_type_p(C.VALUE(obj)))
-	return ret
+	return Bool(C.rb_integer_type_p(C.VALUE(obj)))
 }
 
 // RbIntegerUnpack calls `rb_integer_unpack` in C
@@ -4843,8 +4552,7 @@ func RbIntegerTypeP(obj VALUE) Bool {
 //
 //	VALUE rb_integer_unpack(const void *words, size_t numwords, size_t wordsize, size_t nails, int flags)
 func RbIntegerUnpack(words unsafe.Pointer, numwords SizeT, wordsize SizeT, nails SizeT, flags int) VALUE {
-	ret := VALUE(C.rb_integer_unpack(words, C.size_t(numwords), C.size_t(wordsize), C.size_t(nails), C.int(flags)))
-	return ret
+	return VALUE(C.rb_integer_unpack(words, C.size_t(numwords), C.size_t(wordsize), C.size_t(nails), C.int(flags)))
 }
 
 // RbIntern calls `rb_intern` in C
@@ -4856,8 +4564,7 @@ func RbIntern(name string) ID {
 	char, clean := string2Char(name)
 	defer clean()
 
-	ret := ID(C.rb_intern(char))
-	return ret
+	return ID(C.rb_intern(char))
 }
 
 // RbIntern2 calls `rb_intern2` in C
@@ -4869,8 +4576,7 @@ func RbIntern2(name string, len Long) ID {
 	char, clean := string2Char(name)
 	defer clean()
 
-	ret := ID(C.rb_intern2(char, C.long(len)))
-	return ret
+	return ID(C.rb_intern2(char, C.long(len)))
 }
 
 // RbInternConst calls `rb_intern_const` in C
@@ -4882,8 +4588,7 @@ func RbInternConst(str string) ID {
 	char, clean := string2Char(str)
 	defer clean()
 
-	ret := ID(C.rb_intern_const(char))
-	return ret
+	return ID(C.rb_intern_const(char))
 }
 
 // RbInternStr calls `rb_intern_str` in C
@@ -4892,8 +4597,7 @@ func RbInternConst(str string) ID {
 //
 //	ID rb_intern_str(VALUE str)
 func RbInternStr(str VALUE) ID {
-	ret := ID(C.rb_intern_str(C.VALUE(str)))
-	return ret
+	return ID(C.rb_intern_str(C.VALUE(str)))
 }
 
 // RbInternedStr calls `rb_interned_str` in C
@@ -4905,8 +4609,7 @@ func RbInternedStr(ptr string, len Long) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_interned_str(char, C.long(len)))
-	return ret
+	return VALUE(C.rb_interned_str(char, C.long(len)))
 }
 
 // RbInternedStrCstr calls `rb_interned_str_cstr` in C
@@ -4918,8 +4621,7 @@ func RbInternedStrCstr(ptr string) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_interned_str_cstr(char))
-	return ret
+	return VALUE(C.rb_interned_str_cstr(char))
 }
 
 // RbInterrupt calls `rb_interrupt` in C
@@ -4952,8 +4654,7 @@ func RbInvalidStr(str string, t string) {
 //
 //	VALUE rb_io_addstr(VALUE io, VALUE str)
 func RbIoAddstr(io VALUE, str VALUE) VALUE {
-	ret := VALUE(C.rb_io_addstr(C.VALUE(io), C.VALUE(str)))
-	return ret
+	return VALUE(C.rb_io_addstr(C.VALUE(io), C.VALUE(str)))
 }
 
 // RbIoAscii8BitBinmode calls `rb_io_ascii8bit_binmode` in C
@@ -4962,8 +4663,7 @@ func RbIoAddstr(io VALUE, str VALUE) VALUE {
 //
 //	VALUE rb_io_ascii8bit_binmode(VALUE io)
 func RbIoAscii8BitBinmode(io VALUE) VALUE {
-	ret := VALUE(C.rb_io_ascii8bit_binmode(C.VALUE(io)))
-	return ret
+	return VALUE(C.rb_io_ascii8bit_binmode(C.VALUE(io)))
 }
 
 // RbIoBinmode calls `rb_io_binmode` in C
@@ -4972,8 +4672,7 @@ func RbIoAscii8BitBinmode(io VALUE) VALUE {
 //
 //	VALUE rb_io_binmode(VALUE io)
 func RbIoBinmode(io VALUE) VALUE {
-	ret := VALUE(C.rb_io_binmode(C.VALUE(io)))
-	return ret
+	return VALUE(C.rb_io_binmode(C.VALUE(io)))
 }
 
 // RbIoClose calls `rb_io_close` in C
@@ -4982,8 +4681,7 @@ func RbIoBinmode(io VALUE) VALUE {
 //
 //	VALUE rb_io_close(VALUE io)
 func RbIoClose(io VALUE) VALUE {
-	ret := VALUE(C.rb_io_close(C.VALUE(io)))
-	return ret
+	return VALUE(C.rb_io_close(C.VALUE(io)))
 }
 
 // RbIoEof calls `rb_io_eof` in C
@@ -4992,8 +4690,7 @@ func RbIoClose(io VALUE) VALUE {
 //
 //	VALUE rb_io_eof(VALUE io)
 func RbIoEof(io VALUE) VALUE {
-	ret := VALUE(C.rb_io_eof(C.VALUE(io)))
-	return ret
+	return VALUE(C.rb_io_eof(C.VALUE(io)))
 }
 
 // RbIoFdopen calls `rb_io_fdopen` in C
@@ -5005,8 +4702,7 @@ func RbIoFdopen(fd int, flags int, path string) VALUE {
 	char, clean := string2Char(path)
 	defer clean()
 
-	ret := VALUE(C.rb_io_fdopen(C.int(fd), C.int(flags), char))
-	return ret
+	return VALUE(C.rb_io_fdopen(C.int(fd), C.int(flags), char))
 }
 
 // RbIoFlush calls `rb_io_flush` in C
@@ -5015,8 +4711,7 @@ func RbIoFdopen(fd int, flags int, path string) VALUE {
 //
 //	VALUE rb_io_flush(VALUE io)
 func RbIoFlush(io VALUE) VALUE {
-	ret := VALUE(C.rb_io_flush(C.VALUE(io)))
-	return ret
+	return VALUE(C.rb_io_flush(C.VALUE(io)))
 }
 
 // RbIoGetbyte calls `rb_io_getbyte` in C
@@ -5025,8 +4720,7 @@ func RbIoFlush(io VALUE) VALUE {
 //
 //	VALUE rb_io_getbyte(VALUE io)
 func RbIoGetbyte(io VALUE) VALUE {
-	ret := VALUE(C.rb_io_getbyte(C.VALUE(io)))
-	return ret
+	return VALUE(C.rb_io_getbyte(C.VALUE(io)))
 }
 
 // RbIoGets calls `rb_io_gets` in C
@@ -5035,8 +4729,7 @@ func RbIoGetbyte(io VALUE) VALUE {
 //
 //	VALUE rb_io_gets(VALUE io)
 func RbIoGets(io VALUE) VALUE {
-	ret := VALUE(C.rb_io_gets(C.VALUE(io)))
-	return ret
+	return VALUE(C.rb_io_gets(C.VALUE(io)))
 }
 
 // RbIoPrint calls `rb_io_print` in C
@@ -5081,8 +4774,7 @@ func RbIoPuts(argc int, argv *VALUE, io VALUE) VALUE {
 //
 //	VALUE rb_io_ungetbyte(VALUE io, VALUE b)
 func RbIoUngetbyte(io VALUE, b VALUE) VALUE {
-	ret := VALUE(C.rb_io_ungetbyte(C.VALUE(io), C.VALUE(b)))
-	return ret
+	return VALUE(C.rb_io_ungetbyte(C.VALUE(io), C.VALUE(b)))
 }
 
 // RbIoUngetc calls `rb_io_ungetc` in C
@@ -5091,8 +4783,7 @@ func RbIoUngetbyte(io VALUE, b VALUE) VALUE {
 //
 //	VALUE rb_io_ungetc(VALUE io, VALUE c)
 func RbIoUngetc(io VALUE, c VALUE) VALUE {
-	ret := VALUE(C.rb_io_ungetc(C.VALUE(io), C.VALUE(c)))
-	return ret
+	return VALUE(C.rb_io_ungetc(C.VALUE(io), C.VALUE(c)))
 }
 
 // RbIoWrite calls `rb_io_write` in C
@@ -5101,8 +4792,7 @@ func RbIoUngetc(io VALUE, c VALUE) VALUE {
 //
 //	VALUE rb_io_write(VALUE io, VALUE str)
 func RbIoWrite(io VALUE, str VALUE) VALUE {
-	ret := VALUE(C.rb_io_write(C.VALUE(io), C.VALUE(str)))
-	return ret
+	return VALUE(C.rb_io_write(C.VALUE(io), C.VALUE(str)))
 }
 
 // RbIsAbsolutePath calls `rb_is_absolute_path` in C
@@ -5114,8 +4804,7 @@ func RbIsAbsolutePath(path string) int {
 	char, clean := string2Char(path)
 	defer clean()
 
-	ret := int(C.rb_is_absolute_path(char))
-	return ret
+	return int(C.rb_is_absolute_path(char))
 }
 
 // RbIsAttrsetId calls `rb_is_attrset_id` in C
@@ -5124,8 +4813,7 @@ func RbIsAbsolutePath(path string) int {
 //
 //	int rb_is_attrset_id(ID id)
 func RbIsAttrsetId(id ID) int {
-	ret := int(C.rb_is_attrset_id(C.ID(id)))
-	return ret
+	return int(C.rb_is_attrset_id(C.ID(id)))
 }
 
 // RbIsClassId calls `rb_is_class_id` in C
@@ -5134,8 +4822,7 @@ func RbIsAttrsetId(id ID) int {
 //
 //	int rb_is_class_id(ID id)
 func RbIsClassId(id ID) int {
-	ret := int(C.rb_is_class_id(C.ID(id)))
-	return ret
+	return int(C.rb_is_class_id(C.ID(id)))
 }
 
 // RbIsConstId calls `rb_is_const_id` in C
@@ -5144,8 +4831,7 @@ func RbIsClassId(id ID) int {
 //
 //	int rb_is_const_id(ID id)
 func RbIsConstId(id ID) int {
-	ret := int(C.rb_is_const_id(C.ID(id)))
-	return ret
+	return int(C.rb_is_const_id(C.ID(id)))
 }
 
 // RbIsGlobalId calls `rb_is_global_id` in C
@@ -5154,8 +4840,7 @@ func RbIsConstId(id ID) int {
 //
 //	int rb_is_global_id(ID id)
 func RbIsGlobalId(id ID) int {
-	ret := int(C.rb_is_global_id(C.ID(id)))
-	return ret
+	return int(C.rb_is_global_id(C.ID(id)))
 }
 
 // RbIsInstanceId calls `rb_is_instance_id` in C
@@ -5164,8 +4849,7 @@ func RbIsGlobalId(id ID) int {
 //
 //	int rb_is_instance_id(ID id)
 func RbIsInstanceId(id ID) int {
-	ret := int(C.rb_is_instance_id(C.ID(id)))
-	return ret
+	return int(C.rb_is_instance_id(C.ID(id)))
 }
 
 // RbIsJunkId calls `rb_is_junk_id` in C
@@ -5174,8 +4858,7 @@ func RbIsInstanceId(id ID) int {
 //
 //	int rb_is_junk_id(ID)
 func RbIsJunkId(arg1 ID) int {
-	ret := int(C.rb_is_junk_id(C.ID(arg1)))
-	return ret
+	return int(C.rb_is_junk_id(C.ID(arg1)))
 }
 
 // RbIsLocalId calls `rb_is_local_id` in C
@@ -5184,8 +4867,7 @@ func RbIsJunkId(arg1 ID) int {
 //
 //	int rb_is_local_id(ID id)
 func RbIsLocalId(id ID) int {
-	ret := int(C.rb_is_local_id(C.ID(id)))
-	return ret
+	return int(C.rb_is_local_id(C.ID(id)))
 }
 
 // RbIsalnum calls `rb_isalnum` in C
@@ -5194,8 +4876,7 @@ func RbIsLocalId(id ID) int {
 //
 //	rb_isalnum(int c)
 func RbIsalnum(c int) int {
-	ret := int(C.rb_isalnum(C.int(c)))
-	return ret
+	return int(C.rb_isalnum(C.int(c)))
 }
 
 // RbIsalpha calls `rb_isalpha` in C
@@ -5204,8 +4885,7 @@ func RbIsalnum(c int) int {
 //
 //	rb_isalpha(int c)
 func RbIsalpha(c int) int {
-	ret := int(C.rb_isalpha(C.int(c)))
-	return ret
+	return int(C.rb_isalpha(C.int(c)))
 }
 
 // RbIsascii calls `rb_isascii` in C
@@ -5214,8 +4894,7 @@ func RbIsalpha(c int) int {
 //
 //	rb_isascii(int c)
 func RbIsascii(c int) int {
-	ret := int(C.rb_isascii(C.int(c)))
-	return ret
+	return int(C.rb_isascii(C.int(c)))
 }
 
 // RbIsblank calls `rb_isblank` in C
@@ -5224,8 +4903,7 @@ func RbIsascii(c int) int {
 //
 //	rb_isblank(int c)
 func RbIsblank(c int) int {
-	ret := int(C.rb_isblank(C.int(c)))
-	return ret
+	return int(C.rb_isblank(C.int(c)))
 }
 
 // RbIscntrl calls `rb_iscntrl` in C
@@ -5234,8 +4912,7 @@ func RbIsblank(c int) int {
 //
 //	rb_iscntrl(int c)
 func RbIscntrl(c int) int {
-	ret := int(C.rb_iscntrl(C.int(c)))
-	return ret
+	return int(C.rb_iscntrl(C.int(c)))
 }
 
 // RbIsdigit calls `rb_isdigit` in C
@@ -5244,8 +4921,7 @@ func RbIscntrl(c int) int {
 //
 //	rb_isdigit(int c)
 func RbIsdigit(c int) int {
-	ret := int(C.rb_isdigit(C.int(c)))
-	return ret
+	return int(C.rb_isdigit(C.int(c)))
 }
 
 // RbIsgraph calls `rb_isgraph` in C
@@ -5254,8 +4930,7 @@ func RbIsdigit(c int) int {
 //
 //	rb_isgraph(int c)
 func RbIsgraph(c int) int {
-	ret := int(C.rb_isgraph(C.int(c)))
-	return ret
+	return int(C.rb_isgraph(C.int(c)))
 }
 
 // RbIslower calls `rb_islower` in C
@@ -5264,8 +4939,7 @@ func RbIsgraph(c int) int {
 //
 //	rb_islower(int c)
 func RbIslower(c int) int {
-	ret := int(C.rb_islower(C.int(c)))
-	return ret
+	return int(C.rb_islower(C.int(c)))
 }
 
 // RbIsprint calls `rb_isprint` in C
@@ -5274,8 +4948,7 @@ func RbIslower(c int) int {
 //
 //	rb_isprint(int c)
 func RbIsprint(c int) int {
-	ret := int(C.rb_isprint(C.int(c)))
-	return ret
+	return int(C.rb_isprint(C.int(c)))
 }
 
 // RbIspunct calls `rb_ispunct` in C
@@ -5284,8 +4957,7 @@ func RbIsprint(c int) int {
 //
 //	rb_ispunct(int c)
 func RbIspunct(c int) int {
-	ret := int(C.rb_ispunct(C.int(c)))
-	return ret
+	return int(C.rb_ispunct(C.int(c)))
 }
 
 // RbIsspace calls `rb_isspace` in C
@@ -5294,8 +4966,7 @@ func RbIspunct(c int) int {
 //
 //	rb_isspace(int c)
 func RbIsspace(c int) int {
-	ret := int(C.rb_isspace(C.int(c)))
-	return ret
+	return int(C.rb_isspace(C.int(c)))
 }
 
 // RbIsupper calls `rb_isupper` in C
@@ -5304,8 +4975,7 @@ func RbIsspace(c int) int {
 //
 //	rb_isupper(int c)
 func RbIsupper(c int) int {
-	ret := int(C.rb_isupper(C.int(c)))
-	return ret
+	return int(C.rb_isupper(C.int(c)))
 }
 
 // RbIsxdigit calls `rb_isxdigit` in C
@@ -5314,8 +4984,7 @@ func RbIsupper(c int) int {
 //
 //	rb_isxdigit(int c)
 func RbIsxdigit(c int) int {
-	ret := int(C.rb_isxdigit(C.int(c)))
-	return ret
+	return int(C.rb_isxdigit(C.int(c)))
 }
 
 // RbIterBreak calls `rb_iter_break` in C
@@ -5345,8 +5014,7 @@ func RbIvGet(obj VALUE, name string) VALUE {
 	char, clean := string2Char(name)
 	defer clean()
 
-	ret := VALUE(C.rb_iv_get(C.VALUE(obj), char))
-	return ret
+	return VALUE(C.rb_iv_get(C.VALUE(obj), char))
 }
 
 // RbIvSet calls `rb_iv_set` in C
@@ -5358,8 +5026,7 @@ func RbIvSet(obj VALUE, name string, val VALUE) VALUE {
 	char, clean := string2Char(name)
 	defer clean()
 
-	ret := VALUE(C.rb_iv_set(C.VALUE(obj), char, C.VALUE(val)))
-	return ret
+	return VALUE(C.rb_iv_set(C.VALUE(obj), char, C.VALUE(val)))
 }
 
 // RbIvarCount calls `rb_ivar_count` in C
@@ -5368,8 +5035,7 @@ func RbIvSet(obj VALUE, name string, val VALUE) VALUE {
 //
 //	st_index_t rb_ivar_count(VALUE obj)
 func RbIvarCount(obj VALUE) StIndexT {
-	ret := StIndexT(C.rb_ivar_count(C.VALUE(obj)))
-	return ret
+	return StIndexT(C.rb_ivar_count(C.VALUE(obj)))
 }
 
 // RbIvarDefined calls `rb_ivar_defined` in C
@@ -5378,8 +5044,7 @@ func RbIvarCount(obj VALUE) StIndexT {
 //
 //	VALUE rb_ivar_defined(VALUE obj, ID name)
 func RbIvarDefined(obj VALUE, name ID) VALUE {
-	ret := VALUE(C.rb_ivar_defined(C.VALUE(obj), C.ID(name)))
-	return ret
+	return VALUE(C.rb_ivar_defined(C.VALUE(obj), C.ID(name)))
 }
 
 // RbIvarForeach calls `rb_ivar_foreach` in C
@@ -5397,8 +5062,7 @@ func RbIvarForeach(obj VALUE, arg2 unsafe.Pointer, arg StDataT) {
 //
 //	VALUE rb_ivar_get(VALUE obj, ID name)
 func RbIvarGet(obj VALUE, name ID) VALUE {
-	ret := VALUE(C.rb_ivar_get(C.VALUE(obj), C.ID(name)))
-	return ret
+	return VALUE(C.rb_ivar_get(C.VALUE(obj), C.ID(name)))
 }
 
 // RbIvarSet calls `rb_ivar_set` in C
@@ -5407,8 +5071,7 @@ func RbIvarGet(obj VALUE, name ID) VALUE {
 //
 //	VALUE rb_ivar_set(VALUE obj, ID name, VALUE val)
 func RbIvarSet(obj VALUE, name ID, val VALUE) VALUE {
-	ret := VALUE(C.rb_ivar_set(C.VALUE(obj), C.ID(name), C.VALUE(val)))
-	return ret
+	return VALUE(C.rb_ivar_set(C.VALUE(obj), C.ID(name), C.VALUE(val)))
 }
 
 // RbJumpTag calls `rb_jump_tag` in C
@@ -5426,8 +5089,7 @@ func RbJumpTag(state int) {
 //
 //	int rb_keyword_given_p(void)
 func RbKeywordGivenP() int {
-	ret := int(C.rb_keyword_given_p())
-	return ret
+	return int(C.rb_keyword_given_p())
 }
 
 // RbLastStatusGet calls `rb_last_status_get` in C
@@ -5436,8 +5098,7 @@ func RbKeywordGivenP() int {
 //
 //	VALUE rb_last_status_get(void)
 func RbLastStatusGet() VALUE {
-	ret := VALUE(C.rb_last_status_get())
-	return ret
+	return VALUE(C.rb_last_status_get())
 }
 
 // RbLastStatusSet calls `rb_last_status_set` in C
@@ -5455,8 +5116,7 @@ func RbLastStatusSet(status int, pid PidT) {
 //
 //	VALUE rb_lastline_get(void)
 func RbLastlineGet() VALUE {
-	ret := VALUE(C.rb_lastline_get())
-	return ret
+	return VALUE(C.rb_lastline_get())
 }
 
 // RbLastlineSet calls `rb_lastline_set` in C
@@ -5474,8 +5134,7 @@ func RbLastlineSet(str VALUE) {
 //
 //	VALUE rb_ll2inum(
 func RbLl2Inum(num Longlong) VALUE {
-	ret := VALUE(C.rb_ll2inum(C.longlong(num)))
-	return ret
+	return VALUE(C.rb_ll2inum(C.longlong(num)))
 }
 
 // RbLl2NumInline calls `rb_ll2num_inline` in C
@@ -5484,8 +5143,7 @@ func RbLl2Inum(num Longlong) VALUE {
 //
 //	rb_ll2num_inline(
 func RbLl2NumInline(n Longlong) VALUE {
-	ret := VALUE(C.rb_ll2num_inline(C.longlong(n)))
-	return ret
+	return VALUE(C.rb_ll2num_inline(C.longlong(n)))
 }
 
 // RbLoad calls `rb_load` in C
@@ -5506,8 +5164,7 @@ func RbLoadFile(file string) unsafe.Pointer {
 	char, clean := string2Char(file)
 	defer clean()
 
-	ret := unsafe.Pointer(C.rb_load_file(char))
-	return ret
+	return unsafe.Pointer(C.rb_load_file(char))
 }
 
 // RbLoadFileStr calls `rb_load_file_str` in C
@@ -5516,8 +5173,7 @@ func RbLoadFile(file string) unsafe.Pointer {
 //
 //	void *rb_load_file_str(VALUE file)
 func RbLoadFileStr(file VALUE) unsafe.Pointer {
-	ret := unsafe.Pointer(C.rb_load_file_str(C.VALUE(file)))
-	return ret
+	return unsafe.Pointer(C.rb_load_file_str(C.VALUE(file)))
 }
 
 // RbLoadProtect calls `rb_load_protect` in C
@@ -5540,8 +5196,7 @@ func RbLocaleStrNew(ptr string, len Long) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_locale_str_new(char, C.long(len)))
-	return ret
+	return VALUE(C.rb_locale_str_new(char, C.long(len)))
 }
 
 // RbLocaleStrNewCstr calls `rb_locale_str_new_cstr` in C
@@ -5553,8 +5208,7 @@ func RbLocaleStrNewCstr(ptr string) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_locale_str_new_cstr(char))
-	return ret
+	return VALUE(C.rb_locale_str_new_cstr(char))
 }
 
 // RbLong2IntInline calls `rb_long2int_inline` in C
@@ -5563,8 +5217,7 @@ func RbLocaleStrNewCstr(ptr string) VALUE {
 //
 //	rb_long2int_inline(long n)
 func RbLong2IntInline(n Long) int {
-	ret := int(C.rb_long2int_inline(C.long(n)))
-	return ret
+	return int(C.rb_long2int_inline(C.long(n)))
 }
 
 // RbLong2NumInline calls `rb_long2num_inline` in C
@@ -5573,8 +5226,7 @@ func RbLong2IntInline(n Long) int {
 //
 //	rb_long2num_inline(long v)
 func RbLong2NumInline(v Long) VALUE {
-	ret := VALUE(C.rb_long2num_inline(C.long(v)))
-	return ret
+	return VALUE(C.rb_long2num_inline(C.long(v)))
 }
 
 // RbMakeBacktrace calls `rb_make_backtrace` in C
@@ -5583,8 +5235,7 @@ func RbLong2NumInline(v Long) VALUE {
 //
 //	VALUE rb_make_backtrace(void)
 func RbMakeBacktrace() VALUE {
-	ret := VALUE(C.rb_make_backtrace())
-	return ret
+	return VALUE(C.rb_make_backtrace())
 }
 
 // RbMakeException calls `rb_make_exception` in C
@@ -5658,8 +5309,7 @@ func RbMarshalDefineCompat(newclass VALUE, oldclass VALUE, arg3 unsafe.Pointer, 
 //
 //	VALUE rb_marshal_dump(VALUE obj, VALUE port)
 func RbMarshalDump(obj VALUE, port VALUE) VALUE {
-	ret := VALUE(C.rb_marshal_dump(C.VALUE(obj), C.VALUE(port)))
-	return ret
+	return VALUE(C.rb_marshal_dump(C.VALUE(obj), C.VALUE(port)))
 }
 
 // RbMarshalLoad calls `rb_marshal_load` in C
@@ -5668,8 +5318,7 @@ func RbMarshalDump(obj VALUE, port VALUE) VALUE {
 //
 //	VALUE rb_marshal_load(VALUE port)
 func RbMarshalLoad(port VALUE) VALUE {
-	ret := VALUE(C.rb_marshal_load(C.VALUE(port)))
-	return ret
+	return VALUE(C.rb_marshal_load(C.VALUE(port)))
 }
 
 // RbMatchBusy calls `rb_match_busy` in C
@@ -5698,8 +5347,7 @@ func RbMemClear(buf *VALUE, len Long) {
 //
 //	int rb_memcicmp(const void *s1,const void *s2, long n)
 func RbMemcicmp(s1 unsafe.Pointer, s2 unsafe.Pointer, n Long) int {
-	ret := int(C.rb_memcicmp(s1, s2, C.long(n)))
-	return ret
+	return int(C.rb_memcicmp(s1, s2, C.long(n)))
 }
 
 // RbMemerror calls `rb_memerror` in C
@@ -5717,8 +5365,7 @@ func RbMemerror() {
 //
 //	st_index_t rb_memhash(const void *ptr, long len)
 func RbMemhash(ptr unsafe.Pointer, len Long) StIndexT {
-	ret := StIndexT(C.rb_memhash(ptr, C.long(len)))
-	return ret
+	return StIndexT(C.rb_memhash(ptr, C.long(len)))
 }
 
 // RbMemoryId calls `rb_memory_id` in C
@@ -5727,8 +5374,7 @@ func RbMemhash(ptr unsafe.Pointer, len Long) StIndexT {
 //
 //	VALUE rb_memory_id(VALUE obj)
 func RbMemoryId(obj VALUE) VALUE {
-	ret := VALUE(C.rb_memory_id(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_memory_id(C.VALUE(obj)))
 }
 
 // RbMethodBasicDefinitionP calls `rb_method_basic_definition_p` in C
@@ -5737,8 +5383,7 @@ func RbMemoryId(obj VALUE) VALUE {
 //
 //	int rb_method_basic_definition_p(VALUE klass, ID mid)
 func RbMethodBasicDefinitionP(klass VALUE, mid ID) int {
-	ret := int(C.rb_method_basic_definition_p(C.VALUE(klass), C.ID(mid)))
-	return ret
+	return int(C.rb_method_basic_definition_p(C.VALUE(klass), C.ID(mid)))
 }
 
 // RbMethodBoundp calls `rb_method_boundp` in C
@@ -5747,8 +5392,7 @@ func RbMethodBasicDefinitionP(klass VALUE, mid ID) int {
 //
 //	int rb_method_boundp(VALUE klass, ID id, int ex)
 func RbMethodBoundp(klass VALUE, id ID, ex int) int {
-	ret := int(C.rb_method_boundp(C.VALUE(klass), C.ID(id), C.int(ex)))
-	return ret
+	return int(C.rb_method_boundp(C.VALUE(klass), C.ID(id), C.int(ex)))
 }
 
 // RbMethodCall calls `rb_method_call` in C
@@ -5805,8 +5449,7 @@ func RbMethodCallWithBlockKw(argc int, argv *VALUE, recv VALUE, proc VALUE, kw_s
 //
 //	VALUE rb_mod_ancestors(VALUE mod)
 func RbModAncestors(mod VALUE) VALUE {
-	ret := VALUE(C.rb_mod_ancestors(C.VALUE(mod)))
-	return ret
+	return VALUE(C.rb_mod_ancestors(C.VALUE(mod)))
 }
 
 // RbModClassVariables calls `rb_mod_class_variables` in C
@@ -5827,8 +5470,7 @@ func RbModClassVariables(argc int, argv *VALUE, recv VALUE) VALUE {
 //
 //	void *rb_mod_const_at(VALUE, void*)
 func RbModConstAt(arg1 VALUE, arg2 unsafe.Pointer) unsafe.Pointer {
-	ret := unsafe.Pointer(C.rb_mod_const_at(C.VALUE(arg1), arg2))
-	return ret
+	return unsafe.Pointer(C.rb_mod_const_at(C.VALUE(arg1), arg2))
 }
 
 // RbModConstOf calls `rb_mod_const_of` in C
@@ -5837,8 +5479,7 @@ func RbModConstAt(arg1 VALUE, arg2 unsafe.Pointer) unsafe.Pointer {
 //
 //	void *rb_mod_const_of(VALUE, void*)
 func RbModConstOf(arg1 VALUE, arg2 unsafe.Pointer) unsafe.Pointer {
-	ret := unsafe.Pointer(C.rb_mod_const_of(C.VALUE(arg1), arg2))
-	return ret
+	return unsafe.Pointer(C.rb_mod_const_of(C.VALUE(arg1), arg2))
 }
 
 // RbModConstants calls `rb_mod_constants` in C
@@ -5859,8 +5500,7 @@ func RbModConstants(argc int, argv *VALUE, recv VALUE) VALUE {
 //
 //	VALUE rb_mod_include_p(VALUE child, VALUE parent)
 func RbModIncludeP(child VALUE, parent VALUE) VALUE {
-	ret := VALUE(C.rb_mod_include_p(C.VALUE(child), C.VALUE(parent)))
-	return ret
+	return VALUE(C.rb_mod_include_p(C.VALUE(child), C.VALUE(parent)))
 }
 
 // RbModIncludedModules calls `rb_mod_included_modules` in C
@@ -5869,8 +5509,7 @@ func RbModIncludeP(child VALUE, parent VALUE) VALUE {
 //
 //	VALUE rb_mod_included_modules(VALUE mod)
 func RbModIncludedModules(mod VALUE) VALUE {
-	ret := VALUE(C.rb_mod_included_modules(C.VALUE(mod)))
-	return ret
+	return VALUE(C.rb_mod_included_modules(C.VALUE(mod)))
 }
 
 // RbModInitCopy calls `rb_mod_init_copy` in C
@@ -5879,8 +5518,7 @@ func RbModIncludedModules(mod VALUE) VALUE {
 //
 //	VALUE rb_mod_init_copy(VALUE clone, VALUE orig)
 func RbModInitCopy(clone VALUE, orig VALUE) VALUE {
-	ret := VALUE(C.rb_mod_init_copy(C.VALUE(clone), C.VALUE(orig)))
-	return ret
+	return VALUE(C.rb_mod_init_copy(C.VALUE(clone), C.VALUE(orig)))
 }
 
 // RbModMethodArity calls `rb_mod_method_arity` in C
@@ -5889,8 +5527,7 @@ func RbModInitCopy(clone VALUE, orig VALUE) VALUE {
 //
 //	int rb_mod_method_arity(VALUE mod, ID mid)
 func RbModMethodArity(mod VALUE, mid ID) int {
-	ret := int(C.rb_mod_method_arity(C.VALUE(mod), C.ID(mid)))
-	return ret
+	return int(C.rb_mod_method_arity(C.VALUE(mod), C.ID(mid)))
 }
 
 // RbModModuleEval calls `rb_mod_module_eval` in C
@@ -5923,8 +5560,7 @@ func RbModModuleExec(argc int, argv *VALUE, mod VALUE) VALUE {
 //
 //	VALUE rb_mod_name(VALUE mod)
 func RbModName(mod VALUE) VALUE {
-	ret := VALUE(C.rb_mod_name(C.VALUE(mod)))
-	return ret
+	return VALUE(C.rb_mod_name(C.VALUE(mod)))
 }
 
 // RbModRemoveConst calls `rb_mod_remove_const` in C
@@ -5933,8 +5569,7 @@ func RbModName(mod VALUE) VALUE {
 //
 //	VALUE rb_mod_remove_const(VALUE space, VALUE name)
 func RbModRemoveConst(space VALUE, name VALUE) VALUE {
-	ret := VALUE(C.rb_mod_remove_const(C.VALUE(space), C.VALUE(name)))
-	return ret
+	return VALUE(C.rb_mod_remove_const(C.VALUE(space), C.VALUE(name)))
 }
 
 // RbModRemoveCvar calls `rb_mod_remove_cvar` in C
@@ -5943,8 +5578,7 @@ func RbModRemoveConst(space VALUE, name VALUE) VALUE {
 //
 //	VALUE rb_mod_remove_cvar(VALUE mod, VALUE name)
 func RbModRemoveCvar(mod VALUE, name VALUE) VALUE {
-	ret := VALUE(C.rb_mod_remove_cvar(C.VALUE(mod), C.VALUE(name)))
-	return ret
+	return VALUE(C.rb_mod_remove_cvar(C.VALUE(mod), C.VALUE(name)))
 }
 
 // RbModSysFail calls `rb_mod_sys_fail` in C
@@ -5995,8 +5629,7 @@ func RbModSyserrFailStr(mod VALUE, err int, msg VALUE) {
 //
 //	VALUE rb_module_new(void)
 func RbModuleNew() VALUE {
-	ret := VALUE(C.rb_module_new())
-	return ret
+	return VALUE(C.rb_module_new())
 }
 
 // RbMulSizeOverflow calls `rb_mul_size_overflow` in C
@@ -6026,8 +5659,7 @@ func RbMustAsciicompat(obj VALUE) {
 //
 //	VALUE rb_mutex_lock(VALUE mutex)
 func RbMutexLock(mutex VALUE) VALUE {
-	ret := VALUE(C.rb_mutex_lock(C.VALUE(mutex)))
-	return ret
+	return VALUE(C.rb_mutex_lock(C.VALUE(mutex)))
 }
 
 // RbMutexLockedP calls `rb_mutex_locked_p` in C
@@ -6036,8 +5668,7 @@ func RbMutexLock(mutex VALUE) VALUE {
 //
 //	VALUE rb_mutex_locked_p(VALUE mutex)
 func RbMutexLockedP(mutex VALUE) VALUE {
-	ret := VALUE(C.rb_mutex_locked_p(C.VALUE(mutex)))
-	return ret
+	return VALUE(C.rb_mutex_locked_p(C.VALUE(mutex)))
 }
 
 // RbMutexNew calls `rb_mutex_new` in C
@@ -6046,8 +5677,7 @@ func RbMutexLockedP(mutex VALUE) VALUE {
 //
 //	VALUE rb_mutex_new(void)
 func RbMutexNew() VALUE {
-	ret := VALUE(C.rb_mutex_new())
-	return ret
+	return VALUE(C.rb_mutex_new())
 }
 
 // RbMutexSleep calls `rb_mutex_sleep` in C
@@ -6056,8 +5686,7 @@ func RbMutexNew() VALUE {
 //
 //	VALUE rb_mutex_sleep(VALUE self, VALUE timeout)
 func RbMutexSleep(self VALUE, timeout VALUE) VALUE {
-	ret := VALUE(C.rb_mutex_sleep(C.VALUE(self), C.VALUE(timeout)))
-	return ret
+	return VALUE(C.rb_mutex_sleep(C.VALUE(self), C.VALUE(timeout)))
 }
 
 // RbMutexSynchronize calls `rb_mutex_synchronize` in C
@@ -6066,8 +5695,7 @@ func RbMutexSleep(self VALUE, timeout VALUE) VALUE {
 //
 //	VALUE rb_mutex_synchronize(VALUE mutex, VALUE (*func)(VALUE arg), VALUE arg)
 func RbMutexSynchronize(mutex VALUE, arg2 unsafe.Pointer, arg VALUE) VALUE {
-	ret := VALUE(C.rb_mutex_synchronize(C.VALUE(mutex), toCFunctionPointer(arg2), C.VALUE(arg)))
-	return ret
+	return VALUE(C.rb_mutex_synchronize(C.VALUE(mutex), toCFunctionPointer(arg2), C.VALUE(arg)))
 }
 
 // RbMutexTrylock calls `rb_mutex_trylock` in C
@@ -6076,8 +5704,7 @@ func RbMutexSynchronize(mutex VALUE, arg2 unsafe.Pointer, arg VALUE) VALUE {
 //
 //	VALUE rb_mutex_trylock(VALUE mutex)
 func RbMutexTrylock(mutex VALUE) VALUE {
-	ret := VALUE(C.rb_mutex_trylock(C.VALUE(mutex)))
-	return ret
+	return VALUE(C.rb_mutex_trylock(C.VALUE(mutex)))
 }
 
 // RbMutexUnlock calls `rb_mutex_unlock` in C
@@ -6086,8 +5713,7 @@ func RbMutexTrylock(mutex VALUE) VALUE {
 //
 //	VALUE rb_mutex_unlock(VALUE mutex)
 func RbMutexUnlock(mutex VALUE) VALUE {
-	ret := VALUE(C.rb_mutex_unlock(C.VALUE(mutex)))
-	return ret
+	return VALUE(C.rb_mutex_unlock(C.VALUE(mutex)))
 }
 
 // RbNeedBlock calls `rb_need_block` in C
@@ -6105,8 +5731,7 @@ func RbNeedBlock() {
 //
 //	VALUE rb_newobj(void)
 func RbNewobj() VALUE {
-	ret := VALUE(C.rb_newobj())
-	return ret
+	return VALUE(C.rb_newobj())
 }
 
 // RbNewobjOf calls `rb_newobj_of` in C
@@ -6115,8 +5740,7 @@ func RbNewobj() VALUE {
 //
 //	VALUE rb_newobj_of(VALUE klass, VALUE flags)
 func RbNewobjOf(klass VALUE, flags VALUE) VALUE {
-	ret := VALUE(C.rb_newobj_of(C.VALUE(klass), C.VALUE(flags)))
-	return ret
+	return VALUE(C.rb_newobj_of(C.VALUE(klass), C.VALUE(flags)))
 }
 
 // RbNotimplement calls `rb_notimplement` in C
@@ -6134,8 +5758,7 @@ func RbNotimplement() {
 //
 //	rb_num2char_inline(VALUE x)
 func RbNum2CharInline(x VALUE) Char {
-	ret := Char(C.rb_num2char_inline(C.VALUE(x)))
-	return ret
+	return Char(C.rb_num2char_inline(C.VALUE(x)))
 }
 
 // RbNum2Dbl calls `rb_num2dbl` in C
@@ -6144,8 +5767,7 @@ func RbNum2CharInline(x VALUE) Char {
 //
 //	double rb_num2dbl(VALUE num)
 func RbNum2Dbl(num VALUE) Double {
-	ret := Double(C.rb_num2dbl(C.VALUE(num)))
-	return ret
+	return Double(C.rb_num2dbl(C.VALUE(num)))
 }
 
 // RbNum2Fix calls `rb_num2fix` in C
@@ -6154,8 +5776,7 @@ func RbNum2Dbl(num VALUE) Double {
 //
 //	VALUE rb_num2fix(VALUE val)
 func RbNum2Fix(val VALUE) VALUE {
-	ret := VALUE(C.rb_num2fix(C.VALUE(val)))
-	return ret
+	return VALUE(C.rb_num2fix(C.VALUE(val)))
 }
 
 // RbNum2Int calls `rb_num2int` in C
@@ -6164,8 +5785,7 @@ func RbNum2Fix(val VALUE) VALUE {
 //
 //	long rb_num2int(VALUE num)
 func RbNum2Int(num VALUE) Long {
-	ret := Long(C.rb_num2int(C.VALUE(num)))
-	return ret
+	return Long(C.rb_num2int(C.VALUE(num)))
 }
 
 // RbNum2IntInline calls `rb_num2int_inline` in C
@@ -6174,8 +5794,7 @@ func RbNum2Int(num VALUE) Long {
 //
 //	rb_num2int_inline(VALUE x)
 func RbNum2IntInline(x VALUE) int {
-	ret := int(C.rb_num2int_inline(C.VALUE(x)))
-	return ret
+	return int(C.rb_num2int_inline(C.VALUE(x)))
 }
 
 // RbNum2Ll calls `rb_num2ll` in C
@@ -6184,8 +5803,7 @@ func RbNum2IntInline(x VALUE) int {
 //
 //	rb_num2ll(VALUE num)
 func RbNum2Ll(num VALUE) Longlong {
-	ret := Longlong(C.rb_num2ll(C.VALUE(num)))
-	return ret
+	return Longlong(C.rb_num2ll(C.VALUE(num)))
 }
 
 // RbNum2LlInline calls `rb_num2ll_inline` in C
@@ -6194,8 +5812,7 @@ func RbNum2Ll(num VALUE) Longlong {
 //
 //	rb_num2ll_inline(VALUE x)
 func RbNum2LlInline(x VALUE) Longlong {
-	ret := Longlong(C.rb_num2ll_inline(C.VALUE(x)))
-	return ret
+	return Longlong(C.rb_num2ll_inline(C.VALUE(x)))
 }
 
 // RbNum2Long calls `rb_num2long` in C
@@ -6204,8 +5821,7 @@ func RbNum2LlInline(x VALUE) Longlong {
 //
 //	long rb_num2long(VALUE num)
 func RbNum2Long(num VALUE) Long {
-	ret := Long(C.rb_num2long(C.VALUE(num)))
-	return ret
+	return Long(C.rb_num2long(C.VALUE(num)))
 }
 
 // RbNum2LongInline calls `rb_num2long_inline` in C
@@ -6214,8 +5830,7 @@ func RbNum2Long(num VALUE) Long {
 //
 //	rb_num2long_inline(VALUE x)
 func RbNum2LongInline(x VALUE) Long {
-	ret := Long(C.rb_num2long_inline(C.VALUE(x)))
-	return ret
+	return Long(C.rb_num2long_inline(C.VALUE(x)))
 }
 
 // RbNum2Short calls `rb_num2short` in C
@@ -6224,8 +5839,7 @@ func RbNum2LongInline(x VALUE) Long {
 //
 //	short rb_num2short(VALUE num)
 func RbNum2Short(num VALUE) Short {
-	ret := Short(C.rb_num2short(C.VALUE(num)))
-	return ret
+	return Short(C.rb_num2short(C.VALUE(num)))
 }
 
 // RbNum2ShortInline calls `rb_num2short_inline` in C
@@ -6234,8 +5848,7 @@ func RbNum2Short(num VALUE) Short {
 //
 //	rb_num2short_inline(VALUE x)
 func RbNum2ShortInline(x VALUE) Short {
-	ret := Short(C.rb_num2short_inline(C.VALUE(x)))
-	return ret
+	return Short(C.rb_num2short_inline(C.VALUE(x)))
 }
 
 // RbNum2Uint calls `rb_num2uint` in C
@@ -6244,8 +5857,7 @@ func RbNum2ShortInline(x VALUE) Short {
 //
 //	unsigned long rb_num2uint(VALUE num)
 func RbNum2Uint(num VALUE) uint {
-	ret := uint(C.rb_num2uint(C.VALUE(num)))
-	return ret
+	return uint(C.rb_num2uint(C.VALUE(num)))
 }
 
 // RbNum2Ull calls `rb_num2ull` in C
@@ -6254,8 +5866,7 @@ func RbNum2Uint(num VALUE) uint {
 //
 //	rb_num2ull(VALUE num)
 func RbNum2Ull(num VALUE) Ulonglong {
-	ret := Ulonglong(C.rb_num2ull(C.VALUE(num)))
-	return ret
+	return Ulonglong(C.rb_num2ull(C.VALUE(num)))
 }
 
 // RbNum2UllInline calls `rb_num2ull_inline` in C
@@ -6264,8 +5875,7 @@ func RbNum2Ull(num VALUE) Ulonglong {
 //
 //	rb_num2ull_inline(VALUE x)
 func RbNum2UllInline(x VALUE) Ulonglong {
-	ret := Ulonglong(C.rb_num2ull_inline(C.VALUE(x)))
-	return ret
+	return Ulonglong(C.rb_num2ull_inline(C.VALUE(x)))
 }
 
 // RbNum2Ulong calls `rb_num2ulong` in C
@@ -6274,8 +5884,7 @@ func RbNum2UllInline(x VALUE) Ulonglong {
 //
 //	unsigned long rb_num2ulong(VALUE num)
 func RbNum2Ulong(num VALUE) uint {
-	ret := uint(C.rb_num2ulong(C.VALUE(num)))
-	return ret
+	return uint(C.rb_num2ulong(C.VALUE(num)))
 }
 
 // RbNum2UlongInline calls `rb_num2ulong_inline` in C
@@ -6284,8 +5893,7 @@ func RbNum2Ulong(num VALUE) uint {
 //
 //	rb_num2ulong_inline(VALUE x)
 func RbNum2UlongInline(x VALUE) uint {
-	ret := uint(C.rb_num2ulong_inline(C.VALUE(x)))
-	return ret
+	return uint(C.rb_num2ulong_inline(C.VALUE(x)))
 }
 
 // RbNum2Ushort calls `rb_num2ushort` in C
@@ -6294,8 +5902,7 @@ func RbNum2UlongInline(x VALUE) uint {
 //
 //	unsigned short rb_num2ushort(VALUE num)
 func RbNum2Ushort(num VALUE) Ushort {
-	ret := Ushort(C.rb_num2ushort(C.VALUE(num)))
-	return ret
+	return Ushort(C.rb_num2ushort(C.VALUE(num)))
 }
 
 // RbNumCoerceBin calls `rb_num_coerce_bin` in C
@@ -6304,8 +5911,7 @@ func RbNum2Ushort(num VALUE) Ushort {
 //
 //	VALUE rb_num_coerce_bin(VALUE lhs, VALUE rhs, ID op)
 func RbNumCoerceBin(lhs VALUE, rhs VALUE, op ID) VALUE {
-	ret := VALUE(C.rb_num_coerce_bin(C.VALUE(lhs), C.VALUE(rhs), C.ID(op)))
-	return ret
+	return VALUE(C.rb_num_coerce_bin(C.VALUE(lhs), C.VALUE(rhs), C.ID(op)))
 }
 
 // RbNumCoerceBit calls `rb_num_coerce_bit` in C
@@ -6314,8 +5920,7 @@ func RbNumCoerceBin(lhs VALUE, rhs VALUE, op ID) VALUE {
 //
 //	VALUE rb_num_coerce_bit(VALUE lhs, VALUE rhs, ID op)
 func RbNumCoerceBit(lhs VALUE, rhs VALUE, op ID) VALUE {
-	ret := VALUE(C.rb_num_coerce_bit(C.VALUE(lhs), C.VALUE(rhs), C.ID(op)))
-	return ret
+	return VALUE(C.rb_num_coerce_bit(C.VALUE(lhs), C.VALUE(rhs), C.ID(op)))
 }
 
 // RbNumCoerceCmp calls `rb_num_coerce_cmp` in C
@@ -6324,8 +5929,7 @@ func RbNumCoerceBit(lhs VALUE, rhs VALUE, op ID) VALUE {
 //
 //	VALUE rb_num_coerce_cmp(VALUE lhs, VALUE rhs, ID op)
 func RbNumCoerceCmp(lhs VALUE, rhs VALUE, op ID) VALUE {
-	ret := VALUE(C.rb_num_coerce_cmp(C.VALUE(lhs), C.VALUE(rhs), C.ID(op)))
-	return ret
+	return VALUE(C.rb_num_coerce_cmp(C.VALUE(lhs), C.VALUE(rhs), C.ID(op)))
 }
 
 // RbNumCoerceRelop calls `rb_num_coerce_relop` in C
@@ -6334,8 +5938,7 @@ func RbNumCoerceCmp(lhs VALUE, rhs VALUE, op ID) VALUE {
 //
 //	VALUE rb_num_coerce_relop(VALUE lhs, VALUE rhs, ID op)
 func RbNumCoerceRelop(lhs VALUE, rhs VALUE, op ID) VALUE {
-	ret := VALUE(C.rb_num_coerce_relop(C.VALUE(lhs), C.VALUE(rhs), C.ID(op)))
-	return ret
+	return VALUE(C.rb_num_coerce_relop(C.VALUE(lhs), C.VALUE(rhs), C.ID(op)))
 }
 
 // RbNumZerodiv calls `rb_num_zerodiv` in C
@@ -6353,8 +5956,7 @@ func RbNumZerodiv() {
 //
 //	VALUE rb_obj_alloc(VALUE klass)
 func RbObjAlloc(klass VALUE) VALUE {
-	ret := VALUE(C.rb_obj_alloc(C.VALUE(klass)))
-	return ret
+	return VALUE(C.rb_obj_alloc(C.VALUE(klass)))
 }
 
 // RbObjAsString calls `rb_obj_as_string` in C
@@ -6363,8 +5965,7 @@ func RbObjAlloc(klass VALUE) VALUE {
 //
 //	VALUE rb_obj_as_string(VALUE obj)
 func RbObjAsString(obj VALUE) VALUE {
-	ret := VALUE(C.rb_obj_as_string(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_obj_as_string(C.VALUE(obj)))
 }
 
 // RbObjCallInit calls `rb_obj_call_init` in C
@@ -6395,8 +5996,7 @@ func RbObjCallInitKw(arg1 VALUE, arg2 int, arg3 *VALUE, arg4 int) {
 //
 //	VALUE rb_obj_class(VALUE obj)
 func RbObjClass(obj VALUE) VALUE {
-	ret := VALUE(C.rb_obj_class(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_obj_class(C.VALUE(obj)))
 }
 
 // RbObjClassname calls `rb_obj_classname` in C
@@ -6405,8 +6005,7 @@ func RbObjClass(obj VALUE) VALUE {
 //
 //	const char *rb_obj_classname(VALUE obj)
 func RbObjClassname(obj VALUE) string {
-	ret := char2String(C.rb_obj_classname(C.VALUE(obj)))
-	return ret
+	return char2String(C.rb_obj_classname(C.VALUE(obj)))
 }
 
 // RbObjClone calls `rb_obj_clone` in C
@@ -6415,8 +6014,7 @@ func RbObjClassname(obj VALUE) string {
 //
 //	VALUE rb_obj_clone(VALUE obj)
 func RbObjClone(obj VALUE) VALUE {
-	ret := VALUE(C.rb_obj_clone(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_obj_clone(C.VALUE(obj)))
 }
 
 // RbObjDup calls `rb_obj_dup` in C
@@ -6425,8 +6023,7 @@ func RbObjClone(obj VALUE) VALUE {
 //
 //	VALUE rb_obj_dup(VALUE obj)
 func RbObjDup(obj VALUE) VALUE {
-	ret := VALUE(C.rb_obj_dup(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_obj_dup(C.VALUE(obj)))
 }
 
 // RbObjFreeze calls `rb_obj_freeze` in C
@@ -6435,8 +6032,7 @@ func RbObjDup(obj VALUE) VALUE {
 //
 //	VALUE rb_obj_freeze(VALUE obj)
 func RbObjFreeze(obj VALUE) VALUE {
-	ret := VALUE(C.rb_obj_freeze(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_obj_freeze(C.VALUE(obj)))
 }
 
 // RbObjFreezeInline calls `rb_obj_freeze_inline` in C
@@ -6454,8 +6050,7 @@ func RbObjFreezeInline(obj VALUE) {
 //
 //	VALUE rb_obj_frozen_p(VALUE obj)
 func RbObjFrozenP(obj VALUE) VALUE {
-	ret := VALUE(C.rb_obj_frozen_p(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_obj_frozen_p(C.VALUE(obj)))
 }
 
 // RbObjHide calls `rb_obj_hide` in C
@@ -6464,8 +6059,7 @@ func RbObjFrozenP(obj VALUE) VALUE {
 //
 //	VALUE rb_obj_hide(VALUE obj)
 func RbObjHide(obj VALUE) VALUE {
-	ret := VALUE(C.rb_obj_hide(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_obj_hide(C.VALUE(obj)))
 }
 
 // RbObjId calls `rb_obj_id` in C
@@ -6474,8 +6068,7 @@ func RbObjHide(obj VALUE) VALUE {
 //
 //	VALUE rb_obj_id(VALUE obj)
 func RbObjId(obj VALUE) VALUE {
-	ret := VALUE(C.rb_obj_id(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_obj_id(C.VALUE(obj)))
 }
 
 // RbObjInitCopy calls `rb_obj_init_copy` in C
@@ -6484,8 +6077,7 @@ func RbObjId(obj VALUE) VALUE {
 //
 //	VALUE rb_obj_init_copy(VALUE src, VALUE dst)
 func RbObjInitCopy(src VALUE, dst VALUE) VALUE {
-	ret := VALUE(C.rb_obj_init_copy(C.VALUE(src), C.VALUE(dst)))
-	return ret
+	return VALUE(C.rb_obj_init_copy(C.VALUE(src), C.VALUE(dst)))
 }
 
 // RbObjInstanceEval calls `rb_obj_instance_eval` in C
@@ -6518,8 +6110,7 @@ func RbObjInstanceExec(argc int, argv *VALUE, recv VALUE) VALUE {
 //
 //	VALUE rb_obj_instance_variables(VALUE obj)
 func RbObjInstanceVariables(obj VALUE) VALUE {
-	ret := VALUE(C.rb_obj_instance_variables(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_obj_instance_variables(C.VALUE(obj)))
 }
 
 // RbObjIsFiber calls `rb_obj_is_fiber` in C
@@ -6528,8 +6119,7 @@ func RbObjInstanceVariables(obj VALUE) VALUE {
 //
 //	VALUE rb_obj_is_fiber(VALUE obj)
 func RbObjIsFiber(obj VALUE) VALUE {
-	ret := VALUE(C.rb_obj_is_fiber(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_obj_is_fiber(C.VALUE(obj)))
 }
 
 // RbObjIsInstanceOf calls `rb_obj_is_instance_of` in C
@@ -6538,8 +6128,7 @@ func RbObjIsFiber(obj VALUE) VALUE {
 //
 //	VALUE rb_obj_is_instance_of(VALUE obj, VALUE klass)
 func RbObjIsInstanceOf(obj VALUE, klass VALUE) VALUE {
-	ret := VALUE(C.rb_obj_is_instance_of(C.VALUE(obj), C.VALUE(klass)))
-	return ret
+	return VALUE(C.rb_obj_is_instance_of(C.VALUE(obj), C.VALUE(klass)))
 }
 
 // RbObjIsKindOf calls `rb_obj_is_kind_of` in C
@@ -6548,8 +6137,7 @@ func RbObjIsInstanceOf(obj VALUE, klass VALUE) VALUE {
 //
 //	VALUE rb_obj_is_kind_of(VALUE obj, VALUE klass)
 func RbObjIsKindOf(obj VALUE, klass VALUE) VALUE {
-	ret := VALUE(C.rb_obj_is_kind_of(C.VALUE(obj), C.VALUE(klass)))
-	return ret
+	return VALUE(C.rb_obj_is_kind_of(C.VALUE(obj), C.VALUE(klass)))
 }
 
 // RbObjIsMethod calls `rb_obj_is_method` in C
@@ -6558,8 +6146,7 @@ func RbObjIsKindOf(obj VALUE, klass VALUE) VALUE {
 //
 //	VALUE rb_obj_is_method(VALUE recv)
 func RbObjIsMethod(recv VALUE) VALUE {
-	ret := VALUE(C.rb_obj_is_method(C.VALUE(recv)))
-	return ret
+	return VALUE(C.rb_obj_is_method(C.VALUE(recv)))
 }
 
 // RbObjIsProc calls `rb_obj_is_proc` in C
@@ -6568,8 +6155,7 @@ func RbObjIsMethod(recv VALUE) VALUE {
 //
 //	VALUE rb_obj_is_proc(VALUE recv)
 func RbObjIsProc(recv VALUE) VALUE {
-	ret := VALUE(C.rb_obj_is_proc(C.VALUE(recv)))
-	return ret
+	return VALUE(C.rb_obj_is_proc(C.VALUE(recv)))
 }
 
 // RbObjMethod calls `rb_obj_method` in C
@@ -6578,8 +6164,7 @@ func RbObjIsProc(recv VALUE) VALUE {
 //
 //	VALUE rb_obj_method(VALUE recv, VALUE mid)
 func RbObjMethod(recv VALUE, mid VALUE) VALUE {
-	ret := VALUE(C.rb_obj_method(C.VALUE(recv), C.VALUE(mid)))
-	return ret
+	return VALUE(C.rb_obj_method(C.VALUE(recv), C.VALUE(mid)))
 }
 
 // RbObjMethodArity calls `rb_obj_method_arity` in C
@@ -6588,8 +6173,7 @@ func RbObjMethod(recv VALUE, mid VALUE) VALUE {
 //
 //	int rb_obj_method_arity(VALUE obj, ID mid)
 func RbObjMethodArity(obj VALUE, mid ID) int {
-	ret := int(C.rb_obj_method_arity(C.VALUE(obj), C.ID(mid)))
-	return ret
+	return int(C.rb_obj_method_arity(C.VALUE(obj), C.ID(mid)))
 }
 
 // RbObjRemoveInstanceVariable calls `rb_obj_remove_instance_variable` in C
@@ -6598,8 +6182,7 @@ func RbObjMethodArity(obj VALUE, mid ID) int {
 //
 //	VALUE rb_obj_remove_instance_variable(VALUE obj, VALUE name)
 func RbObjRemoveInstanceVariable(obj VALUE, name VALUE) VALUE {
-	ret := VALUE(C.rb_obj_remove_instance_variable(C.VALUE(obj), C.VALUE(name)))
-	return ret
+	return VALUE(C.rb_obj_remove_instance_variable(C.VALUE(obj), C.VALUE(name)))
 }
 
 // RbObjRespondTo calls `rb_obj_respond_to` in C
@@ -6608,8 +6191,7 @@ func RbObjRemoveInstanceVariable(obj VALUE, name VALUE) VALUE {
 //
 //	int rb_obj_respond_to(VALUE obj, ID mid, int private_p)
 func RbObjRespondTo(obj VALUE, mid ID, private_p int) int {
-	ret := int(C.rb_obj_respond_to(C.VALUE(obj), C.ID(mid), C.int(private_p)))
-	return ret
+	return int(C.rb_obj_respond_to(C.VALUE(obj), C.ID(mid), C.int(private_p)))
 }
 
 // RbObjReveal calls `rb_obj_reveal` in C
@@ -6618,8 +6200,7 @@ func RbObjRespondTo(obj VALUE, mid ID, private_p int) int {
 //
 //	VALUE rb_obj_reveal(VALUE obj, VALUE klass)
 func RbObjReveal(obj VALUE, klass VALUE) VALUE {
-	ret := VALUE(C.rb_obj_reveal(C.VALUE(obj), C.VALUE(klass)))
-	return ret
+	return VALUE(C.rb_obj_reveal(C.VALUE(obj), C.VALUE(klass)))
 }
 
 // RbObjSetup calls `rb_obj_setup` in C
@@ -6628,8 +6209,7 @@ func RbObjReveal(obj VALUE, klass VALUE) VALUE {
 //
 //	VALUE rb_obj_setup(VALUE obj, VALUE klass, VALUE type)
 func RbObjSetup(obj VALUE, klass VALUE, t VALUE) VALUE {
-	ret := VALUE(C.rb_obj_setup(C.VALUE(obj), C.VALUE(klass), C.VALUE(t)))
-	return ret
+	return VALUE(C.rb_obj_setup(C.VALUE(obj), C.VALUE(klass), C.VALUE(t)))
 }
 
 // RbObjSingletonMethods calls `rb_obj_singleton_methods` in C
@@ -6653,8 +6233,7 @@ func RbObjWbUnprotect(x VALUE, filename string, line int) VALUE {
 	char, clean := string2Char(filename)
 	defer clean()
 
-	ret := VALUE(C.rb_obj_wb_unprotect(C.VALUE(x), char, C.int(line)))
-	return ret
+	return VALUE(C.rb_obj_wb_unprotect(C.VALUE(x), char, C.int(line)))
 }
 
 // RbObjWrite calls `rb_obj_write` in C
@@ -6681,8 +6260,7 @@ func RbObjWritten(a VALUE, oldv VALUE, b VALUE, filename string, line int) VALUE
 	char, clean := string2Char(filename)
 	defer clean()
 
-	ret := VALUE(C.rb_obj_written(C.VALUE(a), C.VALUE(oldv), C.VALUE(b), char, C.int(line)))
-	return ret
+	return VALUE(C.rb_obj_written(C.VALUE(a), C.VALUE(oldv), C.VALUE(b), char, C.int(line)))
 }
 
 // RbOrigErrnoPtr calls `rb_orig_errno_ptr` in C
@@ -6691,8 +6269,7 @@ func RbObjWritten(a VALUE, oldv VALUE, b VALUE, filename string, line int) VALUE
 //
 //	rb_orig_errno_ptr(void)
 func RbOrigErrnoPtr() *Int {
-	ret := (*Int)(C.rb_orig_errno_ptr())
-	return ret
+	return (*Int)(C.rb_orig_errno_ptr())
 }
 
 // RbOutOfInt calls `rb_out_of_int` in C
@@ -6722,8 +6299,7 @@ func RbPath2Class(path string) VALUE {
 	char, clean := string2Char(path)
 	defer clean()
 
-	ret := VALUE(C.rb_path2class(char))
-	return ret
+	return VALUE(C.rb_path2class(char))
 }
 
 // RbPathCheck calls `rb_path_check` in C
@@ -6735,8 +6311,7 @@ func RbPathCheck(path string) int {
 	char, clean := string2Char(path)
 	defer clean()
 
-	ret := int(C.rb_path_check(char))
-	return ret
+	return int(C.rb_path_check(char))
 }
 
 // RbPathToClass calls `rb_path_to_class` in C
@@ -6745,8 +6320,7 @@ func RbPathCheck(path string) int {
 //
 //	VALUE rb_path_to_class(VALUE path)
 func RbPathToClass(path VALUE) VALUE {
-	ret := VALUE(C.rb_path_to_class(C.VALUE(path)))
-	return ret
+	return VALUE(C.rb_path_to_class(C.VALUE(path)))
 }
 
 // RbPipe calls `rb_pipe` in C
@@ -6776,8 +6350,7 @@ func RbPrependModule(klass VALUE, module VALUE) {
 //
 //	int rb_proc_arity(VALUE recv)
 func RbProcArity(recv VALUE) int {
-	ret := int(C.rb_proc_arity(C.VALUE(recv)))
-	return ret
+	return int(C.rb_proc_arity(C.VALUE(recv)))
 }
 
 // RbProcCall calls `rb_proc_call` in C
@@ -6786,8 +6359,7 @@ func RbProcArity(recv VALUE) int {
 //
 //	VALUE rb_proc_call(VALUE recv, VALUE args)
 func RbProcCall(recv VALUE, args VALUE) VALUE {
-	ret := VALUE(C.rb_proc_call(C.VALUE(recv), C.VALUE(args)))
-	return ret
+	return VALUE(C.rb_proc_call(C.VALUE(recv), C.VALUE(args)))
 }
 
 // RbProcCallKw calls `rb_proc_call_kw` in C
@@ -6796,8 +6368,7 @@ func RbProcCall(recv VALUE, args VALUE) VALUE {
 //
 //	VALUE rb_proc_call_kw(VALUE recv, VALUE args, int kw_splat)
 func RbProcCallKw(recv VALUE, args VALUE, kw_splat int) VALUE {
-	ret := VALUE(C.rb_proc_call_kw(C.VALUE(recv), C.VALUE(args), C.int(kw_splat)))
-	return ret
+	return VALUE(C.rb_proc_call_kw(C.VALUE(recv), C.VALUE(args), C.int(kw_splat)))
 }
 
 // RbProcCallWithBlock calls `rb_proc_call_with_block` in C
@@ -6833,8 +6404,7 @@ func RbProcExec(cmd string) int {
 	char, clean := string2Char(cmd)
 	defer clean()
 
-	ret := int(C.rb_proc_exec(char))
-	return ret
+	return int(C.rb_proc_exec(char))
 }
 
 // RbProcLambdaP calls `rb_proc_lambda_p` in C
@@ -6843,8 +6413,7 @@ func RbProcExec(cmd string) int {
 //
 //	VALUE rb_proc_lambda_p(VALUE recv)
 func RbProcLambdaP(recv VALUE) VALUE {
-	ret := VALUE(C.rb_proc_lambda_p(C.VALUE(recv)))
-	return ret
+	return VALUE(C.rb_proc_lambda_p(C.VALUE(recv)))
 }
 
 // RbProcNew calls `rb_proc_new` in C
@@ -6853,8 +6422,7 @@ func RbProcLambdaP(recv VALUE) VALUE {
 //
 //	VALUE rb_proc_new(rb_block_call_func_t func, VALUE callback_arg)
 func RbProcNew(fun RbBlockCallFuncT, callback_arg VALUE) VALUE {
-	ret := VALUE(C.rb_proc_new(C.rb_block_call_func_t(fun), C.VALUE(callback_arg)))
-	return ret
+	return VALUE(C.rb_proc_new(C.rb_block_call_func_t(fun), C.VALUE(callback_arg)))
 }
 
 // RbProcTimes calls `rb_proc_times` in C
@@ -6863,8 +6431,7 @@ func RbProcNew(fun RbBlockCallFuncT, callback_arg VALUE) VALUE {
 //
 //	VALUE rb_proc_times(VALUE _)
 func RbProcTimes(arg VALUE) VALUE {
-	ret := VALUE(C.rb_proc_times(C.VALUE(arg)))
-	return ret
+	return VALUE(C.rb_proc_times(C.VALUE(arg)))
 }
 
 // RbProcessStatusWait calls `rb_process_status_wait` in C
@@ -6873,8 +6440,7 @@ func RbProcTimes(arg VALUE) VALUE {
 //
 //	VALUE rb_process_status_wait(pid_t pid, int flags)
 func RbProcessStatusWait(pid PidT, flags int) VALUE {
-	ret := VALUE(C.rb_process_status_wait(C.pid_t(pid), C.int(flags)))
-	return ret
+	return VALUE(C.rb_process_status_wait(C.pid_t(pid), C.int(flags)))
 }
 
 // RbProtect calls `rb_protect` in C
@@ -6910,8 +6476,7 @@ func RbProvided(feature string) int {
 	char, clean := string2Char(feature)
 	defer clean()
 
-	ret := int(C.rb_provided(char))
-	return ret
+	return int(C.rb_provided(char))
 }
 
 // RbRandomBytes calls `rb_random_bytes` in C
@@ -6920,8 +6485,7 @@ func RbProvided(feature string) int {
 //
 //	VALUE rb_random_bytes(VALUE rnd, long n)
 func RbRandomBytes(rnd VALUE, n Long) VALUE {
-	ret := VALUE(C.rb_random_bytes(C.VALUE(rnd), C.long(n)))
-	return ret
+	return VALUE(C.rb_random_bytes(C.VALUE(rnd), C.long(n)))
 }
 
 // RbRandomInt32 calls `rb_random_int32` in C
@@ -6930,8 +6494,7 @@ func RbRandomBytes(rnd VALUE, n Long) VALUE {
 //
 //	unsigned int rb_random_int32(VALUE rnd)
 func RbRandomInt32(rnd VALUE) uint {
-	ret := uint(C.rb_random_int32(C.VALUE(rnd)))
-	return ret
+	return uint(C.rb_random_int32(C.VALUE(rnd)))
 }
 
 // RbRandomReal calls `rb_random_real` in C
@@ -6940,8 +6503,7 @@ func RbRandomInt32(rnd VALUE) uint {
 //
 //	double rb_random_real(VALUE rnd)
 func RbRandomReal(rnd VALUE) Double {
-	ret := Double(C.rb_random_real(C.VALUE(rnd)))
-	return ret
+	return Double(C.rb_random_real(C.VALUE(rnd)))
 }
 
 // RbRandomUlongLimited calls `rb_random_ulong_limited` in C
@@ -6950,8 +6512,7 @@ func RbRandomReal(rnd VALUE) Double {
 //
 //	unsigned long rb_random_ulong_limited(VALUE rnd, unsigned long limit)
 func RbRandomUlongLimited(rnd VALUE, limit uint) uint {
-	ret := uint(C.rb_random_ulong_limited(C.VALUE(rnd), C.ulong(limit)))
-	return ret
+	return uint(C.rb_random_ulong_limited(C.VALUE(rnd), C.ulong(limit)))
 }
 
 // RbRangeBegLen calls `rb_range_beg_len` in C
@@ -6974,8 +6535,7 @@ func RbRangeBegLen(r VALUE, begp *Long, lenp *Long, len Long, err int) VALUE {
 //
 //	VALUE rb_range_new(VALUE beg, VALUE end, int excl)
 func RbRangeNew(beg VALUE, end VALUE, excl int) VALUE {
-	ret := VALUE(C.rb_range_new(C.VALUE(beg), C.VALUE(end), C.int(excl)))
-	return ret
+	return VALUE(C.rb_range_new(C.VALUE(beg), C.VALUE(end), C.int(excl)))
 }
 
 // RbRangeValues calls `rb_range_values` in C
@@ -7000,8 +6560,7 @@ func RbRangeValues(r VALUE, begp *VALUE, endp *VALUE, exclp *int) int {
 //
 //	VALUE rb_rational_den(VALUE rat)
 func RbRationalDen(rat VALUE) VALUE {
-	ret := VALUE(C.rb_rational_den(C.VALUE(rat)))
-	return ret
+	return VALUE(C.rb_rational_den(C.VALUE(rat)))
 }
 
 // RbRationalNew calls `rb_rational_new` in C
@@ -7010,8 +6569,7 @@ func RbRationalDen(rat VALUE) VALUE {
 //
 //	VALUE rb_rational_new(VALUE num, VALUE den)
 func RbRationalNew(num VALUE, den VALUE) VALUE {
-	ret := VALUE(C.rb_rational_new(C.VALUE(num), C.VALUE(den)))
-	return ret
+	return VALUE(C.rb_rational_new(C.VALUE(num), C.VALUE(den)))
 }
 
 // RbRationalNum calls `rb_rational_num` in C
@@ -7020,8 +6578,7 @@ func RbRationalNew(num VALUE, den VALUE) VALUE {
 //
 //	VALUE rb_rational_num(VALUE rat)
 func RbRationalNum(rat VALUE) VALUE {
-	ret := VALUE(C.rb_rational_num(C.VALUE(rat)))
-	return ret
+	return VALUE(C.rb_rational_num(C.VALUE(rat)))
 }
 
 // RbRationalRaw calls `rb_rational_raw` in C
@@ -7030,8 +6587,7 @@ func RbRationalNum(rat VALUE) VALUE {
 //
 //	VALUE rb_rational_raw(VALUE num, VALUE den)
 func RbRationalRaw(num VALUE, den VALUE) VALUE {
-	ret := VALUE(C.rb_rational_raw(C.VALUE(num), C.VALUE(den)))
-	return ret
+	return VALUE(C.rb_rational_raw(C.VALUE(num), C.VALUE(den)))
 }
 
 // RbReadwriteSysFail calls `rb_readwrite_sys_fail` in C
@@ -7064,8 +6620,7 @@ func RbReadwriteSyserrFail(waiting RbIoWaitReadwrite, err int, msg string) {
 //
 //	VALUE rb_refinement_new(void)
 func RbRefinementNew() VALUE {
-	ret := VALUE(C.rb_refinement_new())
-	return ret
+	return VALUE(C.rb_refinement_new())
 }
 
 // RbRegAlloc calls `rb_reg_alloc` in C
@@ -7074,8 +6629,7 @@ func RbRefinementNew() VALUE {
 //
 //	VALUE rb_reg_alloc(void)
 func RbRegAlloc() VALUE {
-	ret := VALUE(C.rb_reg_alloc())
-	return ret
+	return VALUE(C.rb_reg_alloc())
 }
 
 // RbRegBackrefNumber calls `rb_reg_backref_number` in C
@@ -7084,8 +6638,7 @@ func RbRegAlloc() VALUE {
 //
 //	int rb_reg_backref_number(VALUE match, VALUE backref)
 func RbRegBackrefNumber(match VALUE, backref VALUE) int {
-	ret := int(C.rb_reg_backref_number(C.VALUE(match), C.VALUE(backref)))
-	return ret
+	return int(C.rb_reg_backref_number(C.VALUE(match), C.VALUE(backref)))
 }
 
 // RbRegInitStr calls `rb_reg_init_str` in C
@@ -7094,8 +6647,7 @@ func RbRegBackrefNumber(match VALUE, backref VALUE) int {
 //
 //	VALUE rb_reg_init_str(VALUE re, VALUE s, int options)
 func RbRegInitStr(re VALUE, s VALUE, options int) VALUE {
-	ret := VALUE(C.rb_reg_init_str(C.VALUE(re), C.VALUE(s), C.int(options)))
-	return ret
+	return VALUE(C.rb_reg_init_str(C.VALUE(re), C.VALUE(s), C.int(options)))
 }
 
 // RbRegLastMatch calls `rb_reg_last_match` in C
@@ -7104,8 +6656,7 @@ func RbRegInitStr(re VALUE, s VALUE, options int) VALUE {
 //
 //	VALUE rb_reg_last_match(VALUE md)
 func RbRegLastMatch(md VALUE) VALUE {
-	ret := VALUE(C.rb_reg_last_match(C.VALUE(md)))
-	return ret
+	return VALUE(C.rb_reg_last_match(C.VALUE(md)))
 }
 
 // RbRegMatch calls `rb_reg_match` in C
@@ -7114,8 +6665,7 @@ func RbRegLastMatch(md VALUE) VALUE {
 //
 //	VALUE rb_reg_match(VALUE re, VALUE str)
 func RbRegMatch(re VALUE, str VALUE) VALUE {
-	ret := VALUE(C.rb_reg_match(C.VALUE(re), C.VALUE(str)))
-	return ret
+	return VALUE(C.rb_reg_match(C.VALUE(re), C.VALUE(str)))
 }
 
 // RbRegMatch2 calls `rb_reg_match2` in C
@@ -7124,8 +6674,7 @@ func RbRegMatch(re VALUE, str VALUE) VALUE {
 //
 //	VALUE rb_reg_match2(VALUE re)
 func RbRegMatch2(re VALUE) VALUE {
-	ret := VALUE(C.rb_reg_match2(C.VALUE(re)))
-	return ret
+	return VALUE(C.rb_reg_match2(C.VALUE(re)))
 }
 
 // RbRegMatchLast calls `rb_reg_match_last` in C
@@ -7134,8 +6683,7 @@ func RbRegMatch2(re VALUE) VALUE {
 //
 //	VALUE rb_reg_match_last(VALUE md)
 func RbRegMatchLast(md VALUE) VALUE {
-	ret := VALUE(C.rb_reg_match_last(C.VALUE(md)))
-	return ret
+	return VALUE(C.rb_reg_match_last(C.VALUE(md)))
 }
 
 // RbRegMatchPost calls `rb_reg_match_post` in C
@@ -7144,8 +6692,7 @@ func RbRegMatchLast(md VALUE) VALUE {
 //
 //	VALUE rb_reg_match_post(VALUE md)
 func RbRegMatchPost(md VALUE) VALUE {
-	ret := VALUE(C.rb_reg_match_post(C.VALUE(md)))
-	return ret
+	return VALUE(C.rb_reg_match_post(C.VALUE(md)))
 }
 
 // RbRegMatchPre calls `rb_reg_match_pre` in C
@@ -7154,8 +6701,7 @@ func RbRegMatchPost(md VALUE) VALUE {
 //
 //	VALUE rb_reg_match_pre(VALUE md)
 func RbRegMatchPre(md VALUE) VALUE {
-	ret := VALUE(C.rb_reg_match_pre(C.VALUE(md)))
-	return ret
+	return VALUE(C.rb_reg_match_pre(C.VALUE(md)))
 }
 
 // RbRegNew calls `rb_reg_new` in C
@@ -7167,8 +6713,7 @@ func RbRegNew(src string, len Long, opts int) VALUE {
 	char, clean := string2Char(src)
 	defer clean()
 
-	ret := VALUE(C.rb_reg_new(char, C.long(len), C.int(opts)))
-	return ret
+	return VALUE(C.rb_reg_new(char, C.long(len), C.int(opts)))
 }
 
 // RbRegNewStr calls `rb_reg_new_str` in C
@@ -7177,8 +6722,7 @@ func RbRegNew(src string, len Long, opts int) VALUE {
 //
 //	VALUE rb_reg_new_str(VALUE src, int opts)
 func RbRegNewStr(src VALUE, opts int) VALUE {
-	ret := VALUE(C.rb_reg_new_str(C.VALUE(src), C.int(opts)))
-	return ret
+	return VALUE(C.rb_reg_new_str(C.VALUE(src), C.int(opts)))
 }
 
 // RbRegNthDefined calls `rb_reg_nth_defined` in C
@@ -7187,8 +6731,7 @@ func RbRegNewStr(src VALUE, opts int) VALUE {
 //
 //	VALUE rb_reg_nth_defined(int n, VALUE md)
 func RbRegNthDefined(n int, md VALUE) VALUE {
-	ret := VALUE(C.rb_reg_nth_defined(C.int(n), C.VALUE(md)))
-	return ret
+	return VALUE(C.rb_reg_nth_defined(C.int(n), C.VALUE(md)))
 }
 
 // RbRegNthMatch calls `rb_reg_nth_match` in C
@@ -7197,8 +6740,7 @@ func RbRegNthDefined(n int, md VALUE) VALUE {
 //
 //	VALUE rb_reg_nth_match(int n, VALUE md)
 func RbRegNthMatch(n int, md VALUE) VALUE {
-	ret := VALUE(C.rb_reg_nth_match(C.int(n), C.VALUE(md)))
-	return ret
+	return VALUE(C.rb_reg_nth_match(C.int(n), C.VALUE(md)))
 }
 
 // RbRegOptions calls `rb_reg_options` in C
@@ -7207,8 +6749,7 @@ func RbRegNthMatch(n int, md VALUE) VALUE {
 //
 //	int rb_reg_options(VALUE re)
 func RbRegOptions(re VALUE) int {
-	ret := int(C.rb_reg_options(C.VALUE(re)))
-	return ret
+	return int(C.rb_reg_options(C.VALUE(re)))
 }
 
 // RbRemoveEventHook calls `rb_remove_event_hook` in C
@@ -7217,8 +6758,7 @@ func RbRegOptions(re VALUE) int {
 //
 //	int rb_remove_event_hook(rb_event_hook_func_t func)
 func RbRemoveEventHook(fun RbEventHookFuncT) int {
-	ret := int(C.rb_remove_event_hook(C.rb_event_hook_func_t(fun)))
-	return ret
+	return int(C.rb_remove_event_hook(C.rb_event_hook_func_t(fun)))
 }
 
 // RbRemoveMethod calls `rb_remove_method` in C
@@ -7251,8 +6791,7 @@ func RbRequire(feature string) VALUE {
 	char, clean := string2Char(feature)
 	defer clean()
 
-	ret := VALUE(C.rb_require(char))
-	return ret
+	return VALUE(C.rb_require(char))
 }
 
 // RbRequireString calls `rb_require_string` in C
@@ -7261,8 +6800,7 @@ func RbRequire(feature string) VALUE {
 //
 //	VALUE rb_require_string(VALUE feature)
 func RbRequireString(feature VALUE) VALUE {
-	ret := VALUE(C.rb_require_string(C.VALUE(feature)))
-	return ret
+	return VALUE(C.rb_require_string(C.VALUE(feature)))
 }
 
 // RbRescue calls `rb_rescue` in C
@@ -7271,8 +6809,7 @@ func RbRequireString(feature VALUE) VALUE {
 //
 //	VALUE rb_rescue(VALUE (*b_proc)(VALUE), VALUE data1, VALUE (*r_proc)(VALUE, VALUE), VALUE data2)
 func RbRescue(arg1 unsafe.Pointer, data1 VALUE, arg3 unsafe.Pointer, data2 VALUE) VALUE {
-	ret := VALUE(C.rb_rescue(toCFunctionPointer(arg1), C.VALUE(data1), toCFunctionPointer(arg3), C.VALUE(data2)))
-	return ret
+	return VALUE(C.rb_rescue(toCFunctionPointer(arg1), C.VALUE(data1), toCFunctionPointer(arg3), C.VALUE(data2)))
 }
 
 // RbReservedFdP calls `rb_reserved_fd_p` in C
@@ -7281,8 +6818,7 @@ func RbRescue(arg1 unsafe.Pointer, data1 VALUE, arg3 unsafe.Pointer, data2 VALUE
 //
 //	int rb_reserved_fd_p(int fd)
 func RbReservedFdP(fd int) int {
-	ret := int(C.rb_reserved_fd_p(C.int(fd)))
-	return ret
+	return int(C.rb_reserved_fd_p(C.int(fd)))
 }
 
 // RbResetRandomSeed calls `rb_reset_random_seed` in C
@@ -7300,8 +6836,7 @@ func RbResetRandomSeed() {
 //
 //	int rb_respond_to(VALUE obj, ID mid)
 func RbRespondTo(obj VALUE, mid ID) int {
-	ret := int(C.rb_respond_to(C.VALUE(obj), C.ID(mid)))
-	return ret
+	return int(C.rb_respond_to(C.VALUE(obj), C.ID(mid)))
 }
 
 // RbRubyDebugPtr calls `rb_ruby_debug_ptr` in C
@@ -7310,8 +6845,7 @@ func RbRespondTo(obj VALUE, mid ID) int {
 //
 //	VALUE *rb_ruby_debug_ptr(void)
 func RbRubyDebugPtr() *VALUE {
-	ret := (*VALUE)(C.rb_ruby_debug_ptr())
-	return ret
+	return (*VALUE)(C.rb_ruby_debug_ptr())
 }
 
 // RbRubyVerbosePtr calls `rb_ruby_verbose_ptr` in C
@@ -7320,8 +6854,7 @@ func RbRubyDebugPtr() *VALUE {
 //
 //	VALUE *rb_ruby_verbose_ptr(void)
 func RbRubyVerbosePtr() *VALUE {
-	ret := (*VALUE)(C.rb_ruby_verbose_ptr())
-	return ret
+	return (*VALUE)(C.rb_ruby_verbose_ptr())
 }
 
 // RbScanArgsBlockIdx calls `rb_scan_args_block_idx` in C
@@ -7333,8 +6866,7 @@ func RbScanArgsBlockIdx(fmt string) int {
 	char, clean := string2Char(fmt)
 	defer clean()
 
-	ret := int(C.rb_scan_args_block_idx(char))
-	return ret
+	return int(C.rb_scan_args_block_idx(char))
 }
 
 // RbScanArgsFBlock calls `rb_scan_args_f_block` in C
@@ -7346,8 +6878,7 @@ func RbScanArgsFBlock(fmt string) Bool {
 	char, clean := string2Char(fmt)
 	defer clean()
 
-	ret := Bool(C.rb_scan_args_f_block(char))
-	return ret
+	return Bool(C.rb_scan_args_f_block(char))
 }
 
 // RbScanArgsFHash calls `rb_scan_args_f_hash` in C
@@ -7359,8 +6890,7 @@ func RbScanArgsFHash(fmt string) Bool {
 	char, clean := string2Char(fmt)
 	defer clean()
 
-	ret := Bool(C.rb_scan_args_f_hash(char))
-	return ret
+	return Bool(C.rb_scan_args_f_hash(char))
 }
 
 // RbScanArgsFVar calls `rb_scan_args_f_var` in C
@@ -7372,8 +6902,7 @@ func RbScanArgsFVar(fmt string) Bool {
 	char, clean := string2Char(fmt)
 	defer clean()
 
-	ret := Bool(C.rb_scan_args_f_var(char))
-	return ret
+	return Bool(C.rb_scan_args_f_var(char))
 }
 
 // RbScanArgsHashIdx calls `rb_scan_args_hash_idx` in C
@@ -7385,8 +6914,7 @@ func RbScanArgsHashIdx(fmt string) int {
 	char, clean := string2Char(fmt)
 	defer clean()
 
-	ret := int(C.rb_scan_args_hash_idx(char))
-	return ret
+	return int(C.rb_scan_args_hash_idx(char))
 }
 
 // RbScanArgsKeywordP calls `rb_scan_args_keyword_p` in C
@@ -7395,8 +6923,7 @@ func RbScanArgsHashIdx(fmt string) int {
 //
 //	rb_scan_args_keyword_p(int kw_flag, VALUE last)
 func RbScanArgsKeywordP(kw_flag int, last VALUE) Bool {
-	ret := Bool(C.rb_scan_args_keyword_p(C.int(kw_flag), C.VALUE(last)))
-	return ret
+	return Bool(C.rb_scan_args_keyword_p(C.int(kw_flag), C.VALUE(last)))
 }
 
 // RbScanArgsLeadP calls `rb_scan_args_lead_p` in C
@@ -7408,8 +6935,7 @@ func RbScanArgsLeadP(fmt string) Bool {
 	char, clean := string2Char(fmt)
 	defer clean()
 
-	ret := Bool(C.rb_scan_args_lead_p(char))
-	return ret
+	return Bool(C.rb_scan_args_lead_p(char))
 }
 
 // RbScanArgsNLead calls `rb_scan_args_n_lead` in C
@@ -7421,8 +6947,7 @@ func RbScanArgsNLead(fmt string) int {
 	char, clean := string2Char(fmt)
 	defer clean()
 
-	ret := int(C.rb_scan_args_n_lead(char))
-	return ret
+	return int(C.rb_scan_args_n_lead(char))
 }
 
 // RbScanArgsNOpt calls `rb_scan_args_n_opt` in C
@@ -7434,8 +6959,7 @@ func RbScanArgsNOpt(fmt string) int {
 	char, clean := string2Char(fmt)
 	defer clean()
 
-	ret := int(C.rb_scan_args_n_opt(char))
-	return ret
+	return int(C.rb_scan_args_n_opt(char))
 }
 
 // RbScanArgsNTrail calls `rb_scan_args_n_trail` in C
@@ -7447,8 +6971,7 @@ func RbScanArgsNTrail(fmt string) int {
 	char, clean := string2Char(fmt)
 	defer clean()
 
-	ret := int(C.rb_scan_args_n_trail(char))
-	return ret
+	return int(C.rb_scan_args_n_trail(char))
 }
 
 // RbScanArgsOptP calls `rb_scan_args_opt_p` in C
@@ -7460,8 +6983,7 @@ func RbScanArgsOptP(fmt string) Bool {
 	char, clean := string2Char(fmt)
 	defer clean()
 
-	ret := Bool(C.rb_scan_args_opt_p(char))
-	return ret
+	return Bool(C.rb_scan_args_opt_p(char))
 }
 
 // RbScanArgsSet calls `rb_scan_args_set` in C
@@ -7488,8 +7010,7 @@ func RbScanArgsTrailIdx(fmt string) int {
 	char, clean := string2Char(fmt)
 	defer clean()
 
-	ret := int(C.rb_scan_args_trail_idx(char))
-	return ret
+	return int(C.rb_scan_args_trail_idx(char))
 }
 
 // RbScanArgsVarIdx calls `rb_scan_args_var_idx` in C
@@ -7501,8 +7022,7 @@ func RbScanArgsVarIdx(fmt string) int {
 	char, clean := string2Char(fmt)
 	defer clean()
 
-	ret := int(C.rb_scan_args_var_idx(char))
-	return ret
+	return int(C.rb_scan_args_var_idx(char))
 }
 
 // RbSetClassPath calls `rb_set_class_path` in C
@@ -7550,8 +7070,7 @@ func RbSetErrinfo(err VALUE) {
 //
 //	VALUE rb_singleton_class(VALUE obj)
 func RbSingletonClass(obj VALUE) VALUE {
-	ret := VALUE(C.rb_singleton_class(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_singleton_class(C.VALUE(obj)))
 }
 
 // RbSingletonClassAttached calls `rb_singleton_class_attached` in C
@@ -7569,8 +7088,7 @@ func RbSingletonClassAttached(klass VALUE, obj VALUE) {
 //
 //	VALUE rb_singleton_class_clone(VALUE obj)
 func RbSingletonClassClone(obj VALUE) VALUE {
-	ret := VALUE(C.rb_singleton_class_clone(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_singleton_class_clone(C.VALUE(obj)))
 }
 
 // RbSourcefile calls `rb_sourcefile` in C
@@ -7579,8 +7097,7 @@ func RbSingletonClassClone(obj VALUE) VALUE {
 //
 //	const char *rb_sourcefile(void)
 func RbSourcefile() string {
-	ret := char2String(C.rb_sourcefile())
-	return ret
+	return char2String(C.rb_sourcefile())
 }
 
 // RbSourceline calls `rb_sourceline` in C
@@ -7589,8 +7106,7 @@ func RbSourcefile() string {
 //
 //	int rb_sourceline(void)
 func RbSourceline() int {
-	ret := int(C.rb_sourceline())
-	return ret
+	return int(C.rb_sourceline())
 }
 
 // RbSpawn calls `rb_spawn` in C
@@ -7626,8 +7142,7 @@ func RbSpawnErr(argc int, argv *VALUE, errbuf string, buflen SizeT) PidT {
 //
 //	rb_special_const_p(VALUE obj)
 func RbSpecialConstP(obj VALUE) VALUE {
-	ret := VALUE(C.rb_special_const_p(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_special_const_p(C.VALUE(obj)))
 }
 
 // RbStAddDirect calls `rb_st_add_direct` in C
@@ -7795,8 +7310,7 @@ func RbStGetKey(arg1 *StTable, arg2 StDataT, arg3 *StDataT) int {
 //
 //	__attribute__((__pure__)) st_index_t rb_st_hash(const void *ptr, size_t len, st_index_t h)
 func RbStHash(ptr unsafe.Pointer, len SizeT, h StIndexT) StIndexT {
-	ret := StIndexT(C.rb_st_hash(ptr, C.size_t(len), C.st_index_t(h)))
-	return ret
+	return StIndexT(C.rb_st_hash(ptr, C.size_t(len), C.st_index_t(h)))
 }
 
 // RbStHashEnd calls `rb_st_hash_end` in C
@@ -7805,8 +7319,7 @@ func RbStHash(ptr unsafe.Pointer, len SizeT, h StIndexT) StIndexT {
 //
 //	__attribute__((__const__)) st_index_t rb_st_hash_end(st_index_t h)
 func RbStHashEnd(h StIndexT) StIndexT {
-	ret := StIndexT(C.rb_st_hash_end(C.st_index_t(h)))
-	return ret
+	return StIndexT(C.rb_st_hash_end(C.st_index_t(h)))
 }
 
 // RbStHashStart calls `rb_st_hash_start` in C
@@ -7815,8 +7328,7 @@ func RbStHashEnd(h StIndexT) StIndexT {
 //
 //	__attribute__((__const__)) st_index_t rb_st_hash_start(st_index_t h)
 func RbStHashStart(h StIndexT) StIndexT {
-	ret := StIndexT(C.rb_st_hash_start(C.st_index_t(h)))
-	return ret
+	return StIndexT(C.rb_st_hash_start(C.st_index_t(h)))
 }
 
 // RbStHashUint calls `rb_st_hash_uint` in C
@@ -7825,8 +7337,7 @@ func RbStHashStart(h StIndexT) StIndexT {
 //
 //	__attribute__((__const__)) st_index_t rb_st_hash_uint(st_index_t h, st_index_t i)
 func RbStHashUint(h StIndexT, i StIndexT) StIndexT {
-	ret := StIndexT(C.rb_st_hash_uint(C.st_index_t(h), C.st_index_t(i)))
-	return ret
+	return StIndexT(C.rb_st_hash_uint(C.st_index_t(h), C.st_index_t(i)))
 }
 
 // RbStHashUint32 calls `rb_st_hash_uint32` in C
@@ -7835,8 +7346,7 @@ func RbStHashUint(h StIndexT, i StIndexT) StIndexT {
 //
 //	__attribute__((__const__)) st_index_t rb_st_hash_uint32(st_index_t h, uint32_t i)
 func RbStHashUint32(h StIndexT, i Uint32T) StIndexT {
-	ret := StIndexT(C.rb_st_hash_uint32(C.st_index_t(h), C.uint32_t(i)))
-	return ret
+	return StIndexT(C.rb_st_hash_uint32(C.st_index_t(h), C.uint32_t(i)))
 }
 
 // RbStInitExistingTableWithSize calls `rb_st_init_existing_table_with_size` in C
@@ -7859,8 +7369,7 @@ func RbStInitExistingTableWithSize(tab *StTable, t *StHashType, size StIndexT) *
 //
 //	st_table *rb_st_init_numtable(void)
 func RbStInitNumtable() *StTable {
-	ret := (*StTable)(C.rb_st_init_numtable())
-	return ret
+	return (*StTable)(C.rb_st_init_numtable())
 }
 
 // RbStInitNumtableWithSize calls `rb_st_init_numtable_with_size` in C
@@ -7869,8 +7378,7 @@ func RbStInitNumtable() *StTable {
 //
 //	st_table *rb_st_init_numtable_with_size(st_index_t)
 func RbStInitNumtableWithSize(arg1 StIndexT) *StTable {
-	ret := (*StTable)(C.rb_st_init_numtable_with_size(C.st_index_t(arg1)))
-	return ret
+	return (*StTable)(C.rb_st_init_numtable_with_size(C.st_index_t(arg1)))
 }
 
 // RbStInitStrcasetable calls `rb_st_init_strcasetable` in C
@@ -7879,8 +7387,7 @@ func RbStInitNumtableWithSize(arg1 StIndexT) *StTable {
 //
 //	st_table *rb_st_init_strcasetable(void)
 func RbStInitStrcasetable() *StTable {
-	ret := (*StTable)(C.rb_st_init_strcasetable())
-	return ret
+	return (*StTable)(C.rb_st_init_strcasetable())
 }
 
 // RbStInitStrcasetableWithSize calls `rb_st_init_strcasetable_with_size` in C
@@ -7889,8 +7396,7 @@ func RbStInitStrcasetable() *StTable {
 //
 //	st_table *rb_st_init_strcasetable_with_size(st_index_t)
 func RbStInitStrcasetableWithSize(arg1 StIndexT) *StTable {
-	ret := (*StTable)(C.rb_st_init_strcasetable_with_size(C.st_index_t(arg1)))
-	return ret
+	return (*StTable)(C.rb_st_init_strcasetable_with_size(C.st_index_t(arg1)))
 }
 
 // RbStInitStrtable calls `rb_st_init_strtable` in C
@@ -7899,8 +7405,7 @@ func RbStInitStrcasetableWithSize(arg1 StIndexT) *StTable {
 //
 //	st_table *rb_st_init_strtable(void)
 func RbStInitStrtable() *StTable {
-	ret := (*StTable)(C.rb_st_init_strtable())
-	return ret
+	return (*StTable)(C.rb_st_init_strtable())
 }
 
 // RbStInitStrtableWithSize calls `rb_st_init_strtable_with_size` in C
@@ -7909,8 +7414,7 @@ func RbStInitStrtable() *StTable {
 //
 //	st_table *rb_st_init_strtable_with_size(st_index_t)
 func RbStInitStrtableWithSize(arg1 StIndexT) *StTable {
-	ret := (*StTable)(C.rb_st_init_strtable_with_size(C.st_index_t(arg1)))
-	return ret
+	return (*StTable)(C.rb_st_init_strtable_with_size(C.st_index_t(arg1)))
 }
 
 // RbStInitTable calls `rb_st_init_table` in C
@@ -8001,8 +7505,7 @@ func RbStLocaleInsensitiveStrcasecmp(s1 string, s2 string) int {
 	charS2, cleanChars2 := string2Char(s2)
 	defer cleanChars2()
 
-	ret := int(C.rb_st_locale_insensitive_strcasecmp(charS1, charS2))
-	return ret
+	return int(C.rb_st_locale_insensitive_strcasecmp(charS1, charS2))
 }
 
 // RbStLocaleInsensitiveStrncasecmp calls `rb_st_locale_insensitive_strncasecmp` in C
@@ -8017,8 +7520,7 @@ func RbStLocaleInsensitiveStrncasecmp(s1 string, s2 string, n SizeT) int {
 	charS2, cleanChars2 := string2Char(s2)
 	defer cleanChars2()
 
-	ret := int(C.rb_st_locale_insensitive_strncasecmp(charS1, charS2, C.size_t(n)))
-	return ret
+	return int(C.rb_st_locale_insensitive_strncasecmp(charS1, charS2, C.size_t(n)))
 }
 
 // RbStLookup calls `rb_st_lookup` in C
@@ -8053,8 +7555,7 @@ func RbStMemsize(arg1 *StTable) SizeT {
 //
 //	__attribute__((__const__)) int rb_st_numcmp(st_data_t, st_data_t)
 func RbStNumcmp(arg1 StDataT, arg2 StDataT) int {
-	ret := int(C.rb_st_numcmp(C.st_data_t(arg1), C.st_data_t(arg2)))
-	return ret
+	return int(C.rb_st_numcmp(C.st_data_t(arg1), C.st_data_t(arg2)))
 }
 
 // RbStNumhash calls `rb_st_numhash` in C
@@ -8063,8 +7564,7 @@ func RbStNumcmp(arg1 StDataT, arg2 StDataT) int {
 //
 //	__attribute__((__const__)) st_index_t rb_st_numhash(st_data_t)
 func RbStNumhash(arg1 StDataT) StIndexT {
-	ret := StIndexT(C.rb_st_numhash(C.st_data_t(arg1)))
-	return ret
+	return StIndexT(C.rb_st_numhash(C.st_data_t(arg1)))
 }
 
 // RbStReplace calls `rb_st_replace` in C
@@ -8157,8 +7657,7 @@ func RbStValuesCheck(table *StTable, values *StDataT, size StIndexT, never StDat
 //
 //	VALUE rb_str2inum(VALUE str, int base)
 func RbStr2Inum(str VALUE, base int) VALUE {
-	ret := VALUE(C.rb_str2inum(C.VALUE(str), C.int(base)))
-	return ret
+	return VALUE(C.rb_str2inum(C.VALUE(str), C.int(base)))
 }
 
 // RbStrAppend calls `rb_str_append` in C
@@ -8167,8 +7666,7 @@ func RbStr2Inum(str VALUE, base int) VALUE {
 //
 //	VALUE rb_str_append(VALUE dst, VALUE src)
 func RbStrAppend(dst VALUE, src VALUE) VALUE {
-	ret := VALUE(C.rb_str_append(C.VALUE(dst), C.VALUE(src)))
-	return ret
+	return VALUE(C.rb_str_append(C.VALUE(dst), C.VALUE(src)))
 }
 
 // RbStrBufAppend calls `rb_str_buf_append` in C
@@ -8177,8 +7675,7 @@ func RbStrAppend(dst VALUE, src VALUE) VALUE {
 //
 //	VALUE rb_str_buf_append(VALUE dst, VALUE src)
 func RbStrBufAppend(dst VALUE, src VALUE) VALUE {
-	ret := VALUE(C.rb_str_buf_append(C.VALUE(dst), C.VALUE(src)))
-	return ret
+	return VALUE(C.rb_str_buf_append(C.VALUE(dst), C.VALUE(src)))
 }
 
 // RbStrBufCat calls `rb_str_buf_cat` in C
@@ -8190,8 +7687,7 @@ func RbStrBufCat(arg1 VALUE, arg2 string, arg3 Long) VALUE {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	ret := VALUE(C.rb_str_buf_cat(C.VALUE(arg1), char, C.long(arg3)))
-	return ret
+	return VALUE(C.rb_str_buf_cat(C.VALUE(arg1), char, C.long(arg3)))
 }
 
 // RbStrBufCat2 calls `rb_str_buf_cat2` in C
@@ -8203,8 +7699,7 @@ func RbStrBufCat2(arg1 VALUE, arg2 string) VALUE {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	ret := VALUE(C.rb_str_buf_cat2(C.VALUE(arg1), char))
-	return ret
+	return VALUE(C.rb_str_buf_cat2(C.VALUE(arg1), char))
 }
 
 // RbStrBufCatAscii calls `rb_str_buf_cat_ascii` in C
@@ -8216,8 +7711,7 @@ func RbStrBufCatAscii(dst VALUE, src string) VALUE {
 	char, clean := string2Char(src)
 	defer clean()
 
-	ret := VALUE(C.rb_str_buf_cat_ascii(C.VALUE(dst), char))
-	return ret
+	return VALUE(C.rb_str_buf_cat_ascii(C.VALUE(dst), char))
 }
 
 // RbStrBufNew calls `rb_str_buf_new` in C
@@ -8226,8 +7720,7 @@ func RbStrBufCatAscii(dst VALUE, src string) VALUE {
 //
 //	VALUE rb_str_buf_new(long capa)
 func RbStrBufNew(capa Long) VALUE {
-	ret := VALUE(C.rb_str_buf_new(C.long(capa)))
-	return ret
+	return VALUE(C.rb_str_buf_new(C.long(capa)))
 }
 
 // RbStrBufNewCstr calls `rb_str_buf_new_cstr` in C
@@ -8239,8 +7732,7 @@ func RbStrBufNewCstr(ptr string) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_str_buf_new_cstr(char))
-	return ret
+	return VALUE(C.rb_str_buf_new_cstr(char))
 }
 
 // RbStrCapacity calls `rb_str_capacity` in C
@@ -8249,8 +7741,7 @@ func RbStrBufNewCstr(ptr string) VALUE {
 //
 //	size_t rb_str_capacity(VALUE str)
 func RbStrCapacity(str VALUE) SizeT {
-	ret := SizeT(C.rb_str_capacity(C.VALUE(str)))
-	return ret
+	return SizeT(C.rb_str_capacity(C.VALUE(str)))
 }
 
 // RbStrCat calls `rb_str_cat` in C
@@ -8262,8 +7753,7 @@ func RbStrCat(dst VALUE, src string, srclen Long) VALUE {
 	char, clean := string2Char(src)
 	defer clean()
 
-	ret := VALUE(C.rb_str_cat(C.VALUE(dst), char, C.long(srclen)))
-	return ret
+	return VALUE(C.rb_str_cat(C.VALUE(dst), char, C.long(srclen)))
 }
 
 // RbStrCat2 calls `rb_str_cat2` in C
@@ -8275,8 +7765,7 @@ func RbStrCat2(arg1 VALUE, arg2 string) VALUE {
 	char, clean := string2Char(arg2)
 	defer clean()
 
-	ret := VALUE(C.rb_str_cat2(C.VALUE(arg1), char))
-	return ret
+	return VALUE(C.rb_str_cat2(C.VALUE(arg1), char))
 }
 
 // RbStrCatCstr calls `rb_str_cat_cstr` in C
@@ -8288,8 +7777,7 @@ func RbStrCatCstr(dst VALUE, src string) VALUE {
 	char, clean := string2Char(src)
 	defer clean()
 
-	ret := VALUE(C.rb_str_cat_cstr(C.VALUE(dst), char))
-	return ret
+	return VALUE(C.rb_str_cat_cstr(C.VALUE(dst), char))
 }
 
 // RbStrCmp calls `rb_str_cmp` in C
@@ -8298,8 +7786,7 @@ func RbStrCatCstr(dst VALUE, src string) VALUE {
 //
 //	int rb_str_cmp(VALUE lhs, VALUE rhs)
 func RbStrCmp(lhs VALUE, rhs VALUE) int {
-	ret := int(C.rb_str_cmp(C.VALUE(lhs), C.VALUE(rhs)))
-	return ret
+	return int(C.rb_str_cmp(C.VALUE(lhs), C.VALUE(rhs)))
 }
 
 // RbStrComparable calls `rb_str_comparable` in C
@@ -8308,8 +7795,7 @@ func RbStrCmp(lhs VALUE, rhs VALUE) int {
 //
 //	int rb_str_comparable(VALUE str1, VALUE str2)
 func RbStrComparable(str1 VALUE, str2 VALUE) int {
-	ret := int(C.rb_str_comparable(C.VALUE(str1), C.VALUE(str2)))
-	return ret
+	return int(C.rb_str_comparable(C.VALUE(str1), C.VALUE(str2)))
 }
 
 // RbStrConcat calls `rb_str_concat` in C
@@ -8318,8 +7804,7 @@ func RbStrComparable(str1 VALUE, str2 VALUE) int {
 //
 //	VALUE rb_str_concat(VALUE dst, VALUE src)
 func RbStrConcat(dst VALUE, src VALUE) VALUE {
-	ret := VALUE(C.rb_str_concat(C.VALUE(dst), C.VALUE(src)))
-	return ret
+	return VALUE(C.rb_str_concat(C.VALUE(dst), C.VALUE(src)))
 }
 
 // RbStrDropBytes calls `rb_str_drop_bytes` in C
@@ -8328,8 +7813,7 @@ func RbStrConcat(dst VALUE, src VALUE) VALUE {
 //
 //	VALUE rb_str_drop_bytes(VALUE str, long len)
 func RbStrDropBytes(str VALUE, len Long) VALUE {
-	ret := VALUE(C.rb_str_drop_bytes(C.VALUE(str), C.long(len)))
-	return ret
+	return VALUE(C.rb_str_drop_bytes(C.VALUE(str), C.long(len)))
 }
 
 // RbStrDump calls `rb_str_dump` in C
@@ -8338,8 +7822,7 @@ func RbStrDropBytes(str VALUE, len Long) VALUE {
 //
 //	VALUE rb_str_dump(VALUE str)
 func RbStrDump(str VALUE) VALUE {
-	ret := VALUE(C.rb_str_dump(C.VALUE(str)))
-	return ret
+	return VALUE(C.rb_str_dump(C.VALUE(str)))
 }
 
 // RbStrDup calls `rb_str_dup` in C
@@ -8348,8 +7831,7 @@ func RbStrDump(str VALUE) VALUE {
 //
 //	VALUE rb_str_dup(VALUE str)
 func RbStrDup(str VALUE) VALUE {
-	ret := VALUE(C.rb_str_dup(C.VALUE(str)))
-	return ret
+	return VALUE(C.rb_str_dup(C.VALUE(str)))
 }
 
 // RbStrDupFrozen calls `rb_str_dup_frozen` in C
@@ -8358,8 +7840,7 @@ func RbStrDup(str VALUE) VALUE {
 //
 //	VALUE rb_str_dup_frozen(VALUE)
 func RbStrDupFrozen(arg1 VALUE) VALUE {
-	ret := VALUE(C.rb_str_dup_frozen(C.VALUE(arg1)))
-	return ret
+	return VALUE(C.rb_str_dup_frozen(C.VALUE(arg1)))
 }
 
 // RbStrEllipsize calls `rb_str_ellipsize` in C
@@ -8368,8 +7849,7 @@ func RbStrDupFrozen(arg1 VALUE) VALUE {
 //
 //	VALUE rb_str_ellipsize(VALUE str, long len)
 func RbStrEllipsize(str VALUE, len Long) VALUE {
-	ret := VALUE(C.rb_str_ellipsize(C.VALUE(str), C.long(len)))
-	return ret
+	return VALUE(C.rb_str_ellipsize(C.VALUE(str), C.long(len)))
 }
 
 // RbStrEncodeOspath calls `rb_str_encode_ospath` in C
@@ -8378,8 +7858,7 @@ func RbStrEllipsize(str VALUE, len Long) VALUE {
 //
 //	VALUE rb_str_encode_ospath(VALUE path)
 func RbStrEncodeOspath(path VALUE) VALUE {
-	ret := VALUE(C.rb_str_encode_ospath(C.VALUE(path)))
-	return ret
+	return VALUE(C.rb_str_encode_ospath(C.VALUE(path)))
 }
 
 // RbStrEqual calls `rb_str_equal` in C
@@ -8388,8 +7867,7 @@ func RbStrEncodeOspath(path VALUE) VALUE {
 //
 //	VALUE rb_str_equal(VALUE str1, VALUE str2)
 func RbStrEqual(str1 VALUE, str2 VALUE) VALUE {
-	ret := VALUE(C.rb_str_equal(C.VALUE(str1), C.VALUE(str2)))
-	return ret
+	return VALUE(C.rb_str_equal(C.VALUE(str1), C.VALUE(str2)))
 }
 
 // RbStrExport calls `rb_str_export` in C
@@ -8398,8 +7876,7 @@ func RbStrEqual(str1 VALUE, str2 VALUE) VALUE {
 //
 //	VALUE rb_str_export(VALUE obj)
 func RbStrExport(obj VALUE) VALUE {
-	ret := VALUE(C.rb_str_export(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_str_export(C.VALUE(obj)))
 }
 
 // RbStrExportLocale calls `rb_str_export_locale` in C
@@ -8408,8 +7885,7 @@ func RbStrExport(obj VALUE) VALUE {
 //
 //	VALUE rb_str_export_locale(VALUE obj)
 func RbStrExportLocale(obj VALUE) VALUE {
-	ret := VALUE(C.rb_str_export_locale(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_str_export_locale(C.VALUE(obj)))
 }
 
 // RbStrFormat calls `rb_str_format` in C
@@ -8439,8 +7915,7 @@ func RbStrFree(str VALUE) {
 //
 //	VALUE rb_str_freeze(VALUE str)
 func RbStrFreeze(str VALUE) VALUE {
-	ret := VALUE(C.rb_str_freeze(C.VALUE(str)))
-	return ret
+	return VALUE(C.rb_str_freeze(C.VALUE(str)))
 }
 
 // RbStrHash calls `rb_str_hash` in C
@@ -8449,8 +7924,7 @@ func RbStrFreeze(str VALUE) VALUE {
 //
 //	st_index_t rb_str_hash(VALUE str)
 func RbStrHash(str VALUE) StIndexT {
-	ret := StIndexT(C.rb_str_hash(C.VALUE(str)))
-	return ret
+	return StIndexT(C.rb_str_hash(C.VALUE(str)))
 }
 
 // RbStrHashCmp calls `rb_str_hash_cmp` in C
@@ -8459,8 +7933,7 @@ func RbStrHash(str VALUE) StIndexT {
 //
 //	int rb_str_hash_cmp(VALUE str1, VALUE str2)
 func RbStrHashCmp(str1 VALUE, str2 VALUE) int {
-	ret := int(C.rb_str_hash_cmp(C.VALUE(str1), C.VALUE(str2)))
-	return ret
+	return int(C.rb_str_hash_cmp(C.VALUE(str1), C.VALUE(str2)))
 }
 
 // RbStrInspect calls `rb_str_inspect` in C
@@ -8469,8 +7942,7 @@ func RbStrHashCmp(str1 VALUE, str2 VALUE) int {
 //
 //	VALUE rb_str_inspect(VALUE str)
 func RbStrInspect(str VALUE) VALUE {
-	ret := VALUE(C.rb_str_inspect(C.VALUE(str)))
-	return ret
+	return VALUE(C.rb_str_inspect(C.VALUE(str)))
 }
 
 // RbStrIntern calls `rb_str_intern` in C
@@ -8479,8 +7951,7 @@ func RbStrInspect(str VALUE) VALUE {
 //
 //	VALUE rb_str_intern(VALUE str)
 func RbStrIntern(str VALUE) VALUE {
-	ret := VALUE(C.rb_str_intern(C.VALUE(str)))
-	return ret
+	return VALUE(C.rb_str_intern(C.VALUE(str)))
 }
 
 // RbStrLength calls `rb_str_length` in C
@@ -8489,8 +7960,7 @@ func RbStrIntern(str VALUE) VALUE {
 //
 //	VALUE rb_str_length(VALUE)
 func RbStrLength(arg1 VALUE) VALUE {
-	ret := VALUE(C.rb_str_length(C.VALUE(arg1)))
-	return ret
+	return VALUE(C.rb_str_length(C.VALUE(arg1)))
 }
 
 // RbStrLocktmp calls `rb_str_locktmp` in C
@@ -8499,8 +7969,7 @@ func RbStrLength(arg1 VALUE) VALUE {
 //
 //	VALUE rb_str_locktmp(VALUE str)
 func RbStrLocktmp(str VALUE) VALUE {
-	ret := VALUE(C.rb_str_locktmp(C.VALUE(str)))
-	return ret
+	return VALUE(C.rb_str_locktmp(C.VALUE(str)))
 }
 
 // RbStrModify calls `rb_str_modify` in C
@@ -8530,8 +7999,7 @@ func RbStrNew(ptr string, len Long) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_str_new(char, C.long(len)))
-	return ret
+	return VALUE(C.rb_str_new(char, C.long(len)))
 }
 
 // RbStrNewCstr calls `rb_str_new_cstr` in C
@@ -8543,8 +8011,7 @@ func RbStrNewCstr(ptr string) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_str_new_cstr(char))
-	return ret
+	return VALUE(C.rb_str_new_cstr(char))
 }
 
 // RbStrNewFrozen calls `rb_str_new_frozen` in C
@@ -8553,8 +8020,7 @@ func RbStrNewCstr(ptr string) VALUE {
 //
 //	VALUE rb_str_new_frozen(VALUE str)
 func RbStrNewFrozen(str VALUE) VALUE {
-	ret := VALUE(C.rb_str_new_frozen(C.VALUE(str)))
-	return ret
+	return VALUE(C.rb_str_new_frozen(C.VALUE(str)))
 }
 
 // RbStrNewShared calls `rb_str_new_shared` in C
@@ -8563,8 +8029,7 @@ func RbStrNewFrozen(str VALUE) VALUE {
 //
 //	VALUE rb_str_new_shared(VALUE str)
 func RbStrNewShared(str VALUE) VALUE {
-	ret := VALUE(C.rb_str_new_shared(C.VALUE(str)))
-	return ret
+	return VALUE(C.rb_str_new_shared(C.VALUE(str)))
 }
 
 // RbStrNewStatic calls `rb_str_new_static` in C
@@ -8576,8 +8041,7 @@ func RbStrNewStatic(ptr string, len Long) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_str_new_static(char, C.long(len)))
-	return ret
+	return VALUE(C.rb_str_new_static(char, C.long(len)))
 }
 
 // RbStrNewWithClass calls `rb_str_new_with_class` in C
@@ -8589,8 +8053,7 @@ func RbStrNewWithClass(obj VALUE, ptr string, len Long) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_str_new_with_class(C.VALUE(obj), char, C.long(len)))
-	return ret
+	return VALUE(C.rb_str_new_with_class(C.VALUE(obj), char, C.long(len)))
 }
 
 // RbStrOffset calls `rb_str_offset` in C
@@ -8599,8 +8062,7 @@ func RbStrNewWithClass(obj VALUE, ptr string, len Long) VALUE {
 //
 //	long rb_str_offset(VALUE str, long pos)
 func RbStrOffset(str VALUE, pos Long) Long {
-	ret := Long(C.rb_str_offset(C.VALUE(str), C.long(pos)))
-	return ret
+	return Long(C.rb_str_offset(C.VALUE(str), C.long(pos)))
 }
 
 // RbStrPlus calls `rb_str_plus` in C
@@ -8609,8 +8071,7 @@ func RbStrOffset(str VALUE, pos Long) Long {
 //
 //	VALUE rb_str_plus(VALUE lhs, VALUE rhs)
 func RbStrPlus(lhs VALUE, rhs VALUE) VALUE {
-	ret := VALUE(C.rb_str_plus(C.VALUE(lhs), C.VALUE(rhs)))
-	return ret
+	return VALUE(C.rb_str_plus(C.VALUE(lhs), C.VALUE(rhs)))
 }
 
 // RbStrReplace calls `rb_str_replace` in C
@@ -8619,8 +8080,7 @@ func RbStrPlus(lhs VALUE, rhs VALUE) VALUE {
 //
 //	VALUE rb_str_replace(VALUE dst, VALUE src)
 func RbStrReplace(dst VALUE, src VALUE) VALUE {
-	ret := VALUE(C.rb_str_replace(C.VALUE(dst), C.VALUE(src)))
-	return ret
+	return VALUE(C.rb_str_replace(C.VALUE(dst), C.VALUE(src)))
 }
 
 // RbStrResize calls `rb_str_resize` in C
@@ -8629,8 +8089,7 @@ func RbStrReplace(dst VALUE, src VALUE) VALUE {
 //
 //	VALUE rb_str_resize(VALUE str, long len)
 func RbStrResize(str VALUE, len Long) VALUE {
-	ret := VALUE(C.rb_str_resize(C.VALUE(str), C.long(len)))
-	return ret
+	return VALUE(C.rb_str_resize(C.VALUE(str), C.long(len)))
 }
 
 // RbStrResurrect calls `rb_str_resurrect` in C
@@ -8639,8 +8098,7 @@ func RbStrResize(str VALUE, len Long) VALUE {
 //
 //	VALUE rb_str_resurrect(VALUE str)
 func RbStrResurrect(str VALUE) VALUE {
-	ret := VALUE(C.rb_str_resurrect(C.VALUE(str)))
-	return ret
+	return VALUE(C.rb_str_resurrect(C.VALUE(str)))
 }
 
 // RbStrScrub calls `rb_str_scrub` in C
@@ -8649,8 +8107,7 @@ func RbStrResurrect(str VALUE) VALUE {
 //
 //	VALUE rb_str_scrub(VALUE str, VALUE repl)
 func RbStrScrub(str VALUE, repl VALUE) VALUE {
-	ret := VALUE(C.rb_str_scrub(C.VALUE(str), C.VALUE(repl)))
-	return ret
+	return VALUE(C.rb_str_scrub(C.VALUE(str), C.VALUE(repl)))
 }
 
 // RbStrSetLen calls `rb_str_set_len` in C
@@ -8680,8 +8137,7 @@ func RbStrSplit(str VALUE, delim string) VALUE {
 	char, clean := string2Char(delim)
 	defer clean()
 
-	ret := VALUE(C.rb_str_split(C.VALUE(str), char))
-	return ret
+	return VALUE(C.rb_str_split(C.VALUE(str), char))
 }
 
 // RbStrStrlen calls `rb_str_strlen` in C
@@ -8690,8 +8146,7 @@ func RbStrSplit(str VALUE, delim string) VALUE {
 //
 //	long rb_str_strlen(VALUE str)
 func RbStrStrlen(str VALUE) Long {
-	ret := Long(C.rb_str_strlen(C.VALUE(str)))
-	return ret
+	return Long(C.rb_str_strlen(C.VALUE(str)))
 }
 
 // RbStrSublen calls `rb_str_sublen` in C
@@ -8700,8 +8155,7 @@ func RbStrStrlen(str VALUE) Long {
 //
 //	long rb_str_sublen(VALUE str, long pos)
 func RbStrSublen(str VALUE, pos Long) Long {
-	ret := Long(C.rb_str_sublen(C.VALUE(str), C.long(pos)))
-	return ret
+	return Long(C.rb_str_sublen(C.VALUE(str), C.long(pos)))
 }
 
 // RbStrSubpos calls `rb_str_subpos` in C
@@ -8722,8 +8176,7 @@ func RbStrSubpos(str VALUE, beg Long, len *Long) string {
 //
 //	VALUE rb_str_subseq(VALUE str, long beg, long len)
 func RbStrSubseq(str VALUE, beg Long, len Long) VALUE {
-	ret := VALUE(C.rb_str_subseq(C.VALUE(str), C.long(beg), C.long(len)))
-	return ret
+	return VALUE(C.rb_str_subseq(C.VALUE(str), C.long(beg), C.long(len)))
 }
 
 // RbStrSubstr calls `rb_str_substr` in C
@@ -8732,8 +8185,7 @@ func RbStrSubseq(str VALUE, beg Long, len Long) VALUE {
 //
 //	VALUE rb_str_substr(VALUE str, long beg, long len)
 func RbStrSubstr(str VALUE, beg Long, len Long) VALUE {
-	ret := VALUE(C.rb_str_substr(C.VALUE(str), C.long(beg), C.long(len)))
-	return ret
+	return VALUE(C.rb_str_substr(C.VALUE(str), C.long(beg), C.long(len)))
 }
 
 // RbStrSucc calls `rb_str_succ` in C
@@ -8742,8 +8194,7 @@ func RbStrSubstr(str VALUE, beg Long, len Long) VALUE {
 //
 //	VALUE rb_str_succ(VALUE orig)
 func RbStrSucc(orig VALUE) VALUE {
-	ret := VALUE(C.rb_str_succ(C.VALUE(orig)))
-	return ret
+	return VALUE(C.rb_str_succ(C.VALUE(orig)))
 }
 
 // RbStrTimes calls `rb_str_times` in C
@@ -8752,8 +8203,7 @@ func RbStrSucc(orig VALUE) VALUE {
 //
 //	VALUE rb_str_times(VALUE str, VALUE num)
 func RbStrTimes(str VALUE, num VALUE) VALUE {
-	ret := VALUE(C.rb_str_times(C.VALUE(str), C.VALUE(num)))
-	return ret
+	return VALUE(C.rb_str_times(C.VALUE(str), C.VALUE(num)))
 }
 
 // RbStrTmpNew calls `rb_str_tmp_new` in C
@@ -8762,8 +8212,7 @@ func RbStrTimes(str VALUE, num VALUE) VALUE {
 //
 //	VALUE rb_str_tmp_new(long len)
 func RbStrTmpNew(len Long) VALUE {
-	ret := VALUE(C.rb_str_tmp_new(C.long(len)))
-	return ret
+	return VALUE(C.rb_str_tmp_new(C.long(len)))
 }
 
 // RbStrToDbl calls `rb_str_to_dbl` in C
@@ -8772,8 +8221,7 @@ func RbStrTmpNew(len Long) VALUE {
 //
 //	double rb_str_to_dbl(VALUE str, int mode)
 func RbStrToDbl(str VALUE, mode int) Double {
-	ret := Double(C.rb_str_to_dbl(C.VALUE(str), C.int(mode)))
-	return ret
+	return Double(C.rb_str_to_dbl(C.VALUE(str), C.int(mode)))
 }
 
 // RbStrToInternedStr calls `rb_str_to_interned_str` in C
@@ -8782,8 +8230,7 @@ func RbStrToDbl(str VALUE, mode int) Double {
 //
 //	VALUE rb_str_to_interned_str(VALUE str)
 func RbStrToInternedStr(str VALUE) VALUE {
-	ret := VALUE(C.rb_str_to_interned_str(C.VALUE(str)))
-	return ret
+	return VALUE(C.rb_str_to_interned_str(C.VALUE(str)))
 }
 
 // RbStrToInum calls `rb_str_to_inum` in C
@@ -8792,8 +8239,7 @@ func RbStrToInternedStr(str VALUE) VALUE {
 //
 //	VALUE rb_str_to_inum(VALUE str, int base, int badcheck)
 func RbStrToInum(str VALUE, base int, badcheck int) VALUE {
-	ret := VALUE(C.rb_str_to_inum(C.VALUE(str), C.int(base), C.int(badcheck)))
-	return ret
+	return VALUE(C.rb_str_to_inum(C.VALUE(str), C.int(base), C.int(badcheck)))
 }
 
 // RbStrToStr calls `rb_str_to_str` in C
@@ -8802,8 +8248,7 @@ func RbStrToInum(str VALUE, base int, badcheck int) VALUE {
 //
 //	VALUE rb_str_to_str(VALUE obj)
 func RbStrToStr(obj VALUE) VALUE {
-	ret := VALUE(C.rb_str_to_str(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_str_to_str(C.VALUE(obj)))
 }
 
 // RbStrUnlocktmp calls `rb_str_unlocktmp` in C
@@ -8812,8 +8257,7 @@ func RbStrToStr(obj VALUE) VALUE {
 //
 //	VALUE rb_str_unlocktmp(VALUE str)
 func RbStrUnlocktmp(str VALUE) VALUE {
-	ret := VALUE(C.rb_str_unlocktmp(C.VALUE(str)))
-	return ret
+	return VALUE(C.rb_str_unlocktmp(C.VALUE(str)))
 }
 
 // RbStrUpdate calls `rb_str_update` in C
@@ -8867,8 +8311,7 @@ func RbStringValuePtr(ptr *VALUE) string {
 //
 //	VALUE rb_struct_alloc(VALUE klass, VALUE values)
 func RbStructAlloc(klass VALUE, values VALUE) VALUE {
-	ret := VALUE(C.rb_struct_alloc(C.VALUE(klass), C.VALUE(values)))
-	return ret
+	return VALUE(C.rb_struct_alloc(C.VALUE(klass), C.VALUE(values)))
 }
 
 // RbStructAllocNoinit calls `rb_struct_alloc_noinit` in C
@@ -8877,8 +8320,7 @@ func RbStructAlloc(klass VALUE, values VALUE) VALUE {
 //
 //	VALUE rb_struct_alloc_noinit(VALUE klass)
 func RbStructAllocNoinit(klass VALUE) VALUE {
-	ret := VALUE(C.rb_struct_alloc_noinit(C.VALUE(klass)))
-	return ret
+	return VALUE(C.rb_struct_alloc_noinit(C.VALUE(klass)))
 }
 
 // RbStructAref calls `rb_struct_aref` in C
@@ -8887,8 +8329,7 @@ func RbStructAllocNoinit(klass VALUE) VALUE {
 //
 //	VALUE rb_struct_aref(VALUE st, VALUE k)
 func RbStructAref(st VALUE, k VALUE) VALUE {
-	ret := VALUE(C.rb_struct_aref(C.VALUE(st), C.VALUE(k)))
-	return ret
+	return VALUE(C.rb_struct_aref(C.VALUE(st), C.VALUE(k)))
 }
 
 // RbStructAset calls `rb_struct_aset` in C
@@ -8897,8 +8338,7 @@ func RbStructAref(st VALUE, k VALUE) VALUE {
 //
 //	VALUE rb_struct_aset(VALUE st, VALUE k, VALUE v)
 func RbStructAset(st VALUE, k VALUE, v VALUE) VALUE {
-	ret := VALUE(C.rb_struct_aset(C.VALUE(st), C.VALUE(k), C.VALUE(v)))
-	return ret
+	return VALUE(C.rb_struct_aset(C.VALUE(st), C.VALUE(k), C.VALUE(v)))
 }
 
 // RbStructGetmember calls `rb_struct_getmember` in C
@@ -8907,8 +8347,7 @@ func RbStructAset(st VALUE, k VALUE, v VALUE) VALUE {
 //
 //	VALUE rb_struct_getmember(VALUE self, ID key)
 func RbStructGetmember(self VALUE, key ID) VALUE {
-	ret := VALUE(C.rb_struct_getmember(C.VALUE(self), C.ID(key)))
-	return ret
+	return VALUE(C.rb_struct_getmember(C.VALUE(self), C.ID(key)))
 }
 
 // RbStructInitialize calls `rb_struct_initialize` in C
@@ -8917,8 +8356,7 @@ func RbStructGetmember(self VALUE, key ID) VALUE {
 //
 //	VALUE rb_struct_initialize(VALUE self, VALUE values)
 func RbStructInitialize(self VALUE, values VALUE) VALUE {
-	ret := VALUE(C.rb_struct_initialize(C.VALUE(self), C.VALUE(values)))
-	return ret
+	return VALUE(C.rb_struct_initialize(C.VALUE(self), C.VALUE(values)))
 }
 
 // RbStructMembers calls `rb_struct_members` in C
@@ -8927,8 +8365,7 @@ func RbStructInitialize(self VALUE, values VALUE) VALUE {
 //
 //	VALUE rb_struct_members(VALUE self)
 func RbStructMembers(self VALUE) VALUE {
-	ret := VALUE(C.rb_struct_members(C.VALUE(self)))
-	return ret
+	return VALUE(C.rb_struct_members(C.VALUE(self)))
 }
 
 // RbStructSMembers calls `rb_struct_s_members` in C
@@ -8937,8 +8374,7 @@ func RbStructMembers(self VALUE) VALUE {
 //
 //	VALUE rb_struct_s_members(VALUE klass)
 func RbStructSMembers(klass VALUE) VALUE {
-	ret := VALUE(C.rb_struct_s_members(C.VALUE(klass)))
-	return ret
+	return VALUE(C.rb_struct_s_members(C.VALUE(klass)))
 }
 
 // RbStructSize calls `rb_struct_size` in C
@@ -8947,8 +8383,7 @@ func RbStructSMembers(klass VALUE) VALUE {
 //
 //	VALUE rb_struct_size(VALUE st)
 func RbStructSize(st VALUE) VALUE {
-	ret := VALUE(C.rb_struct_size(C.VALUE(st)))
-	return ret
+	return VALUE(C.rb_struct_size(C.VALUE(st)))
 }
 
 // RbSym2Id calls `rb_sym2id` in C
@@ -8957,8 +8392,7 @@ func RbStructSize(st VALUE) VALUE {
 //
 //	ID rb_sym2id(VALUE obj)
 func RbSym2Id(obj VALUE) ID {
-	ret := ID(C.rb_sym2id(C.VALUE(obj)))
-	return ret
+	return ID(C.rb_sym2id(C.VALUE(obj)))
 }
 
 // RbSym2Str calls `rb_sym2str` in C
@@ -8967,8 +8401,7 @@ func RbSym2Id(obj VALUE) ID {
 //
 //	VALUE rb_sym2str(VALUE id)
 func RbSym2Str(id VALUE) VALUE {
-	ret := VALUE(C.rb_sym2str(C.VALUE(id)))
-	return ret
+	return VALUE(C.rb_sym2str(C.VALUE(id)))
 }
 
 // RbSymAllSymbols calls `rb_sym_all_symbols` in C
@@ -8977,8 +8410,7 @@ func RbSym2Str(id VALUE) VALUE {
 //
 //	VALUE rb_sym_all_symbols(void)
 func RbSymAllSymbols() VALUE {
-	ret := VALUE(C.rb_sym_all_symbols())
-	return ret
+	return VALUE(C.rb_sym_all_symbols())
 }
 
 // RbSymToS calls `rb_sym_to_s` in C
@@ -8987,8 +8419,7 @@ func RbSymAllSymbols() VALUE {
 //
 //	VALUE rb_sym_to_s(VALUE sym)
 func RbSymToS(sym VALUE) VALUE {
-	ret := VALUE(C.rb_sym_to_s(C.VALUE(sym)))
-	return ret
+	return VALUE(C.rb_sym_to_s(C.VALUE(sym)))
 }
 
 // RbSymnameP calls `rb_symname_p` in C
@@ -9000,8 +8431,7 @@ func RbSymnameP(str string) int {
 	char, clean := string2Char(str)
 	defer clean()
 
-	ret := int(C.rb_symname_p(char))
-	return ret
+	return int(C.rb_symname_p(char))
 }
 
 // RbSysFail calls `rb_sys_fail` in C
@@ -9055,8 +8485,7 @@ func RbSyserrNew(err int, msg string) VALUE {
 	char, clean := string2Char(msg)
 	defer clean()
 
-	ret := VALUE(C.rb_syserr_new(C.int(err), char))
-	return ret
+	return VALUE(C.rb_syserr_new(C.int(err), char))
 }
 
 // RbSyserrNewStr calls `rb_syserr_new_str` in C
@@ -9065,8 +8494,7 @@ func RbSyserrNew(err int, msg string) VALUE {
 //
 //	VALUE rb_syserr_new_str(int n, VALUE arg)
 func RbSyserrNewStr(n int, arg VALUE) VALUE {
-	ret := VALUE(C.rb_syserr_new_str(C.int(n), C.VALUE(arg)))
-	return ret
+	return VALUE(C.rb_syserr_new_str(C.int(n), C.VALUE(arg)))
 }
 
 // RbSyswait calls `rb_syswait` in C
@@ -9084,8 +8512,7 @@ func RbSyswait(pid PidT) {
 //
 //	int rb_thread_alone(void)
 func RbThreadAlone() int {
-	ret := int(C.rb_thread_alone())
-	return ret
+	return int(C.rb_thread_alone())
 }
 
 // RbThreadAtfork calls `rb_thread_atfork` in C
@@ -9121,8 +8548,7 @@ func RbThreadCheckInts() {
 //
 //	VALUE rb_thread_create(VALUE (*f)(void *g), void *g)
 func RbThreadCreate(arg1 unsafe.Pointer, g unsafe.Pointer) VALUE {
-	ret := VALUE(C.rb_thread_create(toCFunctionPointer(arg1), g))
-	return ret
+	return VALUE(C.rb_thread_create(toCFunctionPointer(arg1), g))
 }
 
 // RbThreadCurrent calls `rb_thread_current` in C
@@ -9131,8 +8557,7 @@ func RbThreadCreate(arg1 unsafe.Pointer, g unsafe.Pointer) VALUE {
 //
 //	VALUE rb_thread_current(void)
 func RbThreadCurrent() VALUE {
-	ret := VALUE(C.rb_thread_current())
-	return ret
+	return VALUE(C.rb_thread_current())
 }
 
 // RbThreadFdClose calls `rb_thread_fd_close` in C
@@ -9168,8 +8593,7 @@ func RbThreadFdSelect(nfds int, rfds *RbFdsetT, wfds *RbFdsetT, efds *RbFdsetT, 
 //
 //	int rb_thread_fd_writable(int fd)
 func RbThreadFdWritable(fd int) int {
-	ret := int(C.rb_thread_fd_writable(C.int(fd)))
-	return ret
+	return int(C.rb_thread_fd_writable(C.int(fd)))
 }
 
 // RbThreadInterrupted calls `rb_thread_interrupted` in C
@@ -9178,8 +8602,7 @@ func RbThreadFdWritable(fd int) int {
 //
 //	int rb_thread_interrupted(VALUE thval)
 func RbThreadInterrupted(thval VALUE) int {
-	ret := int(C.rb_thread_interrupted(C.VALUE(thval)))
-	return ret
+	return int(C.rb_thread_interrupted(C.VALUE(thval)))
 }
 
 // RbThreadKill calls `rb_thread_kill` in C
@@ -9188,8 +8611,7 @@ func RbThreadInterrupted(thval VALUE) int {
 //
 //	VALUE rb_thread_kill(VALUE thread)
 func RbThreadKill(thread VALUE) VALUE {
-	ret := VALUE(C.rb_thread_kill(C.VALUE(thread)))
-	return ret
+	return VALUE(C.rb_thread_kill(C.VALUE(thread)))
 }
 
 // RbThreadLocalAref calls `rb_thread_local_aref` in C
@@ -9198,8 +8620,7 @@ func RbThreadKill(thread VALUE) VALUE {
 //
 //	VALUE rb_thread_local_aref(VALUE thread, ID key)
 func RbThreadLocalAref(thread VALUE, key ID) VALUE {
-	ret := VALUE(C.rb_thread_local_aref(C.VALUE(thread), C.ID(key)))
-	return ret
+	return VALUE(C.rb_thread_local_aref(C.VALUE(thread), C.ID(key)))
 }
 
 // RbThreadLocalAset calls `rb_thread_local_aset` in C
@@ -9208,8 +8629,7 @@ func RbThreadLocalAref(thread VALUE, key ID) VALUE {
 //
 //	VALUE rb_thread_local_aset(VALUE thread, ID key, VALUE val)
 func RbThreadLocalAset(thread VALUE, key ID, val VALUE) VALUE {
-	ret := VALUE(C.rb_thread_local_aset(C.VALUE(thread), C.ID(key), C.VALUE(val)))
-	return ret
+	return VALUE(C.rb_thread_local_aset(C.VALUE(thread), C.ID(key), C.VALUE(val)))
 }
 
 // RbThreadMain calls `rb_thread_main` in C
@@ -9218,8 +8638,7 @@ func RbThreadLocalAset(thread VALUE, key ID, val VALUE) VALUE {
 //
 //	VALUE rb_thread_main(void)
 func RbThreadMain() VALUE {
-	ret := VALUE(C.rb_thread_main())
-	return ret
+	return VALUE(C.rb_thread_main())
 }
 
 // RbThreadRun calls `rb_thread_run` in C
@@ -9228,8 +8647,7 @@ func RbThreadMain() VALUE {
 //
 //	VALUE rb_thread_run(VALUE thread)
 func RbThreadRun(thread VALUE) VALUE {
-	ret := VALUE(C.rb_thread_run(C.VALUE(thread)))
-	return ret
+	return VALUE(C.rb_thread_run(C.VALUE(thread)))
 }
 
 // RbThreadSchedule calls `rb_thread_schedule` in C
@@ -9274,8 +8692,7 @@ func RbThreadSleepForever() {
 //
 //	VALUE rb_thread_stop(void)
 func RbThreadStop() VALUE {
-	ret := VALUE(C.rb_thread_stop())
-	return ret
+	return VALUE(C.rb_thread_stop())
 }
 
 // RbThreadWaitFd calls `rb_thread_wait_fd` in C
@@ -9284,8 +8701,7 @@ func RbThreadStop() VALUE {
 //
 //	int rb_thread_wait_fd(int fd)
 func RbThreadWaitFd(fd int) int {
-	ret := int(C.rb_thread_wait_fd(C.int(fd)))
-	return ret
+	return int(C.rb_thread_wait_fd(C.int(fd)))
 }
 
 // RbThreadWaitFor calls `rb_thread_wait_for` in C
@@ -9303,8 +8719,7 @@ func RbThreadWaitFor(time Timeval) {
 //
 //	VALUE rb_thread_wakeup(VALUE thread)
 func RbThreadWakeup(thread VALUE) VALUE {
-	ret := VALUE(C.rb_thread_wakeup(C.VALUE(thread)))
-	return ret
+	return VALUE(C.rb_thread_wakeup(C.VALUE(thread)))
 }
 
 // RbThreadWakeupAlive calls `rb_thread_wakeup_alive` in C
@@ -9313,8 +8728,7 @@ func RbThreadWakeup(thread VALUE) VALUE {
 //
 //	VALUE rb_thread_wakeup_alive(VALUE thread)
 func RbThreadWakeupAlive(thread VALUE) VALUE {
-	ret := VALUE(C.rb_thread_wakeup_alive(C.VALUE(thread)))
-	return ret
+	return VALUE(C.rb_thread_wakeup_alive(C.VALUE(thread)))
 }
 
 // RbThrow calls `rb_throw` in C
@@ -9344,8 +8758,7 @@ func RbThrowObj(tag VALUE, val VALUE) {
 //
 //	struct timeval rb_time_interval(VALUE num)
 func RbTimeInterval(num VALUE) Timeval {
-	ret := Timeval(C.rb_time_interval(C.VALUE(num)))
-	return ret
+	return Timeval(C.rb_time_interval(C.VALUE(num)))
 }
 
 // RbTimeNanoNew calls `rb_time_nano_new` in C
@@ -9354,8 +8767,7 @@ func RbTimeInterval(num VALUE) Timeval {
 //
 //	VALUE rb_time_nano_new(time_t sec, long nsec)
 func RbTimeNanoNew(sec TimeT, nsec Long) VALUE {
-	ret := VALUE(C.rb_time_nano_new(C.time_t(sec), C.long(nsec)))
-	return ret
+	return VALUE(C.rb_time_nano_new(C.time_t(sec), C.long(nsec)))
 }
 
 // RbTimeNew calls `rb_time_new` in C
@@ -9364,8 +8776,7 @@ func RbTimeNanoNew(sec TimeT, nsec Long) VALUE {
 //
 //	VALUE rb_time_new(time_t sec, long usec)
 func RbTimeNew(sec TimeT, usec Long) VALUE {
-	ret := VALUE(C.rb_time_new(C.time_t(sec), C.long(usec)))
-	return ret
+	return VALUE(C.rb_time_new(C.time_t(sec), C.long(usec)))
 }
 
 // RbTimeNumNew calls `rb_time_num_new` in C
@@ -9374,8 +8785,7 @@ func RbTimeNew(sec TimeT, usec Long) VALUE {
 //
 //	VALUE rb_time_num_new(VALUE timev, VALUE off)
 func RbTimeNumNew(timev VALUE, off VALUE) VALUE {
-	ret := VALUE(C.rb_time_num_new(C.VALUE(timev), C.VALUE(off)))
-	return ret
+	return VALUE(C.rb_time_num_new(C.VALUE(timev), C.VALUE(off)))
 }
 
 // RbTimeTimespec calls `rb_time_timespec` in C
@@ -9384,8 +8794,7 @@ func RbTimeNumNew(timev VALUE, off VALUE) VALUE {
 //
 //	struct timespec rb_time_timespec(VALUE time)
 func RbTimeTimespec(time VALUE) Timespec {
-	ret := Timespec(C.rb_time_timespec(C.VALUE(time)))
-	return ret
+	return Timespec(C.rb_time_timespec(C.VALUE(time)))
 }
 
 // RbTimeTimespecInterval calls `rb_time_timespec_interval` in C
@@ -9394,8 +8803,7 @@ func RbTimeTimespec(time VALUE) Timespec {
 //
 //	struct timespec rb_time_timespec_interval(VALUE num)
 func RbTimeTimespecInterval(num VALUE) Timespec {
-	ret := Timespec(C.rb_time_timespec_interval(C.VALUE(num)))
-	return ret
+	return Timespec(C.rb_time_timespec_interval(C.VALUE(num)))
 }
 
 // RbTimeTimespecNew calls `rb_time_timespec_new` in C
@@ -9416,8 +8824,7 @@ func RbTimeTimespecNew(ts *Timespec, offset int) VALUE {
 //
 //	struct timeval rb_time_timeval(VALUE time)
 func RbTimeTimeval(time VALUE) Timeval {
-	ret := Timeval(C.rb_time_timeval(C.VALUE(time)))
-	return ret
+	return Timeval(C.rb_time_timeval(C.VALUE(time)))
 }
 
 // RbTimeUtcOffset calls `rb_time_utc_offset` in C
@@ -9426,8 +8833,7 @@ func RbTimeTimeval(time VALUE) Timeval {
 //
 //	VALUE rb_time_utc_offset(VALUE time)
 func RbTimeUtcOffset(time VALUE) VALUE {
-	ret := VALUE(C.rb_time_utc_offset(C.VALUE(time)))
-	return ret
+	return VALUE(C.rb_time_utc_offset(C.VALUE(time)))
 }
 
 // RbTimespecNow calls `rb_timespec_now` in C
@@ -9447,8 +8853,7 @@ func RbTimespecNow(ts *Timespec) {
 //
 //	VALUE rb_to_float(VALUE val)
 func RbToFloat(val VALUE) VALUE {
-	ret := VALUE(C.rb_to_float(C.VALUE(val)))
-	return ret
+	return VALUE(C.rb_to_float(C.VALUE(val)))
 }
 
 // RbToId calls `rb_to_id` in C
@@ -9457,8 +8862,7 @@ func RbToFloat(val VALUE) VALUE {
 //
 //	ID rb_to_id(VALUE str)
 func RbToId(str VALUE) ID {
-	ret := ID(C.rb_to_id(C.VALUE(str)))
-	return ret
+	return ID(C.rb_to_id(C.VALUE(str)))
 }
 
 // RbToInt calls `rb_to_int` in C
@@ -9467,8 +8871,7 @@ func RbToId(str VALUE) ID {
 //
 //	VALUE rb_to_int(VALUE val)
 func RbToInt(val VALUE) VALUE {
-	ret := VALUE(C.rb_to_int(C.VALUE(val)))
-	return ret
+	return VALUE(C.rb_to_int(C.VALUE(val)))
 }
 
 // RbToSymbol calls `rb_to_symbol` in C
@@ -9477,8 +8880,7 @@ func RbToInt(val VALUE) VALUE {
 //
 //	VALUE rb_to_symbol(VALUE name)
 func RbToSymbol(name VALUE) VALUE {
-	ret := VALUE(C.rb_to_symbol(C.VALUE(name)))
-	return ret
+	return VALUE(C.rb_to_symbol(C.VALUE(name)))
 }
 
 // RbTolower calls `rb_tolower` in C
@@ -9487,8 +8889,7 @@ func RbToSymbol(name VALUE) VALUE {
 //
 //	rb_tolower(int c)
 func RbTolower(c int) int {
-	ret := int(C.rb_tolower(C.int(c)))
-	return ret
+	return int(C.rb_tolower(C.int(c)))
 }
 
 // RbToupper calls `rb_toupper` in C
@@ -9497,8 +8898,7 @@ func RbTolower(c int) int {
 //
 //	rb_toupper(int c)
 func RbToupper(c int) int {
-	ret := int(C.rb_toupper(C.int(c)))
-	return ret
+	return int(C.rb_toupper(C.int(c)))
 }
 
 // RbType calls `rb_type` in C
@@ -9507,8 +8907,7 @@ func RbToupper(c int) int {
 //
 //	rb_type(VALUE obj)
 func RbType(obj VALUE) RubyValueType {
-	ret := RubyValueType(C.rb_type(C.VALUE(obj)))
-	return ret
+	return RubyValueType(C.rb_type(C.VALUE(obj)))
 }
 
 // RbTypeddataInheritedP calls `rb_typeddata_inherited_p` in C
@@ -9543,8 +8942,7 @@ func RbTypeddataIsKindOf(obj VALUE, data_type *RbDataTypeT) int {
 //
 //	VALUE rb_uint2big(uintptr_t i)
 func RbUint2Big(i UintptrT) VALUE {
-	ret := VALUE(C.rb_uint2big(C.uintptr_t(i)))
-	return ret
+	return VALUE(C.rb_uint2big(C.uintptr_t(i)))
 }
 
 // RbUint2Inum calls `rb_uint2inum` in C
@@ -9553,8 +8951,7 @@ func RbUint2Big(i UintptrT) VALUE {
 //
 //	VALUE rb_uint2inum(uintptr_t i)
 func RbUint2Inum(i UintptrT) VALUE {
-	ret := VALUE(C.rb_uint2inum(C.uintptr_t(i)))
-	return ret
+	return VALUE(C.rb_uint2inum(C.uintptr_t(i)))
 }
 
 // RbUint2NumInline calls `rb_uint2num_inline` in C
@@ -9563,8 +8960,7 @@ func RbUint2Inum(i UintptrT) VALUE {
 //
 //	rb_uint2num_inline(unsigned int v)
 func RbUint2NumInline(v uint) VALUE {
-	ret := VALUE(C.rb_uint2num_inline(C.uint(v)))
-	return ret
+	return VALUE(C.rb_uint2num_inline(C.uint(v)))
 }
 
 // RbUll2Inum calls `rb_ull2inum` in C
@@ -9573,8 +8969,7 @@ func RbUint2NumInline(v uint) VALUE {
 //
 //	VALUE rb_ull2inum(unsigned
 func RbUll2Inum(num Ulonglong) VALUE {
-	ret := VALUE(C.rb_ull2inum(C.ulonglong(num)))
-	return ret
+	return VALUE(C.rb_ull2inum(C.ulonglong(num)))
 }
 
 // RbUll2NumInline calls `rb_ull2num_inline` in C
@@ -9583,8 +8978,7 @@ func RbUll2Inum(num Ulonglong) VALUE {
 //
 //	rb_ull2num_inline(unsigned
 func RbUll2NumInline(n Ulonglong) VALUE {
-	ret := VALUE(C.rb_ull2num_inline(C.ulonglong(n)))
-	return ret
+	return VALUE(C.rb_ull2num_inline(C.ulonglong(n)))
 }
 
 // RbUlong2NumInline calls `rb_ulong2num_inline` in C
@@ -9593,8 +8987,7 @@ func RbUll2NumInline(n Ulonglong) VALUE {
 //
 //	rb_ulong2num_inline(unsigned long v)
 func RbUlong2NumInline(v uint) VALUE {
-	ret := VALUE(C.rb_ulong2num_inline(C.ulong(v)))
-	return ret
+	return VALUE(C.rb_ulong2num_inline(C.ulong(v)))
 }
 
 // RbUndef calls `rb_undef` in C
@@ -9633,8 +9026,7 @@ func RbUndefMethod(klass VALUE, name string) {
 //
 //	VALUE rb_undefine_finalizer(VALUE obj)
 func RbUndefineFinalizer(obj VALUE) VALUE {
-	ret := VALUE(C.rb_undefine_finalizer(C.VALUE(obj)))
-	return ret
+	return VALUE(C.rb_undefine_finalizer(C.VALUE(obj)))
 }
 
 // RbUnexpectedType calls `rb_unexpected_type` in C
@@ -9664,8 +9056,7 @@ func RbUsasciiStrNew(ptr string, len Long) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_usascii_str_new(char, C.long(len)))
-	return ret
+	return VALUE(C.rb_usascii_str_new(char, C.long(len)))
 }
 
 // RbUsasciiStrNewCstr calls `rb_usascii_str_new_cstr` in C
@@ -9677,8 +9068,7 @@ func RbUsasciiStrNewCstr(ptr string) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_usascii_str_new_cstr(char))
-	return ret
+	return VALUE(C.rb_usascii_str_new_cstr(char))
 }
 
 // RbUsasciiStrNewStatic calls `rb_usascii_str_new_static` in C
@@ -9690,8 +9080,7 @@ func RbUsasciiStrNewStatic(ptr string, len Long) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_usascii_str_new_static(char, C.long(len)))
-	return ret
+	return VALUE(C.rb_usascii_str_new_static(char, C.long(len)))
 }
 
 // RbUtf8StrNew calls `rb_utf8_str_new` in C
@@ -9703,8 +9092,7 @@ func RbUtf8StrNew(ptr string, len Long) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_utf8_str_new(char, C.long(len)))
-	return ret
+	return VALUE(C.rb_utf8_str_new(char, C.long(len)))
 }
 
 // RbUtf8StrNewCstr calls `rb_utf8_str_new_cstr` in C
@@ -9716,8 +9104,7 @@ func RbUtf8StrNewCstr(ptr string) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_utf8_str_new_cstr(char))
-	return ret
+	return VALUE(C.rb_utf8_str_new_cstr(char))
 }
 
 // RbUtf8StrNewStatic calls `rb_utf8_str_new_static` in C
@@ -9729,8 +9116,7 @@ func RbUtf8StrNewStatic(ptr string, len Long) VALUE {
 	char, clean := string2Char(ptr)
 	defer clean()
 
-	ret := VALUE(C.rb_utf8_str_new_static(char, C.long(len)))
-	return ret
+	return VALUE(C.rb_utf8_str_new_static(char, C.long(len)))
 }
 
 // RbUvToUtf8 calls `rb_uv_to_utf8` in C
@@ -9739,8 +9125,7 @@ func RbUtf8StrNewStatic(ptr string, len Long) VALUE {
 //
 //	int rb_uv_to_utf8(char buf[6], unsigned long uv)
 func RbUvToUtf8(buf []Char, uv uint) int {
-	ret := int(C.rb_uv_to_utf8(toCArray[Char, C.char](buf), C.ulong(uv)))
-	return ret
+	return int(C.rb_uv_to_utf8(toCArray[Char, C.char](buf), C.ulong(uv)))
 }
 
 // RbWaitpid calls `rb_waitpid` in C
@@ -9785,8 +9170,7 @@ func RbWriteError2(str string, len Long) {
 //
 //	VALUE rb_yield(VALUE val)
 func RbYield(val VALUE) VALUE {
-	ret := VALUE(C.rb_yield(C.VALUE(val)))
-	return ret
+	return VALUE(C.rb_yield(C.VALUE(val)))
 }
 
 // RbYieldBlock calls `rb_yield_block` in C
@@ -9807,8 +9191,7 @@ func RbYieldBlock(yielded_arg VALUE, callback_arg VALUE, argc int, argv *VALUE, 
 //
 //	VALUE rb_yield_splat(VALUE ary)
 func RbYieldSplat(ary VALUE) VALUE {
-	ret := VALUE(C.rb_yield_splat(C.VALUE(ary)))
-	return ret
+	return VALUE(C.rb_yield_splat(C.VALUE(ary)))
 }
 
 // RbYieldSplatKw calls `rb_yield_splat_kw` in C
@@ -9817,8 +9200,7 @@ func RbYieldSplat(ary VALUE) VALUE {
 //
 //	VALUE rb_yield_splat_kw(VALUE ary, int kw_splat)
 func RbYieldSplatKw(ary VALUE, kw_splat int) VALUE {
-	ret := VALUE(C.rb_yield_splat_kw(C.VALUE(ary), C.int(kw_splat)))
-	return ret
+	return VALUE(C.rb_yield_splat_kw(C.VALUE(ary), C.int(kw_splat)))
 }
 
 // RbYieldValues2 calls `rb_yield_values2` in C

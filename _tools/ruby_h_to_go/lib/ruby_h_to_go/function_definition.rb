@@ -122,9 +122,13 @@ module RubyHToGo
         go_function_lines << call_c_method
         go_function_lines.push(*after_call_function_lines)
       else
-        go_function_lines << "ret := #{cast_func}(#{call_c_method})"
-        go_function_lines.push(*after_call_function_lines)
-        go_function_lines << "return ret"
+        if after_call_function_lines.empty?
+          go_function_lines << "return #{cast_func}(#{call_c_method})"
+        else
+          go_function_lines << "ret := #{cast_func}(#{call_c_method})"
+          go_function_lines.push(*after_call_function_lines)
+          go_function_lines << "return ret"
+        end
       end
 
       go_function_lines << "}"

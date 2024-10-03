@@ -99,8 +99,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //
           //	VALUE rb_funcallv(VALUE recv, ID mid, int argc, const VALUE *argv)
           func RbFuncallv(recv VALUE, mid ID, argc int, argv []VALUE) VALUE {
-          ret := VALUE(C.rb_funcallv(C.VALUE(recv), C.ID(mid), C.int(argc), toCArray[VALUE, C.VALUE](argv)))
-          return ret
+          return VALUE(C.rb_funcallv(C.VALUE(recv), C.ID(mid), C.int(argc), toCArray[VALUE, C.VALUE](argv)))
           }
 
         GO
@@ -130,8 +129,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //
           //	void *rb_thread_call_with_gvl(void *(*func)(void *), void *data1)
           func RbThreadCallWithGvl(arg1 unsafe.Pointer, data1 unsafe.Pointer) unsafe.Pointer {
-          ret := unsafe.Pointer(C.rb_thread_call_with_gvl(toCFunctionPointer(arg1), data1))
-          return ret
+          return unsafe.Pointer(C.rb_thread_call_with_gvl(toCFunctionPointer(arg1), data1))
           }
 
         GO
@@ -161,8 +159,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //
           //	int rb_uv_to_utf8(char buf[6], unsigned long uv)
           func RbUvToUtf8(buf []Char, uv uint) int {
-          ret := int(C.rb_uv_to_utf8(toCArray[Char, C.char](buf), C.ulong(uv)))
-          return ret
+          return int(C.rb_uv_to_utf8(toCArray[Char, C.char](buf), C.ulong(uv)))
           }
 
         GO
@@ -189,8 +186,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //
           //	int *rb_errno_ptr(void)
           func RbErrnoPtr() *Int {
-          ret := (*Int)(C.rb_errno_ptr())
-          return ret
+          return (*Int)(C.rb_errno_ptr())
           }
 
         GO
@@ -219,8 +215,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //
           //	rb_big2ll(VALUE)
           func RbBig2Ll(arg1 VALUE) Longlong {
-          ret := Longlong(C.rb_big2ll(C.VALUE(arg1)))
-          return ret
+          return Longlong(C.rb_big2ll(C.VALUE(arg1)))
           }
 
         GO
@@ -249,8 +244,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //
           //	rb_big2ull(VALUE)
           func RbBig2Ull(arg1 VALUE) Ulonglong {
-          ret := Ulonglong(C.rb_big2ull(C.VALUE(arg1)))
-          return ret
+          return Ulonglong(C.rb_big2ull(C.VALUE(arg1)))
           }
 
         GO
@@ -325,8 +319,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //
           //	RSTRING_END(VALUE str)
           func RSTRING_END(str VALUE) string {
-          ret := char2String(C.RSTRING_END(C.VALUE(str)))
-          return ret
+          return char2String(C.RSTRING_END(C.VALUE(str)))
           }
 
         GO
@@ -355,8 +348,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //
           //	VALUE rb_const_list(void*)
           func RbConstList(arg1 unsafe.Pointer) VALUE {
-          ret := VALUE(C.rb_const_list(arg1))
-          return ret
+          return VALUE(C.rb_const_list(arg1))
           }
 
         GO
@@ -389,8 +381,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           char, clean := string2Char(feature)
           defer clean()
 
-          ret := int(C.rb_feature_provided(char, (**C.char)(unsafe.Pointer(loading))))
-          return ret
+          return int(C.rb_feature_provided(char, (**C.char)(unsafe.Pointer(loading))))
           }
 
         GO
@@ -523,8 +514,7 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //
           //	RSTRING_PTR(VALUE str)
           func RSTRING_PTR(str VALUE) *Char {
-          ret := (*Char)(C.RSTRING_PTR(C.VALUE(str)))
-          return ret
+          return (*Char)(C.RSTRING_PTR(C.VALUE(str)))
           }
 
         GO
