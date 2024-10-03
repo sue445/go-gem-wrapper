@@ -75,9 +75,9 @@ module RubyHToGo
               clean_var_name = "clean"
             end
 
-            go_function_lines << "#{chars_var_name}, #{clean_var_name} := string2Char(#{c_arg.go_name})"
-            go_function_lines << "defer #{clean_var_name}()"
-            go_function_lines << ""
+            before_call_function_lines << "#{chars_var_name}, #{clean_var_name} := string2Char(#{c_arg.go_name})"
+            before_call_function_lines << "defer #{clean_var_name}()"
+            before_call_function_lines << ""
 
             casted_go_args << chars_var_name.to_s
           when "void"
@@ -103,9 +103,9 @@ module RubyHToGo
             clean_var_name = "cleanChars"
           end
 
-          go_function_lines << "#{chars_var_name}, #{clean_var_name} := strings2Chars(#{c_arg.go_name})"
-          go_function_lines << "defer #{clean_var_name}()"
-          go_function_lines << ""
+          before_call_function_lines << "#{chars_var_name}, #{clean_var_name} := strings2Chars(#{c_arg.go_name})"
+          before_call_function_lines << "defer #{clean_var_name}()"
+          before_call_function_lines << ""
 
           casted_go_args << chars_var_name
         else
