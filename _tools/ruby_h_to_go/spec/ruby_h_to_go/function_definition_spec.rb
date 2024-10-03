@@ -284,10 +284,10 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //
           //	rb_scan_args_set(int kw_flag, int argc, const VALUE *argv,
           func RbScanArgsSet(kw_flag int, argc int, argv *VALUE, n_lead int, n_opt int, n_trail int, f_var Bool, f_hash Bool, f_block Bool, vars []*VALUE, fmt string, varc int) int {
+          var cArgv C.VALUE
           char, clean := string2Char(fmt)
           defer clean()
 
-          var cArgv C.VALUE
           ret := int(C.rb_scan_args_set(C.int(kw_flag), C.int(argc), &cArgv, C.int(n_lead), C.int(n_opt), C.int(n_trail), C._Bool(f_var), C._Bool(f_hash), C._Bool(f_block), toCArray[*VALUE, *C.VALUE](vars), char, C.int(varc)))
           *argv = VALUE(cArgv)
           return ret
@@ -411,10 +411,10 @@ RSpec.describe RubyHToGo::FunctionDefinition do
           //
           //	int rb_find_file_ext(VALUE *feature, const char *const *exts)
           func RbFindFileExt(feature *VALUE, exts []string) int {
+          var cFeature C.VALUE
           chars, cleanChars := strings2Chars(exts)
           defer cleanChars()
 
-          var cFeature C.VALUE
           ret := int(C.rb_find_file_ext(&cFeature, chars))
           *feature = VALUE(cFeature)
           return ret
