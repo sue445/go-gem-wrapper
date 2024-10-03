@@ -68,11 +68,11 @@ module RubyHToGo
       when :ref
         case type
         when "char"
-          return generate_go_arguments_for_char_pointer(char_var_count)
+          generate_go_arguments_for_char_pointer(char_var_count)
 
         when "void"
           # c_arg is pointer
-          return go_name, [], []
+          [go_name, [], []]
 
         else
           c_var_name = "c#{snake_to_camel(go_name)}"
@@ -80,17 +80,17 @@ module RubyHToGo
           before_call_function_line = "var #{c_var_name} #{cast_to_cgo_type(type)}"
           after_call_function_line = "*#{go_name} = #{ruby_c_type_to_go_type(type, pos: :arg)}(#{c_var_name})"
 
-          return "&#{c_var_name}", [before_call_function_line], [after_call_function_line]
+          ["&#{c_var_name}", [before_call_function_line], [after_call_function_line]]
         end
 
       when :function
-        return "toCFunctionPointer(#{go_name})", [], []
+        ["toCFunctionPointer(#{go_name})", [], []]
 
       when :str_array
-        return generate_go_arguments_for_str_array(chars_var_count)
+        generate_go_arguments_for_str_array(chars_var_count)
 
       else
-        return cast_to_cgo, [], []
+        [cast_to_cgo, [], []]
       end
     end
 
