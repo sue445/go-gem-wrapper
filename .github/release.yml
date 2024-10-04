@@ -1,0 +1,27 @@
+# ref. https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes#configuring-automatically-generated-release-notes
+
+changelog:
+  categories:
+    - title: ":bomb: Breaking Changes"
+      labels:
+        - breaking change
+
+    - title: ":rocket: Features"
+      labels:
+        - enhancement
+
+    - title: ":bug: Bug Fixes"
+      labels:
+        - bug
+
+    - title: ":ghost: Maintenance"
+      labels:
+        - chore
+
+    - title: ":dependabot: Dependency updates"
+      labels:
+        - dependencies
+
+    - title: ":pencil: Other Changes"
+      labels:
+        - "*"

@@ -10,6 +10,7 @@ on:
       - synchronize
       - reopened
     paths-ignore:
+      - ".github/release.yml"
       - ".github/workflows/patch_for_go_gem.yml"
       - "_benchmark/**"
 
