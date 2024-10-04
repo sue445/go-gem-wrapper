@@ -2,17 +2,22 @@
 
 source "https://rubygems.org"
 
-gem "rake"
-gem "rspec"
-gem "rspec-its"
-gem "rspec-parameterized"
-gem "rspec-temp_dir"
-gem "rubocop", require: false
-gem "rubocop_auto_corrector", require: false
-gem "serverspec"
-gem "yard"
+group :development do
+  gem "rake"
+  gem "rubocop", require: false
+  gem "rubocop_auto_corrector", require: false
+  gem "yard"
+end
 
-# for ruby/testdata/example/
-gem "rake-compiler"
-gem "steep"
-gem "test-unit"
+group :test do
+  gem "rspec"
+  gem "rspec-its"
+  gem "rspec-parameterized"
+  gem "rspec-temp_dir"
+  gem "serverspec"
+
+  # for ruby/testdata/example/
+  gem "rake-compiler"
+  gem "steep"
+  gem "test-unit"
+end
