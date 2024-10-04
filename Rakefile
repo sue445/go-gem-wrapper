@@ -119,8 +119,8 @@ end
 
 desc "Create and push tag"
 task :tag do
-  version = File.read("VERSION")
-  sh "git tag -a #{version} -m Release #{version}"
+  version = File.read("VERSION").strip
+  sh "git tag -a #{version} -m 'Release #{version}'"
   sh "git push --tags"
 end
 
