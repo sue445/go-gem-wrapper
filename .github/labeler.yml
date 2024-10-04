@@ -1,0 +1,7 @@
+go-module:
+  - changed-files:
+      - any-glob-to-any-file: "ruby/**/*"
+
+ruby-gem:
+  - changed-files:
+      - any-glob-to-any-file: "gem/**/*"
