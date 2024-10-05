@@ -62,18 +62,7 @@ module RubyHToGo
 
       call_c_method = "C.#{name}(#{casted_go_args.join(", ")})"
 
-      go_function_lines.push(*before_call_function_lines)
-      cast_func = typeref.cast_func_for_function_return
-      if cast_func == ""
-        go_function_lines << call_c_method
-        go_function_lines.push(*after_call_function_lines)
-      elsif after_call_function_lines.empty?
-        go_function_lines << "return #{cast_func}(#{call_c_method})"
-      else
-        go_function_lines << "ret := #{cast_func}(#{call_c_method})"
-        go_function_lines.push(*after_call_function_lines)
-        go_function_lines << "return ret"
-      end
+      append_function_body(call_c_method:, go_function_lines:, before_call_function_lines:, after_call_function_lines:)
 
       go_function_lines << "}"
       go_function_lines << ""
@@ -87,6 +76,29 @@ module RubyHToGo
       return name if name.match?(/^[A-Z0-9_]+$/)
 
       GoUtil.snake_to_camel(name)
+    end
+
+    private
+
+    # @param go_function_lines [Array<String>]
+    # @param call_c_method [String]
+    # @param before_call_function_lines [Array<String>]
+    # @param after_call_function_lines [Array<String>]
+    def append_function_body(go_function_lines:, call_c_method:, before_call_function_lines:,
+                             after_call_function_lines:)
+      go_function_lines.push(*before_call_function_lines)
+
+      cast_func = typeref.cast_func_for_function_return
+      if cast_func == ""
+        go_function_lines << call_c_method
+        go_function_lines.push(*after_call_function_lines)
+      elsif after_call_function_lines.empty?
+        go_function_lines << "return #{cast_func}(#{call_c_method})"
+      else
+        go_function_lines << "ret := #{cast_func}(#{call_c_method})"
+        go_function_lines.push(*after_call_function_lines)
+        go_function_lines << "return ret"
+      end
     end
   end
 end
