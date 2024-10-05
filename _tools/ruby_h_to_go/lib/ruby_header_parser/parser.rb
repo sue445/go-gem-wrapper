@@ -321,12 +321,15 @@ module RubyHeaderParser
         type = original_type
       end
 
-      if pointer == :sref
-        original_type =~ /(\*+)$/
-        length = ::Regexp.last_match(1).length
-      end
+      length = pointer_length(original_type) if pointer == :sref
 
       [type, pointer, length]
+    end
+
+    # @param type [String]
+    def pointer_length(type)
+      type =~ /(\*+)$/
+      ::Regexp.last_match(1).length
     end
   end
 end
