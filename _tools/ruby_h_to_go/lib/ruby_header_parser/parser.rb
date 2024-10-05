@@ -272,6 +272,25 @@ module RubyHeaderParser
         parts.delete_at(pointer_index)
       end
 
+      type, pointer, length = analyze_argument_type(function_name:, arg_pos:, parts:)
+
+      ArgumentDefinition.new(
+        name:    parts[-1],
+        type:,
+        pointer:,
+        length:,
+      )
+    end
+
+    # @param function_name [String]
+    # @param arg_pos [Integer]
+    # @param parts [Array<String>]
+    #
+    # @return [Array<String, Symbol, Integer>]
+    #   - type [String]
+    #   - pointer [Symbol]
+    #   - length [Integer]
+    def analyze_argument_type(function_name:, arg_pos:, parts:)
       pointer = nil
       length = 0
 
@@ -287,7 +306,6 @@ module RubyHeaderParser
       end
 
       original_type = Util.sanitize_type(parts[0...-1].join(" "))
-      name = parts[-1]
 
       if original_type.match?(/\*+$/)
         type = original_type.gsub(/\*+$/, "").strip
@@ -305,12 +323,7 @@ module RubyHeaderParser
         length = ::Regexp.last_match(1).length
       end
 
-      ArgumentDefinition.new(
-        type:,
-        name:,
-        pointer:,
-        length:,
-      )
+      [type, pointer, length]
     end
   end
 end
