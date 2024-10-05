@@ -51,9 +51,7 @@ module RubyHToGo
 
       append_function_body(call_c_method:, go_function_lines:, before_call_function_lines:, after_call_function_lines:)
 
-      go_function_lines << "}"
-      go_function_lines << ""
-      go_function_lines << ""
+      go_function_lines.append("}", "", "")
 
       go_function_lines.join("\n")
     end
