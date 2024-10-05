@@ -14,7 +14,8 @@ AllCops:
     - '.git/**/*'
 
 Gemspec/RequireMFA:
-  Enabled: false
+  Exclude:
+    - ruby/testdata/example/example.gemspec
 
 Layout/DotPosition:
   EnforcedStyle: trailing
