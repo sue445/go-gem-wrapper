@@ -133,6 +133,6 @@ task :release do
   end
 end
 
-task build_all: %w[ruby:build_all go:build_all ruby_h_to_go:test patch_for_go_gem:test]
+task build_all: %w[ruby:build_all go:build_all go_gem:test ruby_h_to_go:test patch_for_go_gem:test]
 
 task default: :build_all
