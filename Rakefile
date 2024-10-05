@@ -117,16 +117,11 @@ task :ruby_h_to_go do
   sh "./_tools/ruby_h_to_go/exe/ruby_h_to_go"
 end
 
-desc "Create and push tag"
-task :tag do
-  version = File.read("VERSION").strip
-  sh "git tag -a #{version} -m 'Release #{version}'"
-  sh "git push --tags"
-end
-
 desc "Release package"
-task release: :tag do
-  sh "git push origin main"
+task :release do
+  Dir.chdir(File.join(__dir__, "gem")) do
+    sh "rake release"
+  end
 end
 
 task build_all: %w[ruby:build_all go:build_all ruby_h_to_go:test patch_for_go_gem:test]
