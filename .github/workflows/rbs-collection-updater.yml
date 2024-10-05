@@ -1,0 +1,41 @@
+name: rbs-collection-updater
+
+on:
+  schedule:
+    - cron: "0 0 1 * *" # Run monthly
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+          bundler-cache: true
+
+      - run: bundle exec rbs collection update
+
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          committer: GitHub <noreply@github.com>
+          title: "Update rbs_collection.lock.yaml"
+          commit-message: "Run `bundle exe rbs collection update`"
+
+      - name: Slack Notification
+        uses: act10ns/slack@v2
+        if: always()
+        continue-on-error: true
+        with:
+          status: ${{ job.status }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
