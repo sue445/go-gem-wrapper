@@ -34,6 +34,9 @@ Lint/BinaryOperatorWithIdenticalOperands:
   Exclude:
     - "**/*_spec.rb" # for rspec-parameterized
 
+Metrics/AbcSize:
+  Max: 20
+
 Metrics/BlockLength:
   Exclude:
     - "*.gemspec"

@@ -36,24 +36,46 @@ module RubyHToGo
 
     # @return [String]
     def generate_go_content
-      go_function_args = args.map(&:go_function_arg)
+      go_function_lines = generate_function_header_lines
 
-      go_function_typeref = typeref.go_function_typeref
+      casted_go_args, before_call_function_lines, after_call_function_lines = analyze_args
 
-      go_function_lines = [
+      call_c_method = "C.#{name}(#{casted_go_args.join(", ")})"
+
+      append_function_body(call_c_method:, go_function_lines:, before_call_function_lines:, after_call_function_lines:)
+
+      go_function_lines.append("}", "", "")
+
+      go_function_lines.join("\n")
+    end
+
+    # @return [String]
+    def go_function_name
+      return name if name.match?(/^[A-Z0-9_]+$/)
+
+      GoUtil.snake_to_camel(name)
+    end
+
+    private
+
+    # @return [Array<String>]
+    def generate_function_header_lines
+      [
         "// #{go_function_name} calls `#{name}` in C",
         "//",
         "// Original definition is following",
         "//",
         "//\t#{definition}",
+        "func #{go_function_name}(#{args.map(&:go_function_arg).join(", ")}) #{typeref.go_function_typeref} {",
       ]
+    end
 
-      go_function_lines << "func #{go_function_name}(#{go_function_args.join(", ")}) #{go_function_typeref} {"
-
+    # @return [Array<Array<String>, Array<String>, Array<String>>]
+    #   - casted_go_args [Array<String>]
+    #   - before_call_function_lines [Array<String>]
+    #   - after_call_function_lines [Array<String>]
+    def analyze_args
       casted_go_args = []
-      char_var_count = args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :ref }
-      chars_var_count = args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :str_array }
-
       before_call_function_lines = []
       after_call_function_lines = []
 
@@ -65,9 +87,27 @@ module RubyHToGo
         after_call_function_lines.push(*after_lines)
       end
 
-      call_c_method = "C.#{name}(#{casted_go_args.join(", ")})"
+      [casted_go_args, before_call_function_lines, after_call_function_lines]
+    end
 
+    # @return [Integer]
+    def char_var_count
+      args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :ref }
+    end
+
+    # @return [Integer]
+    def chars_var_count
+      args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :str_array }
+    end
+
+    # @param go_function_lines [Array<String>]
+    # @param call_c_method [String]
+    # @param before_call_function_lines [Array<String>]
+    # @param after_call_function_lines [Array<String>]
+    def append_function_body(go_function_lines:, call_c_method:, before_call_function_lines:,
+                             after_call_function_lines:)
       go_function_lines.push(*before_call_function_lines)
+
       cast_func = typeref.cast_func_for_function_return
       if cast_func == ""
         go_function_lines << call_c_method
@@ -79,19 +119,6 @@ module RubyHToGo
         go_function_lines.push(*after_call_function_lines)
         go_function_lines << "return ret"
       end
-
-      go_function_lines << "}"
-      go_function_lines << ""
-      go_function_lines << ""
-
-      go_function_lines.join("\n")
-    end
-
-    # @return [String]
-    def go_function_name
-      return name if name.match?(/^[A-Z0-9_]+$/)
-
-      GoUtil.snake_to_camel(name)
     end
   end
 end

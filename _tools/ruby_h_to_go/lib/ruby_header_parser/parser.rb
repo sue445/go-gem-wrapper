@@ -104,33 +104,42 @@ module RubyHeaderParser
     def __extract_function_definitions(c_kinds:, kind:, is_parse_multiline_definition:)
       stdout = execute_ctags("--c-kinds=#{c_kinds} --fields=+nS --extras=+q")
 
-      stdout.each_line.with_object([]) do |line, definitions|
-        parts = line.split("\t")
+      stdout.each_line.map do |line|
+        generate_function_definition_from_line(line:, kind:, is_parse_multiline_definition:)
+      end.compact.uniq(&:name)
+    end
 
-        function_name = parts[0]
-        filepath = parts[1]
+    # @param line [String]
+    # @param kind [String]
+    # @param is_parse_multiline_definition [Boolean]
+    #
+    # @param [Array<RubyHeaderParser::FunctionDefinition>, nil]
+    def generate_function_definition_from_line(line:, kind:, is_parse_multiline_definition:)
+      parts = line.split("\t")
 
-        next unless data.should_generate_function?(function_name)
+      function_name = parts[0]
+      filepath = parts[1]
 
-        next unless parts[3] == kind
+      return nil unless data.should_generate_function?(function_name)
 
-        line_num = Util.find_field(parts, "line").to_i
-        definition = parse_function_definition(filepath:, pattern: parts[2], line_num:, is_parse_multiline_definition:)
+      return nil unless parts[3] == kind
 
-        args = parse_definition_args(function_name, Util.find_field(parts, "signature"))
+      line_num = Util.find_field(parts, "line").to_i
+      definition = parse_function_definition(filepath:, pattern: parts[2], line_num:, is_parse_multiline_definition:)
 
-        # Exclude functions with variable-length arguments
-        next if args&.last&.type == "..."
+      args = parse_definition_args(function_name, Util.find_field(parts, "signature"))
 
-        typeref_field = Util.find_field(parts, "typeref:typename")
+      # Exclude functions with variable-length arguments
+      return nil if args&.last&.type == "..."
 
-        definitions << FunctionDefinition.new(
-          definition:,
-          name:       function_name,
-          typeref:    create_typeref(definition:, function_name:, typeref_field:, filepath:, line_num:),
-          args:,
-        )
-      end.uniq(&:name)
+      typeref_field = Util.find_field(parts, "typeref:typename")
+
+      FunctionDefinition.new(
+        definition:,
+        name:       function_name,
+        typeref:    create_typeref(definition:, function_name:, typeref_field:, filepath:, line_num:),
+        args:,
+      )
     end
 
     # @param args [String]
@@ -272,6 +281,54 @@ module RubyHeaderParser
         parts.delete_at(pointer_index)
       end
 
+      type, pointer, length = analyze_argument_type(function_name:, arg_pos:, parts:)
+
+      ArgumentDefinition.new(
+        name:    parts[-1],
+        type:,
+        pointer:,
+        length:,
+      )
+    end
+
+    # @param function_name [String]
+    # @param arg_pos [Integer]
+    # @param parts [Array<String>]
+    #
+    # @return [Array<String, Symbol, Integer>]
+    #   - type [String]
+    #   - pointer [Symbol]
+    #   - length [Integer]
+    def analyze_argument_type(function_name:, arg_pos:, parts:)
+      pointer, length = prepare_argument_parts(arg_pos:, parts:)
+      original_type = Util.sanitize_type(parts[0...-1].join(" "))
+
+      case original_type
+      when /\*+$/
+        type = original_type.gsub(/\*+$/, "").strip
+        pointer = data.function_arg_pointer_hint(function_name:, pos: arg_pos)
+
+      when /^void\s*/, /\(.*\)/
+        # function pointer (e.g. void *(*func)(void *)) is treated as `void*`
+        type = "void"
+        pointer = data.function_arg_pointer_hint(function_name:, pos: arg_pos)
+
+      else
+        type = original_type
+      end
+
+      length = pointer_length(original_type) if pointer == :sref
+
+      [type, pointer, length]
+    end
+
+    # @param arg_pos [Integer]
+    # @param parts [Array<String>]
+    #
+    # @return [Array<Symbol, Integer>]
+    #   - pointer [Symbol,nil]
+    #   - length [Integer]
+    def prepare_argument_parts(parts:, arg_pos:)
       pointer = nil
       length = 0
 
@@ -286,31 +343,13 @@ module RubyHeaderParser
         parts << "arg#{arg_pos}"
       end
 
-      original_type = Util.sanitize_type(parts[0...-1].join(" "))
-      name = parts[-1]
+      [pointer, length]
+    end
 
-      if original_type.match?(/\*+$/)
-        type = original_type.gsub(/\*+$/, "").strip
-        pointer = data.function_arg_pointer_hint(function_name:, pos: arg_pos)
-      elsif /^void\s*\s/.match?(original_type) || /\(.*\)/.match?(original_type)
-        # function pointer (e.g. void *(*func)(void *)) is treated as `void*`
-        type = "void"
-        pointer = data.function_arg_pointer_hint(function_name:, pos: arg_pos)
-      else
-        type = original_type
-      end
-
-      if pointer == :sref
-        original_type =~ /(\*+)$/
-        length = ::Regexp.last_match(1).length
-      end
-
-      ArgumentDefinition.new(
-        type:,
-        name:,
-        pointer:,
-        length:,
-      )
+    # @param type [String]
+    def pointer_length(type)
+      type =~ /(\*+)$/
+      ::Regexp.last_match(1).length
     end
   end
 end
