@@ -125,7 +125,7 @@ class GemPatcher # rubocop:disable Metrics/ClassLength
     save_file(file_path: gem_name_c_path, content:)
   end
 
-  def update_extconf_rb
+  def update_extconf_rb # rubocop:disable Metrics/MethodLength
     extconf_rb_path = File.join(ext_dir, "extconf.rb")
 
     content = File.read(extconf_rb_path)
