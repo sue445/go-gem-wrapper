@@ -9,3 +9,7 @@ ruby-gem:
 ruby_h_to_go:
   - changed-files:
       - any-glob-to-any-file: "_tools/ruby_h_to_go/**/*"
+
+patch_for_go_gem:
+  - changed-files:
+      - any-glob-to-any-file: "_tools/patch_for_go_gem/**/*"
