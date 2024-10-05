@@ -5,3 +5,7 @@ go-module:
 ruby-gem:
   - changed-files:
       - any-glob-to-any-file: "gem/**/*"
+
+ruby_h_to_go:
+  - changed-files:
+      - any-glob-to-any-file: "_tools/ruby_h_to_go/**/*"
