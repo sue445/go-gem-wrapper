@@ -104,33 +104,42 @@ module RubyHeaderParser
     def __extract_function_definitions(c_kinds:, kind:, is_parse_multiline_definition:)
       stdout = execute_ctags("--c-kinds=#{c_kinds} --fields=+nS --extras=+q")
 
-      stdout.each_line.with_object([]) do |line, definitions|
-        parts = line.split("\t")
+      stdout.each_line.map do |line|
+        generate_function_definition_from_line(line:, kind:, is_parse_multiline_definition:)
+      end.compact.uniq(&:name)
+    end
 
-        function_name = parts[0]
-        filepath = parts[1]
+    # @param line [String]
+    # @param kind [String]
+    # @param is_parse_multiline_definition [Boolean]
+    #
+    # @param [Array<RubyHeaderParser::FunctionDefinition>, nil]
+    def generate_function_definition_from_line(line:, kind:, is_parse_multiline_definition:)
+      parts = line.split("\t")
 
-        next unless data.should_generate_function?(function_name)
+      function_name = parts[0]
+      filepath = parts[1]
 
-        next unless parts[3] == kind
+      return nil unless data.should_generate_function?(function_name)
 
-        line_num = Util.find_field(parts, "line").to_i
-        definition = parse_function_definition(filepath:, pattern: parts[2], line_num:, is_parse_multiline_definition:)
+      return nil unless parts[3] == kind
 
-        args = parse_definition_args(function_name, Util.find_field(parts, "signature"))
+      line_num = Util.find_field(parts, "line").to_i
+      definition = parse_function_definition(filepath:, pattern: parts[2], line_num:, is_parse_multiline_definition:)
 
-        # Exclude functions with variable-length arguments
-        next if args&.last&.type == "..."
+      args = parse_definition_args(function_name, Util.find_field(parts, "signature"))
 
-        typeref_field = Util.find_field(parts, "typeref:typename")
+      # Exclude functions with variable-length arguments
+      return nil if args&.last&.type == "..."
 
-        definitions << FunctionDefinition.new(
-          definition:,
-          name:       function_name,
-          typeref:    create_typeref(definition:, function_name:, typeref_field:, filepath:, line_num:),
-          args:,
-        )
-      end.uniq(&:name)
+      typeref_field = Util.find_field(parts, "typeref:typename")
+
+      FunctionDefinition.new(
+        definition:,
+        name:       function_name,
+        typeref:    create_typeref(definition:, function_name:, typeref_field:, filepath:, line_num:),
+        args:,
+      )
     end
 
     # @param args [String]
