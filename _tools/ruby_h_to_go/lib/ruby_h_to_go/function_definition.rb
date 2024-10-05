@@ -7,8 +7,6 @@ module RubyHToGo
 
     def_delegators :@definition, :==, :name, :name=, :definition, :definition=
 
-    include GeneratorHelper
-
     # @param definition [RubyHeaderParser::FunctionDefinition]
     def initialize(definition:)
       @definition = definition
@@ -29,7 +27,7 @@ module RubyHToGo
     def write_go_file(dist_dir)
       go_file_path = File.join(dist_dir, "function_generated.go")
 
-      generate_initial_go_file(go_file_path)
+      GoUtil.generate_initial_go_file(go_file_path)
 
       File.open(go_file_path, "a") do |f|
         f.write(generate_go_content)
@@ -93,7 +91,7 @@ module RubyHToGo
     def go_function_name
       return name if name.match?(/^[A-Z0-9_]+$/)
 
-      snake_to_camel(name)
+      GoUtil.snake_to_camel(name)
     end
   end
 end
