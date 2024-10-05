@@ -31,6 +31,7 @@ class GemPatcher # rubocop:disable Metrics/ClassLength
     create_go_mod
     update_gem_name_c
     update_extconf_rb
+    update_gemspec
   end
 
   private
@@ -125,65 +126,45 @@ class GemPatcher # rubocop:disable Metrics/ClassLength
     save_file(file_path: gem_name_c_path, content:)
   end
 
-  def update_extconf_rb # rubocop:disable Metrics/MethodLength
+  def update_extconf_rb
     extconf_rb_path = File.join(ext_dir, "extconf.rb")
 
     content = File.read(extconf_rb_path)
 
-    unless content.include?(<<~RUBY)
-      require "mkmf"
-
-      find_executable("go")
-    RUBY
-
+    unless content.include?(%(require "go_gem/mkmf"))
       content.gsub!(<<~RUBY, <<~RUBY)
         require "mkmf"
       RUBY
         require "mkmf"
-
-        find_executable("go")
-
-        # rubocop:disable Style/GlobalVars
-        $objs = []
-        def $objs.empty?; false; end
-        # rubocop:enable Style/GlobalVars
-
+        require "go_gem/mkmf"
       RUBY
     end
 
-    unless content.include?(<<~RUBY)
-      create_makefile("#{gem_name}/#{gem_name}")
-
-      case `\#{CONFIG["CC"]} --version` # rubocop:disable Lint/LiteralAsCondition
-    RUBY
-
+    unless content.include?(%(create_go_makefile("#{gem_name}/#{gem_name}")))
       content.gsub!(<<~RUBY, <<~RUBY)
         create_makefile("#{gem_name}/#{gem_name}")
       RUBY
-        create_makefile("#{gem_name}/#{gem_name}")
-
-        case `\#{CONFIG["CC"]} --version` # rubocop:disable Lint/LiteralAsCondition
-        when /Free Software Foundation/
-          ldflags = "-Wl,--unresolved-symbols=ignore-all"
-        when /clang/
-          ldflags = "-undefined dynamic_lookup"
-        end
-
-        current_dir = File.expand_path(".")
-
-        File.open("Makefile", "a") do |f|
-          f.write <<~MAKEFILE.gsub(/^ {8}/, "\t")
-            $(DLLIB): Makefile $(srcdir)/*.go
-                    cd $(srcdir); \
-                    CGO_CFLAGS='$(INCFLAGS)' CGO_LDFLAGS='\#{ldflags}' \\
-                      go build -p 4 -buildmode=c-shared -o \#{current_dir}/$(DLLIB)
-          MAKEFILE
-        end
-
+        create_go_makefile("#{gem_name}/#{gem_name}")
       RUBY
     end
 
     save_file(file_path: extconf_rb_path, content:)
+  end
+
+  def update_gemspec
+    content = File.read(gemspec_file)
+
+    return if content.include?(%(.add_dependency "go_gem")) || content.include?(%(.add_runtime_dependency "go_gem"))
+
+    content =~ /Gem::Specification\.new\s+do\s+\|(.+)\|/
+    spec_var_name = ::Regexp.last_match(1)
+
+    content.gsub!(/^end\n/, <<~RUBY)
+        #{spec_var_name}.add_dependency "go_gem"
+      end
+    RUBY
+
+    save_file(file_path: gemspec_file, content:)
   end
 
   # @param file_path [String]
