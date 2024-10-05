@@ -45,20 +45,7 @@ module RubyHToGo
         "func #{go_function_name}(#{args.map(&:go_function_arg).join(", ")}) #{typeref.go_function_typeref} {",
       ]
 
-      casted_go_args = []
-      char_var_count = args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :ref }
-      chars_var_count = args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :str_array }
-
-      before_call_function_lines = []
-      after_call_function_lines = []
-
-      args.each do |c_arg|
-        casted_go_arg, before_lines, after_lines = c_arg.generate_go_arguments(char_var_count:, chars_var_count:)
-
-        casted_go_args << casted_go_arg
-        before_call_function_lines.push(*before_lines)
-        after_call_function_lines.push(*after_lines)
-      end
+      casted_go_args, before_call_function_lines, after_call_function_lines = analyze_args
 
       call_c_method = "C.#{name}(#{casted_go_args.join(", ")})"
 
@@ -79,6 +66,29 @@ module RubyHToGo
     end
 
     private
+
+    # @return [Array<Array<String>, Array<String>, Array<String>>]
+    #   - casted_go_args [Array<String>]
+    #   - before_call_function_lines [Array<String>]
+    #   - after_call_function_lines [Array<String>]
+    def analyze_args
+      casted_go_args = []
+      char_var_count = args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :ref }
+      chars_var_count = args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :str_array }
+
+      before_call_function_lines = []
+      after_call_function_lines = []
+
+      args.each do |c_arg|
+        casted_go_arg, before_lines, after_lines = c_arg.generate_go_arguments(char_var_count:, chars_var_count:)
+
+        casted_go_args << casted_go_arg
+        before_call_function_lines.push(*before_lines)
+        after_call_function_lines.push(*after_lines)
+      end
+
+      [casted_go_args, before_call_function_lines, after_call_function_lines]
+    end
 
     # @param go_function_lines [Array<String>]
     # @param call_c_method [String]
