@@ -42,18 +42,18 @@ module RubyHToGo
     def cast_to_cgo
       case pointer
       when :array
-        return "toCArray[#{ruby_c_type_to_go_type}, #{GoUtil.cast_to_cgo_type(type)}](#{go_name})"
+        return "toCArray[#{ruby_c_type_to_go_type}, #{cast_to_cgo_type}](#{go_name})"
       when :ref_array
-        return "toCArray[*#{ruby_c_type_to_go_type}, *#{GoUtil.cast_to_cgo_type(type)}](#{go_name})"
+        return "toCArray[*#{ruby_c_type_to_go_type}, *#{cast_to_cgo_type}](#{go_name})"
       when :sref
         return go_name if type == "void" && length == 2
 
-        return "(#{"*" * length}#{GoUtil.cast_to_cgo_type(type)})(unsafe.Pointer(#{go_name}))"
+        return "(#{"*" * length}#{cast_to_cgo_type})(unsafe.Pointer(#{go_name}))"
       when :in_ref
-        return "(*#{GoUtil.cast_to_cgo_type(type)})(#{go_name})"
+        return "(*#{cast_to_cgo_type})(#{go_name})"
       end
 
-      "#{GoUtil.cast_to_cgo_type(type)}(#{go_name})"
+      "#{cast_to_cgo_type}(#{go_name})"
     end
 
     # @param char_var_count [Integer]
@@ -77,7 +77,7 @@ module RubyHToGo
         else
           c_var_name = "c#{GoUtil.snake_to_camel(go_name)}"
 
-          before_call_function_line = "var #{c_var_name} #{GoUtil.cast_to_cgo_type(type)}"
+          before_call_function_line = "var #{c_var_name} #{cast_to_cgo_type}"
           after_call_function_line = "*#{go_name} = #{ruby_c_type_to_go_type(pos: :arg)}(#{c_var_name})"
 
           ["&#{c_var_name}", [before_call_function_line], [after_call_function_line]]

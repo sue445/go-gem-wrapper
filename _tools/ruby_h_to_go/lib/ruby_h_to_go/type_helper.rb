@@ -10,5 +10,11 @@ module RubyHToGo
     def ruby_c_type_to_go_type(pos: nil, pointer: nil, pointer_length: 0)
       GoUtil.ruby_c_type_to_go_type(type, pos:, pointer:, pointer_length:)
     end
+
+    # Cast C type to cgo type. (Used in wrapper function)
+    # @return [String]
+    def cast_to_cgo_type
+      GoUtil.cast_to_cgo_type(type)
+    end
   end
 end
