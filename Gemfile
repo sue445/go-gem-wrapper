@@ -21,3 +21,5 @@ group :test do
   gem "steep"
   gem "test-unit"
 end
+
+gemspec path: "./gem/"
