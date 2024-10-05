@@ -291,20 +291,7 @@ module RubyHeaderParser
     #   - pointer [Symbol]
     #   - length [Integer]
     def analyze_argument_type(function_name:, arg_pos:, parts:)
-      pointer = nil
-      length = 0
-
-      if parts[-1] =~ /\[([0-9]+)?\]$/
-        parts[-1].gsub!(/\[([0-9]+)?\]$/, "")
-        length = ::Regexp.last_match(1).to_i
-        pointer = :array
-      end
-
-      unless parts[-1] =~ /^[0-9a-zA-Z_]+$/
-        # last elements isn't dummy argument
-        parts << "arg#{arg_pos}"
-      end
-
+      pointer, length = prepare_argument_parts(arg_pos:, parts:)
       original_type = Util.sanitize_type(parts[0...-1].join(" "))
 
       case original_type
@@ -324,6 +311,30 @@ module RubyHeaderParser
       length = pointer_length(original_type) if pointer == :sref
 
       [type, pointer, length]
+    end
+
+    # @param arg_pos [Integer]
+    # @param parts [Array<String>]
+    #
+    # @return [Array<Symbol, Integer>]
+    #   - pointer [Symbol,nil]
+    #   - length [Integer]
+    def prepare_argument_parts(parts:, arg_pos:)
+      pointer = nil
+      length = 0
+
+      if parts[-1] =~ /\[([0-9]+)?\]$/
+        parts[-1].gsub!(/\[([0-9]+)?\]$/, "")
+        length = ::Regexp.last_match(1).to_i
+        pointer = :array
+      end
+
+      unless parts[-1] =~ /^[0-9a-zA-Z_]+$/
+        # last elements isn't dummy argument
+        parts << "arg#{arg_pos}"
+      end
+
+      [pointer, length]
     end
 
     # @param type [String]
