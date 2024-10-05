@@ -6,7 +6,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: f5ccba01753a601607c36f3eb1b5b213307300ab
+    revision: 7ae9e3cf731a9628e0cc39064ed6e2cf51d822da
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: base64
@@ -18,7 +18,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: f5ccba01753a601607c36f3eb1b5b213307300ab
+    revision: 7ae9e3cf731a9628e0cc39064ed6e2cf51d822da
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: diff-lcs
@@ -26,7 +26,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: e193a147feaf08d096fa1b78d1581854e27f4b40
+    revision: 7ae9e3cf731a9628e0cc39064ed6e2cf51d822da
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: fileutils
@@ -50,7 +50,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: f5ccba01753a601607c36f3eb1b5b213307300ab
+    revision: 7ae9e3cf731a9628e0cc39064ed6e2cf51d822da
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: rake
@@ -58,7 +58,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 3670834268f4ea9c10aefeffae7e072b51256375
+    revision: 7ae9e3cf731a9628e0cc39064ed6e2cf51d822da
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: ripper
@@ -78,7 +78,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: f5ccba01753a601607c36f3eb1b5b213307300ab
+    revision: 7ae9e3cf731a9628e0cc39064ed6e2cf51d822da
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 gemfile_lock_path: Gemfile.lock
