@@ -7,6 +7,8 @@ module RubyHToGo
 
     def_delegators :@definition, :==, :type, :type=, :name, :name=, :pointer, :pointer=, :pointer?, :length, :length=
 
+    include TypeHelper
+
     # @param definition [RubyHeaderParser::ArgumentDefinition]
     # @param header_dir [String]
     def initialize(definition:)
@@ -33,16 +35,16 @@ module RubyHToGo
 
     # @return [String]
     def go_function_arg
-      "#{go_name} #{GoUtil.ruby_c_type_to_go_type(type, pointer:, pointer_length: length, pos: :arg)}"
+      "#{go_name} #{ruby_c_type_to_go_type(pointer:, pointer_length: length, pos: :arg)}"
     end
 
     # @return [String]
     def cast_to_cgo
       case pointer
       when :array
-        return "toCArray[#{GoUtil.ruby_c_type_to_go_type(type)}, #{GoUtil.cast_to_cgo_type(type)}](#{go_name})"
+        return "toCArray[#{ruby_c_type_to_go_type}, #{GoUtil.cast_to_cgo_type(type)}](#{go_name})"
       when :ref_array
-        return "toCArray[*#{GoUtil.ruby_c_type_to_go_type(type)}, *#{GoUtil.cast_to_cgo_type(type)}](#{go_name})"
+        return "toCArray[*#{ruby_c_type_to_go_type}, *#{GoUtil.cast_to_cgo_type(type)}](#{go_name})"
       when :sref
         return go_name if type == "void" && length == 2
 
@@ -76,7 +78,7 @@ module RubyHToGo
           c_var_name = "c#{GoUtil.snake_to_camel(go_name)}"
 
           before_call_function_line = "var #{c_var_name} #{GoUtil.cast_to_cgo_type(type)}"
-          after_call_function_line = "*#{go_name} = #{GoUtil.ruby_c_type_to_go_type(type, pos: :arg)}(#{c_var_name})"
+          after_call_function_line = "*#{go_name} = #{ruby_c_type_to_go_type(pos: :arg)}(#{c_var_name})"
 
           ["&#{c_var_name}", [before_call_function_line], [after_call_function_line]]
         end

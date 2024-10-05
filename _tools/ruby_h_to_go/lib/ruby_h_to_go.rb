@@ -13,5 +13,6 @@ module RubyHToGo
   autoload :FunctionDefinition, "ruby_h_to_go/function_definition"
   autoload :StructDefinition,   "ruby_h_to_go/struct_definition"
   autoload :TypeDefinition,     "ruby_h_to_go/type_definition"
+  autoload :TypeHelper,         "ruby_h_to_go/type_helper"
   autoload :TyperefDefinition,  "ruby_h_to_go/typeref_definition"
 end
