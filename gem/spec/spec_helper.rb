@@ -5,6 +5,7 @@ require "go_gem/mkmf"
 
 require "tmpdir"
 require "serverspec"
+require "mkmf"
 
 set :backend, :exec
 

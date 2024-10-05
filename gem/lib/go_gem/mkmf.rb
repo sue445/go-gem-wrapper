@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "mkmf"
-
 module GoGem
   # Helper module for creating Go Makefiles
   module Mkmf
