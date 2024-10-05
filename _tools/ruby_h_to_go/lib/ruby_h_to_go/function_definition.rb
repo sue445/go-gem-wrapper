@@ -76,9 +76,6 @@ module RubyHToGo
     #   - after_call_function_lines [Array<String>]
     def analyze_args
       casted_go_args = []
-      char_var_count = args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :ref }
-      chars_var_count = args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :str_array }
-
       before_call_function_lines = []
       after_call_function_lines = []
 
@@ -91,6 +88,16 @@ module RubyHToGo
       end
 
       [casted_go_args, before_call_function_lines, after_call_function_lines]
+    end
+
+    # @return [Integer]
+    def char_var_count
+      args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :ref }
+    end
+
+    # @return [Integer]
+    def chars_var_count
+      args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :str_array }
     end
 
     # @param go_function_lines [Array<String>]
