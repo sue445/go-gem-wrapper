@@ -36,19 +36,14 @@ module RubyHToGo
 
     # @return [String]
     def generate_go_content
-      go_function_args = args.map(&:go_function_arg)
-
-      go_function_typeref = typeref.go_function_typeref
-
       go_function_lines = [
         "// #{go_function_name} calls `#{name}` in C",
         "//",
         "// Original definition is following",
         "//",
         "//\t#{definition}",
+        "func #{go_function_name}(#{args.map(&:go_function_arg).join(", ")}) #{typeref.go_function_typeref} {",
       ]
-
-      go_function_lines << "func #{go_function_name}(#{go_function_args.join(", ")}) #{go_function_typeref} {"
 
       casted_go_args = []
       char_var_count = args.count { |c_arg| c_arg.type == "char" && c_arg.pointer == :ref }
