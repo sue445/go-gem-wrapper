@@ -36,14 +36,7 @@ module RubyHToGo
 
     # @return [String]
     def generate_go_content
-      go_function_lines = [
-        "// #{go_function_name} calls `#{name}` in C",
-        "//",
-        "// Original definition is following",
-        "//",
-        "//\t#{definition}",
-        "func #{go_function_name}(#{args.map(&:go_function_arg).join(", ")}) #{typeref.go_function_typeref} {",
-      ]
+      go_function_lines = generate_function_header_lines
 
       casted_go_args, before_call_function_lines, after_call_function_lines = analyze_args
 
@@ -64,6 +57,18 @@ module RubyHToGo
     end
 
     private
+
+    # @return [Array<String>]
+    def generate_function_header_lines
+      [
+        "// #{go_function_name} calls `#{name}` in C",
+        "//",
+        "// Original definition is following",
+        "//",
+        "//\t#{definition}",
+        "func #{go_function_name}(#{args.map(&:go_function_arg).join(", ")}) #{typeref.go_function_typeref} {",
+      ]
+    end
 
     # @return [Array<Array<String>, Array<String>, Array<String>>]
     #   - casted_go_args [Array<String>]
