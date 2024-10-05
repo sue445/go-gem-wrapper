@@ -307,13 +307,16 @@ module RubyHeaderParser
 
       original_type = Util.sanitize_type(parts[0...-1].join(" "))
 
-      if original_type.match?(/\*+$/)
+      case original_type
+      when /\*+$/
         type = original_type.gsub(/\*+$/, "").strip
         pointer = data.function_arg_pointer_hint(function_name:, pos: arg_pos)
-      elsif /^void\s*\s/.match?(original_type) || /\(.*\)/.match?(original_type)
+
+      when /^void\s*/, /\(.*\)/
         # function pointer (e.g. void *(*func)(void *)) is treated as `void*`
         type = "void"
         pointer = data.function_arg_pointer_hint(function_name:, pos: arg_pos)
+
       else
         type = original_type
       end
