@@ -112,6 +112,15 @@ namespace :ruby_h_to_go do
   end
 end
 
+namespace :go_gem do
+  desc "Run go_gem test"
+  task :test do
+    Dir.chdir(File.join(__dir__, "gem")) do
+      sh "rspec"
+    end
+  end
+end
+
 desc "Run _tools/ruby_h_to_go"
 task :ruby_h_to_go do
   sh "./_tools/ruby_h_to_go/exe/ruby_h_to_go"
