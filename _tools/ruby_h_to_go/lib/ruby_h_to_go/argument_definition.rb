@@ -7,8 +7,6 @@ module RubyHToGo
 
     def_delegators :@definition, :==, :type, :type=, :name, :name=, :pointer, :pointer=, :pointer?, :length, :length=
 
-    include GeneratorHelper
-
     # @param definition [RubyHeaderParser::ArgumentDefinition]
     # @param header_dir [String]
     def initialize(definition:)
@@ -35,25 +33,25 @@ module RubyHToGo
 
     # @return [String]
     def go_function_arg
-      "#{go_name} #{ruby_c_type_to_go_type(type, pointer:, pointer_length: length, pos: :arg)}"
+      "#{go_name} #{GoUtil.ruby_c_type_to_go_type(type, pointer:, pointer_length: length, pos: :arg)}"
     end
 
     # @return [String]
     def cast_to_cgo
       case pointer
       when :array
-        return "toCArray[#{ruby_c_type_to_go_type(type)}, #{cast_to_cgo_type(type)}](#{go_name})"
+        return "toCArray[#{GoUtil.ruby_c_type_to_go_type(type)}, #{GoUtil.cast_to_cgo_type(type)}](#{go_name})"
       when :ref_array
-        return "toCArray[*#{ruby_c_type_to_go_type(type)}, *#{cast_to_cgo_type(type)}](#{go_name})"
+        return "toCArray[*#{GoUtil.ruby_c_type_to_go_type(type)}, *#{GoUtil.cast_to_cgo_type(type)}](#{go_name})"
       when :sref
         return go_name if type == "void" && length == 2
 
-        return "(#{"*" * length}#{cast_to_cgo_type(type)})(unsafe.Pointer(#{go_name}))"
+        return "(#{"*" * length}#{GoUtil.cast_to_cgo_type(type)})(unsafe.Pointer(#{go_name}))"
       when :in_ref
-        return "(*#{cast_to_cgo_type(type)})(#{go_name})"
+        return "(*#{GoUtil.cast_to_cgo_type(type)})(#{go_name})"
       end
 
-      "#{cast_to_cgo_type(type)}(#{go_name})"
+      "#{GoUtil.cast_to_cgo_type(type)}(#{go_name})"
     end
 
     # @param char_var_count [Integer]
@@ -75,10 +73,10 @@ module RubyHToGo
           [go_name, [], []]
 
         else
-          c_var_name = "c#{snake_to_camel(go_name)}"
+          c_var_name = "c#{GoUtil.snake_to_camel(go_name)}"
 
-          before_call_function_line = "var #{c_var_name} #{cast_to_cgo_type(type)}"
-          after_call_function_line = "*#{go_name} = #{ruby_c_type_to_go_type(type, pos: :arg)}(#{c_var_name})"
+          before_call_function_line = "var #{c_var_name} #{GoUtil.cast_to_cgo_type(type)}"
+          after_call_function_line = "*#{go_name} = #{GoUtil.ruby_c_type_to_go_type(type, pos: :arg)}(#{c_var_name})"
 
           ["&#{c_var_name}", [before_call_function_line], [after_call_function_line]]
         end
@@ -105,7 +103,7 @@ module RubyHToGo
     def generate_go_arguments_for_char_pointer(char_var_count)
       # self is string
       if char_var_count >= 2
-        chars_var_name = "char#{snake_to_camel(go_name)}"
+        chars_var_name = "char#{GoUtil.snake_to_camel(go_name)}"
         clean_var_name = "cleanChar#{go_name}"
       else
         chars_var_name = "char"
@@ -129,7 +127,7 @@ module RubyHToGo
     #   - after_call_function_lines [Array<String>]
     def generate_go_arguments_for_str_array(chars_var_count)
       if chars_var_count >= 2
-        chars_var_name = "chars#{snake_to_camel(go_name)}"
+        chars_var_name = "chars#{GoUtil.snake_to_camel(go_name)}"
         clean_var_name = "cleanChars#{go_name}"
       else
         chars_var_name = "chars"

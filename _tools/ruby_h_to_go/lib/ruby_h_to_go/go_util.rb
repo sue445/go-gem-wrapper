@@ -2,10 +2,10 @@
 
 module RubyHToGo
   # helper methods for generating go code
-  module GeneratorHelper
+  module GoUtil
     # @param str [String]
     # @return [String]
-    def snake_to_camel(str)
+    def self.snake_to_camel(str)
       return str if %w[VALUE ID].include?(str)
 
       str.split("_").map(&:capitalize).join.gsub(/(?<=\d)([a-z])/) { _1.upcase } # rubocop:disable Style/SymbolProc
@@ -13,7 +13,7 @@ module RubyHToGo
 
     # Generate initial go file whether not exists
     # @param go_file_path [String]
-    def generate_initial_go_file(go_file_path)
+    def self.generate_initial_go_file(go_file_path)
       return if File.exist?(go_file_path)
 
       File.binwrite(go_file_path, <<~GO)
@@ -53,7 +53,7 @@ module RubyHToGo
     # @param pointer [Symbol,nil] pointer hint (:ref, :array, :ref_array, :function, :sref, :str_array, :in_ref, :raw)
     # @param pointer_length [Integer]
     # @return [String]
-    def ruby_c_type_to_go_type(typename, pos: nil, pointer: nil, pointer_length: 0)
+    def self.ruby_c_type_to_go_type(typename, pos: nil, pointer: nil, pointer_length: 0)
       return ruby_pointer_c_type_to_go_type(typename, pos:, pointer:, pointer_length:) if pointer
 
       return C_TYPE_TO_GO_TYPE[typename] if C_TYPE_TO_GO_TYPE[typename]
@@ -87,13 +87,11 @@ module RubyHToGo
     # Cast C type to cgo type. (Used in wrapper function)
     # @param typename [String]
     # @return [String]
-    def cast_to_cgo_type(typename)
+    def self.cast_to_cgo_type(typename)
       return C_TYPE_TO_CGO_TYPE[typename] if C_TYPE_TO_CGO_TYPE[typename]
 
       "C.#{typename}"
     end
-
-    private
 
     # Convert pointer C type to Go type. (used in wrapper function args and return type etc)
     # @param typename [String]
@@ -101,7 +99,7 @@ module RubyHToGo
     # @param pointer [Symbol,nil] pointer hint (:ref, :array, :ref_array, :function, :sref, :str_array, :in_ref, :raw)
     # @param pointer_length [Integer]
     # @return [String]
-    def ruby_pointer_c_type_to_go_type(typename, pos:, pointer:, pointer_length:)
+    def self.ruby_pointer_c_type_to_go_type(typename, pos:, pointer:, pointer_length:)
       go_type_name =
         if typename == "int" && %i[return typeref].include?(pos)
           "Int"
@@ -139,5 +137,7 @@ module RubyHToGo
 
       "*#{go_type_name}"
     end
+
+    private_class_method :ruby_pointer_c_type_to_go_type
   end
 end

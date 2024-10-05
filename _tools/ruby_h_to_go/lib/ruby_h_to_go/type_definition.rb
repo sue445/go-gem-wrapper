@@ -7,8 +7,6 @@ module RubyHToGo
 
     def_delegators :@definition, :==, :name, :name=
 
-    include GeneratorHelper
-
     # @param definition [RubyHeaderParser::TypeDefinition]
     def initialize(definition:)
       @definition = definition
@@ -19,7 +17,7 @@ module RubyHToGo
     def write_go_file(dist_dir)
       go_file_path = File.join(dist_dir, "type_generated.go")
 
-      generate_initial_go_file(go_file_path)
+      GoUtil.generate_initial_go_file(go_file_path)
 
       File.open(go_file_path, "a") do |f|
         f.write(generate_go_content)
@@ -28,7 +26,7 @@ module RubyHToGo
 
     # @return [String]
     def generate_go_content
-      go_type_name = snake_to_camel(name)
+      go_type_name = GoUtil.snake_to_camel(name)
 
       <<~GO
         // #{go_type_name} is a type for passing `C.#{name}` in and out of package

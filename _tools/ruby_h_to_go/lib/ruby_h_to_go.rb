@@ -4,7 +4,7 @@ require "forwardable"
 
 require_relative "ruby_header_parser"
 
-require_relative "ruby_h_to_go/generator_helper"
+require_relative "ruby_h_to_go/go_util"
 require_relative "ruby_h_to_go/argument_definition"
 require_relative "ruby_h_to_go/cli"
 require_relative "ruby_h_to_go/enum_definition"
