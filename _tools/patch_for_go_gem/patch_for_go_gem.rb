@@ -62,7 +62,7 @@ class GemPatcher # rubocop:disable Metrics/ClassLength
   end
 
   # Create <gem_name>.go
-  def create_gem_name_go
+  def create_gem_name_go # rubocop:disable Metrics/MethodLength
     gem_name_go_path = File.join(ext_dir, "#{gem_name}.go")
 
     return if File.exist?(gem_name_go_path)
@@ -125,7 +125,7 @@ class GemPatcher # rubocop:disable Metrics/ClassLength
     save_file(file_path: gem_name_c_path, content:)
   end
 
-  def update_extconf_rb
+  def update_extconf_rb # rubocop:disable Metrics/MethodLength
     extconf_rb_path = File.join(ext_dir, "extconf.rb")
 
     content = File.read(extconf_rb_path)
@@ -188,7 +188,7 @@ class GemPatcher # rubocop:disable Metrics/ClassLength
 
   # @param file_path [String]
   # @param content [String]
-  def save_file(file_path:, content:)
+  def save_file(file_path:, content:) # rubocop:disable Metrics/MethodLength
     is_updated = File.exist?(file_path)
     if is_updated
       before_content = File.read(file_path)
