@@ -5,8 +5,18 @@ require "mkmf"
 module GoGem
   # Helper module for creating Go Makefiles
   module Mkmf
+    # Create Makefile for go-gem
+    #
     # @param target [String]
     # @param srcprefix [String,nil]
+    #
+    # @example
+    #   require "mkmf"
+    #   require "go_gem/mkmf" # Append this
+    #
+    #   # Use create_go_makefile instead of create_makefile
+    #   # create_makefile("example/example")
+    #   create_go_makefile("example/example")
     def create_go_makefile(target, srcprefix = nil)
       find_executable("go")
 
