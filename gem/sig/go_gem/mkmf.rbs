@@ -1,0 +1,5 @@
+module GoGem
+  module Mkmf
+    def create_go_makefile: (String, String? nil) -> void
+  end
+end

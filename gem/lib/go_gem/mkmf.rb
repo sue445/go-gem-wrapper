@@ -20,6 +20,7 @@ module GoGem
 
       # rubocop:disable Style/GlobalVars
       $objs = []
+      # @private
       def $objs.empty?; false; end
       # rubocop:enable Style/GlobalVars
 
