@@ -6,6 +6,7 @@
 > Don't use in production.
 
 [![build](https://github.com/sue445/go-gem-wrapper/actions/workflows/build.yml/badge.svg)](https://github.com/sue445/go-gem-wrapper/actions/workflows/build.yml)
+[![Coverage Status](https://coveralls.io/repos/github/sue445/go-gem-wrapper/badge.svg)](https://coveralls.io/github/sue445/go-gem-wrapper)
 
 ## Requirements
 * Go

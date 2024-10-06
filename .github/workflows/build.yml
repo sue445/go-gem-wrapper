@@ -19,7 +19,7 @@ on:
       - "_benchmark/**"
 
 env:
-  TEST_ARGS: -coverprofile coverage.out -covermode atomic
+  GO_TEST_ARGS: -coverprofile coverage.out -covermode atomic
   TEST_GEM_DIR: ruby/testdata/example/
 
 jobs:
@@ -61,19 +61,21 @@ jobs:
         run: bundle exec rake
         working-directory: ${{ env.TEST_GEM_DIR }}
 
+      # FIXME: workaround for gcov2lcov warning
+      - run: rm -rf vendor/
+
       - name: Convert coverage to lcov
         uses: jandelgado/gcov2lcov-action@v1
         with:
           infile: coverage.out
           outfile: coverage.lcov
 
-      # TODO: DO after
-      # - name: Coveralls
-      #   uses: coverallsapp/github-action@master
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     path-to-lcov: coverage.lcov
-      #   continue-on-error: true # NOTE: secrets cannot be obtained with forked repository PR
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: coverage.lcov
+        continue-on-error: true # NOTE: secrets cannot be obtained with forked repository PR
 
       - name: Slack Notification (not success)
         uses: act10ns/slack@v2
