@@ -58,6 +58,9 @@ Style/Documentation:
   Exclude:
     - "**/*_test.rb"
 
+Style/FetchEnvVar:
+  Enabled: false
+
 Style/NumericPredicate:
   EnforcedStyle: comparison
 

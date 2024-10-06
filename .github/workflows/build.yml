@@ -19,7 +19,7 @@ on:
       - "_benchmark/**"
 
 env:
-  TEST_ARGS: -coverprofile coverage.out -covermode atomic
+  GO_TEST_ARGS: -coverprofile coverage.out -covermode atomic
   TEST_GEM_DIR: ruby/testdata/example/
 
 jobs:
