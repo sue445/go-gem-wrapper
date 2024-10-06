@@ -1,6 +1,8 @@
 # GoGem
 Helpers for compiling Go extensions for ruby
 
+[![Gem Version](https://badge.fury.io/rb/go_gem.svg)](https://badge.fury.io/rb/go_gem)
+
 ## Installation
 Add below.
 
