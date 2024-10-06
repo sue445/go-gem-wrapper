@@ -113,5 +113,9 @@ See below for details.
 * [ruby/type_generated.go](ruby/type_generated.go)
 * [_tools/ruby_h_to_go/](_tools/ruby_h_to_go/)
 
+## Reference
+* Go: https://pkg.go.dev/github.com/sue445/go-gem-wrapper
+* Ruby: https://sue445.github.io/go-gem-wrapper/
+
 ## Original idea
 [Ruby meets Go - RubyKaigi 2015](https://rubykaigi.org/2015/presentations/mmasaki/)
