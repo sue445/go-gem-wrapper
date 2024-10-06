@@ -8,6 +8,8 @@
 [![GitHub Tag](https://img.shields.io/github/v/tag/sue445/go-gem-wrapper)](https://github.com/sue445/go-gem-wrapper/releases)
 [![build](https://github.com/sue445/go-gem-wrapper/actions/workflows/build.yml/badge.svg)](https://github.com/sue445/go-gem-wrapper/actions/workflows/build.yml)
 [![Coverage Status](https://coveralls.io/repos/github/sue445/go-gem-wrapper/badge.svg)](https://coveralls.io/github/sue445/go-gem-wrapper)
+[![Go Report Card](https://goreportcard.com/badge/github.com/sue445/go-gem-wrapper)](https://goreportcard.com/report/github.com/sue445/go-gem-wrapper)
+[![Go Reference](https://pkg.go.dev/badge/github.com/sue445/go-gem-wrapper.svg)](https://pkg.go.dev/github.com/sue445/go-gem-wrapper)
 
 ## Requirements
 * Go
