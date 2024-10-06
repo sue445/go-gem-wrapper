@@ -5,6 +5,7 @@
 > This repository is currently under development.
 > Don't use in production.
 
+[![GitHub Tag](https://img.shields.io/github/v/tag/sue445/go-gem-wrapper)](https://github.com/sue445/go-gem-wrapper/releases)
 [![build](https://github.com/sue445/go-gem-wrapper/actions/workflows/build.yml/badge.svg)](https://github.com/sue445/go-gem-wrapper/actions/workflows/build.yml)
 [![Coverage Status](https://coveralls.io/repos/github/sue445/go-gem-wrapper/badge.svg)](https://coveralls.io/github/sue445/go-gem-wrapper)
 
