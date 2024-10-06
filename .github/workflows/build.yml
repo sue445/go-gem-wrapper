@@ -11,6 +11,7 @@ on:
       - reopened
     paths-ignore:
       - ".github/labeler.yml"
+      - ".github/pages.yml"
       - ".github/release.yml"
       - ".github/workflows/labeler.yml"
       - ".github/workflows/patch_for_go_gem.yml"
