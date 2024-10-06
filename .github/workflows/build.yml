@@ -67,13 +67,12 @@ jobs:
           infile: coverage.out
           outfile: coverage.lcov
 
-      # TODO: DO after
-      # - name: Coveralls
-      #   uses: coverallsapp/github-action@master
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     path-to-lcov: coverage.lcov
-      #   continue-on-error: true # NOTE: secrets cannot be obtained with forked repository PR
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: coverage.lcov
+        continue-on-error: true # NOTE: secrets cannot be obtained with forked repository PR
 
       - name: Slack Notification (not success)
         uses: act10ns/slack@v2
