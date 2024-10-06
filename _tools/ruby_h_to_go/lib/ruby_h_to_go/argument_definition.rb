@@ -10,7 +10,6 @@ module RubyHToGo
     include TypeHelper
 
     # @param definition [RubyHeaderParser::ArgumentDefinition]
-    # @param header_dir [String]
     def initialize(definition:)
       @definition = definition
     end

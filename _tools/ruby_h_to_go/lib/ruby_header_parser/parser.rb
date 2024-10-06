@@ -113,7 +113,7 @@ module RubyHeaderParser
     # @param kind [String]
     # @param is_parse_multiline_definition [Boolean]
     #
-    # @param [Array<RubyHeaderParser::FunctionDefinition>, nil]
+    # @return [RubyHeaderParser::FunctionDefinition, nil]
     def generate_function_definition_from_line(line:, kind:, is_parse_multiline_definition:)
       parts = line.split("\t")
 
