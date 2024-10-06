@@ -61,6 +61,9 @@ jobs:
         run: bundle exec rake
         working-directory: ${{ env.TEST_GEM_DIR }}
 
+      # FIXME: workaround for gcov2lcov warning
+      - run: rm -rf vendor/
+
       - name: Convert coverage to lcov
         uses: jandelgado/gcov2lcov-action@v1
         with:
