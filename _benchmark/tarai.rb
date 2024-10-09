@@ -25,6 +25,8 @@ def tarai(x, y, z) =
 # Suppress Ractor warning
 $VERBOSE = nil
 
+system("go version", exception: true)
+
 Benchmark.ips do |x|
   # sequential version
   x.report("sequential"){ 4.times{ tarai(14, 7, 0) } }
