@@ -20,5 +20,5 @@ parallel (goroutine)      1.677 (± 0.0%) i/s  (596.20 ms/i) -      9.000 in   5
 Comparison:
 parallel (goroutine):        1.7 i/s
    parallel (Ractor):        0.1 i/s - 28.55x  slower
-          sequential:        0.0 i/s - 86.24x  slower```
+          sequential:        0.0 i/s - 86.24x  slower
 ```
