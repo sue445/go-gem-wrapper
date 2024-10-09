@@ -8,4 +8,4 @@ Patch to make a gem into a Go gem right after `bundle gem`
 3. Run `ruby patch_for_go_gem.rb --file /path/to/GEM_NAME.gemspec --dry-run`
 4. Run `ruby patch_for_go_gem.rb --file /path/to/GEM_NAME.gemspec`
 5. `cd` to the same location as `ext/GEM_NAME/go.mod`
-6. Run `go get -u github.com/sue445/go-gem-wrapper`
+6. Run `go get -u github.com/sue445/go-gem-wrapper@latest`
