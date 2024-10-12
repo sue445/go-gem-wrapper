@@ -1,9 +1,5 @@
-# [WIP] go-gem-wrapper
+# go-gem-wrapper
 `go-gem-wrapper` is a wrapper for creating Ruby native extension in [Go](https://go.dev/)
-
-> [!WARNING]
-> This repository is currently under development.
-> Don't use in production.
 
 [![GitHub Tag](https://img.shields.io/github/v/tag/sue445/go-gem-wrapper)](https://github.com/sue445/go-gem-wrapper/releases)
 [![build](https://github.com/sue445/go-gem-wrapper/actions/workflows/build.yml/badge.svg)](https://github.com/sue445/go-gem-wrapper/actions/workflows/build.yml)
