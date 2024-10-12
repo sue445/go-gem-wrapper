@@ -14,6 +14,8 @@ target :lib do
   # library "pathname"              # Standard libraries
   # library "strong_json"           # Gems
 
+  collection_config "rbs_collection.yaml"
+
   # configure_code_diagnostics(D::Ruby.default)      # `default` diagnostics setting (applies by default)
   # configure_code_diagnostics(D::Ruby.strict)       # `strict` diagnostics setting
   # configure_code_diagnostics(D::Ruby.lenient)      # `lenient` diagnostics setting
