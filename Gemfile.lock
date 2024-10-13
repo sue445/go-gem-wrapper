@@ -124,7 +124,7 @@ GEM
       net-ssh (>= 2.7)
       net-telnet
       sfl
-    steep (1.8.0)
+    steep (1.8.1)
       activesupport (>= 5.1)
       concurrent-ruby (>= 1.1.10)
       csv (>= 3.0.9)
