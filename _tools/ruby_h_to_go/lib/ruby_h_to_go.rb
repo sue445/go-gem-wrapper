@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require "forwardable"
-
-require_relative "ruby_header_parser"
+require "ruby_header_parser"
 
 # Generate Go binding from ruby.h
 module RubyHToGo

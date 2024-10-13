@@ -110,6 +110,7 @@ GEM
     rubocop_auto_corrector (0.5.0)
       rubocop (>= 1.30.0)
     ruby-progressbar (1.13.0)
+    ruby_header_parser (0.1.0)
     securerandom (0.3.1)
     serverspec (2.42.3)
       multi_json
@@ -165,6 +166,7 @@ DEPENDENCIES
   rspec-temp_dir
   rubocop
   rubocop_auto_corrector
+  ruby_header_parser
   serverspec
   steep
   test-unit
